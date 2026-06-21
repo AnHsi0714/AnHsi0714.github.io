@@ -1,0 +1,22 @@
+@use '../styles/tokens' as *;
+
+.alert {
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+}
+
+.info {
+  background-color: $color-info-bg;
+  color: $color-info;
+}
+
+.success {
+  background-color: $color-success-bg;
+  color: $color-success;
+}
+
+.error {
+  background-color: $color-danger-bg;
+  color: $color-danger;
+}

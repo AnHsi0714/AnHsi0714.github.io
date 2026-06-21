@@ -9,6 +9,7 @@ import Projects from './pages/projects/Projects'
 import Dreams from './pages/dreams/Dreams'
 import Tasks from './pages/tasks/Tasks'
 import Friends from './pages/friends/Friends'
+import ComponentsPreview from './pages/dev/ComponentsPreview'
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
       { path: 'dreams', element: <Dreams /> },
       { path: 'tasks', element: <Tasks /> },
       { path: 'friends', element: <Friends /> },
+      { path: 'dev/components', element: <ComponentsPreview /> },
     ],
   },
 ])

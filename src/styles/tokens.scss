@@ -1,0 +1,43 @@
+// 全站共用設計變數：色彩、間距、圓角、字級
+// 元件的 .module.scss 都靠 @use '../styles/tokens' as *; 引用這裡，
+// 要調整整站視覺風格（例如主色）改這裡即可影響所有元件。
+
+// 顏色
+$color-bg: #ffffff;
+$color-text: #171717;
+$color-text-muted: #737373;
+$color-border: #e5e5e5;
+
+$color-primary: #171717;
+$color-primary-hover: #404040;
+$color-primary-text: #ffffff;
+
+$color-danger: #dc2626;
+$color-danger-hover: #b91c1c;
+$color-danger-bg: #fef2f2;
+
+$color-success: #16a34a;
+$color-success-bg: #f0fdf4;
+
+$color-info: #2563eb;
+$color-info-bg: #eff6ff;
+
+// 圓角
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+
+// 間距
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-6: 24px;
+
+// 字級
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+
+// 動效
+$transition-fast: 150ms ease;

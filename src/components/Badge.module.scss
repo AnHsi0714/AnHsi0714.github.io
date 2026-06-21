@@ -1,0 +1,42 @@
+@use '../styles/tokens' as *;
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-1 $space-3;
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.neutral {
+  background-color: $color-border;
+  color: $color-text;
+}
+
+// 對應 tasks.status：todo / doing / done（見 docs/ARCHITECTURE.md §4）
+.todo {
+  background-color: $color-border;
+  color: $color-text-muted;
+}
+
+.doing {
+  background-color: $color-info-bg;
+  color: $color-info;
+}
+
+.done {
+  background-color: $color-success-bg;
+  color: $color-success;
+}
+
+.success {
+  background-color: $color-success-bg;
+  color: $color-success;
+}
+
+.danger {
+  background-color: $color-danger-bg;
+  color: $color-danger;
+}

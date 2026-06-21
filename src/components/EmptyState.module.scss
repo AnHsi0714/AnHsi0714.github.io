@@ -1,0 +1,25 @@
+@use '../styles/tokens' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-6;
+  text-align: center;
+  color: $color-text-muted;
+}
+
+.title {
+  font-size: $font-size-lg;
+  font-weight: 500;
+  color: $color-text;
+}
+
+.description {
+  font-size: $font-size-sm;
+}
+
+.action {
+  margin-top: $space-2;
+}

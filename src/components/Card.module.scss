@@ -1,0 +1,20 @@
+@use '../styles/tokens' as *;
+
+.card {
+  background-color: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $space-4;
+}
+
+.hoverable {
+  cursor: pointer;
+  transition:
+    box-shadow $transition-fast,
+    transform $transition-fast;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
