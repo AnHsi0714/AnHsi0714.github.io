@@ -4,71 +4,8 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
 import type { Book } from "../../types/content";
+import { books } from "../../lib/books";
 import styles from "./Books.module.scss";
-
-// 排版用範例資料，之後改為讀取 content/books/*.md（frontmatter + 心得正文，見 docs/ARCHITECTURE.md §3）
-const books: Book[] = [
-  {
-    slug: "atomic-habits",
-    title: "原子習慣",
-    author: "James Clear",
-    rating: 5,
-    finishedOn: "2026-03-12",
-    categories: ["自我成長", "心理學"],
-    excerpt:
-      "範例心得，之後替換成你的真實讀後感。微小習慣的複利效應，重新理解「身份認同」對行為改變的影響。",
-  },
-  {
-    slug: "sapiens",
-    title: "人類大歷史",
-    author: "Yuval Noah Harari",
-    rating: 4,
-    finishedOn: "2026-02-05",
-    categories: ["歷史", "社會科學"],
-    excerpt:
-      "範例心得，之後替換成你的真實讀後感。從認知革命到科學革命，重新看待「故事」如何凝聚大規模合作。",
-  },
-  {
-    slug: "thinking-fast-and-slow",
-    title: "思考，快與慢",
-    author: "Daniel Kahneman",
-    rating: 4,
-    finishedOn: "2026-01-18",
-    categories: ["心理學", "科普"],
-    excerpt:
-      "範例心得，之後替換成你的真實讀後感。系統一與系統二的交互，理解直覺判斷常見的偏誤來源。",
-  },
-  {
-    slug: "project-hail-mary",
-    title: "挑戰火星任務",
-    author: "Andy Weir",
-    rating: 5,
-    finishedOn: "2025-11-22",
-    categories: ["科幻小說"],
-    excerpt:
-      "範例心得，之後替換成你的真實讀後感。獨自一人的太空求生，節奏緊湊又不失幽默感。",
-  },
-  {
-    slug: "the-design-of-everyday-things",
-    title: "設計的心理學",
-    author: "Don Norman",
-    rating: 3,
-    finishedOn: "2025-09-08",
-    categories: ["設計", "心理學"],
-    excerpt:
-      "範例心得，之後替換成你的真實讀後感。從門把到介面，理解好設計如何讓使用方式不言自明。",
-  },
-  {
-    slug: "educated",
-    title: "Educated：不受教育的人生",
-    author: "Tara Westover",
-    rating: 4,
-    finishedOn: "2025-06-30",
-    categories: ["自傳", "社會科學"],
-    excerpt:
-      "範例心得，之後替換成你的真實讀後感。一段從封閉成長環境走向知識自由的真實故事。",
-  },
-];
 
 const allCategories = Array.from(
   new Set(books.flatMap((book) => book.categories)),
@@ -129,13 +66,12 @@ function BookCarousel({ books: items }: { books: Book[] }) {
   const [focus, setFocus] = useState<{ scale: number; brightness: number }[]>(
     [],
   );
-  const [scrollBar, setScrollBar] = useState({ widthPct: 100, leftPct: 0 });
   const [spacerWidth, setSpacerWidth] = useState(0);
 
   // 兩端留白，確保第一本／最後一本也能被捲到正中間（見下方 spacer 元素）
   const GAP_PX = 32;
 
-  // 熱路徑：捲動中每一格都會跑，只算「誰最靠近中間」+ 捲軸把手位置，不量測尺寸
+  // 熱路徑：捲動中每一格都會跑，只算「誰最靠近中間」，不量測尺寸
   const updateCarouselState = useCallback(() => {
     const container = scrollRef.current;
     if (!container) return;
@@ -156,13 +92,6 @@ function BookCarousel({ books: items }: { books: Book[] }) {
       })),
     );
     setActiveIndex(closestIndex);
-
-    const { scrollLeft, scrollWidth, clientWidth } = container;
-    const widthPct = Math.min((clientWidth / scrollWidth) * 100, 100);
-    const maxScroll = scrollWidth - clientWidth;
-    const leftPct =
-      maxScroll > 0 ? (scrollLeft / maxScroll) * (100 - widthPct) : 0;
-    setScrollBar({ widthPct, leftPct });
   }, []);
 
   // 冷路徑：只有容器尺寸／書單變動時才需要重新量測 spacer 寬度
@@ -287,14 +216,22 @@ function BookCarousel({ books: items }: { books: Book[] }) {
         ›
       </button>
 
-      <div className="relative mt-2 h-1.5 rounded-full bg-neutral-200">
-        <div
-          className="absolute top-0 h-full rounded-full bg-neutral-900"
-          style={{
-            width: `${scrollBar.widthPct}%`,
-            left: `${scrollBar.leftPct}%`,
-          }}
-        />
+      <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
+        {items.map((book, index) => (
+          <button
+            key={book.slug}
+            type="button"
+            aria-label={`前往第 ${index + 1} 本：${book.title}`}
+            aria-current={index === activeIndex}
+            onClick={() => centerItem(index)}
+            className={[
+              "rounded-full transition-all",
+              index === activeIndex
+                ? "h-2.5 w-2.5 bg-neutral-900"
+                : "h-2 w-2 bg-neutral-300 hover:bg-neutral-400",
+            ].join(" ")}
+          />
+        ))}
       </div>
     </div>
   );
