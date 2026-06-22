@@ -1,0 +1,8 @@
+// 隱藏捲動軸但保留可滑動行為，Tailwind 沒有對應 utility，需要這條規則才能跨瀏覽器隱藏。
+.scrollArea {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
