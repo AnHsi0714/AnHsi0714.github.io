@@ -4,10 +4,9 @@ const links = [
   { to: "/", label: "首頁" },
   { to: "/gallery", label: "藝術畫廊" },
   { to: "/life", label: "人生" },
-  { to: "/books", label: "讀書" },
+  { to: "/articles", label: "文章" },
   { to: "/projects", label: "專案" },
   { to: "/dreams", label: "夢想" },
-  { to: "/tasks", label: "任務" },
   { to: "/friends", label: "朋友創作" },
   // todo: remove after development
   { to: "/dev/components", label: "組件預覽" },

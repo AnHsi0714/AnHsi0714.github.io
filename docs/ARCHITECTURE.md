@@ -5,6 +5,12 @@
 > 基於 React + Supabase，部署目標假設為 GitHub Pages（`AnHsi0714.github.io`，根網域靜態站）。
 > 核心前提：**網站本身不做登入系統**。你自己的內容透過 Supabase Studio（你自己的 Supabase 帳號）直接管理；朋友功能用邀請碼，不建帳號系統。
 
+## 2026-06-25 修訂
+
+- **文章區（原書籍區）**：書籍的內容模型往上抽一層變成「文章」，新增 `type`（`book` | `note`）欄位；`author`／`rating` 變成僅 `type: book` 才會用到的 optional metadata。之後想寫雜記、影評、技術筆記都歸在這個區塊，不必再開新頁面與路由。
+- **任務區**：移除。即時任務看板需要頻繁同步狀態，對個人網站（尤其學生階段、非 build-in-public 用途）是不必要的維護負擔；專案進度改用專案區本身的粗顆粒度狀態（`in-progress` / `done`）表達就夠。
+- **夢想區**：保留，但拿掉 `status`（todo/doing/done）欄位，改為純粹「想做的事＋為什麼想做」的靜態清單，不需要即時更新。
+
 ---
 
 ## 0. 核心決策摘要
@@ -13,7 +19,7 @@
 | ------------------- | --------------------------------------------------------------------------------------- |
 | 後台/登入系統       | 不做。網站對外永遠是「唯讀」的，你自己的資料透過 Supabase Studio 的 Table Editor 增刪改 |
 | 朋友 2D/3D 創作身份 | 邀請碼機制，不建帳號系統，只需暱稱                                                      |
-| 任務區可見度        | 公開展示任務進度（像 build-in-public 牆），訪客唯讀                                     |
+| 內容區塊範圍        | 不做獨立任務區；書籍區擴展為文章區，可容納非書籍內容；夢想區移除即時狀態欄位（見 2026-06-25 修訂） |
 | 朋友創作風格        | 2D 像素風（存座標 + 顏色），3D 方向未定；正式上線最終只會二選一其一                      |
 | 畫廊視覺氛圍        | 寧靜展覽感＋單一聚光燈；與其他區塊風格分開處理而非統一視覺語言（見 §6.1）                |
 | 訪客統計／第三方追蹤 | 不做，不導入任何分析工具                                                                |
@@ -66,8 +72,7 @@
                     ┌─────────────────────────────┐
                     │   Supabase Studio（後台）      │
                     │   你在這裡新增/編輯：           │
-                    │   人生事件、讀書心得、夢想、     │
-                    │   專案、任務狀態、審核朋友創作   │
+                    │   人生事件、審核朋友創作         │
                     └─────────────────────────────┘
 ```
 
@@ -85,9 +90,9 @@
 
 | 區塊              | 格式建議                                                                         |
 | ----------------- | -------------------------------------------------------------------------------- |
-| 讀書心得          | 每本書一個 `.md`（frontmatter 存書名/作者/評分/完成日期，正文是心得）            |
-| 夢想清單          | 一個 `dreams.json`（陣列，每項含 title/status/desc）                             |
-| 專案區            | 一個 `projects.json`（name/desc/screenshot 路徑/github url）                     |
+| 文章（含讀書心得）| 每篇一個 `.md`（frontmatter 存 type: book\|note、標題/作者/評分/日期，正文是內文；`author`/`rating` 只有 type: book 才填） |
+| 夢想清單          | 一個 `dreams.json`（陣列，每項含 title/desc，無狀態欄位）                        |
+| 專案區            | 一個 `projects.json`（name/desc/status: in-progress\|done/screenshot 路徑/github url） |
 | 藝術畫廊 metadata | 一個 `artworks.json`（title/縮圖路徑/sketch slug），sketch 程式碼本來就要進 repo |
 
 優點：零後端延遲、版本控制、改完 `git push` 自動觸發部署，不用碰 Supabase。
@@ -99,7 +104,6 @@
 | 區塊                     | 為什麼放 Supabase                                                                                   |
 | ------------------------ | --------------------------------------------------------------------------------------------------- |
 | 人生區（人生事件時間軸） | 想到就能補一筆，不想每次都 commit；用手機開 Supabase Studio 也能加                                  |
-| 任務區（任務清單）       | 你決定要公開即時展示進度，狀態可能常常變動（todo→doing→done），用 Studio 改一個欄位比 git push 方便 |
 | 朋友 2D/3D 創作 + 邀請碼 | **必須**是資料庫——這是執行期、由不特定第三方（朋友）寫入的資料，沒有任何方式能用 git 處理           |
 
 切換成本低：兩種方式在前端都只是「換一個 data fetching hook」（讀本地 JSON or 讀 Supabase），之後想把某區從 A 搬到 B（或反過來）都很容易，不是不可逆的決定。
@@ -108,7 +112,7 @@
 
 ## 4. Supabase 資料庫設計
 
-只列出「會放進 Supabase 的部分」：人生區、任務區、朋友創作 + 邀請碼。
+只列出「會放進 Supabase 的部分」：人生區、朋友創作 + 邀請碼。
 
 ```sql
 -- 人生區：人生事件時間軸
@@ -126,24 +130,6 @@ create policy "public can read life_events"
   on life_events for select using (true);
 -- 沒有 insert/update/delete policy → anon/authenticated 預設全部被拒絕
 -- 只能透過 Supabase Studio（service role）修改
-
-
--- 任務區：公開任務進度
-create table tasks (
-  id bigint generated always as identity primary key,
-  title text not null,
-  description text,
-  status text not null default 'todo'
-    check (status in ('todo', 'doing', 'done')),
-  due_date date,
-  sort_order int not null default 0,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
-
-alter table tasks enable row level security;
-create policy "public can read tasks"
-  on tasks for select using (true);
 
 
 -- 朋友功能：邀請碼
@@ -297,9 +283,9 @@ grant execute on function redeem_invite_and_create to anon;
 /
 ├── public/
 │   ├── gallery/              # 畫廊縮圖 + hover 預覽影片
-│   └── images/               # 人生區、讀書心得等的靜態圖片
+│   └── images/               # 人生區、文章等的靜態圖片
 ├── content/                   # §3 的「Git 內容檔」
-│   ├── books/*.md
+│   ├── articles/*.md
 │   ├── dreams.json
 │   ├── projects.json
 │   └── artworks.json
@@ -316,16 +302,15 @@ grant execute on function redeem_invite_and_create to anon;
 │   │   │   ├── GalleryDetail.tsx
 │   │   │   └── sketches/        # 搬遷後的 p5.js instance-mode 模組
 │   │   ├── life/
-│   │   ├── books/
+│   │   ├── articles/
 │   │   ├── projects/
 │   │   ├── dreams/
-│   │   ├── tasks/
 │   │   └── friends/
 │   │       ├── InviteGate.tsx
 │   │       ├── Creator2D.tsx        # 像素編輯器，見 §7；3D 暫緩，未實作
 │   │       └── FriendGallery.tsx
 │   ├── components/             # NavBar、Card、Loading 等共用元件
-│   ├── hooks/                  # useLifeEvents、useTasks 等資料 hook
+│   ├── hooks/                  # useLifeEvents 等資料 hook
 │   └── types/
 ├── supabase/
 │   └── migrations/             # §4、§5 的 SQL，用 Supabase CLI 管理版本
@@ -349,8 +334,8 @@ grant execute on function redeem_invite_and_create to anon;
 | 階段    | 內容                                                                                 |
 | ------- | ------------------------------------------------------------------------------------ |
 | Phase 1 | Vite + React 骨架、路由、Tailwind、GitHub Actions 部署打通（先讓一個空殼網站能上線） |
-| Phase 2 | 讀書心得/夢想/專案區（§3-A 的 git 內容檔），先把「靜態內容類」頁面做完               |
-| Phase 3 | Supabase 專案建立、§4 schema + RLS 上線，人生區、任務區接上即時資料                  |
+| Phase 2 | 文章/夢想/專案區（§3-A 的 git 內容檔），先把「靜態內容類」頁面做完                   |
+| Phase 3 | Supabase 專案建立、§4 schema + RLS 上線，人生區接上即時資料                          |
 | Phase 4 | 藝術畫廊：先搬 3-5 個 OpenProcessing sketch 驗證 instance-mode 遷移 + hover 預覽機制 |
 | Phase 5 | 朋友創作功能（邀請碼 RPC + 2D 像素編輯器）                                           |
 | Phase 6 | 視覺風格打磨（含畫廊聚光燈效果）、SEO/OG meta、響應式                                |

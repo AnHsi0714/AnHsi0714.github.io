@@ -15,7 +15,7 @@
   color: $color-text;
 }
 
-// 對應 tasks.status：todo / doing / done（見 docs/ARCHITECTURE.md §4）
+// 對應 projects.status 等粗顆粒度狀態欄位：todo / doing / done
 .todo {
   background-color: $color-border;
   color: $color-text-muted;

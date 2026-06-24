@@ -1,8 +1,9 @@
 ---
+type: book
 title: 設計的心理學
 author: Don Norman
 rating: 3
-finishedOn: 2025-09-08
+date: 2025-09-08
 categories: [設計, 心理學]
 ---
 

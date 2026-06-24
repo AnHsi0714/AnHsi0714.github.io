@@ -3,12 +3,12 @@ import Card from "../../components/Card";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
-import type { Book } from "../../types/content";
-import { books } from "../../lib/books";
-import styles from "./Books.module.scss";
+import type { Article } from "../../types/content";
+import { articles } from "../../lib/articles";
+import styles from "./Articles.module.scss";
 
 const allCategories = Array.from(
-  new Set(books.flatMap((book) => book.categories)),
+  new Set(articles.flatMap((article) => article.categories)),
 );
 
 type SortOrder = "newest" | "oldest";
@@ -22,31 +22,37 @@ function Stars({ rating }: { rating: number }) {
   );
 }
 
-function BookCard({ book }: { book: Book }) {
+function ArticleCard({ article }: { article: Article }) {
   return (
     <Card className="w-48 sm:w-56">
-      {book.coverUrl ? (
+      {article.coverUrl ? (
         <img
-          src={book.coverUrl}
-          alt={book.title}
+          src={article.coverUrl}
+          alt={article.title}
           className="aspect-[3/4] w-full rounded-md object-cover"
         />
       ) : (
         <div className="flex aspect-[3/4] w-full items-center justify-center rounded-md bg-neutral-100 text-3xl font-semibold text-neutral-300">
-          {book.title.slice(0, 1)}
+          {article.title.slice(0, 1)}
         </div>
       )}
-      <p className="mt-3 font-semibold">{book.title}</p>
-      <p className="text-sm text-neutral-500">{book.author}</p>
+      <p className="mt-3 font-semibold">{article.title}</p>
+      {article.author && (
+        <p className="text-sm text-neutral-500">{article.author}</p>
+      )}
       <div className="mt-1 flex items-center justify-between">
-        <Stars rating={book.rating} />
-        <span className="text-xs text-neutral-400">{book.finishedOn}</span>
+        {article.rating !== undefined ? (
+          <Stars rating={article.rating} />
+        ) : (
+          <span />
+        )}
+        <span className="text-xs text-neutral-400">{article.date}</span>
       </div>
       <p className="mt-2 text-sm text-neutral-600 line-clamp-3">
-        {book.excerpt}
+        {article.excerpt}
       </p>
       <div className="mt-2 flex flex-wrap gap-1">
-        {book.categories.map((category) => (
+        {article.categories.map((category) => (
           <span
             key={category}
             className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500"
@@ -59,7 +65,7 @@ function BookCard({ book }: { book: Book }) {
   );
 }
 
-function BookCarousel({ books: items }: { books: Book[] }) {
+function ArticleCarousel({ articles: items }: { articles: Article[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -68,7 +74,7 @@ function BookCarousel({ books: items }: { books: Book[] }) {
   );
   const [spacerWidth, setSpacerWidth] = useState(0);
 
-  // 兩端留白，確保第一本／最後一本也能被捲到正中間（見下方 spacer 元素）
+  // 兩端留白，確保第一篇／最後一篇也能被捲到正中間（見下方 spacer 元素）
   const GAP_PX = 32;
 
   // 熱路徑：捲動中每一格都會跑，只算「誰最靠近中間」，不量測尺寸
@@ -86,7 +92,7 @@ function BookCarousel({ books: items }: { books: Book[] }) {
 
     setFocus(
       itemRefs.current.map((_, index) => ({
-        // 只有正中間那本放大一點，其他維持原尺寸；亮度則只有正中間是亮的
+        // 只有正中間那篇放大一點，其他維持原尺寸；亮度則只有正中間是亮的
         scale: index === closestIndex ? 1.08 : 1,
         brightness: index === closestIndex ? 1 : 0.4,
       })),
@@ -94,7 +100,7 @@ function BookCarousel({ books: items }: { books: Book[] }) {
     setActiveIndex(closestIndex);
   }, []);
 
-  // 冷路徑：只有容器尺寸／書單變動時才需要重新量測 spacer 寬度
+  // 冷路徑：只有容器尺寸／文章清單變動時才需要重新量測 spacer 寬度
   const measureSpacer = useCallback(() => {
     const container = scrollRef.current;
     if (!container) return;
@@ -150,7 +156,7 @@ function BookCarousel({ books: items }: { books: Book[] }) {
 
   if (items.length === 0) {
     return (
-      <EmptyState title="沒有符合條件的書" description="試試調整篩選條件。" />
+      <EmptyState title="沒有符合條件的內容" description="試試調整篩選條件。" />
     );
   }
 
@@ -158,7 +164,7 @@ function BookCarousel({ books: items }: { books: Book[] }) {
     <div className="relative">
       <button
         type="button"
-        aria-label="上一本"
+        aria-label="上一篇"
         disabled={activeIndex === 0}
         onClick={() => centerItem(activeIndex - 1)}
         className="absolute left-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-2xl shadow-md hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-30"
@@ -175,9 +181,9 @@ function BookCarousel({ books: items }: { books: Book[] }) {
           className="shrink-0"
           style={{ width: spacerWidth }}
         />
-        {items.map((book, index) => (
+        {items.map((article, index) => (
           <div
-            key={book.slug}
+            key={article.slug}
             ref={(el) => {
               itemRefs.current[index] = el;
             }}
@@ -196,7 +202,7 @@ function BookCarousel({ books: items }: { books: Book[] }) {
               filter: `brightness(${focus[index]?.brightness ?? 1})`,
             }}
           >
-            <BookCard book={book} />
+            <ArticleCard article={article} />
           </div>
         ))}
         <div
@@ -208,7 +214,7 @@ function BookCarousel({ books: items }: { books: Book[] }) {
 
       <button
         type="button"
-        aria-label="下一本"
+        aria-label="下一篇"
         disabled={activeIndex === items.length - 1}
         onClick={() => centerItem(activeIndex + 1)}
         className="absolute right-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-2xl shadow-md hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-30"
@@ -217,11 +223,11 @@ function BookCarousel({ books: items }: { books: Book[] }) {
       </button>
 
       <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
-        {items.map((book, index) => (
+        {items.map((article, index) => (
           <button
-            key={book.slug}
+            key={article.slug}
             type="button"
-            aria-label={`前往第 ${index + 1} 本：${book.title}`}
+            aria-label={`前往第 ${index + 1} 篇：${article.title}`}
             aria-current={index === activeIndex}
             onClick={() => centerItem(index)}
             className={[
@@ -237,7 +243,7 @@ function BookCarousel({ books: items }: { books: Book[] }) {
   );
 }
 
-export default function Books() {
+export default function Articles() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
   const [titleQuery, setTitleQuery] = useState("");
@@ -276,39 +282,39 @@ export default function Books() {
     (dateFrom ? 1 : 0) +
     (dateTo ? 1 : 0);
 
-  const filteredBooks = useMemo(() => {
-    return books
-      .filter((book) => {
+  const filteredArticles = useMemo(() => {
+    return articles
+      .filter((article) => {
         if (
           titleQuery &&
-          !book.title.toLowerCase().includes(titleQuery.trim().toLowerCase())
+          !article.title.toLowerCase().includes(titleQuery.trim().toLowerCase())
         ) {
           return false;
         }
         if (
           selectedCategories.length > 0 &&
-          !book.categories.some((category) =>
+          !article.categories.some((category) =>
             selectedCategories.includes(category),
           )
         ) {
           return false;
         }
-        if (minRating > 0 && book.rating < minRating) return false;
-        if (dateFrom && book.finishedOn < dateFrom) return false;
-        if (dateTo && book.finishedOn > dateTo) return false;
+        if (minRating > 0 && (article.rating ?? 0) < minRating) return false;
+        if (dateFrom && article.date < dateFrom) return false;
+        if (dateTo && article.date > dateTo) return false;
         return true;
       })
       .sort((a, b) =>
         sortOrder === "newest"
-          ? b.finishedOn.localeCompare(a.finishedOn)
-          : a.finishedOn.localeCompare(b.finishedOn),
+          ? b.date.localeCompare(a.date)
+          : a.date.localeCompare(b.date),
       );
   }, [titleQuery, selectedCategories, minRating, dateFrom, dateTo, sortOrder]);
 
   return (
     <section>
-      <h1 className="text-2xl font-bold">讀書</h1>
-      <p className="mt-2 text-neutral-600">讀過的書與簡短心得。</p>
+      <h1 className="text-2xl font-bold">文章</h1>
+      <p className="mt-2 text-neutral-600">讀過的書、寫下的筆記與心得。</p>
 
       <div className="relative mt-6 inline-block" ref={filterRef}>
         <Button
@@ -324,8 +330,8 @@ export default function Books() {
           <div className="absolute left-0 top-full z-20 mt-2 w-[min(36rem,90vw)] rounded-lg border border-neutral-200 bg-white p-4 shadow-lg">
             <div className="flex flex-wrap items-end gap-4">
               <Input
-                label="搜尋書名"
-                placeholder="輸入書名關鍵字"
+                label="搜尋標題"
+                placeholder="輸入標題關鍵字"
                 value={titleQuery}
                 onChange={(event) => setTitleQuery(event.target.value)}
                 className="w-40"
@@ -407,7 +413,7 @@ export default function Books() {
       </div>
 
       <div className="mt-8 ml-[calc(50%_-_50vw)] mr-[calc(50%_-_50vw)] w-screen px-6 sm:px-10">
-        <BookCarousel books={filteredBooks} />
+        <ArticleCarousel articles={filteredArticles} />
       </div>
     </section>
   );

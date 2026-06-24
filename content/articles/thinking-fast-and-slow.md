@@ -1,8 +1,9 @@
 ---
+type: book
 title: 思考，快與慢
 author: Daniel Kahneman
 rating: 4
-finishedOn: 2026-01-18
+date: 2026-01-18
 categories: [心理學, 科普]
 ---
 

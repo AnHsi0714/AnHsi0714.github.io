@@ -1,6 +1,6 @@
-import type { Book } from "../types/content";
+import type { Article, ArticleType } from "../types/content";
 
-const modules = import.meta.glob("../../content/books/*.md", {
+const modules = import.meta.glob("../../content/articles/*.md", {
   eager: true,
   query: "?raw",
   import: "default",
@@ -39,19 +39,20 @@ function parseFrontmatter(raw: string): { data: Record<string, string>; body: st
   return { data, body: body.trim() };
 }
 
-export const books: Book[] = Object.entries(modules)
+export const articles: Article[] = Object.entries(modules)
   .map(([path, raw]) => {
     const slug = path.split("/").pop()!.replace(/\.md$/, "");
     const { data, body } = parseFrontmatter(raw);
     return {
       slug,
+      type: (data.type as ArticleType) || "note",
       title: data.title ?? slug,
-      author: data.author ?? "",
-      rating: Number(data.rating) || 0,
-      finishedOn: data.finishedOn ?? "",
+      date: data.date ?? "",
       categories: data.categories ? parseCategories(data.categories) : [],
       excerpt: body,
       coverUrl: data.coverUrl || undefined,
+      author: data.author || undefined,
+      rating: data.rating ? Number(data.rating) : undefined,
     };
   })
-  .sort((a, b) => b.finishedOn.localeCompare(a.finishedOn));
+  .sort((a, b) => b.date.localeCompare(a.date));

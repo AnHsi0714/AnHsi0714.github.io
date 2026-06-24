@@ -1,8 +1,9 @@
 ---
+type: book
 title: 人類大歷史
 author: Yuval Noah Harari
 rating: 4
-finishedOn: 2026-02-05
+date: 2026-02-05
 categories: [歷史, 社會科學]
 ---
 

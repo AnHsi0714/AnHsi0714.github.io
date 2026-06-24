@@ -1,8 +1,9 @@
 ---
+type: book
 title: 'Educated：不受教育的人生'
 author: Tara Westover
 rating: 4
-finishedOn: 2025-06-30
+date: 2025-06-30
 categories: [自傳, 社會科學]
 ---
 

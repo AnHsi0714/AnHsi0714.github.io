@@ -1,25 +1,29 @@
-export type DreamStatus = 'todo' | 'doing' | 'done'
-
 export interface Dream {
   title: string
-  status: DreamStatus
   desc: string
 }
+
+export type ProjectStatus = 'in-progress' | 'done'
 
 export interface Project {
   name: string
   desc: string
+  status: ProjectStatus
   screenshotUrl?: string
   githubUrl?: string
 }
 
-export interface Book {
+export type ArticleType = 'book' | 'note'
+
+export interface Article {
   slug: string
+  type: ArticleType
   title: string
-  author: string
-  rating: number
-  finishedOn: string
+  date: string
   excerpt: string
   categories: string[]
   coverUrl?: string
+  // 僅 type: 'book' 會用到
+  author?: string
+  rating?: number
 }

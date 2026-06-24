@@ -1,8 +1,9 @@
 ---
+type: book
 title: 挑戰火星任務
 author: Andy Weir
 rating: 5
-finishedOn: 2025-11-22
+date: 2025-11-22
 categories: [科幻小說]
 ---
 
