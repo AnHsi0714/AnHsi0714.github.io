@@ -3,6 +3,13 @@ export interface Dream {
   desc: string
 }
 
+export interface FriendCreation {
+  id: number
+  nickname: string
+  intro?: string
+  imageUrl?: string
+}
+
 export type ProjectStatus = 'in-progress' | 'done'
 
 export interface Project {

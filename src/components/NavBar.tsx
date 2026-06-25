@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 const links = [
   { to: "/", label: "首頁" },
   { to: "/gallery", label: "藝術畫廊" },
-  { to: "/life", label: "人生" },
+  { to: "/about", label: "關於我" },
   { to: "/articles", label: "文章" },
   { to: "/projects", label: "專案" },
   { to: "/dreams", label: "夢想" },
