@@ -1,4 +1,4 @@
-@use '../styles/tokens' as *;
+@use "../styles/tokens" as *;
 
 .btn {
   display: inline-flex;
@@ -38,11 +38,14 @@
 
 // 樣式
 .primary {
-  background-color: $color-primary;
-  color: $color-primary-text;
+  background-color: transparent;
+  border-color: $color-primary;
+  color: $color-primary;
 
   &:hover:not(:disabled) {
-    background-color: $color-primary-hover;
+    background-color: $color-primary;
+    color: $color-primary-text;
+    transition: 1s;
   }
 }
 

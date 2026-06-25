@@ -1,0 +1,46 @@
+/* 日／夜模式色彩變數：單一來源，元件（透過 tokens.scss）與頁面（透過 Tailwind 任意值 var(--x)）共用。
+   切換方式：在 <html> 加上／移除 .dark class（見 src/hooks/useTheme.ts）。
+   這裡必須是原生 CSS custom property（--x），不能是 Sass $變數——
+   Sass 變數會在 build time 被直接展開成固定值，沒辦法在執行期跟著 .dark 切換。 */
+
+:root {
+  --color-bg: #ffffff;
+  --color-text: #171717;
+  --color-text-muted: #737373;
+  --color-border: #e5e5e5;
+
+  --color-primary: #5f7350;
+  --color-primary-hover: #46573a;
+  --color-primary-text: #ffffff;
+
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+  --color-danger-bg: #fef2f2;
+
+  --color-success: #16a34a;
+  --color-success-bg: #f0fdf4;
+
+  --color-info: #2563eb;
+  --color-info-bg: #eff6ff;
+}
+
+.dark {
+  --color-bg: #1c1c1a;
+  --color-text: #f5f5f0;
+  --color-text-muted: #a3a39c;
+  --color-border: #3a3a36;
+
+  --color-primary: #8aa06a;
+  --color-primary-hover: #a3b885;
+  --color-primary-text: #14160f;
+
+  --color-danger: #f87171;
+  --color-danger-hover: #fca5a5;
+  --color-danger-bg: #3a1f1f;
+
+  --color-success: #4ade80;
+  --color-success-bg: #14321f;
+
+  --color-info: #60a5fa;
+  --color-info-bg: #1b2a41;
+}

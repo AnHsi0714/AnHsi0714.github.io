@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { to: "/", label: "首頁" },
@@ -14,7 +15,7 @@ const links = [
 
 export default function NavBar() {
   return (
-    <nav className="flex flex-wrap gap-4 border-b border-neutral-200 px-4 py-3">
+    <nav className="flex flex-wrap items-center gap-4 border-b border-[var(--color-border)] px-4 py-3">
       {links.map((link) => (
         <NavLink
           key={link.to}
@@ -22,13 +23,14 @@ export default function NavBar() {
           end={link.to === "/"}
           className={({ isActive }) =>
             isActive
-              ? "font-semibold text-neutral-900"
-              : "text-neutral-500 hover:text-neutral-900"
+              ? "font-semibold text-[var(--color-text)]"
+              : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
           }
         >
           {link.label}
         </NavLink>
       ))}
+      <ThemeToggle />
     </nav>
   );
 }
