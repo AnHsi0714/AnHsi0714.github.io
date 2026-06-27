@@ -1,6 +1,11 @@
 export interface Dream {
   title: string
   desc: string
+  progress?: {
+    current: number
+    target: number
+    unit?: string
+  }
 }
 
 export interface FriendCreation {

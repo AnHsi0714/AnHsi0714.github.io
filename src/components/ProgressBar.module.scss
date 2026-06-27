@@ -1,0 +1,29 @@
+@use '../styles/tokens' as *;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.track {
+  flex: 1;
+  height: 8px;
+  border-radius: $radius-sm;
+  background-color: $color-border;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: $radius-sm;
+  background-color: $color-primary;
+  transition: width $transition-fast;
+}
+
+.label {
+  flex-shrink: 0;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  white-space: nowrap;
+}

@@ -1,6 +1,7 @@
 import dreamsData from '../../../content/dreams.json'
 import Card from '../../components/Card'
 import EmptyState from '../../components/EmptyState'
+import ProgressBar from '../../components/ProgressBar'
 import type { Dream } from '../../types/content'
 
 const dreams = dreamsData as Dream[]
@@ -20,6 +21,15 @@ export default function Dreams() {
               <Card>
                 <p className="font-semibold">{dream.title}</p>
                 <p className="mt-1 text-sm text-neutral-600">{dream.desc}</p>
+                {dream.progress && (
+                  <div className="mt-3">
+                    <ProgressBar
+                      current={dream.progress.current}
+                      target={dream.progress.target}
+                      unit={dream.progress.unit}
+                    />
+                  </div>
+                )}
               </Card>
             </li>
           ))}
