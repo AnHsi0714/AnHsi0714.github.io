@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { to: "/", label: "首頁" },
   { to: "/gallery", label: "藝術畫廊" },
-  { to: "/life", label: "人生" },
-  { to: "/books", label: "讀書" },
+  { to: "/about", label: "關於我" },
+  { to: "/articles", label: "文章" },
   { to: "/projects", label: "專案" },
   { to: "/dreams", label: "夢想" },
-  { to: "/tasks", label: "任務" },
   { to: "/friends", label: "朋友創作" },
   // todo: remove after development
   { to: "/dev/components", label: "組件預覽" },
@@ -15,7 +15,7 @@ const links = [
 
 export default function NavBar() {
   return (
-    <nav className="flex flex-wrap gap-4 border-b border-neutral-200 px-4 py-3">
+    <nav className="flex flex-wrap items-center gap-4 border-b border-[var(--color-border)] px-4 py-3">
       {links.map((link) => (
         <NavLink
           key={link.to}
@@ -23,13 +23,14 @@ export default function NavBar() {
           end={link.to === "/"}
           className={({ isActive }) =>
             isActive
-              ? "font-semibold text-neutral-900"
-              : "text-neutral-500 hover:text-neutral-900"
+              ? "font-semibold text-[var(--color-text)]"
+              : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
           }
         >
           {link.label}
         </NavLink>
       ))}
+      <ThemeToggle />
     </nav>
   );
 }

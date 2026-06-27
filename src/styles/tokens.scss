@@ -3,24 +3,27 @@
 // 要調整整站視覺風格（例如主色）改這裡即可影響所有元件。
 
 // 顏色
-$color-bg: #ffffff;
-$color-text: #171717;
-$color-text-muted: #737373;
-$color-border: #e5e5e5;
+// 實際數值（含日夜模式兩套）定義在 src/styles/theme.css 的 CSS custom property，
+// 這裡只是包成 Sass 變數方便元件用 $color-xxx 的寫法引用，
+// 不能直接把顏色寫死在這裡，否則元件會跟著日夜模式切換失效。
+$color-bg: var(--color-bg);
+$color-text: var(--color-text);
+$color-text-muted: var(--color-text-muted);
+$color-border: var(--color-border);
 
-$color-primary: #171717;
-$color-primary-hover: #404040;
-$color-primary-text: #ffffff;
+$color-primary: var(--color-primary);
+$color-primary-hover: var(--color-primary-hover);
+$color-primary-text: var(--color-primary-text);
 
-$color-danger: #dc2626;
-$color-danger-hover: #b91c1c;
-$color-danger-bg: #fef2f2;
+$color-danger: var(--color-danger);
+$color-danger-hover: var(--color-danger-hover);
+$color-danger-bg: var(--color-danger-bg);
 
-$color-success: #16a34a;
-$color-success-bg: #f0fdf4;
+$color-success: var(--color-success);
+$color-success-bg: var(--color-success-bg);
 
-$color-info: #2563eb;
-$color-info-bg: #eff6ff;
+$color-info: var(--color-info);
+$color-info-bg: var(--color-info-bg);
 
 // 圓角
 $radius-sm: 4px;

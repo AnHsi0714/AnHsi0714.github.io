@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "name": "個人網站",
+    "desc": "用 React + Vite + TypeScript + Supabase 打造的個人網站，記錄人生、讀書、專案與夢想。",
+    "status": "in-progress",
+    "screenshotUrl": "",
+    "githubUrl": "https://github.com/AnHsi0714/AnHsi0714.github.io"
+  },
+  {
+    "name": "（範例專案）",
+    "desc": "這是排版用的範例卡片，之後替換成你真正做過的專案。",
+    "status": "done",
+    "screenshotUrl": "",
+    "githubUrl": ""
+  }
+]

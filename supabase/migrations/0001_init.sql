@@ -17,24 +17,6 @@ create policy "public can read life_events"
   on life_events for select using (true);
 
 
--- 任務區：公開任務進度
-create table tasks (
-  id bigint generated always as identity primary key,
-  title text not null,
-  description text,
-  status text not null default 'todo'
-    check (status in ('todo', 'doing', 'done')),
-  due_date date,
-  sort_order int not null default 0,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
-
-alter table tasks enable row level security;
-create policy "public can read tasks"
-  on tasks for select using (true);
-
-
 -- 朋友功能：邀請碼
 create table invite_codes (
   id bigint generated always as identity primary key,
