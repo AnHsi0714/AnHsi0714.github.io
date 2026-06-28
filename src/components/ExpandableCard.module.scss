@@ -1,0 +1,50 @@
+@use "../styles/tokens" as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-6;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.panel {
+  position: relative;
+  max-width: min(32rem, 100%);
+  max-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  background-color: $color-bg;
+  border-radius: $radius-lg;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: $space-2;
+  right: $space-2;
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: $radius-md;
+  background: transparent;
+  color: $color-text-muted;
+  cursor: pointer;
+  font-size: $font-size-lg;
+  line-height: 1;
+
+  &:hover {
+    background-color: $color-border;
+    color: $color-text;
+  }
+}

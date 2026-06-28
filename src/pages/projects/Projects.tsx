@@ -1,20 +1,20 @@
-import projectsData from '../../../content/projects.json'
-import Card from '../../components/Card'
-import Badge from '../../components/Badge'
-import EmptyState from '../../components/EmptyState'
-import type { Project, ProjectStatus } from '../../types/content'
+import projectsData from "../../../content/projects.json";
+import Card from "../../components/Card";
+import Badge from "../../components/Badge";
+import EmptyState from "../../components/EmptyState";
+import type { Project, ProjectStatus } from "../../types/content";
 
-const projects = projectsData as Project[]
+const projects = projectsData as Project[];
 
 const statusLabel: Record<ProjectStatus, string> = {
-  'in-progress': '進行中',
-  done: '已完成',
-}
+  "in-progress": "doing",
+  done: "done",
+};
 
-const statusBadgeVariant: Record<ProjectStatus, 'doing' | 'done'> = {
-  'in-progress': 'doing',
-  done: 'done',
-}
+const statusBadgeVariant: Record<ProjectStatus, "doing" | "done"> = {
+  "in-progress": "doing",
+  done: "done",
+};
 
 export default function Projects() {
   return (
@@ -41,11 +41,16 @@ export default function Projects() {
               )}
               <div className="mt-3 flex items-center justify-between gap-2">
                 <p className="font-semibold">{project.name}</p>
-                <Badge variant={statusBadgeVariant[project.status]} className="shrink-0">
+                <Badge
+                  variant={statusBadgeVariant[project.status]}
+                  className="shrink-0"
+                >
                   {statusLabel[project.status]}
                 </Badge>
               </div>
-              <p className="mt-1 text-sm text-neutral-600 line-clamp-2">{project.desc}</p>
+              <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
+                {project.desc}
+              </p>
               {project.githubUrl && (
                 <a
                   href={project.githubUrl}
@@ -61,5 +66,5 @@ export default function Projects() {
         </div>
       )}
     </section>
-  )
+  );
 }

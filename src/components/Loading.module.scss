@@ -1,33 +1,113 @@
-@use '../styles/tokens' as *;
+@use "../styles/tokens" as *;
+
+$eye-color: $color-bg;
+$eyeball-color: $color-primary;
+$horn-color: #e0a435;
+$monster-color: #396969;
+$mouth-color: $color-bg;
 
 .wrapper {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   gap: $space-2;
+  transition: opacity 0.3s ease 0.2s;
+
+  &.complete {
+    opacity: 0;
+
+    .monster {
+      animation: monster-disappear 0.5s ease forwards;
+    }
+  }
 }
 
-.spinner {
-  display: inline-block;
+.monster {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: $radius-lg;
+  background-color: var(--monster-color, $monster-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: monster-jump 0.8s infinite alternate;
+}
+
+.monster::before,
+.monster::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  width: 25%;
+  height: 35%;
+  background-color: var(--horn-color, $horn-color);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.monster::before {
+  left: 20%;
+  transform: translateX(-50%) rotate(-15deg);
+}
+
+.monster::after {
+  right: 20%;
+  transform: translateX(60%) rotate(15deg);
+}
+
+.eye {
+  width: 42%;
+  height: 42%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
-  border: 2px solid $color-border;
-  border-top-color: $color-primary;
-  animation: spin 0.6s linear infinite;
+  background-color: $eye-color;
+}
+
+.eyeball {
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background-color: $eyeball-color;
+  animation: monster-eye-move 1.6s infinite alternate;
+}
+
+.mouth {
+  width: 30%;
+  height: 10%;
+  margin-top: 14%;
+  border-radius: $radius-sm;
+  background-color: $mouth-color;
 }
 
 .sm {
-  width: 14px;
-  height: 14px;
+  width: 32px;
+  height: 32px;
 }
 
 .md {
-  width: 20px;
-  height: 20px;
+  width: 48px;
+  height: 48px;
 }
 
 .lg {
-  width: 28px;
-  height: 28px;
-  border-width: 3px;
+  width: 72px;
+  height: 72px;
+}
+
+.progress {
+  width: 96px;
+  height: 6px;
+  border-radius: $radius-sm;
+  background-color: $color-border;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: $color-primary;
+  transition: width 0.2s linear;
 }
 
 .label {
@@ -35,8 +115,33 @@
   color: $color-text-muted;
 }
 
-@keyframes spin {
+@keyframes monster-jump {
+  50% {
+    transform: translateY(0);
+    box-shadow: 0px 10px 20px rgba(black, 0.2);
+  }
+  100% {
+    transform: translateY(-35%);
+    box-shadow: 0px 120px 50px rgba(black, 0.2);
+  }
+}
+
+@keyframes monster-disappear {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
   to {
-    transform: rotate(360deg);
+    transform: scale(0.01) rotate(360deg);
+  }
+}
+
+@keyframes monster-eye-move {
+  0%,
+  10% {
+    transform: translateX(50%);
+  }
+  90%,
+  100% {
+    transform: translateX(-50%);
   }
 }
