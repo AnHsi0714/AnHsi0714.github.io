@@ -6,22 +6,22 @@
 :root {
   --color-bg: #ffffff;
   --color-text: #171717;
-  --color-text-muted: #737373;
-  --color-border: #e5e5e5;
+  --color-text-muted: #6d6c6c;
+  --color-border: #cecece;
 
-  --color-primary: #5f7350;
-  --color-primary-hover: #46573a;
-  --color-primary-text: #ffffff;
+  --color-primary: #2f4f4f;
+  --color-primary-hover: #396969;
+  --color-primary-text: #f7f7f7;
 
-  --color-danger-text: #c92222;
-  --color-danger-hover: #b91c1c;
-  --color-danger: #fef2f2;
+  --color-danger-text: #f7f7f7;
+  --color-danger-hover: #fa1414;
+  --color-danger: #f34848;
 
-  --color-success: #16a34a;
-  --color-success-bg: #f0fdf4;
+  --color-success: #f7f7f7;
+  --color-success-bg: #93da22;
 
-  --color-info: #2563eb;
-  --color-info-bg: #eff6ff;
+  --color-info: #f7f7f7;
+  --color-info-bg: #5fc4f3;
 }
 
 .dark {
