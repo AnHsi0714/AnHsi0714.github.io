@@ -68,7 +68,7 @@ export default function ComponentsPreview() {
         <h2 className="text-xl font-bold">Card</h2>
         <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Card>一般卡片內容</Card>
-          <Card hoverable>滑過會浮起的卡片（可點擊項目用）</Card>
+          <Card hoverable>滑過會浮起的卡片（無圖，可點擊項目用）</Card>
           <Card hoverable>
             <div className="flex aspect-video w-full items-center justify-center rounded-md bg-neutral-100 text-sm text-neutral-400">
               圖片預覽
@@ -84,21 +84,9 @@ export default function ComponentsPreview() {
               頁面的實際排版。
             </p>
           </Card>
-          <Card className="flex items-start gap-4">
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-neutral-100 text-2xl font-semibold text-neutral-300 sm:h-24 sm:w-24">
-              文
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="font-semibold">範例文章標題</p>
-              <p className="text-sm text-neutral-500">2026-06-27</p>
-              <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
-                橫向排列、圖片在左側的卡片，對應 Articles 頁面的列表項目排版。
-              </p>
-            </div>
-          </Card>
           <ExpandableCard
             image={
-              <div className="flex h-80 w-full items-center justify-center rounded-md bg-neutral-100 text-sm text-neutral-400">
+              <div className="flex h-80 w-full items-center justify-center rounded-md-lg bg-neutral-100 text-sm text-neutral-400">
                 圖片預覽
               </div>
             }
@@ -120,6 +108,18 @@ export default function ComponentsPreview() {
               這段文字被截斷了，點擊卡片可以看到完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容。
             </p>
           </ExpandableCard>
+          <Card className="flex items-start gap-4">
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-neutral-100 text-2xl font-semibold text-neutral-300 sm:h-24 sm:w-24">
+              文
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="font-semibold">範例文章標題</p>
+              <p className="text-sm text-neutral-500">2026-06-27</p>
+              <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
+                橫向排列、圖片在左側的卡片，對應 Articles 頁面的列表項目排版。
+              </p>
+            </div>
+          </Card>
         </div>
       </section>
 

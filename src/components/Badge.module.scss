@@ -1,4 +1,4 @@
-@use '../styles/tokens' as *;
+@use "../styles/tokens" as *;
 
 .badge {
   display: inline-flex;
@@ -37,6 +37,6 @@
 }
 
 .danger {
-  background-color: $color-danger-bg;
-  color: $color-danger;
+  background-color: $color-danger;
+  color: $color-danger-text;
 }
