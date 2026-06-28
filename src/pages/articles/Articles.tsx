@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import Card from "../../components/Card";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -12,7 +13,7 @@ const allCategories = Array.from(
 
 type SortOrder = "newest" | "oldest";
 
-function Stars({ rating }: { rating: number }) {
+export function Stars({ rating }: { rating: number }) {
   return (
     <span aria-label={`評分 ${rating} / 5`} className="text-amber-500">
       {"★".repeat(rating)}
@@ -27,39 +28,41 @@ function ArticleRow({ article }: { article: Article }) {
     : article.date;
 
   return (
-    <Card className="flex items-start gap-4">
-      {article.coverUrl ? (
-        <img
-          src={article.coverUrl}
-          alt={article.title}
-          className="h-20 w-20 shrink-0 rounded-md object-cover sm:h-24 sm:w-24"
-        />
-      ) : (
-        <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-neutral-100 text-2xl font-semibold text-neutral-300 sm:h-24 sm:w-24">
-          {article.title.slice(0, 1)}
+    <Link to={`/articles/${article.slug}`} className="block">
+      <Card className="flex items-start gap-4">
+        {article.coverUrl ? (
+          <img
+            src={article.coverUrl}
+            alt={article.title}
+            className="h-20 w-20 shrink-0 rounded-md object-cover sm:h-24 sm:w-24"
+          />
+        ) : (
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-neutral-100 text-2xl font-semibold text-neutral-300 sm:h-24 sm:w-24">
+            {article.title.slice(0, 1)}
+          </div>
+        )}
+        <div className="min-w-0 flex-1">
+          <p className="font-semibold">{article.title}</p>
+          <p className="text-sm text-neutral-500">{subtitle}</p>
+          <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
+            {article.excerpt}
+          </p>
         </div>
-      )}
-      <div className="min-w-0 flex-1">
-        <p className="font-semibold">{article.title}</p>
-        <p className="text-sm text-neutral-500">{subtitle}</p>
-        <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
-          {article.excerpt}
-        </p>
-      </div>
-      <div className="flex shrink-0 flex-col items-end gap-1">
-        <div className="flex flex-wrap justify-end gap-1">
-          {article.categories.map((category) => (
-            <span
-              key={category}
-              className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500"
-            >
-              {category}
-            </span>
-          ))}
+        <div className="flex shrink-0 flex-col items-end gap-1">
+          <div className="flex flex-wrap justify-end gap-1">
+            {article.categories.map((category) => (
+              <span
+                key={category}
+                className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500"
+              >
+                {category}
+              </span>
+            ))}
+          </div>
+          {article.rating !== undefined && <Stars rating={article.rating} />}
         </div>
-        {article.rating !== undefined && <Stars rating={article.rating} />}
-      </div>
-    </Card>
+      </Card>
+    </Link>
   );
 }
 

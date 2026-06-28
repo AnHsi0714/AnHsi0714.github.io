@@ -5,6 +5,13 @@
 > 基於 React + Supabase，部署目標假設為 GitHub Pages（`AnHsi0714.github.io`，根網域靜態站）。
 > 核心前提：**網站本身不做登入系統**。你自己的內容透過 Supabase Studio（你自己的 Supabase 帳號）直接管理；朋友功能用邀請碼，不建帳號系統。
 
+## 2026-06-29 修訂
+
+- **文章／專案詳細頁**：兩者都從「卡片＋外部 GitHub/連結」升級成「卡片可點擊進入站內詳細頁」（`/articles/:slug`、`/projects/:slug`），詳細頁正文走 markdown 渲染（`react-markdown` + `remark-gfm` + `@tailwindcss/typography` 的 `prose` class），讓文中可以像報導一樣自然穿插圖片／清單／引用，不用額外刻排版元件。
+- **內容模型**：`Article` 新增 `body`（全文 markdown），`excerpt` 改為 frontmatter 可選覆寫、未填則自動從 `body` 萃取；`Project` 新增必填 `slug` 供路由使用。frontmatter parser 從 `lib/articles.ts` 抽到共用的 `src/lib/markdown.ts`。
+- **專案正文**：仿照 `content/articles/*.md` 的模式，新增 `content/projects/*.md`（檔名＝slug）放專案的長文寫法；沒有對應 `.md` 檔的專案，詳細頁只顯示 `projects.json` 裡的 `desc`，不強制要求每個專案都要寫長文。
+- 畫廊／朋友創作維持原本的 `ExpandableCard`（彈出式全螢幕內容），文章／專案則是「導去新頁面」——兩種互動模式並存，依內容類型決定哪個更合適，不強求站內一致。
+
 ## 2026-06-25 修訂
 
 - **文章區（原書籍區）**：書籍的內容模型往上抽一層變成「文章」，新增 `type`（`book` | `note`）欄位；`author`／`rating` 變成僅 `type: book` 才會用到的 optional metadata。之後想寫雜記、影評、技術筆記都歸在這個區塊，不必再開新頁面與路由。
@@ -90,9 +97,9 @@
 
 | 區塊              | 格式建議                                                                         |
 | ----------------- | -------------------------------------------------------------------------------- |
-| 文章（含讀書心得）| 每篇一個 `.md`（frontmatter 存 type: book\|note、標題/作者/評分/日期，正文是內文；`author`/`rating` 只有 type: book 才填） |
+| 文章（含讀書心得）| 每篇一個 `.md`（frontmatter 存 type: book\|note、標題/作者/評分/日期，正文是內文，渲染為詳細頁 `/articles/:slug`；`author`/`rating` 只有 type: book 才填，`excerpt` 可選，沒填就自動從正文萃取） |
 | 夢想清單          | 一個 `dreams.json`（陣列，每項含 title/desc，無狀態欄位）                        |
-| 專案區            | 一個 `projects.json`（name/desc/status: in-progress\|done/screenshot 路徑/github url） |
+| 專案區            | 一個 `projects.json`（slug/name/desc/status: in-progress\|done/screenshot 路徑/github url）；長文寫法另外放 `content/projects/<slug>.md`（選填，渲染為詳細頁 `/projects/:slug`） |
 | 藝術畫廊 metadata | 一個 `artworks.json`（title/縮圖路徑/sketch slug），sketch 程式碼本來就要進 repo |
 
 優點：零後端延遲、版本控制、改完 `git push` 自動觸發部署，不用碰 Supabase。
@@ -286,6 +293,7 @@ grant execute on function redeem_invite_and_create to anon;
 │   └── images/               # 人生區、文章等的靜態圖片
 ├── content/                   # §3 的「Git 內容檔」
 │   ├── articles/*.md
+│   ├── projects/*.md          # 專案長文寫法，選填，檔名＝projects.json 裡的 slug
 │   ├── dreams.json
 │   ├── projects.json
 │   └── artworks.json
@@ -294,7 +302,10 @@ grant execute on function redeem_invite_and_create to anon;
 │   ├── App.tsx
 │   ├── router.tsx
 │   ├── lib/
-│   │   └── supabaseClient.ts
+│   │   ├── supabaseClient.ts
+│   │   ├── markdown.ts          # frontmatter parser + 摘要萃取，articles/projects 共用
+│   │   ├── articles.ts
+│   │   └── projects.ts
 │   ├── pages/
 │   │   ├── Home.tsx
 │   │   ├── gallery/
@@ -303,13 +314,17 @@ grant execute on function redeem_invite_and_create to anon;
 │   │   │   └── sketches/        # 搬遷後的 p5.js instance-mode 模組
 │   │   ├── life/
 │   │   ├── articles/
+│   │   │   ├── Articles.tsx
+│   │   │   └── ArticleDetail.tsx    # /articles/:slug，markdown 正文渲染
 │   │   ├── projects/
+│   │   │   ├── Projects.tsx
+│   │   │   └── ProjectDetail.tsx    # /projects/:slug，markdown 正文渲染（若有對應 .md）
 │   │   ├── dreams/
 │   │   └── friends/
 │   │       ├── InviteGate.tsx
 │   │       ├── Creator2D.tsx        # 像素編輯器，見 §7；3D 暫緩，未實作
 │   │       └── FriendGallery.tsx
-│   ├── components/             # NavBar、Card、Loading 等共用元件
+│   ├── components/             # NavBar、Card、Loading、MarkdownContent 等共用元件
 │   ├── hooks/                  # useLifeEvents 等資料 hook
 │   └── types/
 ├── supabase/

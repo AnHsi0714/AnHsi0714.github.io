@@ -5,7 +5,9 @@ import GalleryGrid from './pages/gallery/GalleryGrid'
 import GalleryDetail from './pages/gallery/GalleryDetail'
 import About from './pages/about/About'
 import Articles from './pages/articles/Articles'
+import ArticleDetail from './pages/articles/ArticleDetail'
 import Projects from './pages/projects/Projects'
+import ProjectDetail from './pages/projects/ProjectDetail'
 import Dreams from './pages/dreams/Dreams'
 import Friends from './pages/friends/Friends'
 import ComponentsPreview from './pages/dev/ComponentsPreview'
@@ -20,7 +22,9 @@ export const router = createBrowserRouter([
       { path: 'gallery/:slug', element: <GalleryDetail /> },
       { path: 'about', element: <About /> },
       { path: 'articles', element: <Articles /> },
+      { path: 'articles/:slug', element: <ArticleDetail /> },
       { path: 'projects', element: <Projects /> },
+      { path: 'projects/:slug', element: <ProjectDetail /> },
       { path: 'dreams', element: <Dreams /> },
       { path: 'friends', element: <Friends /> },
       { path: 'dev/components', element: <ComponentsPreview /> },

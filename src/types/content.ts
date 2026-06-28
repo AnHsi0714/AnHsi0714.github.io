@@ -18,6 +18,7 @@ export interface FriendCreation {
 export type ProjectStatus = 'in-progress' | 'done'
 
 export interface Project {
+  slug: string
   name: string
   desc: string
   status: ProjectStatus
@@ -33,6 +34,7 @@ export interface Article {
   title: string
   date: string
   excerpt: string
+  body: string
   categories: string[]
   coverUrl?: string
   // 僅 type: 'book' 會用到
