@@ -10,21 +10,24 @@ interface LoadingProps {
   complete?: boolean;
 }
 
-const HORN_HUE_OFFSET_RANGE: [number, number] = [25, 50];
-
-function randomBetween(min: number, max: number) {
-  return Math.random() * (max - min) + min;
-}
+const MONSTER_COLOR_PAIRS: { monster: string; horn: string }[] = [
+  { monster: "#33dbdb", horn: "#e0a435" },
+  { monster: "#725fe0", horn: "#d2f53a" },
+  { monster: "#4a6bad", horn: "#f4a261" },
+  { monster: "#f11961", horn: "#77baf1" },
+  { monster: "#61f054", horn: "#a894f2" },
+];
 
 function useMonsterColors() {
   return useMemo(() => {
-    const monsterHue = randomBetween(0, 360);
-    const offset = randomBetween(...HORN_HUE_OFFSET_RANGE);
-    const hornHue = (monsterHue + (Math.random() < 0.5 ? -offset : offset) + 360) % 360;
+    const pair =
+      MONSTER_COLOR_PAIRS[
+        Math.floor(Math.random() * MONSTER_COLOR_PAIRS.length)
+      ];
 
     return {
-      "--monster-color": `hsl(${monsterHue.toFixed(0)}, ${randomBetween(35, 65).toFixed(0)}%, ${randomBetween(30, 50).toFixed(0)}%)`,
-      "--horn-color": `hsl(${hornHue.toFixed(0)}, ${randomBetween(50, 75).toFixed(0)}%, ${randomBetween(45, 65).toFixed(0)}%)`,
+      "--monster-color": pair.monster,
+      "--horn-color": pair.horn,
     } as CSSProperties;
   }, []);
 }
@@ -56,7 +59,10 @@ export default function Loading({
       </div>
       {typeof progress === "number" && (
         <div className={styles.progress}>
-          <div className={styles.progressBar} style={{ width: `${progress}%` }} />
+          <div
+            className={styles.progressBar}
+            style={{ width: `${progress}%` }}
+          />
         </div>
       )}
       {label && <span className={styles.label}>{label}</span>}

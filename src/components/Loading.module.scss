@@ -38,19 +38,21 @@ $mouth-color: $color-bg;
 .monster::after {
   content: "";
   position: absolute;
-  top: -8%;
-  left: 50%;
+  top: -30%;
   width: 25%;
-  height: 12%;
+  height: 35%;
   background-color: var(--horn-color, $horn-color);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
 .monster::before {
-  transform: translateX(-70%) rotate(45deg);
+  left: 20%;
+  transform: translateX(-50%) rotate(-15deg);
 }
 
 .monster::after {
-  transform: translateX(-30%) rotate(-45deg);
+  right: 20%;
+  transform: translateX(60%) rotate(15deg);
 }
 
 .eye {
