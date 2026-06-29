@@ -70,7 +70,7 @@ export default function ComponentsPreview() {
           <Card>一般卡片內容</Card>
           <Card hoverable>滑過會浮起的卡片（無圖，可點擊項目用）</Card>
           <Card hoverable>
-            <div className="flex aspect-video w-full items-center justify-center rounded-md bg-neutral-100 text-sm text-neutral-400">
+            <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
               圖片預覽
             </div>
             <div className="mt-3 flex items-center justify-between gap-2">
@@ -79,21 +79,21 @@ export default function ComponentsPreview() {
                 進行中
               </Badge>
             </div>
-            <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
+            <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
               圖片 + 標題 + 狀態 Badge + 說明文字，對應 Projects／Friends
               頁面的實際排版。
             </p>
           </Card>
           <ExpandableCard
             image={
-              <div className="flex h-80 w-full items-center justify-center rounded-md-lg bg-neutral-100 text-sm text-neutral-400">
+              <div className="flex h-80 w-full items-center justify-center rounded-md-lg bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
                 圖片預覽
               </div>
             }
             expandedContent={
               <div className="max-h-40 overflow-y-auto px-6 pb-6 pt-3">
                 <p className="font-semibold">完整內容</p>
-                <p className="mt-1 text-sm text-neutral-600">
+                <p className="mt-1 text-sm text-[var(--color-text-muted)]">
                   點擊卡片時，會在全螢幕置中顯示這層遮罩與完整內容，圖片會跟卡片一樣顯示在最上方、
                   文字接在下面。按遮罩外或 Esc
                   即可關閉。AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -104,18 +104,18 @@ export default function ComponentsPreview() {
             }
           >
             <p className="mt-3 font-semibold">點擊顯示完整內容</p>
-            <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
+            <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
               這段文字被截斷了，點擊卡片可以看到完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容。
             </p>
           </ExpandableCard>
           <Card className="flex items-start gap-4">
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-neutral-100 text-2xl font-semibold text-neutral-300 sm:h-24 sm:w-24">
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-[var(--color-surface)] text-2xl font-semibold text-[var(--color-border)] sm:h-24 sm:w-24">
               文
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-semibold">範例文章標題</p>
-              <p className="text-sm text-neutral-500">2026-06-27</p>
-              <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
+              <p className="text-sm text-[var(--color-text-muted)]">2026-06-27</p>
+              <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
                 橫向排列、圖片在左側的卡片，對應 Articles 頁面的列表項目排版。
               </p>
             </div>

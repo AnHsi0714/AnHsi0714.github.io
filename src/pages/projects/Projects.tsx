@@ -21,7 +21,9 @@ export default function Projects() {
   return (
     <section>
       <h1 className="text-2xl font-bold">專案</h1>
-      <p className="mt-2 text-neutral-600">做過、正在做的專案。</p>
+      <p className="mt-2 text-[var(--color-text-muted)]">
+        做過、正在做的專案。
+      </p>
 
       {projects.length === 0 ? (
         <EmptyState title="尚無專案" description="之後會陸續補上做過的專案。" />
@@ -42,7 +44,7 @@ export default function Projects() {
                     }}
                   />
                 ) : (
-                  <div className="flex aspect-video w-full items-center justify-center rounded-md bg-neutral-100 text-sm text-neutral-400">
+                  <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
                     尚無預覽圖
                   </div>
                 )}
@@ -55,7 +57,7 @@ export default function Projects() {
                     {statusLabel[project.status]}
                   </Badge>
                 </div>
-                <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
+                <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
                   {project.desc}
                 </p>
               </Link>
@@ -64,7 +66,7 @@ export default function Projects() {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-3 inline-block text-sm font-medium text-neutral-500 hover:text-neutral-900"
+                  className="mt-3 inline-block text-sm font-medium text-[var(--color-text)]"
                 >
                   查看 GitHub →
                 </a>

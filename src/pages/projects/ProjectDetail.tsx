@@ -22,7 +22,7 @@ export default function ProjectDetail() {
         />
         <Link
           to="/projects"
-          className="mt-4 inline-block text-sm font-medium text-neutral-500 hover:text-neutral-900"
+          className="mt-4 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
         >
           ← 回專案列表
         </Link>
@@ -36,7 +36,7 @@ export default function ProjectDetail() {
     <section>
       <Link
         to="/projects"
-        className="text-sm font-medium text-neutral-500 hover:text-neutral-900"
+        className="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
       >
         ← 回專案列表
       </Link>
@@ -60,14 +60,14 @@ export default function ProjectDetail() {
           {statusLabel[project.status]}
         </Badge>
       </div>
-      <p className="mt-2 text-neutral-600">{project.desc}</p>
+      <p className="mt-2 text-[var(--color-text-muted)]">{project.desc}</p>
 
       {project.githubUrl && (
         <a
           href={project.githubUrl}
           target="_blank"
           rel="noreferrer"
-          className="mt-3 inline-block text-sm font-medium text-neutral-500 hover:text-neutral-900"
+          className="mt-3 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
         >
           查看 GitHub →
         </a>

@@ -17,7 +17,7 @@ export default function ArticleDetail() {
         />
         <Link
           to="/articles"
-          className="mt-4 inline-block text-sm font-medium text-neutral-500 hover:text-neutral-900"
+          className="mt-4 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
         >
           ← 回文章列表
         </Link>
@@ -33,7 +33,7 @@ export default function ArticleDetail() {
     <section>
       <Link
         to="/articles"
-        className="text-sm font-medium text-neutral-500 hover:text-neutral-900"
+        className="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
       >
         ← 回文章列表
       </Link>
@@ -47,13 +47,13 @@ export default function ArticleDetail() {
       )}
 
       <h1 className="mt-4 text-2xl font-bold">{article.title}</h1>
-      <p className="mt-1 text-sm text-neutral-500">{subtitle}</p>
+      <p className="mt-1 text-sm text-[var(--color-text-muted)]">{subtitle}</p>
 
       <div className="mt-2 flex flex-wrap items-center gap-2">
         {article.categories.map((category) => (
           <span
             key={category}
-            className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500"
+            className="rounded-full bg-[var(--color-surface)] px-2 py-0.5 text-xs text-[var(--color-text-muted)]"
           >
             {category}
           </span>

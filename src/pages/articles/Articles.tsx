@@ -17,7 +17,7 @@ export function Stars({ rating }: { rating: number }) {
   return (
     <span aria-label={`評分 ${rating} / 5`} className="text-amber-500">
       {"★".repeat(rating)}
-      <span className="text-neutral-300">{"★".repeat(5 - rating)}</span>
+      <span className="text-[var(--color-border)]">{"★".repeat(5 - rating)}</span>
     </span>
   );
 }
@@ -37,14 +37,14 @@ function ArticleRow({ article }: { article: Article }) {
             className="h-20 w-20 shrink-0 rounded-md object-cover sm:h-24 sm:w-24"
           />
         ) : (
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-neutral-100 text-2xl font-semibold text-neutral-300 sm:h-24 sm:w-24">
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-[var(--color-surface)] text-2xl font-semibold text-[var(--color-border)] sm:h-24 sm:w-24">
             {article.title.slice(0, 1)}
           </div>
         )}
         <div className="min-w-0 flex-1">
           <p className="font-semibold">{article.title}</p>
-          <p className="text-sm text-neutral-500">{subtitle}</p>
-          <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
+          <p className="text-sm text-[var(--color-text-muted)]">{subtitle}</p>
+          <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
             {article.excerpt}
           </p>
         </div>
@@ -53,7 +53,7 @@ function ArticleRow({ article }: { article: Article }) {
             {article.categories.map((category) => (
               <span
                 key={category}
-                className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500"
+                className="rounded-full bg-[var(--color-surface)] px-2 py-0.5 text-xs text-[var(--color-text-muted)]"
               >
                 {category}
               </span>
@@ -137,7 +137,7 @@ export default function Articles() {
   return (
     <section>
       <h1 className="text-2xl font-bold">文章</h1>
-      <p className="mt-2 text-neutral-600">讀過的書、寫下的筆記與心得。</p>
+      <p className="mt-2 text-[var(--color-text-muted)]">讀過的書、寫下的筆記與心得。</p>
 
       <div className="relative mt-6 inline-block" ref={filterRef}>
         <Button
@@ -150,7 +150,7 @@ export default function Articles() {
         </Button>
 
         {isFilterOpen && (
-          <div className="absolute left-0 top-full z-20 mt-2 w-[min(36rem,90vw)] rounded-lg border border-neutral-200 bg-white p-4 shadow-lg">
+          <div className="absolute left-0 top-full z-20 mt-2 w-[min(36rem,90vw)] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 shadow-lg">
             <div className="flex flex-wrap items-end gap-4">
               <Input
                 label="搜尋標題"
@@ -160,19 +160,49 @@ export default function Articles() {
                 className="w-40"
               />
 
-              <label className="flex flex-col gap-1 text-sm font-medium text-neutral-700">
+              <label className="flex flex-col gap-1 text-sm font-medium text-[var(--color-text)]">
                 最低評分
                 <select
                   value={minRating}
                   onChange={(event) => setMinRating(Number(event.target.value))}
-                  className="rounded-md border border-neutral-300 px-3 py-2 text-sm font-normal text-neutral-900"
+                  className="rounded-md border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 text-sm font-normal text-[var(--color-text)]"
                 >
-                  <option value={0}>不限</option>
-                  <option value={5}>5★</option>
-                  <option value={4}>4★ 以上</option>
-                  <option value={3}>3★ 以上</option>
-                  <option value={2}>2★ 以上</option>
-                  <option value={1}>1★ 以上</option>
+                  <option
+                    value={0}
+                    className="bg-[var(--color-bg)] text-[var(--color-text)]"
+                  >
+                    不限
+                  </option>
+                  <option
+                    value={5}
+                    className="bg-[var(--color-bg)] text-[var(--color-text)]"
+                  >
+                    5★
+                  </option>
+                  <option
+                    value={4}
+                    className="bg-[var(--color-bg)] text-[var(--color-text)]"
+                  >
+                    4★ 以上
+                  </option>
+                  <option
+                    value={3}
+                    className="bg-[var(--color-bg)] text-[var(--color-text)]"
+                  >
+                    3★ 以上
+                  </option>
+                  <option
+                    value={2}
+                    className="bg-[var(--color-bg)] text-[var(--color-text)]"
+                  >
+                    2★ 以上
+                  </option>
+                  <option
+                    value={1}
+                    className="bg-[var(--color-bg)] text-[var(--color-text)]"
+                  >
+                    1★ 以上
+                  </option>
                 </select>
               </label>
 
@@ -202,8 +232,8 @@ export default function Articles() {
                     className={[
                       "rounded-full border px-3 py-1 text-sm transition-colors",
                       isSelected
-                        ? "border-neutral-900 bg-neutral-900 text-white"
-                        : "border-neutral-300 text-neutral-600 hover:border-neutral-400",
+                        ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
+                        : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
                     ].join(" ")}
                   >
                     {category}
@@ -213,7 +243,7 @@ export default function Articles() {
             </div>
 
             <div className="mt-4 flex items-center gap-2">
-              <span className="text-sm font-medium text-neutral-700">排序</span>
+              <span className="text-sm font-medium text-[var(--color-text)]">排序</span>
               <Button
                 type="button"
                 size="sm"
