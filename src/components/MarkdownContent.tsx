@@ -17,7 +17,17 @@ export default function MarkdownContent({
 
   return (
     <div className={classNames}>
-      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
+        components={{
+          a: ({ children: linkChildren, ...props }) => (
+            <a {...props} target="_blank" rel="noreferrer">
+              {linkChildren}
+            </a>
+          ),
+        }}
+      >
         {children}
       </ReactMarkdown>
     </div>

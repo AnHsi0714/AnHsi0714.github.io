@@ -2,7 +2,10 @@
 
 想要一個能長期累積內容的地方，記錄做過的專案、讀過的書，以及朋友的創作——不依賴任何固定模板的「個人主頁產生器」，全部自己刻。
 
-![首頁畫面（替換成實際截圖）](/images/projects/personal-website/home.png)
+<figure>
+  <img src="/images/projects/personal-website/home.png" alt="首頁畫面（替換成實際截圖）" style="display: block; margin: 0 auto; max-width: 100%;" />
+  <figcaption style="text-align: center;">首頁畫面（替換成實際截圖）</figcaption>
+</figure>
 
 ## 技術選擇
 

@@ -8,11 +8,38 @@
     "githubUrl": "https://github.com/AnHsi0714/AnHsi0714.github.io"
   },
   {
-    "slug": "example-project",
-    "name": "（範例專案）",
-    "desc": "這是排版用的範例卡片，之後替換成你真正做過的專案。",
+    "slug": "super-mario",
+    "name": "超級瑪利歐",
+    "desc": "復刻超級瑪利歐1985，運用 C++ 實現 OOP 技巧。",
     "status": "done",
-    "screenshotUrl": "",
-    "githubUrl": ""
+    "screenshotUrl": "/images/projects/super-mario/gameimg (2).png",
+    "screenshotPosition": { "w": 0, "h": 70 },
+    "githubUrl": "https://github.com/AnHsi0714/Super_Mario_"
+  },
+  {
+    "slug": "silkroad",
+    "name": "飲品電商平台 SilkRoad",
+    "desc": "前後端 CRUD 資料庫專案。",
+    "status": "done",
+    "screenshotUrl": "/images/projects/silkroad/buy-drink.png",
+    "screenshotPosition": { "w": 50, "h": 50 },
+    "githubUrl": "https://github.com/Sajuna94/SilkRoad"
+  },
+  {
+    "slug": "absa-wordcloud",
+    "name": "ABSA Pipeline — CodePulse 使用者回饋情感分析",
+    "desc": "針對使用者回饋，分別以 Aspect-Based Sentiment Analysis 和 LLM 方式抽取四元組比較成效，並將結果以 WordCloud 方式呈現。",
+    "status": "done",
+    "screenshotUrl": "/images/projects/absa-wordcloud/trackB.png",
+    "screenshotPosition": { "w": 0, "h": 0 },
+    "githubUrl": "https://github.com/SengQ1011/absa-wordcloud"
+  },
+  {
+    "slug": "code-pulse",
+    "name": "資料結構與演算法視覺化學習平台 CodePulse",
+    "desc": "畢業專題，整合互動式視覺化、程式執行追蹤與 AI 演算法辨識的資料結構與演算法教學平台。",
+    "status": "done",
+    "screenshotUrl": "/images/projects/code-pulse/home-page.png",
+    "githubUrl": "https://github.com/Jx-study/CodePulse"
   }
 ]
