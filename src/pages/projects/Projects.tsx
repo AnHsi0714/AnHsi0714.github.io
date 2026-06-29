@@ -35,6 +35,11 @@ export default function Projects() {
                     src={project.screenshotUrl}
                     alt={project.name}
                     className="aspect-video w-full rounded-md object-cover"
+                    style={{
+                      objectPosition: project.screenshotPosition
+                        ? `${project.screenshotPosition.w}% ${project.screenshotPosition.h}%`
+                        : undefined,
+                    }}
                   />
                 ) : (
                   <div className="flex aspect-video w-full items-center justify-center rounded-md bg-neutral-100 text-sm text-neutral-400">

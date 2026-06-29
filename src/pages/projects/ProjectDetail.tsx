@@ -46,6 +46,11 @@ export default function ProjectDetail() {
           src={project.screenshotUrl}
           alt={project.name}
           className="mt-4 aspect-video w-full rounded-md object-cover"
+          style={{
+            objectPosition: project.screenshotPosition
+              ? `${project.screenshotPosition.w}% ${project.screenshotPosition.h}%`
+              : undefined,
+          }}
         />
       )}
 

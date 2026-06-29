@@ -1,5 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 interface MarkdownContentProps {
   children: string;
@@ -16,7 +17,9 @@ export default function MarkdownContent({
 
   return (
     <div className={classNames}>
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{children}</ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+        {children}
+      </ReactMarkdown>
     </div>
   );
 }
