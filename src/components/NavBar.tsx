@@ -2,9 +2,10 @@ import { NavLink } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
-  { to: "/", label: "首頁" },
+  { to: "/", label: "Cheng An Hsi" },
   { to: "/gallery", label: "藝術畫廊" },
-  { to: "/about", label: "關於我" },
+  { to: "/about", label: "關於" },
+  { to: "/experience", label: "經歷" },
   { to: "/articles", label: "文章" },
   { to: "/projects", label: "專案" },
   { to: "/dreams", label: "夢想" },

@@ -9,20 +9,15 @@ import {
   faPaw,
   faLightbulb,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 
 const skillGroups = [
   {
     label: "語言 & 工具",
     items: [
-      "Python",
-      "C++",
-      "TypeScript",
-      "React",
-      "R",
-      "D3.js",
-      "p5.js",
-      "Tableau",
+      "Python", "C++", "TypeScript", "Angular", "React",
+      "HTML / SCSS", "SQL", "R", "D3.js", "p5.js",
     ],
   },
   {
@@ -32,6 +27,7 @@ const skillGroups = [
       "互動式資料結構 / 演算法視覺化",
       "NLP Pipeline 設計與評估",
       "互動式資料視覺化",
+      "前端工程實踐（Scrum / Sprint Review / 設計文件）",
       "藝術程式創作",
     ],
   },
@@ -64,8 +60,11 @@ const achievements = [
   },
 ];
 
-const experiences: string[] = [
-  // 填入競賽、實習、社團幹部等
+const experienceHighlights = [
+  { year: "2022", text: "全國工科技藝競賽 金手獎第七名" },
+  { year: "2023", text: "赴美見學交流（亞特蘭大 & 舊金山）" },
+  { year: "2023–25", text: "母校技藝競賽選手培訓教師" },
+  { year: "2025–", text: "美商太陽鳥軟體 前端開發實習" },
 ];
 
 const interests = [
@@ -157,17 +156,22 @@ export default function About() {
           <p className="font-semibold text-[var(--color-primary)]">
             競賽與經歷 Experience
           </p>
-          {experiences.length === 0 ? (
-            <p className="mt-2 text-sm text-[var(--color-text-muted)]">
-              （待補上）
-            </p>
-          ) : (
-            <div className="mt-2 flex flex-col gap-1 text-sm text-[var(--color-text-muted)]">
-              {experiences.map((item) => (
-                <p key={item}>{item}</p>
-              ))}
-            </div>
-          )}
+          <div className="mt-2 flex flex-col gap-1.5 text-sm text-[var(--color-text-muted)]">
+            {experienceHighlights.map((item) => (
+              <div key={item.text} className="flex items-baseline gap-3">
+                <span className="w-14 shrink-0 text-xs text-[var(--color-text-muted)] opacity-60">
+                  {item.year}
+                </span>
+                <span>{item.text}</span>
+              </div>
+            ))}
+          </div>
+          <Link
+            to="/experience"
+            className="mt-3 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+          >
+            查看完整經歷 →
+          </Link>
         </div>
 
         <div className="py-6">

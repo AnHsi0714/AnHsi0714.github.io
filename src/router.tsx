@@ -8,6 +8,7 @@ import Articles from './pages/articles/Articles'
 import ArticleDetail from './pages/articles/ArticleDetail'
 import Projects from './pages/projects/Projects'
 import ProjectDetail from './pages/projects/ProjectDetail'
+import Experience from './pages/experience/Experience'
 import Dreams from './pages/dreams/Dreams'
 import Friends from './pages/friends/Friends'
 import ComponentsPreview from './pages/dev/ComponentsPreview'
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
       { path: 'articles/:slug', element: <ArticleDetail /> },
       { path: 'projects', element: <Projects /> },
       { path: 'projects/:slug', element: <ProjectDetail /> },
+      { path: 'experience', element: <Experience /> },
       { path: 'dreams', element: <Dreams /> },
       { path: 'friends', element: <Friends /> },
       { path: 'dev/components', element: <ComponentsPreview /> },
