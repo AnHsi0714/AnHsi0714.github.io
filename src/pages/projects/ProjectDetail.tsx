@@ -54,13 +54,36 @@ export default function ProjectDetail() {
         />
       )}
 
-      <div className="mt-4 flex items-center justify-between gap-2">
+      <div className="mt-4 flex items-start justify-between gap-2">
         <h1 className="text-2xl font-bold">{project.name}</h1>
-        <Badge variant={statusBadgeVariant[project.status]}>
-          {statusLabel[project.status]}
-        </Badge>
+        <div className="flex shrink-0 flex-wrap justify-end items-center gap-1 pt-0.5">
+          {project.tags?.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full bg-[var(--color-surface)] px-2 py-0.5 text-xs text-[var(--color-text-muted)]"
+            >
+              {tag}
+            </span>
+          ))}
+          <Badge variant={statusBadgeVariant[project.status]}>
+            {statusLabel[project.status]}
+          </Badge>
+        </div>
       </div>
+
       <p className="mt-2 text-[var(--color-text-muted)]">{project.desc}</p>
+
+      {(project.period ||
+        (project.collaborators && project.collaborators.length > 0) ||
+        project.advisor) && (
+        <div className="mt-3 flex flex-col gap-1 text-sm text-[var(--color-text-muted)]">
+          {project.period && <span>期間：{project.period}</span>}
+          {project.collaborators && project.collaborators.length > 0 && (
+            <span>合作者：{project.collaborators.join("、")}</span>
+          )}
+          {project.advisor && <span>指導教授：{project.advisor}</span>}
+        </div>
+      )}
 
       {project.githubUrl && (
         <a

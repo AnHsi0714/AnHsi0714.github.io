@@ -1,8 +1,5 @@
 # 飲料電商平台 SilkRoad — 資料庫系統開發紀錄
 
-合作者：郭O暘、郭O帆、陳O佑、黃O安、鄭安琋、林O安<br>
-2026 年 3 月 資料庫系統期末專案
-
 ## 影片連結
 
 demo: https://youtu.be/oEN80YCLeAc
