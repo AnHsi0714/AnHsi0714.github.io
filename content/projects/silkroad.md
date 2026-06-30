@@ -1,11 +1,11 @@
 # 飲料電商平台 SilkRoad — 資料庫系統開發紀錄
 
-## 影片連結
+## 相關連結
 
-demo: https://youtu.be/oEN80YCLeAc
+Demo: https://youtu.be/oEN80YCLeAc
 (目前資料庫未啟用，因此網頁無法運作)
 
-## 專案目的
+## 專案簡介
 
 資料庫系統的期末專案，目標是把所學的資料庫設計與需求文件撰寫實際應用在一個完整系統上。題目選定為「SilkRoad 飲品電商平台」，一個 B2C 的線上飲品交易平台，讓飲品的上架、銷售、付款、配送整個流程都能在線上完成——顧客省時間，店家多一個銷售管道，管理員則負責維護平台的公平與安全。
 
@@ -65,7 +65,7 @@ demo: https://youtu.be/oEN80YCLeAc
   <figcaption style="text-align: center;">SilkRoad Logical Database Schema</figcaption>
 </figure>
 
-## 實作的系統功能
+## 核心功能
 
 前後端分離下，前端負責直覺的選購介面與動態價格顯示，後端專注資料驗證、商業邏輯與資料庫存取。
 
