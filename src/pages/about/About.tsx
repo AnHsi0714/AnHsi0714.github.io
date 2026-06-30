@@ -11,10 +11,30 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../components/Button";
 
-const skills = [
-  "前端動畫互動網頁（HTML、CSS、TS、REACT）",
-  "互動藝術程式創作（p5.js）",
-  "資料分析與視覺化（Python、R、Tableau）",
+const skillGroups = [
+  {
+    label: "語言 & 工具",
+    items: [
+      "Python",
+      "C++",
+      "TypeScript",
+      "React",
+      "R",
+      "D3.js",
+      "p5.js",
+      "Tableau",
+    ],
+  },
+  {
+    label: "專業方向",
+    items: [
+      "演算法設計與分析（複雜度、圖論、排序、搜尋）",
+      "互動式資料結構 / 演算法視覺化",
+      "NLP Pipeline 設計與評估",
+      "互動式資料視覺化",
+      "藝術程式創作",
+    ],
+  },
 ];
 
 const education = [
@@ -62,7 +82,7 @@ const interests = [
 export default function About() {
   return (
     <section className="flex flex-col lg:flex-row lg:-ml-[calc(50vw-50rem)]">
-      <div className="lg:shrink-0 lg:w-[calc(50vw-20rem)] lg:sticky lg:top-1/2 lg:-translate-y-1/2 lg:self-start">
+      <div className="lg:shrink-0 lg:w-[calc(50vw-25rem)] lg:sticky lg:top-1/2 lg:-translate-y-1/2 lg:self-start">
         <p className="text-7xl font-light leading-none text-[var(--color-text)] lg:text-[10rem]">
           About
         </p>
@@ -76,9 +96,23 @@ export default function About() {
           <p className="font-semibold text-[var(--color-primary)]">
             專業技能 Skills
           </p>
-          <div className="mt-2 flex flex-col gap-1 text-sm text-[var(--color-text-muted)]">
-            {skills.map((skill) => (
-              <p key={skill}>{skill}</p>
+          <div className="mt-3 flex flex-col gap-4">
+            {skillGroups.map((group) => (
+              <div key={group.label}>
+                <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)]">
+                  {group.label}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {group.items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full bg-[var(--color-surface)] px-2.5 py-0.5 text-sm text-[var(--color-text-muted)]"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -152,9 +186,9 @@ export default function About() {
 
         <div className="pt-6">
           <Button type="button">下載履歷 Download Resume</Button>
-          <p className="mt-2 text-xs text-[var(--color-text-muted)]">
+          <span className="mt-2 text-xs text-[var(--color-text-muted)]">
             （履歷檔案連結待補上）
-          </p>
+          </span>
         </div>
       </div>
     </section>
