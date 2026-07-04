@@ -5,12 +5,6 @@
 > 基於 React + Supabase，部署目標假設為 GitHub Pages（`AnHsi0714.github.io`，根網域靜態站）。
 > 核心前提：**網站本身不做登入系統**。你自己的內容透過 Supabase Studio（你自己的 Supabase 帳號）直接管理；朋友功能用邀請碼，不建帳號系統。
 
-## 2026-06-25 修訂
-
-- **文章區（原書籍區）**：書籍的內容模型往上抽一層變成「文章」，新增 `type`（`book` | `note`）欄位；`author`／`rating` 變成僅 `type: book` 才會用到的 optional metadata。之後想寫雜記、影評、技術筆記都歸在這個區塊，不必再開新頁面與路由。
-- **任務區**：移除。即時任務看板需要頻繁同步狀態，對個人網站（尤其學生階段、非 build-in-public 用途）是不必要的維護負擔；專案進度改用專案區本身的粗顆粒度狀態（`in-progress` / `done`）表達就夠。
-- **夢想區**：保留，但拿掉 `status`（todo/doing/done）欄位，改為純粹「想做的事＋為什麼想做」的靜態清單，不需要即時更新。
-
 ---
 
 ## 0. 核心決策摘要
@@ -19,7 +13,7 @@
 | ------------------- | --------------------------------------------------------------------------------------- |
 | 後台/登入系統       | 不做。網站對外永遠是「唯讀」的，你自己的資料透過 Supabase Studio 的 Table Editor 增刪改 |
 | 朋友 2D/3D 創作身份 | 邀請碼機制，不建帳號系統，只需暱稱                                                      |
-| 內容區塊範圍        | 不做獨立任務區；書籍區擴展為文章區，可容納非書籍內容；夢想區移除即時狀態欄位（見 2026-06-25 修訂） |
+| 內容區塊範圍        | 不做獨立任務區；書籍區擴展為文章區（`type: book\|note`），可容納雜記／影評／技術筆記；夢想區只存「想做的事＋為什麼」靜態清單，無狀態欄位 |
 | 朋友創作風格        | 2D 像素風（存座標 + 顏色），3D 方向未定；正式上線最終只會二選一其一                      |
 | 畫廊視覺氛圍        | 寧靜展覽感＋單一聚光燈；與其他區塊風格分開處理而非統一視覺語言（見 §6.1）                |
 | 訪客統計／第三方追蹤 | 不做，不導入任何分析工具                                                                |
@@ -90,9 +84,10 @@
 
 | 區塊              | 格式建議                                                                         |
 | ----------------- | -------------------------------------------------------------------------------- |
-| 文章（含讀書心得）| 每篇一個 `.md`（frontmatter 存 type: book\|note、標題/作者/評分/日期，正文是內文；`author`/`rating` 只有 type: book 才填） |
+| 文章（含讀書心得）| 每篇一個 `.md`（frontmatter：`type: book\|note`、標題/日期；`author`/`rating` 只有 book 才填；`excerpt` 可選，沒填就自動從正文萃取前 100 字）；渲染為詳細頁 `/articles/:slug`，支援篩選器（標題、分類、評分、日期） |
 | 夢想清單          | 一個 `dreams.json`（陣列，每項含 title/desc，無狀態欄位）                        |
-| 專案區            | 一個 `projects.json`（name/desc/status: in-progress\|done/screenshot 路徑/github url） |
+| 專案區            | 一個 `projects.json`（`slug/name/desc/date/status: todo\|in-progress\|done/tags/collaborators/period/advisor/screenshotUrl/githubUrl`）；長文寫法另外放 `content/projects/<slug>.md`（選填，渲染為詳細頁 `/projects/:slug`）；MD H2 標題統一為：專案簡介、相關連結、系統架構、核心功能、心得 |
+| 經歷              | 硬寫在 `src/pages/experience/Experience.tsx`（條目不多、不需動態資料），渲染為 `/experience` 時間軸頁 |
 | 藝術畫廊 metadata | 一個 `artworks.json`（title/縮圖路徑/sketch slug），sketch 程式碼本來就要進 repo |
 
 優點：零後端延遲、版本控制、改完 `git push` 自動觸發部署，不用碰 Supabase。
@@ -286,15 +281,24 @@ grant execute on function redeem_invite_and_create to anon;
 │   └── images/               # 人生區、文章等的靜態圖片
 ├── content/                   # §3 的「Git 內容檔」
 │   ├── articles/*.md
+│   ├── projects/*.md          # 專案長文寫法，選填，檔名＝projects.json 裡的 slug
 │   ├── dreams.json
-│   ├── projects.json
+│   ├── projects.json          # 含 tags/collaborators/period/advisor/date 欄位
 │   └── artworks.json
+├── docs/
+│   ├── ARCHITECTURE.md
+│   ├── templates/
+│   │   └── project-template.md  # 新專案 md 文件範本（不在 content/ 故不被 glob 載入）
+│   └── progress/
 ├── src/
 │   ├── main.tsx
 │   ├── App.tsx
 │   ├── router.tsx
 │   ├── lib/
-│   │   └── supabaseClient.ts
+│   │   ├── supabaseClient.ts
+│   │   ├── markdown.ts          # frontmatter parser + 摘要萃取，articles/projects 共用
+│   │   ├── articles.ts
+│   │   └── projects.ts
 │   ├── pages/
 │   │   ├── Home.tsx
 │   │   ├── gallery/
@@ -303,13 +307,19 @@ grant execute on function redeem_invite_and_create to anon;
 │   │   │   └── sketches/        # 搬遷後的 p5.js instance-mode 模組
 │   │   ├── life/
 │   │   ├── articles/
+│   │   │   ├── Articles.tsx
+│   │   │   └── ArticleDetail.tsx    # /articles/:slug，markdown 正文渲染
 │   │   ├── projects/
+│   │   │   ├── Projects.tsx         # 含 tag/status/日期篩選器
+│   │   │   └── ProjectDetail.tsx    # /projects/:slug，markdown 正文渲染（若有對應 .md）
+│   │   ├── experience/
+│   │   │   └── Experience.tsx       # /experience，垂直時間軸
 │   │   ├── dreams/
 │   │   └── friends/
 │   │       ├── InviteGate.tsx
 │   │       ├── Creator2D.tsx        # 像素編輯器，見 §7；3D 暫緩，未實作
 │   │       └── FriendGallery.tsx
-│   ├── components/             # NavBar、Card、Loading 等共用元件
+│   ├── components/             # NavBar、Card、Loading、MarkdownContent 等共用元件
 │   ├── hooks/                  # useLifeEvents 等資料 hook
 │   └── types/
 ├── supabase/

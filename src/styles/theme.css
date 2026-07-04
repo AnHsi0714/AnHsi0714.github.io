@@ -8,6 +8,8 @@
   --color-text: #171717;
   --color-text-muted: #6d6c6c;
   --color-border: #cecece;
+  --color-surface: #f2f2f2;
+  --color-surface-hover: #e8e8e8;
 
   --color-primary: #2f4f4f;
   --color-primary-hover: #396969;
@@ -29,6 +31,8 @@
   --color-text: #f7f7f7;
   --color-text-muted: #b6b6a5;
   --color-border: #505046;
+  --color-surface: #2c2c27;
+  --color-surface-hover: #3a3a33;
 
   --color-primary: #cfd397;
   --color-primary-hover: #cfd397;

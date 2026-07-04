@@ -10,7 +10,7 @@ export default function Dreams() {
   return (
     <section>
       <h1 className="text-2xl font-bold">夢想</h1>
-      <p className="mt-2 text-neutral-600">想做的事，以及為什麼想做。</p>
+      <p className="mt-2 text-[var(--color-text-muted)]">想做的事，以及為什麼想做。</p>
 
       {dreams.length === 0 ? (
         <EmptyState title="尚無夢想清單" description="之後會陸續補上想做的事。" />
@@ -20,7 +20,7 @@ export default function Dreams() {
             <li key={dream.title}>
               <Card>
                 <p className="font-semibold">{dream.title}</p>
-                <p className="mt-1 text-sm text-neutral-600">{dream.desc}</p>
+                <p className="mt-1 text-sm text-[var(--color-text-muted)]">{dream.desc}</p>
                 {dream.progress && (
                   <div className="mt-3">
                     <ProgressBar

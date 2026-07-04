@@ -33,13 +33,13 @@ function FriendCreationCard({ creation }: { creation: FriendCreation }) {
           className="aspect-square w-full rounded-md object-cover"
         />
       ) : (
-        <div className="flex aspect-square w-full items-center justify-center rounded-md bg-neutral-100 text-3xl font-semibold text-neutral-300">
+        <div className="flex aspect-square w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-3xl font-semibold text-[var(--color-border)]">
           {creation.nickname.slice(0, 1)}
         </div>
       )}
       <p className="mt-3 font-semibold">{creation.nickname}</p>
       {creation.intro && (
-        <p className="mt-2 text-sm text-neutral-600 line-clamp-3">
+        <p className="mt-2 text-sm text-[var(--color-text-muted)] line-clamp-3">
           {creation.intro}
         </p>
       )}
@@ -156,7 +156,7 @@ function FriendCreationCarousel({
         aria-label="上一個作品"
         disabled={activeIndex === 0}
         onClick={() => centerItem(activeIndex - 1)}
-        className="absolute left-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-2xl shadow-md hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-30"
+        className="absolute left-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] text-2xl shadow-md hover:bg-[var(--color-surface)] disabled:cursor-not-allowed disabled:opacity-30"
       >
         ‹
       </button>
@@ -206,7 +206,7 @@ function FriendCreationCarousel({
         aria-label="下一個作品"
         disabled={activeIndex === creations.length - 1}
         onClick={() => centerItem(activeIndex + 1)}
-        className="absolute right-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-2xl shadow-md hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-30"
+        className="absolute right-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] text-2xl shadow-md hover:bg-[var(--color-surface)] disabled:cursor-not-allowed disabled:opacity-30"
       >
         ›
       </button>
@@ -222,8 +222,8 @@ function FriendCreationCarousel({
             className={[
               "rounded-full transition-all",
               index === activeIndex
-                ? "h-2.5 w-2.5 bg-neutral-900"
-                : "h-2 w-2 bg-neutral-300 hover:bg-neutral-400",
+                ? "h-2.5 w-2.5 bg-[var(--color-primary)]"
+                : "h-2 w-2 bg-[var(--color-border)] hover:bg-[var(--color-text-muted)]",
             ].join(" ")}
           />
         ))}
@@ -236,7 +236,7 @@ export default function Friends() {
   return (
     <section>
       <h1 className="text-2xl font-bold">朋友創作</h1>
-      <p className="mt-2 text-neutral-600">
+      <p className="mt-2 text-[var(--color-text-muted)]">
         邀請碼入口 + 朋友的 2D 像素作品，目前先用佔位資料示範。
       </p>
 
