@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import projectsData from "../../../content/projects.json";
 import Badge from "../../components/Badge";
+import Chip from "../../components/Chip";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
 import { projectBodies } from "../../lib/projects";
@@ -58,12 +59,7 @@ export default function ProjectDetail() {
         <h1 className="text-2xl font-bold">{project.name}</h1>
         <div className="flex shrink-0 flex-wrap justify-end items-center gap-1 pt-0.5">
           {project.tags?.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full bg-[var(--color-surface)] px-2 py-0.5 text-xs text-[var(--color-text-muted)]"
-            >
-              {tag}
-            </span>
+            <Chip key={tag} size="sm">{tag}</Chip>
           ))}
           <Badge variant={statusBadgeVariant[project.status]}>
             {statusLabel[project.status]}

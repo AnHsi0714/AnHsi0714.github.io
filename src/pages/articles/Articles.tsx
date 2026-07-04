@@ -4,6 +4,7 @@ import Card from "../../components/Card";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
+import Chip from "../../components/Chip";
 import type { Article } from "../../types/content";
 import { articles } from "../../lib/articles";
 
@@ -51,12 +52,7 @@ function ArticleRow({ article }: { article: Article }) {
         <div className="flex shrink-0 flex-col items-end gap-1">
           <div className="flex flex-wrap justify-end gap-1">
             {article.categories.map((category) => (
-              <span
-                key={category}
-                className="rounded-full bg-[var(--color-surface)] px-2 py-0.5 text-xs text-[var(--color-text-muted)]"
-              >
-                {category}
-              </span>
+              <Chip key={category} size="sm">{category}</Chip>
             ))}
           </div>
           {article.rating !== undefined && <Stars rating={article.rating} />}

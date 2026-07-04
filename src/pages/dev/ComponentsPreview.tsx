@@ -3,6 +3,7 @@ import Button from "../../components/Button";
 import Card from "../../components/Card";
 import ExpandableCard from "../../components/ExpandableCard";
 import Badge from "../../components/Badge";
+import Chip from "../../components/Chip";
 import Input from "../../components/Input";
 import Alert from "../../components/Alert";
 import Loading from "../../components/Loading";
@@ -132,6 +133,27 @@ export default function ComponentsPreview() {
           <Badge variant="done">done</Badge>
           <Badge variant="success">success</Badge>
           <Badge variant="danger">danger</Badge>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-xl font-bold">Chip</h2>
+        <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+          內容標籤元件，微透明背景。適用於技能、分類、書卷等標註。
+        </p>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <Chip>default</Chip>
+          <Chip variant="success">success</Chip>
+          <Chip variant="info">info</Chip>
+          <Chip variant="warn">warn</Chip>
+          <Chip variant="danger">danger</Chip>
+        </div>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <Chip size="sm">default sm</Chip>
+          <Chip variant="success" size="sm">success sm</Chip>
+          <Chip variant="info" size="sm">info sm</Chip>
+          <Chip variant="warn" size="sm">書卷</Chip>
+          <Chip variant="danger" size="sm">danger sm</Chip>
         </div>
       </section>
 

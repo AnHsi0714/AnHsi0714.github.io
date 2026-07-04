@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import projectsData from "../../../content/projects.json";
 import Card from "../../components/Card";
 import Badge from "../../components/Badge";
+import Chip from "../../components/Chip";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
@@ -54,12 +55,7 @@ function ProjectCard({ project }: { project: Project }) {
           <p className="font-semibold">{project.name}</p>
           <div className="flex shrink-0 flex-wrap justify-end items-center gap-1">
             {project.tags?.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-[var(--color-surface)] px-2 py-0.5 text-xs text-[var(--color-text-muted)]"
-              >
-                {tag}
-              </span>
+              <Chip key={tag} size="sm">{tag}</Chip>
             ))}
             <Badge
               variant={statusBadgeVariant[project.status]}

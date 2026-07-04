@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCode,
@@ -8,27 +9,37 @@ import {
   faBasketball,
   faPaw,
   faLightbulb,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Button from "../../components/Button";
+import Chip from "../../components/Chip";
 
 const skillGroups = [
   {
     label: "語言 & 工具",
     items: [
-      "Python", "C++", "TypeScript", "Angular", "React",
-      "HTML / SCSS", "SQL", "R", "D3.js", "p5.js",
+      "Python",
+      "TypeScript",
+      "D3.js",
+      "R",
+      "Tableau",
+      "React",
+      "HTML/SCSS",
+      "C++",
+      "Angular",
+      "p5.js",
     ],
   },
   {
     label: "專業方向",
     items: [
-      "演算法設計與分析（複雜度、圖論、排序、搜尋）",
-      "互動式資料結構 / 演算法視覺化",
-      "NLP Pipeline 設計與評估",
       "互動式資料視覺化",
+      "資料分析與探索",
+      "NLP Pipeline 設計與評估",
+      "互動式演算法／資料結構視覺化",
       "前端工程實踐（Scrum / Sprint Review / 設計文件）",
-      "藝術程式創作",
+      "Creative Coding / 藝術程式創作",
     ],
   },
 ];
@@ -38,15 +49,26 @@ const education = [
   "國立臺北科技大學 NTUT 資工系 大三",
 ];
 
+const academicRecord = [
+  { sem: "一上", rank: 1, score: 92.5, bookroll: true },
+  { sem: "一下", rank: 2, score: 91.8, bookroll: true },
+  { sem: "二上", rank: 4, score: 87.2, bookroll: true },
+  { sem: "二下", rank: 1, score: 96.0, bookroll: false },
+  { sem: "三上", rank: 6, score: 94.0, bookroll: false },
+];
+
 const researchInterests = [
-  "Information Visualization",
-  "Interactive Visualization",
-  "Programming Education",
-  "NLP",
-  "Explainable AI",
-  "Human-AI Interaction",
-  "Generative Art",
-  "Creative Coding",
+  { layer: "核心 Core", items: ["Visual Analytics"] },
+  {
+    layer: "支撐方法 Methods",
+    items: [
+      "Interactive Visualization",
+      "Explainable AI",
+      "Human-AI Interaction",
+      "NLP / 文本分析",
+    ],
+  },
+  { layer: "應用領域 Applied", items: ["Programming Education"] },
 ];
 
 const achievements = [
@@ -64,7 +86,8 @@ const experienceHighlights = [
   { year: "2022", text: "全國工科技藝競賽 金手獎第七名" },
   { year: "2023", text: "赴美見學交流（亞特蘭大 & 舊金山）" },
   { year: "2023–25", text: "母校技藝競賽選手培訓教師" },
-  { year: "2025–", text: "美商太陽鳥軟體 前端開發實習" },
+  { year: "2025 / 12", text: "教育大數據微學程 成果發表 佳作" },
+  { year: "2025–27", text: "美商太陽鳥軟體 前端開發實習" },
 ];
 
 const interests = [
@@ -79,6 +102,8 @@ const interests = [
 ];
 
 export default function About() {
+  const [showGrades, setShowGrades] = useState(false);
+
   return (
     <section className="flex flex-col lg:flex-row lg:-ml-[calc(50vw-50rem)]">
       <div className="lg:shrink-0 lg:w-[calc(50vw-25rem)] lg:sticky lg:top-1/2 lg:-translate-y-1/2 lg:self-start">
@@ -102,14 +127,18 @@ export default function About() {
                   {group.label}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full bg-[var(--color-surface)] px-2.5 py-0.5 text-sm text-[var(--color-text-muted)]"
-                    >
-                      {item}
-                    </span>
-                  ))}
+                  {group.items.map((item) =>
+                    group.label === "專業方向" ? (
+                      <Chip key={item}>{item}</Chip>
+                    ) : (
+                      <span
+                        key={item}
+                        className="rounded-full bg-[var(--color-surface)] px-2.5 py-0.5 text-sm text-[var(--color-text-muted)]"
+                      >
+                        {item}
+                      </span>
+                    ),
+                  )}
                 </div>
               </div>
             ))}
@@ -120,20 +149,57 @@ export default function About() {
           <p className="font-semibold text-[var(--color-primary)]">
             學歷 Education
           </p>
-          <div className="mt-2 flex flex-col gap-1 text-sm text-[var(--color-text-muted)]">
-            {education.map((item) => (
-              <p key={item}>{item}</p>
-            ))}
+          <div className="mt-2 flex flex-col gap-1">
+            <p className="text-sm text-[var(--color-text-muted)]">
+              {education[0]}
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowGrades((g) => !g)}
+              className="flex w-fit items-center gap-1 text-left text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
+            >
+              <FontAwesomeIcon
+                icon={faChevronRight}
+                className={`h-3 w-3 transition-transform duration-150 ${showGrades ? "rotate-90" : ""}`}
+              />
+              <span>{education[1]}</span>
+            </button>
           </div>
+          {showGrades && (
+            <div className="mt-3 flex flex-col gap-1 pl-4">
+              {academicRecord.map(({ sem, rank, score, bookroll }) => (
+                <div
+                  key={sem}
+                  className="flex items-center gap-4 text-sm text-[var(--color-text-muted)]"
+                >
+                  <span className="w-8 shrink-0">{sem}</span>
+                  <span className="w-10 shrink-0 tabular-nums">#{rank}</span>
+                  <span className="w-12 shrink-0 tabular-nums">{score}</span>
+                  {bookroll && (
+                    <Chip variant="warn" size="sm">
+                      書卷
+                    </Chip>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="py-6">
           <p className="font-semibold text-[var(--color-primary)]">
             研究興趣 Research Interests
           </p>
-          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-[var(--color-text-muted)]">
-            {researchInterests.map((item) => (
-              <span key={item}>{item}</span>
+          <div className="mt-3 flex flex-col gap-2">
+            {researchInterests.map(({ layer, items }) => (
+              <div key={layer} className="flex items-baseline gap-3 text-sm">
+                <span className="w-32 shrink-0 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)] opacity-80">
+                  {layer}
+                </span>
+                <span className="text-[var(--color-text-muted)]">
+                  {items.join(" · ")}
+                </span>
+              </div>
             ))}
           </div>
         </div>
@@ -159,7 +225,7 @@ export default function About() {
           <div className="mt-2 flex flex-col gap-1.5 text-sm text-[var(--color-text-muted)]">
             {experienceHighlights.map((item) => (
               <div key={item.text} className="flex items-baseline gap-3">
-                <span className="w-14 shrink-0 text-xs text-[var(--color-text-muted)] opacity-60">
+                <span className="w-14 shrink-0 text-xs text-[var(--color-text-muted)] opacity-80">
                   {item.year}
                 </span>
                 <span>{item.text}</span>
