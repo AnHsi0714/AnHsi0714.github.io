@@ -1,3 +1,5 @@
+import type { ChipVariant } from '../components/Chip'
+
 export interface Dream {
   title: string
   desc: string
@@ -33,6 +35,26 @@ export interface Project {
   // 縮圖裁切錨點（百分比，0~100）。w/h 對應 object-position 的 x/y，預設置中 (50, 50)
   screenshotPosition?: { w: number; h: number }
   githubUrl?: string
+}
+
+export interface ExperienceTag {
+  label: string
+  variant: ChipVariant
+}
+
+export interface ExperienceEntry {
+  period: string
+  title: string
+  subtitle?: string
+  tags: ExperienceTag[]
+  highlights: string[]
+}
+
+export interface SecondaryExperienceEntry {
+  period: string
+  title: string
+  result: string
+  tags: ExperienceTag[]
 }
 
 export type ArticleType = 'book' | 'note'
