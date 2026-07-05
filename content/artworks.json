@@ -1,5 +1,14 @@
 [
   {
+    "slug": "entanglement",
+    "title": "纏繞",
+    "date": "240802",
+    "images": [
+      "/images/gallery/Entanglement0.png",
+      "/images/gallery/Entanglement1.png"
+    ]
+  },
+  {
     "slug": "moontain",
     "title": "山與月",
     "date": "240802",
@@ -11,6 +20,26 @@
       "/images/gallery/moontain4.jpg",
       "/images/gallery/moontain5.jpg",
       "/images/gallery/moontain6.jpg"
+    ]
+  },
+  {
+    "slug": "POP",
+    "title": "POP",
+    "date": "240805",
+    "images": [
+      "/images/gallery/POP0.jpg",
+      "/images/gallery/POP1.jpg",
+      "/images/gallery/POP2.jpg"
+    ]
+  },
+  {
+    "slug": "tentacle",
+    "title": "觸手",
+    "date": "240805",
+    "images": [
+      "/images/gallery/tentacle0.jpg",
+      "/images/gallery/tentacle1.jpg",
+      "/images/gallery/tentacle2.jpg"
     ]
   },
   {
@@ -33,6 +62,139 @@
       "/images/gallery/bat1.jpg",
       "/images/gallery/bat2.jpg",
       "/images/gallery/bat3.jpg"
+    ]
+  },
+  {
+    "slug": "prism",
+    "title": "稜鏡",
+    "date": "240816",
+    "images": [
+      "/images/gallery/prism0.jpg",
+      "/images/gallery/prism1.jpg",
+      "/images/gallery/prism2.jpg",
+      "/images/gallery/prism3.jpg",
+      "/images/gallery/Prism4.jpg",
+      "/images/gallery/Prism5.jpg",
+      "/images/gallery/Prism6.jpg",
+      "/images/gallery/Prism7.jpg",
+      "/images/gallery/Prism8.jpg"
+    ]
+  },
+  {
+    "slug": "TRI",
+    "title": "TRI",
+    "date": "240824",
+    "images": [
+      "/images/gallery/TRI0.jpg",
+      "/images/gallery/TRI1.jpg",
+      "/images/gallery/TRI2.jpg",
+      "/images/gallery/TRI3.jpg",
+      "/images/gallery/TRI4.jpg"
+    ]
+  },
+  {
+    "slug": "TRII",
+    "title": "TRII",
+    "date": "240824",
+    "images": [
+      "/images/gallery/TRII0.jpg",
+      "/images/gallery/TRII1.jpg",
+      "/images/gallery/TRII2.jpg",
+      "/images/gallery/TRII3.jpg",
+      "/images/gallery/TRII4.jpg",
+      "/images/gallery/TRII5.jpg",
+      "/images/gallery/TRII6.jpg",
+      "/images/gallery/TRII7.jpg",
+      "/images/gallery/TRII8.jpg"
+    ]
+  },
+  {
+    "slug": "pollute",
+    "title": "污染",
+    "date": "240829",
+    "images": [
+      "/images/gallery/pollute0.jpg",
+      "/images/gallery/pollute1.jpg",
+      "/images/gallery/pollute2.jpg",
+      "/images/gallery/pollute3.jpg",
+      "/images/gallery/pollute4.jpg",
+      "/images/gallery/pollute5.jpg",
+      "/images/gallery/pollute6.jpg",
+      "/images/gallery/pollute7.jpg"
+    ]
+  },
+  {
+    "slug": "Eruption",
+    "title": "爆發",
+    "date": "240830",
+    "images": ["/images/gallery/Eruption1.jpg", "/images/gallery/Eruption2.jpg"]
+  },
+  {
+    "slug": "watermelon",
+    "title": "琋瓜",
+    "date": "250807",
+    "images": [
+      "/images/gallery/watermelon9.jpg",
+      "/images/gallery/watermelon10.jpg",
+      "/images/gallery/watermelon11.jpg",
+      "/images/gallery/watermelon12.jpg",
+      "/images/gallery/watermelon13.jpg",
+      "/images/gallery/watermelon14.jpg",
+      "/images/gallery/watermelon15.jpg",
+      "/images/gallery/watermelon16.jpg",
+      "/images/gallery/watermelon17.jpg"
+    ]
+  },
+  {
+    "slug": "ocean_city",
+    "title": "海底城市",
+    "date": "250829",
+    "images": [
+      "/images/gallery/ocean_city0.jpg",
+      "/images/gallery/ocean_city1.jpg"
+    ]
+  },
+  {
+    "slug": "Fish_Life",
+    "title": "魚生",
+    "date": "250901",
+    "images": [
+      "/images/gallery/Fish_Life0.png",
+      "/images/gallery/Fish_Life1.png",
+      "/images/gallery/Fish_Life2.png",
+      "/images/gallery/Fish_Life3.png"
+    ]
+  },
+  {
+    "slug": "Chessboard_World",
+    "title": "棋盤世界",
+    "date": "250902",
+    "images": [
+      "/images/gallery/Chessboard_World0.png",
+      "/images/gallery/Chessboard_World1.png",
+      "/images/gallery/Chessboard_World2.png",
+      "/images/gallery/Chessboard_World3.png"
+    ]
+  },
+  {
+    "slug": "BloomOfDelirium",
+    "title": "迷幻綻放",
+    "date": "250905",
+    "images": [
+      "/images/gallery/BloomOfDelirium0.png",
+      "/images/gallery/BloomOfDelirium1.png",
+      "/images/gallery/BloomOfDelirium2.png"
+    ]
+  },
+  {
+    "slug": "Hina_Daisy",
+    "title": "雛",
+    "date": "250905",
+    "images": [
+      "/images/gallery/Hina_Daisy0.png",
+      "/images/gallery/Hina_Daisy1.png",
+      "/images/gallery/Hina_Daisy2.png",
+      "/images/gallery/Hina_Daisy3.png"
     ]
   }
 ]
