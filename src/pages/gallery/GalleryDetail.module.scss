@@ -71,16 +71,23 @@
   }
 }
 
+/* .spotlight 只負責置中，不寫死形狀：不同作品的畫布寬高比不一樣
+   （見 sketches/index.ts 的 aspect 設定，例如「纏繞」是正方形、「POP」是寬螢幕），
+   實際尺寸交給 .canvasHost / .image 各自依內容決定。 */
 .spotlight {
   position: relative;
   z-index: 1;
-  width: min(800px, 88vw, 65vh);
-  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .canvasHost {
-  width: 100%;
-  height: 100%;
+  --sketch-aspect: 1; /* 實際比例由 GalleryDetail.tsx 透過 inline style 覆寫 */
+  /* 同時受寬度上限跟高度上限夾住：以寬高比换算「若以高度上限為準，寬度該是多少」，
+     取三者最小值，正方形跟寬螢幕的作品都不會被裁切或超出視窗 */
+  width: min(900px, 88vw, calc(68vh * var(--sketch-aspect)));
+  aspect-ratio: var(--sketch-aspect);
 
   :global(canvas) {
     display: block;
@@ -92,8 +99,10 @@
 
 .image {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
+  max-width: min(900px, 88vw);
+  max-height: 68vh;
   object-fit: contain;
   box-shadow: 0 0 60px 10px rgba(255, 240, 200, 0.12);
 }

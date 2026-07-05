@@ -243,6 +243,7 @@ grant execute on function redeem_invite_and_create to anon;
 - 詳細頁背景色改用 `--stage-bg` 變數而非寫死同一個純黑：日間模式（淺色 NavBar）用較柔和的深灰 `#2e2e35`，避免淺色 NavBar 直接撞上純黑展場的斷層感；夜間模式（`:global(.dark) &`）才是真正的近黑 `#0a0a0d`，跟夜間版 NavBar 反差本來就小。
 - 全版背景（延伸到 NavBar 後方、貼齊頁尾）沿用列表頁 `GalleryGrid.module.scss` 的 `margin-top: -5rem; padding-top: 5rem`（抵銷 `main` 的 `pt-20`）＋`margin-bottom: -2rem`（抵銷 `main` 的 `pb-8`）full-bleed 手法；兩者缺一都會導致背景沒貼齊視窗邊緣，或底部露出一截 `main` 預設背景色可以被捲動到。
 - 因為 `.stage` 用了上述負 margin 手法，`position: absolute` 的返回連結（`.back`）量測基準點也跟著往上位移了 5rem（藏到固定 NavBar 底下），`top` 必須再加回那 5rem 才會落在 NavBar 下方實際可見的區域，否則會被 NavBar 蓋住。
+- 不同作品的 sketch 畫布寬高比不同（例如「纏繞」「山與月」原稿就是正方形 `size×size`；「POP」「觸手」「音頻」原稿是拿 `windowWidth`/`windowHeight` 畫滿整個瀏覽器視窗，比較接近寬螢幕），所以 `sketches/index.ts` 的 `SketchEntry` 除了 `factory` 還多帶一個 `aspect`（寬高比），沒有整站統一寫死成正方形。`GalleryDetail.tsx` 把 `aspect` 透過 inline style 寫進 CSS 變數 `--sketch-aspect`，`.canvasHost` 用 `width: min(900px, 88vw, calc(68vh * var(--sketch-aspect)))` 同時被寬度上限跟高度上限夾住，避免寬螢幕或正方形作品在小螢幕上被裁切或超出視窗。
 
 ---
 
