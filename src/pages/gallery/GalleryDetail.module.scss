@@ -1,0 +1,128 @@
+/* 作品詳細頁：真正進入「展覽感」的一刻（見 docs/ARCHITECTURE.md §6.1）——
+   背景轉成深色、聚光燈打在作品上，導覽列等 UI chrome 縮到只剩返回路徑。
+   日間 navbar 是淺色，若展場沿用夜間那種近黑色反差過重，所以用 --stage-bg
+   讓日間版本改用柔和的深灰、夜間才是真正的近黑，兩種模式跟 navbar 的反差都
+   不會太突兀。 */
+
+.stage {
+  --stage-bg: #2e2e35;
+
+  :global(.dark) & {
+    --stage-bg: #0a0a0d;
+  }
+
+  margin-inline: calc(50% - 50vw);
+  margin-top: -5rem;
+  margin-bottom: -2rem; /* 抵銷 main 的 pb-8，避免底下露出一截白色背景可以捲到 */
+  padding-top: 5rem;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background: radial-gradient(
+      ellipse 70% 55% at 50% 46%,
+      rgba(255, 244, 214, 0.12) 0%,
+      transparent 70%
+    ),
+    var(--stage-bg);
+  color: #e4e2da;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 16vw rgba(0, 0, 0, 0.8);
+  }
+}
+
+.back {
+  position: absolute;
+  z-index: 2;
+  /* .stage 本身用 margin-top: -5rem + padding-top: 5rem 把背景延伸到 navbar
+     後方，但這代表 absolute 子元素的 top:0 基準點也跟著往上移了 5rem
+     （藏在固定 navbar 底下）。這裡要再加回那 5rem，位置才會落在 navbar
+     下方實際可見的區域。 */
+  top: calc(5rem + 1.5rem);
+  left: clamp(1rem, 6vw, 3rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: #e4e2da;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.spotlight {
+  position: relative;
+  z-index: 1;
+  width: min(800px, 88vw, 65vh);
+  aspect-ratio: 1 / 1;
+}
+
+.canvasHost {
+  width: 100%;
+  height: 100%;
+
+  :global(canvas) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 60px 10px rgba(255, 240, 200, 0.12);
+  }
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  box-shadow: 0 0 60px 10px rgba(255, 240, 200, 0.12);
+}
+
+.caption {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+
+  h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  p {
+    margin-top: 0.35rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: #8f8f95;
+  }
+}
+
+.hint {
+  margin-top: 0.5rem !important;
+}
+
+.notFound {
+  position: relative;
+  z-index: 1;
+  color: #8f8f95;
+}

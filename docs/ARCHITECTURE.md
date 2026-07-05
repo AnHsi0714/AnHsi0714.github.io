@@ -88,7 +88,7 @@
 | 夢想清單          | 一個 `dreams.json`（陣列，每項含 title/desc，無狀態欄位）                        |
 | 專案區            | 一個 `projects.json`（`slug/name/desc/date/status: todo\|in-progress\|done/tags/collaborators/period/advisor/screenshotUrl/githubUrl`）；長文寫法另外放 `content/projects/<slug>.md`（選填，渲染為詳細頁 `/projects/:slug`）；MD H2 標題統一為：專案簡介、相關連結、系統架構、核心功能、心得 |
 | 經歷              | 硬寫在 `src/pages/experience/Experience.tsx`（條目不多、不需動態資料），渲染為 `/experience` 時間軸頁 |
-| 藝術畫廊 metadata | 一個 `artworks.json`（title/縮圖路徑/sketch slug），sketch 程式碼本來就要進 repo |
+| 藝術畫廊 metadata | 一個 `artworks.json`（slug/title/date/縮圖路徑陣列），sketch 程式碼本來就要進 repo；沒有另外的 sketch slug 欄位，`sketches/index.ts` 直接拿 artwork 的 `slug` 當 key 對應到 sketch factory，兩者共用同一個 slug |
 
 優點：零後端延遲、版本控制、改完 `git push` 自動觸發部署，不用碰 Supabase。
 
@@ -237,6 +237,12 @@ grant execute on function redeem_invite_and_create to anon;
 - **列表頁**：偏中性即可（不用太暗），重點是縮圖卡片本身清楚好掃視。
 - **詳細頁（`/gallery/:slug`，看單一作品時）**：才真正進入「展覽感」——背景轉成接近黑/深藍的純色，畫作/canvas 容器置中，用一個以 canvas 為中心的 `radial-gradient`（暖白光，由內向外漸暗）疊出聚光燈效果，四周加一點 vignette 讓視線聚焦在作品上；導覽列等 UI chrome 淡化或縮到最小，只留返回的路徑。這些單靠 CSS（`radial-gradient` + 深色背景 + 適度的 `box-shadow`）就能做到，不需要額外的燈光特效函式庫。
 - 朋友創作區維持自己原本明亮、方塊感的調色，兩邊互不影響。
+
+**實作備註（`GalleryDetail.module.scss`）：**
+
+- 詳細頁背景色改用 `--stage-bg` 變數而非寫死同一個純黑：日間模式（淺色 NavBar）用較柔和的深灰 `#2e2e35`，避免淺色 NavBar 直接撞上純黑展場的斷層感；夜間模式（`:global(.dark) &`）才是真正的近黑 `#0a0a0d`，跟夜間版 NavBar 反差本來就小。
+- 全版背景（延伸到 NavBar 後方、貼齊頁尾）沿用列表頁 `GalleryGrid.module.scss` 的 `margin-top: -5rem; padding-top: 5rem`（抵銷 `main` 的 `pt-20`）＋`margin-bottom: -2rem`（抵銷 `main` 的 `pb-8`）full-bleed 手法；兩者缺一都會導致背景沒貼齊視窗邊緣，或底部露出一截 `main` 預設背景色可以被捲動到。
+- 因為 `.stage` 用了上述負 margin 手法，`position: absolute` 的返回連結（`.back`）量測基準點也跟著往上位移了 5rem（藏到固定 NavBar 底下），`top` 必須再加回那 5rem 才會落在 NavBar 下方實際可見的區域，否則會被 NavBar 蓋住。
 
 ---
 
