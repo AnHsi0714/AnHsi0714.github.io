@@ -56,18 +56,19 @@ export function createTentacleSketch(width: number, height: number) {
     };
 
     p.setup = () => {
-      p.createCanvas(width, height);
+      const canvas = p.createCanvas(width, height);
       p.rectMode(p.CENTER);
       p.colorMode(p.HSB);
       p.background("#222");
       p.blendMode(p.DIFFERENCE);
       drawTentacle();
-    };
 
-    // 原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
-    // 點畫布就重新跑一次 drawTentacle() 換一組新的觸手構圖。
-    p.mousePressed = () => {
-      drawTentacle();
+      // 原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
+      // 綁在 canvas 元素本身（而非 p.mousePressed），這樣只有點在畫布內才會
+      // 重新跑一次 drawTentacle() 換一組新的觸手構圖，點畫布外的頁面不會誤觸。
+      canvas.mousePressed(() => {
+        drawTentacle();
+      });
     };
 
     p.keyPressed = () => {

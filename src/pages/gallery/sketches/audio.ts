@@ -86,19 +86,20 @@ export function createAudioSketch(width: number, height: number) {
     };
 
     p.setup = () => {
-      p.createCanvas(width, height);
+      const canvas = p.createCanvas(width, height);
       p.rectMode(p.CENTER);
       p.colorMode(p.HSB);
       p.textAlign(p.CENTER);
       p.background("#222");
       p.textFont("Times New Roman", 500);
       audio1();
-    };
 
-    // 原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
-    // 點畫布就重新跑一次 audio1() 換一組新的波形構圖。
-    p.mousePressed = () => {
-      audio1();
+      // 原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
+      // 綁在 canvas 元素本身（而非 p.mousePressed），這樣只有點在畫布內才會
+      // 重新跑一次 audio1() 換一組新的波形構圖，點畫布外的頁面不會誤觸。
+      canvas.mousePressed(() => {
+        audio1();
+      });
     };
 
     p.keyPressed = () => {

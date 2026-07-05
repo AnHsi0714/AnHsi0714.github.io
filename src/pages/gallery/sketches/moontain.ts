@@ -93,7 +93,7 @@ export function createMoontainSketch(width: number) {
     };
 
     p.setup = () => {
-      p.createCanvas(size, size);
+      const canvas = p.createCanvas(size, size);
       p.background("#222");
 
       noiseimg = p.createGraphics(size, size);
@@ -113,12 +113,14 @@ export function createMoontainSketch(width: number) {
       noiseimg.updatePixels();
 
       drawMoontain();
-    };
 
-    // 原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
-    // 點畫布就重新跑一次 drawMoontain() 換一組新的山型／月亮／裂紋。
-    p.mousePressed = () => {
-      drawMoontain();
+      // 原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
+      // 綁在 canvas 元素本身（而非 p.mousePressed），這樣只有點在畫布內才會
+      // 重新跑一次 drawMoontain() 換一組新的山型／月亮／裂紋，點畫布外的頁面
+      // 不會誤觸。
+      canvas.mousePressed(() => {
+        drawMoontain();
+      });
     };
 
     p.keyPressed = () => {

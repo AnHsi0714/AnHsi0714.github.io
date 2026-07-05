@@ -19,7 +19,7 @@ export function createPopSketch(width: number, height: number) {
     let switchNight = -1;
 
     p.setup = () => {
-      p.createCanvas(width, height);
+      const canvas = p.createCanvas(width, height);
       p.background("#222");
       popCount = p.int(p.random(30, 80));
       for (let i = 0; i < popCount; i++) {
@@ -32,17 +32,19 @@ export function createPopSketch(width: number, height: number) {
       p.textAlign(p.CENTER);
       p.rectMode(p.CENTER);
       p.colorMode(p.HSB);
-    };
 
-    p.mousePressed = () => {
-      switchNight *= -1;
-      popCount = p.int(p.random(50, 80));
-      for (let i = 0; i < popCount; i++) {
-        popX[i] = p.random(10 * k, width - 10 * k);
-        popY[i] = p.random(10 * k, height - 10 * k);
-        popType[i] = p.random() < 0.5 ? 0 : 1;
-        popSize[i] = p.int(p.random(30, 100) * k);
-      }
+      // 綁在 canvas 元素本身（而非 p.mousePressed），這樣只有點在畫布內才會
+      // 觸發重新洗牌，點畫布外的頁面不會誤觸。
+      canvas.mousePressed(() => {
+        switchNight *= -1;
+        popCount = p.int(p.random(50, 80));
+        for (let i = 0; i < popCount; i++) {
+          popX[i] = p.random(10 * k, width - 10 * k);
+          popY[i] = p.random(10 * k, height - 10 * k);
+          popType[i] = p.random() < 0.5 ? 0 : 1;
+          popSize[i] = p.int(p.random(30, 100) * k);
+        }
+      });
     };
 
     p.draw = () => {
