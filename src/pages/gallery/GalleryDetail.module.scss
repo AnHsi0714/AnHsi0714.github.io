@@ -130,6 +130,21 @@
   margin-top: 0.5rem !important;
 }
 
+.openProcessing {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: #8f8f95;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #e4e2da;
+  }
+}
+
 .notFound {
   position: relative;
   z-index: 1;

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import artworksData from "../../../content/artworks.json";
 import type { Artwork } from "../../types/content";
 import styles from "./GalleryGrid.module.scss";
@@ -7,9 +7,14 @@ import styles from "./GalleryGrid.module.scss";
 const artworks = artworksData as Artwork[];
 
 export default function GalleryGrid() {
+  // 從作品詳細頁按「回畫廊」回來時，GalleryDetail.tsx 會透過 Link state 帶上
+  // 剛剛看的那件作品 slug，讓展場捲回原本的位置，而不是每次都回到第一件。
+  const location = useLocation();
+  const focusSlug = (location.state as { focusSlug?: string } | null)
+    ?.focusSlug;
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [activeSlug, setActiveSlug] = useState<string | undefined>(
-    artworks[0]?.slug,
+    focusSlug ?? artworks[0]?.slug,
   );
 
   // 每次進場隨機挑一張截圖，呼應生成式作品「每次執行都長得不一樣」
@@ -23,6 +28,21 @@ export default function GalleryGrid() {
       ),
     [],
   );
+
+  // 掛載時如果帶了 focusSlug，直接跳（不要動畫捲動）到那件作品置中，
+  // immediately 而非 smooth：這是「回到剛剛看的位置」，不是使用者主動捲動，
+  // 不需要看到捲動過程。
+  useEffect(() => {
+    if (!focusSlug) return;
+    const el = scrollerRef.current;
+    if (!el) return;
+    const item = el.querySelector<HTMLElement>(`[data-slug="${focusSlug}"]`);
+    item?.scrollIntoView({
+      behavior: "instant",
+      inline: "center",
+      block: "nearest",
+    });
+  }, [focusSlug]);
 
   // 滾輪垂直捲動轉成展牆的橫向移動（React 的 onWheel 是 passive，擋不了預設捲動，
   // 所以自己掛非 passive listener）。邊界不用手動判斷，scrollLeft 賦值超出範圍時
@@ -47,9 +67,7 @@ export default function GalleryGrid() {
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
-    const items = Array.from(
-      el.querySelectorAll<HTMLElement>("[data-slug]"),
-    );
+    const items = Array.from(el.querySelectorAll<HTMLElement>("[data-slug]"));
     let raf = 0;
     const updateActive = () => {
       const rootRect = el.getBoundingClientRect();
@@ -84,7 +102,7 @@ export default function GalleryGrid() {
     <section className={styles.room}>
       <div className={styles.header}>
         <h1>藝術畫廊</h1>
-        <p>左右捲動漫步展場，點擊作品進入互動版本。</p>
+        <p>左右捲動瀏覽畫廊，點擊作品進入互動版本。</p>
       </div>
       <div ref={scrollerRef} className={styles.scroller}>
         {artworks.map((artwork) => (

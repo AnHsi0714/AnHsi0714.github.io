@@ -54,7 +54,11 @@ export default function GalleryDetail() {
 
   return (
     <section className={styles.stage}>
-      <Link to="/gallery" className={styles.back}>
+      <Link
+        to="/gallery"
+        state={{ focusSlug: artwork.slug }}
+        className={styles.back}
+      >
         ← 回畫廊
       </Link>
       <div className={styles.spotlight}>
@@ -85,6 +89,16 @@ export default function GalleryDetail() {
             ].join("，")}
             。
           </p>
+        )}
+        {artwork.openProcessingUrl && (
+          <a
+            href={artwork.openProcessingUrl}
+            target="_blank"
+            rel="noreferrer"
+            className={styles.openProcessing}
+          >
+            在 OpenProcessing 查看原稿 ↗
+          </a>
         )}
       </div>
     </section>

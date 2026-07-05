@@ -71,6 +71,7 @@ export interface Artwork {
   date: string;
   // public/gallery/ 下的截圖；展場載入時隨機挑一張，呼應生成式作品每次執行都不一樣
   images: string[];
+  openProcessingUrl: string;
 }
 
 export type ArticleType = "book" | "note";
