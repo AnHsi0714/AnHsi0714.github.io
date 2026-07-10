@@ -95,11 +95,11 @@ const achievements = [
 
 const experienceHighlights = [
   { year: "2022", text: "全國工科技藝競賽 金手獎第七名" },
-  { year: "2023", text: "赴美見學交流（亞特蘭大 & 舊金山）" },
-  { year: "2023–25", text: "母校技藝競賽選手培訓教師" },
+  { year: "2023 / 5", text: "赴美見學交流（亞特蘭大 & 舊金山）" },
+  { year: "2023~2025", text: "母校技藝競賽選手培訓教師" },
   { year: "2025 / 12", text: "教育大數據微學程 成果發表 佳作" },
   {
-    year: "2025–27",
+    year: "2025~2027",
     text: "美商太陽鳥軟體 前端開發實習（Scrum / Sprint Review / 設計文件）",
   },
 ];

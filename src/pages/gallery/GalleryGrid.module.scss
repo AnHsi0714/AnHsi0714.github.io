@@ -9,7 +9,8 @@
   --room-bg-3: #e6dcc2;
   --room-header-title: #2b2620;
   --room-header-sub: #75705f;
-  --room-scrollbar: #cfc4a4;
+  --room-scrollbar: #a3906a;
+  --room-scrollbar-track: rgba(0, 0, 0, 0.08);
   --room-cord: #55503f;
   --room-shade-1: #cfc4a4;
   --room-shade-2: #857d63;
@@ -34,7 +35,8 @@
     --room-bg-3: #0d0d0f;
     --room-header-title: #e8e6df;
     --room-header-sub: #8b8b90;
-    --room-scrollbar: #3a3a40;
+    --room-scrollbar: #6b6b74;
+    --room-scrollbar-track: rgba(255, 255, 255, 0.08);
     --room-cord: #0a0a0b;
     --room-shade-1: #46464e;
     --room-shade-2: #141417;
@@ -135,16 +137,21 @@
      visible 被升級成 auto，得明確蓋掉） */
   overflow-y: hidden;
   scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-  scrollbar-color: var(--room-scrollbar) transparent;
+  scrollbar-width: auto;
+  scrollbar-color: var(--room-scrollbar) var(--room-scrollbar-track);
 
   &::-webkit-scrollbar {
-    height: 6px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--room-scrollbar-track);
+    border-radius: 5px;
   }
 
   &::-webkit-scrollbar-thumb {
     background: var(--room-scrollbar);
-    border-radius: 3px;
+    border-radius: 5px;
   }
 }
 

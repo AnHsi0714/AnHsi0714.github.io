@@ -139,6 +139,14 @@ export default function Home() {
         >
           GitHub →
         </a>
+        <a
+          href="https://openprocessing.org/@u455151"
+          target="_blank"
+          rel="noreferrer"
+          className="hover:text-[var(--color-text)]"
+        >
+          OpenProcessing →
+        </a>
       </section>
     </div>
   );
