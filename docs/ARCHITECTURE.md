@@ -33,6 +33,7 @@
 | 2D 繪製    | Canvas（固定尺寸像素網格編輯器，存座標 + 顏色）    | 資料即視覺，縮圖可直接從資料重繪，不用額外存圖（見 §7）          |
 | 3D 製作    | 方向未定，暫緩（最終 2D/3D 二選一，見 §0、§7）     | 先把 2D 像素版做出來再評估是否要換方向，不同時維護兩套           |
 | p5.js 畫廊 | p5.js instance mode                               | 多個 sketch 共存不衝突、可隨路由掛載/卸載                        |
+| 2D 物理    | matter-js                                         | 「金屬碰撞」單件作品的剛體模擬，只有該 sketch 模組引用           |
 | 後端       | Supabase（Postgres + Storage + RPC function）     | 你已指定；只在「朋友創作」這個真正需要動態寫入的功能上發揮價值   |
 | 部署       | GitHub Actions → GitHub Pages                     | repo 本身就是 `*.github.io`，免額外網域設定                      |
 
@@ -88,7 +89,7 @@
 | 夢想清單          | 一個 `dreams.json`（陣列，每項含 title/desc，無狀態欄位）                        |
 | 專案區            | 一個 `projects.json`（`slug/name/desc/date/status: todo\|in-progress\|done/tags/collaborators/period/advisor/screenshotUrl/githubUrl`）；長文寫法另外放 `content/projects/<slug>.md`（選填，渲染為詳細頁 `/projects/:slug`）；MD H2 標題統一為：專案簡介、相關連結、系統架構、核心功能、心得 |
 | 經歷              | 硬寫在 `src/pages/experience/Experience.tsx`（條目不多、不需動態資料），渲染為 `/experience` 時間軸頁 |
-| 藝術畫廊 metadata | 一個 `artworks.json`（slug/title/date/縮圖路徑陣列），sketch 程式碼本來就要進 repo；沒有另外的 sketch slug 欄位，`sketches/index.ts` 直接拿 artwork 的 `slug` 當 key 對應到 sketch factory，兩者共用同一個 slug |
+| 藝術畫廊 metadata | 一個 `artworks.json`（slug/title/date/縮圖路徑陣列/`openProcessingUrl` 原稿連結），sketch 程式碼本來就要進 repo；沒有另外的 sketch slug 欄位，`sketches/index.ts` 直接拿 artwork 的 `slug` 當 key 對應到 sketch factory，兩者共用同一個 slug。列表頁支援篩選器（標題、日期、互動類型、最新/最久排序），互動類型取自 `SketchEntry.interactions`，未移植的作品歸為「靜態展示」 |
 
 優點：零後端延遲、版本控制、改完 `git push` 自動觸發部署，不用碰 Supabase。
 
@@ -230,7 +231,11 @@ grant execute on function redeem_invite_and_create to anon;
 3. **點進去才執行真正的 p5.js**：列表頁**完全不掛載任何即時 canvas**，只有進到 `/gallery/:slug` 詳細頁時才動態 `import()` 對應的 sketch 模組、用 **instance mode** `new p5(sketchFn, containerRef)` 掛載；離開頁面時呼叫 `p5Instance.remove()` 卸載。整個網站任何時刻最多只有一個活著的 p5 canvas，避免多個 WebGL/canvas context 同時跑造成的效能問題。
 4. **OpenProcessing 程式碼遷移**：OpenProcessing 上的 sketch 預設是 global mode（`function setup(){}` 直接寫在頂層），搬過來時要重寫成 instance mode（包進 `(p) => { p.setup = ...; p.draw = ... }`），否則多個 sketch 的全域 `setup`/`draw` 會互相覆蓋衝突。
 
-### 6.1 視覺氛圍：寧靜展覽感
+**實作現況備註：**
+
+- 列表頁最後做成「橫向展場房間」（`GalleryGrid.tsx`）而非 grid：每件作品是一張隨機挑選的靜態截圖掛在畫框裡（呼應生成式作品每次執行都不同），滾輪垂直捲動轉橫向、scroll-snap 置中、聚光燈點亮中央那件；第 2 點的 hover 影片預覽**未實作**（靜態截圖＋燈光氛圍已足夠，先不做）。房間高度鎖一個視窗高（無頁面垂直捲軸）、畫框中心對齊視窗正中、橫向捲軸貼齊視窗底邊。
+- `SketchEntry` 除了 `factory`/`aspect` 還宣告 `interactions`（`click-regenerate`／`drag-draw`／`keyboard-game`／`button-game`／`drag-physics`）與 `saveKey`（存檔鍵覆寫，預設 S），詳細頁據此組出操作提示文字；互動類型同時是列表頁篩選器的分類來源。
+- 「金屬碰撞」引入 matter-js（npm 依賴，非 CDN 注入）做剛體物理；物理引擎只靠 draw() 裡的 `Engine.update()` 驅動、不跑 Runner，p5 instance `remove()` 後整個物理世界跟著被 GC，不需要額外清理。
 
 你想要的效果是「安靜的展場 + 一盞聚光燈打在作品上」，這跟朋友創作區的像素風（鮮豔、方塊、活潑）在視覺語言上確實會衝突——**不需要勉強統一成一套風格**，把它們當成網站裡兩個不同的「房間」即可，只靠 NavBar/字體等少數元素維持整站的一致感，背景氛圍各自獨立：
 

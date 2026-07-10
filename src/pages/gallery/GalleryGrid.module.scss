@@ -57,13 +57,18 @@
      calc(50% - 50vw) 剛好等於內容邊緣到視窗邊緣的距離（負值） */
   margin-inline: calc(50% - 50vw);
   margin-bottom: -2rem; /* 抵銷 main 的 pb-8，讓展場貼齊頁尾 */
-  /* 把 main 的 pt-20（NavBar 淨空）從 margin 挪成 padding：
-     背景往上延伸到頁面最頂端、藏在不透明的 fixed NavBar 後面，
-     這樣可視範圍內看到的第一眼就已經是漸層的中段，不會在 NavBar 下緣
-     出現一條「背景色在此瞬間切換」的生硬分界線 */
+  /* 抵銷 main 的 pt-20，讓房間從頁面最頂端開始（背景藏在不透明的 fixed
+     NavBar 後面，不會在 NavBar 下緣出現一條「背景色在此瞬間切換」的分界線）。
+     高度鎖成正好一個視窗高：main 的上下 padding 都被負 margin 抵銷了，
+     頁面總高＝房間高＝視窗高，右側就不會出現頁面的垂直捲軸；
+     dvh 讓行動裝置網址列收合時也跟著視窗實際高度走。header 改成絕對定位
+     浮在展牆上（見 .header），scroller 因此能撐滿整個房間，畫作垂直置中
+     的基準就是整個視窗，橫向捲軸也剛好落在視窗底邊。 */
   margin-top: -5rem;
-  padding-top: 5rem;
-  min-height: 100vh;
+  padding-top: 10rem;
+  height: 100vh;
+  height: 100dvh;
+  position: relative;
   display: flex;
   flex-direction: column;
   background:
@@ -80,7 +85,21 @@
 }
 
 .header {
+  /* 浮在展牆上層而不佔版面高度，scroller 才能吃滿整個房間來做視窗置中；
+     top: 5rem 是 NavBar 的淨空（原本由 .room 的 padding-top 提供）。
+     自己不吃滑鼠事件、只讓子元素吃：不然這條橫跨全寬的隱形帶會擋住
+     底下展牆的滾輪跟點擊。 */
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  pointer-events: none;
   padding: 2.5rem clamp(1rem, 8vw, 5rem) 0;
+
+  > * {
+    pointer-events: auto;
+  }
 
   h1 {
     font-size: 1.5rem;
@@ -104,8 +123,17 @@
   overscroll-behavior-x: contain;
   /* 左右各留半個 scroller 寬度的空白，讓第一件/最後一件作品都有足夠的
      捲動空間可以被置中（scroll-snap-align: center 的理想捲動位置若落在
-     0 以前，瀏覽器只能夾在 0，永遠置中不了——這裡保證該位置一定 >= 0） */
-  padding: 2rem 50% 2.5rem;
+     0 以前，瀏覽器只能夾在 0，永遠置中不了——這裡保證該位置一定 >= 0）。
+     下緣 116px 是把「畫框中心」對到視窗正中的修正量：align-items: center
+     置中的是整組展位，但展位內畫框上方（燈 92 + 畫框 margin-top 108 =
+     200px）比下方（銘牌 margin 22 + 銘牌本體約 62 ≈ 84px）多出約 116px，
+     墊高下緣同樣的量，畫框中心就會剛好落在視窗垂直中線，且跟畫作高矮無關
+     （上下固定量不變，變的只有畫框自己的高度）。 */
+  padding: 0 50% 116px;
+  /* 只允許橫向捲動：視窗太矮塞不下整組展位時寧可上下稍微裁切，也不要在
+     scroller 右緣冒出一條垂直捲軸（overflow-x: auto 會讓 overflow-y 的
+     visible 被升級成 auto，得明確蓋掉） */
+  overflow-y: hidden;
   scroll-snap-type: x proximity;
   scrollbar-width: thin;
   scrollbar-color: var(--room-scrollbar) transparent;
