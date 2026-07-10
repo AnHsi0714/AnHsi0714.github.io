@@ -17,6 +17,8 @@ import { createChessboardWorldSketch } from "./chessboardworld";
 import { createBloomOfDeliriumSketch } from "./bloomofdelirium";
 import { createHinaDaisySketch } from "./hinadaisy";
 import { createMazeRacingSketch } from "./mazeracing";
+import { createRPSSketch } from "./rps";
+import { createBoxingMeleeSketch } from "./boxingmelee";
 
 export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 
@@ -25,7 +27,12 @@ export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 //   作品重新洗牌），例如山與月、觸手等等
 // - drag-draw：按住滑鼠拖曳會即時在畫布上畫出筆觸，例如纏繞
 // - keyboard-game：方向鍵／WASD 操控、點擊畫面上的按鈕跟選項開始遊戲，例如迷宮競速
-export type SketchInteraction = "click-regenerate" | "drag-draw" | "keyboard-game";
+// - button-game：純滑鼠的回合制遊戲，點擊 START 按鈕開始／進下一輪，例如拳擊混戰
+export type SketchInteraction =
+  | "click-regenerate"
+  | "drag-draw"
+  | "keyboard-game"
+  | "button-game";
 
 export interface SketchEntry {
   factory: SketchFactory;
@@ -49,7 +56,7 @@ const TRII_ASPECT = 1872 / 2 / 906;
 // public/images/gallery/pollute/），不是滿版視窗。
 const POLLUTE_ASPECT = 1440 / 648;
 
-// 迷宮競速原稿吃固定 1800x900 的畫布（見 mazeracing.ts）。
+// 迷宮競速跟 RPS 的原稿都吃固定 1800x900 的畫布（見 mazeracing.ts、rps.ts）。
 const MAZE_ASPECT = 1800 / 900;
 
 // slug -> instance-mode sketch factory + 容器寬高比。之後每移植一件作品，就在
@@ -145,6 +152,16 @@ const sketches: Record<string, SketchEntry> = {
     aspect: MAZE_ASPECT,
     interactions: ["keyboard-game"],
     saveKey: "h",
+  },
+  RPS: {
+    factory: createRPSSketch,
+    aspect: MAZE_ASPECT,
+    interactions: ["click-regenerate"],
+  },
+  boxing_melee: {
+    factory: createBoxingMeleeSketch,
+    aspect: MAZE_ASPECT,
+    interactions: ["button-game"],
   },
 };
 

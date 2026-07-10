@@ -15,6 +15,7 @@ const interactionHints: Record<SketchInteraction, string> = {
   "click-regenerate": "點擊畫布重新產生一次構圖",
   "drag-draw": "按住滑鼠拖曳可以在畫布上留下筆觸",
   "keyboard-game": "方向鍵／WASD 移動，點擊畫面上的按鈕與選項開始遊戲",
+  "button-game": "點擊 START 按鈕開始，每輪結束後再按 START 進下一輪",
 };
 
 export default function GalleryDetail() {

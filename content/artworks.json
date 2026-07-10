@@ -144,6 +144,13 @@
     "openProcessingUrl": "https://openprocessing.org/@u455151/2336863"
   },
   {
+    "slug": "RPS",
+    "title": "RPS",
+    "date": "240908",
+    "images": ["/images/gallery/RPS0.jpg", "/images/gallery/RPS1.jpg"],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2344323"
+  },
+  {
     "slug": "Hsi_lantern",
     "title": "琋瓜燈",
     "date": "250807",
@@ -159,6 +166,19 @@
       "/images/gallery/watermelon17.jpg"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2700026"
+  },
+  {
+    "slug": "boxing_melee",
+    "title": "拳擊混戰",
+    "date": "250808",
+    "images": [
+      "/images/gallery/Boxing_Melee0.jpg",
+      "/images/gallery/Boxing_Melee1.jpg",
+      "/images/gallery/Boxing_Melee2.jpg",
+      "/images/gallery/Boxing_Melee3.jpg",
+      "/images/gallery/Boxing_Melee4.jpg"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2700272"
   },
   {
     "slug": "ocean_city",
