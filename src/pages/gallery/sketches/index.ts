@@ -19,6 +19,7 @@ import { createHinaDaisySketch } from "./hinadaisy";
 import { createMazeRacingSketch } from "./mazeracing";
 import { createRPSSketch } from "./rps";
 import { createBoxingMeleeSketch } from "./boxingmelee";
+import { createMetalCollisionSketch } from "./metalcollision";
 
 export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 
@@ -28,11 +29,13 @@ export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 // - drag-draw：按住滑鼠拖曳會即時在畫布上畫出筆觸，例如纏繞
 // - keyboard-game：方向鍵／WASD 操控、點擊畫面上的按鈕跟選項開始遊戲，例如迷宮競速
 // - button-game：純滑鼠的回合制遊戲，點擊 START 按鈕開始／進下一輪，例如拳擊混戰
+// - drag-physics：滑鼠可以抓取、拖曳畫面上的物理物件，例如金屬碰撞
 export type SketchInteraction =
   | "click-regenerate"
   | "drag-draw"
   | "keyboard-game"
-  | "button-game";
+  | "button-game"
+  | "drag-physics";
 
 export interface SketchEntry {
   factory: SketchFactory;
@@ -162,6 +165,11 @@ const sketches: Record<string, SketchEntry> = {
     factory: createBoxingMeleeSketch,
     aspect: MAZE_ASPECT,
     interactions: ["button-game"],
+  },
+  metal_collision: {
+    factory: createMetalCollisionSketch,
+    aspect: WIDESCREEN_ASPECT,
+    interactions: ["drag-physics"],
   },
 };
 
