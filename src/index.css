@@ -6,6 +6,12 @@
   --font-sans: "SUSE", ui-sans-serif, system-ui, sans-serif;
 }
 
+/* 畫廊展場用 calc(50% - 50vw) 做滿版，但 100vw 含垂直捲軸寬度，
+   會讓整頁多出幾 px 的橫向捲動；整站本來就不該有水平捲動，直接 clip 掉 */
+html {
+  overflow-x: clip;
+}
+
 /* Tailwind Typography 的 prose-neutral 預設用固定灰階色，不會跟著 .dark 切換。
    這裡把 --tw-prose-* 接到 theme.css 的 --color-* 變數，讓 markdown 內容也能跟著日／夜模式變色。 */
 .prose {

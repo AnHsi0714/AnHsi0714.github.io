@@ -1,0 +1,280 @@
+/* 畫廊展場：跟著站台日／夜模式切換的展覽房間。
+   淺色＝白日展場（暖色調光線灑落米色牆面），深色＝夜間展場（暗房＋聚光燈）。
+   用一組 --room-* 變數集中管理隨主題變化的顏色，:global(.dark) & 覆寫深色版本。 */
+
+.room {
+  --room-bg-glow: #ece6d6;
+  --room-bg-1: #f7f3e9;
+  --room-bg-2: #efe8d6;
+  --room-bg-3: #e6dcc2;
+  --room-header-title: #2b2620;
+  --room-header-sub: #75705f;
+  --room-scrollbar: #cfc4a4;
+  --room-cord: #55503f;
+  --room-shade-1: #cfc4a4;
+  --room-shade-2: #857d63;
+  --room-bulb-core: #fc8f00;
+  --room-bulb-mid: rgba(218, 139, 37, 0.5);
+  --room-beam-core: rgba(214, 168, 86, 0.5);
+  --room-beam-mid: rgba(214, 168, 86, 0.14);
+  --room-beam-blend: multiply;
+  --room-frame-1: #efe4c9;
+  --room-frame-2: #ddcea6;
+  --room-frame-border: #b7a375;
+  --room-frame-img-bg: #f2ecdb;
+  --room-placard-bg: #f4eedb;
+  --room-placard-border: #d6c69a;
+  --room-placard-title: #2b2620;
+  --room-placard-meta: #7a7460;
+
+  :global(.dark) & {
+    --room-bg-glow: #2a2a31;
+    --room-bg-1: #1b1b1f;
+    --room-bg-2: #141417;
+    --room-bg-3: #0d0d0f;
+    --room-header-title: #e8e6df;
+    --room-header-sub: #8b8b90;
+    --room-scrollbar: #3a3a40;
+    --room-cord: #0a0a0b;
+    --room-shade-1: #46464e;
+    --room-shade-2: #141417;
+    --room-bulb-core: #fff8e0;
+    --room-bulb-mid: rgba(230, 197, 114, 0.6);
+    --room-beam-core: rgba(253, 242, 212, 0.55);
+    --room-beam-mid: rgba(255, 233, 175, 0.14);
+    --room-beam-blend: screen;
+    --room-frame-1: #332a1d;
+    --room-frame-2: #191410;
+    --room-frame-border: #46381f;
+    --room-frame-img-bg: #101012;
+    --room-placard-bg: #232327;
+    --room-placard-border: #37373d;
+    --room-placard-title: #e4e2da;
+    --room-placard-meta: #8f8f95;
+  }
+
+  /* 突破 App 容器 max-w-5xl 的滿版寫法：百分比 margin 以內容寬為基準，
+     calc(50% - 50vw) 剛好等於內容邊緣到視窗邊緣的距離（負值） */
+  margin-inline: calc(50% - 50vw);
+  margin-bottom: -2rem; /* 抵銷 main 的 pb-8，讓展場貼齊頁尾 */
+  /* 抵銷 main 的 pt-20，讓房間從頁面最頂端開始（背景藏在不透明的 fixed
+     NavBar 後面，不會在 NavBar 下緣出現一條「背景色在此瞬間切換」的分界線）。
+     高度鎖成正好一個視窗高：main 的上下 padding 都被負 margin 抵銷了，
+     頁面總高＝房間高＝視窗高，右側就不會出現頁面的垂直捲軸；
+     dvh 讓行動裝置網址列收合時也跟著視窗實際高度走。header 改成絕對定位
+     浮在展牆上（見 .header），scroller 因此能撐滿整個房間，畫作垂直置中
+     的基準就是整個視窗，橫向捲軸也剛好落在視窗底邊。 */
+  margin-top: -5rem;
+  padding-top: 10rem;
+  height: 100vh;
+  height: 100dvh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(
+      ellipse 120% 45% at 50% 0%,
+      var(--room-bg-glow) 0%,
+      transparent 65%
+    ),
+    linear-gradient(
+      var(--room-bg-1) 0%,
+      var(--room-bg-2) 65%,
+      var(--room-bg-3) 100%
+    );
+}
+
+.header {
+  /* 浮在展牆上層而不佔版面高度，scroller 才能吃滿整個房間來做視窗置中；
+     top: 5rem 是 NavBar 的淨空（原本由 .room 的 padding-top 提供）。
+     自己不吃滑鼠事件、只讓子元素吃：不然這條橫跨全寬的隱形帶會擋住
+     底下展牆的滾輪跟點擊。 */
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  pointer-events: none;
+  padding: 2.5rem clamp(1rem, 8vw, 5rem) 0;
+
+  > * {
+    pointer-events: auto;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--room-header-title);
+  }
+
+  p {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--room-header-sub);
+  }
+}
+
+.scroller {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: clamp(3.5rem, 9vw, 7rem);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  /* 左右各留半個 scroller 寬度的空白，讓第一件/最後一件作品都有足夠的
+     捲動空間可以被置中（scroll-snap-align: center 的理想捲動位置若落在
+     0 以前，瀏覽器只能夾在 0，永遠置中不了——這裡保證該位置一定 >= 0）。
+     下緣 116px 是把「畫框中心」對到視窗正中的修正量：align-items: center
+     置中的是整組展位，但展位內畫框上方（燈 92 + 畫框 margin-top 108 =
+     200px）比下方（銘牌 margin 22 + 銘牌本體約 62 ≈ 84px）多出約 116px，
+     墊高下緣同樣的量，畫框中心就會剛好落在視窗垂直中線，且跟畫作高矮無關
+     （上下固定量不變，變的只有畫框自己的高度）。 */
+  padding: 0 50% 116px;
+  /* 只允許橫向捲動：視窗太矮塞不下整組展位時寧可上下稍微裁切，也不要在
+     scroller 右緣冒出一條垂直捲軸（overflow-x: auto 會讓 overflow-y 的
+     visible 被升級成 auto，得明確蓋掉） */
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--room-scrollbar) transparent;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--room-scrollbar);
+    border-radius: 3px;
+  }
+}
+
+/* --lit 是每個展位的「燈亮程度」，active 時全亮，其餘微亮；
+   燈泡、光束、畫作亮度、銘牌都吃這個變數，走到哪燈亮到哪 */
+.exhibit {
+  --lit: 0.22;
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scroll-snap-align: center;
+
+  &.active {
+    --lit: 1;
+  }
+}
+
+.lamp {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 92px;
+}
+
+.cord {
+  width: 2px;
+  flex: 1;
+  background: var(--room-cord);
+}
+
+.shade {
+  width: 30px;
+  height: 20px;
+  background: linear-gradient(var(--room-shade-1), var(--room-shade-2));
+}
+
+.bulb {
+  width: 40px;
+  height: 12px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    var(--room-bulb-core),
+    var(--room-bulb-mid) 60%,
+    transparent
+  );
+  filter: blur(1px);
+  opacity: var(--lit);
+  transition: opacity 0.6s ease;
+}
+
+.beam {
+  position: absolute;
+  top: 88px;
+  left: 50%;
+  width: 120%;
+  height: min(360px, 82vw);
+  transform: translateX(-50%);
+  clip-path: polygon(45.5% 0, 54.5% 0, 100% 100%, 0 100%);
+  background: linear-gradient(
+    var(--room-beam-core),
+    var(--room-beam-mid) 55%,
+    transparent 88%
+  );
+  filter: blur(5px);
+  mix-blend-mode: var(--room-beam-blend);
+  pointer-events: none;
+  opacity: var(--lit);
+  transition: opacity 0.6s ease;
+  z-index: 1;
+}
+
+.frame {
+  position: relative;
+  z-index: 0;
+  display: block;
+  margin-top: 108px;
+  padding: 10px;
+  background: linear-gradient(150deg, var(--room-frame-1), var(--room-frame-2));
+  border: 1px solid var(--room-frame-border);
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  img {
+    display: block;
+    /* 不強制比例：作品有 1:1 也有寬幅，各自保持原比例、統一以高度為基準 */
+    width: auto;
+    height: auto;
+    max-height: min(320px, 45vh);
+    max-width: min(620px, 82vw);
+    background: var(--room-frame-img-bg);
+    filter: brightness(calc(0.3 + 0.7 * var(--lit)));
+    transition: filter 0.6s ease;
+  }
+}
+
+.placard {
+  position: relative;
+  z-index: 1;
+  margin-top: 22px;
+  min-width: 120px;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  background: var(--room-placard-bg);
+  border: 1px solid var(--room-placard-border);
+  border-radius: 2px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  opacity: calc(0.4 + 0.6 * var(--lit));
+  transition: opacity 0.6s ease;
+}
+
+.placardTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--room-placard-title);
+}
+
+.placardMeta {
+  margin-top: 2px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--room-placard-meta);
+}
