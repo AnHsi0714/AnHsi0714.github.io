@@ -85,9 +85,17 @@
 .canvasHost {
   --sketch-aspect: 1; /* 實際比例由 GalleryDetail.tsx 透過 inline style 覆寫 */
   /* 同時受寬度上限跟高度上限夾住：以寬高比换算「若以高度上限為準，寬度該是多少」，
-     取三者最小值，正方形跟寬螢幕的作品都不會被裁切或超出視窗 */
-  width: min(900px, 88vw, calc(68vh * var(--sketch-aspect)));
+     取三者最小值，正方形跟寬螢幕的作品都不會被裁切或超出視窗。寬度上限拉高到
+     1400px（原本 900px 太小，寬螢幕比例的作品縮太多看不清楚）；正方形作品本來
+     就會先被 68vh 卡住，不受這個上限影響。 */
+  width: min(1400px, 88vw, calc(68vh * var(--sketch-aspect)));
   aspect-ratio: var(--sketch-aspect);
+  /* 有些作品（例如迷宮競速）除了 canvas 還會用 createButton/createRadio 長出
+     DOM 元素，p5 用 position(x, y) 把它們定位成 CSS position:absolute，相對於
+     最近的「有定位」祖先。這裡沒有 position:relative 的話，absolute 子元素會
+     一路往上找到 .spotlight 當定位基準，跟 canvas 內部座標系對不起來，畫面上
+     看起來就像元件位置跑掉了。 */
+  position: relative;
 
   :global(canvas) {
     display: block;
@@ -101,7 +109,7 @@
   display: block;
   width: auto;
   height: auto;
-  max-width: min(900px, 88vw);
+  max-width: min(1400px, 88vw);
   max-height: 68vh;
   object-fit: contain;
   box-shadow: 0 0 60px 10px rgba(255, 240, 200, 0.12);

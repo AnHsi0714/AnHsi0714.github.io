@@ -144,8 +144,8 @@
     "openProcessingUrl": "https://openprocessing.org/@u455151/2336863"
   },
   {
-    "slug": "watermelon",
-    "title": "琋瓜",
+    "slug": "Hsi_lantern",
+    "title": "琋瓜燈",
     "date": "250807",
     "images": [
       "/images/gallery/watermelon9.jpg",
@@ -216,5 +216,18 @@
       "/images/gallery/Hina_Daisy3.png"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2715277"
+  },
+  {
+    "slug": "Maze_Racing",
+    "title": "迷宮競速",
+    "date": "250907",
+    "images": [
+      "/images/gallery/Maze_Racing_v20.png",
+      "/images/gallery/Maze_Racing_v21.png",
+      "/images/gallery/Maze_Racing_v22.png",
+      "/images/gallery/Maze_Racing_v23.png",
+      "/images/gallery/Maze_Racing_v24.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2716270"
   }
 ]
