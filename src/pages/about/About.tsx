@@ -200,7 +200,7 @@ export default function About() {
           )}
         </div>
 
-        <div className="py-6">
+        <div id="research-interests" className="py-6">
           <p className="font-semibold text-[var(--color-primary)]">
             研究興趣 Research Interests
           </p>
