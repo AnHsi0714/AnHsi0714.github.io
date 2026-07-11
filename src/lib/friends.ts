@@ -8,10 +8,13 @@ const NOT_CONFIGURED_MESSAGE =
 export async function fetchFriendCreations(): Promise<FriendCreationRow[]> {
   if (!supabase) throw new Error(NOT_CONFIGURED_MESSAGE);
 
+  // created_at 可能撞同一秒（例如批次匯入），只用它排序在背景重新請求資料時
+  // 順序可能不穩定，導致 carousel 位置被重置；id 遞增且唯一，當作次要排序鍵。
   const { data, error } = await supabase
     .from("friend_creations")
     .select("id, nickname, kind, data, intro, created_at")
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .order("id", { ascending: false });
 
   if (error) throw error;
   return (data ?? []) as FriendCreationRow[];

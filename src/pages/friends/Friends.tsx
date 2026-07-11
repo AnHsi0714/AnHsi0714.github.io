@@ -34,7 +34,6 @@ function FriendCreationCarousel({
   creations: FriendCreationRow[];
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [showIntro, setShowIntro] = useState(false);
   const [focus, setFocus] = useState<{ scale: number; brightness: number }[]>(
@@ -69,21 +68,31 @@ function FriendCreationCarousel({
   // 兩端留白，確保第一個／最後一個作品也能被捲到正中間（見下方 spacer 元素）
   const GAP_PX = 32;
 
+  // 卡片一律用 [data-index] 現查 DOM，不維護 ref 陣列：ref callback 只在 React 認定
+  // 「ref prop 變了」時才會重新觸發，itemRefs.current 若在 render phase 被清空後、
+  // commit 沒能及時把 ref 掛回去（例如背景重繪打斷），就會一直是空陣列，點下一個
+  // 作品直接判定「沒有這個元素」而整個 no-op——查證過確實會發生。GalleryGrid.tsx
+  // 的展牆捲動用同一招（querySelectorAll("[data-slug]")）已驗證可靠，這裡跟進。
+  const getItems = () =>
+    Array.from(
+      scrollRef.current?.querySelectorAll<HTMLElement>("[data-index]") ?? [],
+    );
+
   // 熱路徑：捲動中每一格都會跑，只算「誰最靠近中間」，不量測尺寸
   const updateCarouselState = useCallback(() => {
     const container = scrollRef.current;
     if (!container) return;
+    const items = getItems();
 
     const containerCenter = container.scrollLeft + container.clientWidth / 2;
-    const distances = itemRefs.current.map((el) => {
-      if (!el) return Infinity;
+    const distances = items.map((el) => {
       const itemCenter = el.offsetLeft + el.offsetWidth / 2;
       return Math.abs(itemCenter - containerCenter);
     });
     const closestIndex = distances.indexOf(Math.min(...distances));
 
     setFocus(
-      itemRefs.current.map((_, index) => ({
+      items.map((_, index) => ({
         // 只有正中間那個作品放大一點，其他維持原尺寸；亮度則只有正中間是亮的
         scale: index === closestIndex ? 1.08 : 1,
         brightness: index === closestIndex ? 1 : 0.4,
@@ -96,19 +105,21 @@ function FriendCreationCarousel({
   const measureSpacer = useCallback(() => {
     const container = scrollRef.current;
     if (!container) return;
-    const firstCard = itemRefs.current.find(
-      (el): el is HTMLDivElement => el !== null,
-    );
-    const cardWidth = firstCard?.offsetWidth ?? 0;
+    const cardWidth = getItems()[0]?.offsetWidth ?? 0;
     setSpacerWidth(
       Math.max(0, (container.clientWidth - cardWidth) / 2 - GAP_PX),
     );
   }, []);
 
+  // 只在掛載當下捲回最左邊＋量一次 spacer：這個元件只在資料真的從無到有時才會掛載
+  // （見下方 Friends() 的 isPending 分支），之後 React Query 背景重新請求資料
+  // 導致 creations 參照改變時，不該再把使用者手動捲到的位置強制拉回第一件，
+  // 不然點下一個作品會被這個 effect 隨機蓋掉，看起來像「時好時壞」。
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     scrollRef.current?.scrollTo({ left: 0 });
     measureSpacer();
-  }, [creations, measureSpacer]);
+  }, []);
 
   // 等 spacer 寬度真的套用到 DOM 之後才量「誰在中間」，避免量到舊版面
   useEffect(() => {
@@ -136,13 +147,18 @@ function FriendCreationCarousel({
     };
   }, [updateCarouselState, measureSpacer]);
 
-  itemRefs.current = [];
-
+  // behavior 用 "instant" 而非 "smooth"：容器有 scroll-snap-type 時，smooth 捲動（不管是
+  // el.scrollIntoView 還是 container.scrollTo）在部分瀏覽器（尤其 Chromium／Windows）會被
+  // snap 邏輯中途拉回原位，導致點下一個/上一個時好時壞。GalleryGrid.tsx 的展牆捲動也遇過
+  // 同一個問題，同樣改用 instant 解決（見該檔案 line 133、152 的註解）。
   const centerItem = (index: number) => {
-    itemRefs.current[index]?.scrollIntoView({
-      behavior: "smooth",
-      inline: "center",
-      block: "nearest",
+    const container = scrollRef.current;
+    const item = getItems()[index];
+    if (!container || !item) return;
+    const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+    container.scrollTo({
+      left: itemCenter - container.clientWidth / 2,
+      behavior: "instant",
     });
   };
 
@@ -179,9 +195,7 @@ function FriendCreationCarousel({
         {creations.map((creation, index) => (
           <div
             key={creation.id}
-            ref={(el) => {
-              itemRefs.current[index] = el;
-            }}
+            data-index={index}
             role="button"
             tabIndex={0}
             aria-label={
