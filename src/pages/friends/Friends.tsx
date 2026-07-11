@@ -1,48 +1,29 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import Alert from "../../components/Alert";
+import Button from "../../components/Button";
 import Card from "../../components/Card";
 import EmptyState from "../../components/EmptyState";
-import type { FriendCreation } from "../../types/content";
+import Loading from "../../components/Loading";
+import PixelCanvas from "../../components/PixelCanvas";
+import { fetchFriendCreations } from "../../lib/friends";
+import { isSupabaseConfigured } from "../../lib/supabaseClient";
+import type { FriendCreationRow } from "../../types/friends";
 import styles from "./Friends.module.scss";
 
-// 佔位資料，之後接上邀請碼兌換 + 2D 像素編輯器（見 docs/ARCHITECTURE.md §5、§7）後移除
-const placeholderCreations: FriendCreation[] = [
-  {
-    id: 1,
-    nickname: "（範例暱稱）",
-    intro: "朋友創作的示範卡片，之後會換成邀請碼兌換後畫的 2D 像素作品。",
-  },
-  {
-    id: 2,
-    nickname: "（範例暱稱）",
-    intro: "每位朋友兌換邀請碼、畫完像素圖後，作品會顯示在這裡。",
-  },
-  {
-    id: 3,
-    nickname: "（範例暱稱）",
-    intro: "示範用，驗證 carousel 在「圖+暱稱+介紹」這種資料形狀下的呈現效果。",
-  },
-];
-
-function FriendCreationCard({ creation }: { creation: FriendCreation }) {
+function FriendCreationCard({ creation }: { creation: FriendCreationRow }) {
   return (
     <Card className="w-56 sm:w-64">
-      {creation.imageUrl ? (
-        <img
-          src={creation.imageUrl}
-          alt={creation.nickname}
-          className="aspect-square w-full rounded-md object-cover"
-        />
-      ) : (
-        <div className="flex aspect-square w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-3xl font-semibold text-[var(--color-border)]">
-          {creation.nickname.slice(0, 1)}
-        </div>
-      )}
+      <PixelCanvas
+        data={creation.data}
+        className="aspect-square w-full rounded-md bg-[var(--color-surface)]"
+      />
       <p className="mt-3 font-semibold">{creation.nickname}</p>
-      {creation.intro && (
-        <p className="mt-2 text-sm text-[var(--color-text-muted)] line-clamp-3">
-          {creation.intro}
-        </p>
-      )}
+      <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+        {new Date(creation.created_at).toLocaleDateString("zh-TW")}
+      </p>
     </Card>
   );
 }
@@ -50,14 +31,39 @@ function FriendCreationCard({ creation }: { creation: FriendCreation }) {
 function FriendCreationCarousel({
   creations,
 }: {
-  creations: FriendCreation[];
+  creations: FriendCreationRow[];
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showIntro, setShowIntro] = useState(false);
   const [focus, setFocus] = useState<{ scale: number; brightness: number }[]>(
     [],
   );
+
+  // 換到別的作品（點擊或捲動）就收起敘述遮罩
+  useEffect(() => {
+    setShowIntro(false);
+  }, [activeIndex]);
+
+  // 遮罩開啟期間：Esc 可關閉、鎖住頁面捲動（同 ExpandableCard 的做法）
+  useEffect(() => {
+    if (!showIntro) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setShowIntro(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [showIntro]);
+
+  const activeCreation = creations[activeIndex] as
+    | FriendCreationRow
+    | undefined;
   const [spacerWidth, setSpacerWidth] = useState(0);
 
   // 兩端留白，確保第一個／最後一個作品也能被捲到正中間（見下方 spacer 元素）
@@ -178,11 +184,27 @@ function FriendCreationCarousel({
             }}
             role="button"
             tabIndex={0}
-            onClick={() => centerItem(index)}
+            aria-label={
+              index === activeIndex && creation.intro
+                ? `${creation.nickname} 的作品，點擊查看敘述`
+                : `前往 ${creation.nickname} 的作品`
+            }
+            // 點還沒置中的作品 → 把它捲到中間；點已置中且有敘述的作品 → 開啟整頁敘述遮罩
+            onClick={() => {
+              if (index === activeIndex) {
+                if (creation.intro) setShowIntro(true);
+              } else {
+                centerItem(index);
+              }
+            }}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                centerItem(index);
+                if (index === activeIndex) {
+                  if (creation.intro) setShowIntro(true);
+                } else {
+                  centerItem(index);
+                }
               }
             }}
             className="shrink-0 cursor-pointer snap-center will-change-transform transition-transform duration-150 ease-out"
@@ -228,21 +250,72 @@ function FriendCreationCarousel({
           />
         ))}
       </div>
+
+      {/* 敘述遮罩：整頁置中的一句話，像作者本人站出來講了句玩笑話；點任意處或 Esc 關閉 */}
+      {showIntro &&
+        activeCreation?.intro &&
+        createPortal(
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${activeCreation.nickname} 的作品敘述`}
+            onClick={() => setShowIntro(false)}
+            className={`${styles.introBackdrop} fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center bg-black/70 px-8 backdrop-blur-sm`}
+          >
+            <blockquote
+              className={`${styles.intro} max-w-xl text-center text-2xl leading-relaxed text-white transition-all duration-300 hover:text-amber-300
+    hover:scale-105
+    hover:-skew-x-12`}
+            >
+              「{activeCreation.intro}」
+            </blockquote>
+            <p className="mt-6 text-sm text-white/60">
+              —— {activeCreation.nickname}
+            </p>
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }
 
 export default function Friends() {
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ["friend-creations"],
+    queryFn: fetchFriendCreations,
+    enabled: isSupabaseConfigured,
+  });
+
   return (
     <section>
       <h1 className="text-2xl font-bold">朋友創作</h1>
       <p className="mt-2 text-[var(--color-text-muted)]">
-        邀請碼入口 + 朋友的 2D 像素作品，目前先用佔位資料示範。
+        朋友們用邀請碼畫下的 2D 像素作品。
       </p>
 
-      <div className="mt-8 ml-[calc(50%_-_50vw)] mr-[calc(50%_-_50vw)] w-screen px-6 sm:px-10">
-        <FriendCreationCarousel creations={placeholderCreations} />
+      <div className="mt-4">
+        <Link to="/friends/create">
+          <Button variant="secondary">我有邀請碼，我要作畫</Button>
+        </Link>
       </div>
+
+      {!isSupabaseConfigured ? (
+        <Alert variant="info" className="mt-8">
+          後端尚未設定（缺 Supabase 環境變數），暫時無法載入朋友作品。
+        </Alert>
+      ) : isPending ? (
+        <div className="mt-8 flex justify-center">
+          <Loading label="載入朋友作品中…" />
+        </div>
+      ) : isError ? (
+        <Alert variant="error" className="mt-8">
+          載入失敗：{error.message}
+        </Alert>
+      ) : (
+        <div className="mt-8 ml-[calc(50%_-_50vw)] mr-[calc(50%_-_50vw)] w-screen px-6 sm:px-10">
+          <FriendCreationCarousel creations={data} />
+        </div>
+      )}
     </section>
   );
 }

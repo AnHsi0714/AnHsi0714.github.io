@@ -10,13 +10,6 @@ export interface Dream {
   };
 }
 
-export interface FriendCreation {
-  id: number;
-  nickname: string;
-  intro?: string;
-  imageUrl?: string;
-}
-
 export type ProjectStatus = "todo" | "in-progress" | "done";
 
 export type ProjectTag =

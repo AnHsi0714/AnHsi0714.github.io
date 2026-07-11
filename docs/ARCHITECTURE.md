@@ -24,18 +24,18 @@
 
 ## 1. 技術棧總覽
 
-| 分類       | 選擇                                              | 理由                                                             |
-| ---------- | ------------------------------------------------- | ---------------------------------------------------------------- |
-| 前端框架   | React + Vite + TypeScript                         | 輕量、無需 SSR，適合純前端打包後丟 GitHub Pages                  |
-| 路由       | React Router（純前端路由）                        | user page 部署在根網域，不需要 basename                          |
-| 樣式       | Tailwind CSS                                      | 大量卡片/網格版面（畫廊、專案、夢想清單）用 utility class 開發快 |
-| 資料抓取   | `@tanstack/react-query` + `@supabase/supabase-js` | 統一處理 loading/error/cache，避免每頁手刻 fetch 邏輯            |
+| 分類       | 選擇                                                  | 理由                                                             |
+| ---------- | ----------------------------------------------------- | ---------------------------------------------------------------- |
+| 前端框架   | React + Vite + TypeScript                             | 輕量、無需 SSR，適合純前端打包後丟 GitHub Pages                  |
+| 路由       | React Router（純前端路由）                            | user page 部署在根網域，不需要 basename                          |
+| 樣式       | Tailwind CSS                                          | 大量卡片/網格版面（畫廊、專案、夢想清單）用 utility class 開發快 |
+| 資料抓取   | `@tanstack/react-query` + `@supabase/supabase-js`     | 統一處理 loading/error/cache，避免每頁手刻 fetch 邏輯            |
 | 2D 繪製    | Canvas（像素網格編輯器，網格尺寸可選，存座標 + 顏色） | 資料即視覺，縮圖可直接從資料重繪，不用額外存圖（見 §7）          |
-| 3D 製作    | 方向未定，暫緩（最終 2D/3D 二選一，見 §0、§7）    | 先把 2D 像素版做出來再評估是否要換方向，不同時維護兩套           |
-| p5.js 畫廊 | p5.js instance mode                               | 多個 sketch 共存不衝突、可隨路由掛載/卸載                        |
-| 2D 物理    | matter-js                                         | 「金屬碰撞」單件作品的剛體模擬，只有該 sketch 模組引用           |
-| 後端       | Supabase（Postgres + Storage + RPC function）     | 你已指定；只在「朋友創作」這個真正需要動態寫入的功能上發揮價值   |
-| 部署       | GitHub Actions → GitHub Pages                     | repo 本身就是 `*.github.io`，免額外網域設定                      |
+| 3D 製作    | 方向未定，暫緩（最終 2D/3D 二選一，見 §0、§7）        | 先把 2D 像素版做出來再評估是否要換方向，不同時維護兩套           |
+| p5.js 畫廊 | p5.js instance mode                                   | 多個 sketch 共存不衝突、可隨路由掛載/卸載                        |
+| 2D 物理    | matter-js                                             | 「金屬碰撞」單件作品的剛體模擬，只有該 sketch 模組引用           |
+| 後端       | Supabase（Postgres + Storage + RPC function）         | 你已指定；只在「朋友創作」這個真正需要動態寫入的功能上發揮價值   |
+| 部署       | GitHub Actions → GitHub Pages                         | repo 本身就是 `*.github.io`，免額外網域設定                      |
 
 ---
 
@@ -134,6 +134,7 @@ create table friend_creations (
   nickname text not null,
   kind text not null default '2d' check (kind in ('2d', '3d')),  -- 保留彈性，目前只會用到 '2d'
   data jsonb not null,
+  intro text check (char_length(intro) <= 200),  -- 選填敘述，點擊置中作品時顯示（0003 加入）
   thumbnail_url text,             -- 2D 像素版不需要；若日後改走 3D 才需要存預渲染縮圖
   invite_code_id bigint references invite_codes(id),
   is_visible boolean not null default true,  -- 你審核後可關閉顯示
@@ -201,11 +202,43 @@ grant execute on function redeem_invite_and_create to anon;
 `supabase.rpc('redeem_invite_and_create', { p_code, p_nickname, p_kind, p_data })`。
 失敗（碼錯/已用）會直接拋例外，前端顯示「邀請碼無效或已使用」。
 
+**作畫前檢查與二次編輯**（`0002_check_and_edit_creation.sql`）：
+
+- `check_invite_code(p_code)`：InviteGate 在朋友開始作畫**前**呼叫，回傳
+  `invalid`（不存在／未使用但過期）／`unused`（可建立新作品）／`used` + 原作品資料。
+  避免朋友畫了半小時才發現碼無效；`used` 的碼會載入原作品進入編輯模式。
+  這個 function 等於公開了「某字串是不是有效碼」的檢查口——已決定不做速率限制
+  （§11），碼又是私下發放，此風險可接受。
+- `update_creation_with_code(p_code, p_nickname, p_data)`：**兌換過的邀請碼就是該作品
+  的永久編輯憑證**（拿到碼 = 能改那件作品），朋友再次輸入同一組碼即可覆蓋暱稱＋圖。
+  `is_visible` 不會被動到，你審核關閉的作品不因朋友重新編輯而重新出現。
+- 極端 race（gate 檢查通過後、送出前才被別人搶用同一碼）仍由 `redeem_invite_and_create`
+  的 `for update` 鎖擋住，前端在送出時顯示錯誤。
+
 **縮圖儲存**：因為走 2D 像素風，`data` 裡的座標 + 顏色本身就是完整的「圖」，不需要另外產生/儲存縮圖圖檔——朋友列表頁要顯示縮圖時，前端直接拿 `pixels` 陣列在一個小 `<canvas>`（或畫成 SVG `<rect>`）上重繪即可，省掉 base64/Storage 那一層。即使列表上同時顯示幾十個朋友作品，重繪像素方塊的成本也遠低於載入圖片或掛載 3D 場景。
 
 （如果之後真的改走 3D 方向，重新渲染一個 Three.js 場景的成本就高很多，那時才需要補上預渲染縮圖 + Storage bucket 的設計。）
 
 **個資考量**：整個流程只收「暱稱」，不收 email、不建帳號，符合你「邀請碼機制、無帳號系統」的決定，個資風險最小化。邀請碼本身由你私下發給朋友（line/訊息），網站上沒有任何地方公開列出可用邀請碼。
+
+**邀請碼產生方式**：沒有管理介面（刻意的，見 §1），要發碼時在 Supabase Studio 的 SQL Editor 執行：
+
+```sql
+-- 指定一個好唸的碼（發給特定朋友）
+insert into invite_codes (code) values ('abc123');
+
+-- 或一次產 5 個 8 碼隨機碼
+insert into invite_codes (code)
+select substr(md5(random()::text), 1, 8)
+from generate_series(1, 5)
+returning code;
+
+-- 需要限時的話帶 expires_at
+insert into invite_codes (code, expires_at)
+values ('party-2026', now() + interval '7 days');
+```
+
+`returning code` 會直接把產出的碼列出來，複製後私訊給朋友即可；發出去的碼用 `select * from invite_codes order by created_at desc;` 隨時可查用掉了沒（`is_used`／`used_by_nickname`）。
 
 ---
 
@@ -314,9 +347,9 @@ grant execute on function redeem_invite_and_create to anon;
 │   │   │   └── Experience.tsx       # /experience，垂直時間軸
 │   │   ├── dreams/
 │   │   └── friends/
-│   │       ├── InviteGate.tsx
-│   │       ├── Creator2D.tsx        # 像素編輯器，見 §7；3D 暫緩，未實作
-│   │       └── FriendGallery.tsx
+│   │       ├── Friends.tsx          # 創作牆（carousel + 邀請碼入口）
+│   │       ├── InviteGate.tsx       # 邀請碼＋暱稱表單
+│   │       └── Creator2D.tsx        # 像素編輯器，見 §7；3D 暫緩，未實作
 │   ├── components/             # NavBar、Card、Loading、MarkdownContent 等共用元件
 │   ├── hooks/                  # useFriendCreations 等資料 hook
 │   └── types/

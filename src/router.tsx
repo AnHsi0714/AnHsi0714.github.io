@@ -11,6 +11,7 @@ import ProjectDetail from './pages/projects/ProjectDetail'
 import Experience from './pages/experience/Experience'
 import Dreams from './pages/dreams/Dreams'
 import Friends from './pages/friends/Friends'
+import Creator2D from './pages/friends/Creator2D'
 import ComponentsPreview from './pages/dev/ComponentsPreview'
 
 export const router = createBrowserRouter([
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
       { path: 'experience', element: <Experience /> },
       { path: 'dreams', element: <Dreams /> },
       { path: 'friends', element: <Friends /> },
+      { path: 'friends/create', element: <Creator2D /> },
       { path: 'dev/components', element: <ComponentsPreview /> },
     ],
   },
