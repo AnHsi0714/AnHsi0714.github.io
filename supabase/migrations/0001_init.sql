@@ -2,21 +2,6 @@
 -- 所有表預設只開放 public select；寫入只能透過 Supabase Studio（你自己的帳號）
 -- 或下面的 redeem_invite_and_create RPC（朋友創作唯一的對外寫入口）
 
--- 人生區：人生事件時間軸
-create table life_events (
-  id bigint generated always as identity primary key,
-  event_date date not null,
-  title text not null,
-  description text,
-  image_url text,
-  created_at timestamptz not null default now()
-);
-
-alter table life_events enable row level security;
-create policy "public can read life_events"
-  on life_events for select using (true);
-
-
 -- 朋友功能：邀請碼
 create table invite_codes (
   id bigint generated always as identity primary key,
@@ -50,6 +35,10 @@ alter table friend_creations enable row level security;
 create policy "public can read visible creations"
   on friend_creations for select using (is_visible = true);
 -- 同樣不開放 anon 直接 insert，只能透過下面的 RPC
+
+-- 專案建立時關閉了「Automatically expose new tables」，表不會自動授權給 Data API 角色，
+-- 需要手動 grant；invite_codes 刻意不給任何權限（anon 連 select 都不行，只能走 RPC 兌換）
+grant select on friend_creations to anon;
 
 
 -- 朋友功能：邀請碼兌換 + 建立創作（原子操作，避免同一碼被搶用兩次）

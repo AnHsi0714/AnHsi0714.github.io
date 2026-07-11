@@ -9,14 +9,14 @@
 
 ## 0. 核心決策摘要
 
-| 問題                | 決定                                                                                    |
-| ------------------- | --------------------------------------------------------------------------------------- |
-| 後台/登入系統       | 不做。網站對外永遠是「唯讀」的，你自己的資料透過 Supabase Studio 的 Table Editor 增刪改 |
-| 朋友 2D/3D 創作身份 | 邀請碼機制，不建帳號系統，只需暱稱                                                      |
-| 內容區塊範圍        | 不做獨立任務區；書籍區擴展為文章區（`type: book\|note`），可容納雜記／影評／技術筆記；夢想區只存「想做的事＋為什麼」靜態清單，無狀態欄位 |
-| 朋友創作風格        | 2D 像素風（存座標 + 顏色），3D 方向未定；正式上線最終只會二選一其一                      |
-| 畫廊視覺氛圍        | 寧靜展覽感＋單一聚光燈；與其他區塊風格分開處理而非統一視覺語言（見 §6.1）                |
-| 訪客統計／第三方追蹤 | 不做，不導入任何分析工具                                                                |
+| 問題                 | 決定                                                                                                                                     |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| 後台/登入系統        | 不做。網站對外永遠是「唯讀」的，你自己的資料透過 Supabase Studio 的 Table Editor 增刪改                                                  |
+| 朋友 2D/3D 創作身份  | 邀請碼機制，不建帳號系統，只需暱稱                                                                                                       |
+| 內容區塊範圍         | 不做獨立任務區；書籍區擴展為文章區（`type: book\|note`），可容納雜記／影評／技術筆記；夢想區只存「想做的事＋為什麼」靜態清單，無狀態欄位 |
+| 朋友創作風格         | 2D 像素風（存座標 + 顏色），3D 方向未定；正式上線最終只會二選一其一                                                                      |
+| 畫廊視覺氛圍         | 寧靜展覽感＋單一聚光燈；與其他區塊風格分開處理而非統一視覺語言（見 §6.1）                                                                |
+| 訪客統計／第三方追蹤 | 不做，不導入任何分析工具                                                                                                                 |
 
 這三個決定的共同結果：**整個網站只有一種寫入路徑需要對外開放**——朋友創作功能（透過邀請碼），其餘所有資料的寫入都只發生在 Supabase Studio（用你自己的帳號登入 Supabase 後台，跟網站本身的訪客是兩個世界），網站前端對 Supabase 只做 `select`。
 
@@ -30,8 +30,8 @@
 | 路由       | React Router（純前端路由）                        | user page 部署在根網域，不需要 basename                          |
 | 樣式       | Tailwind CSS                                      | 大量卡片/網格版面（畫廊、專案、夢想清單）用 utility class 開發快 |
 | 資料抓取   | `@tanstack/react-query` + `@supabase/supabase-js` | 統一處理 loading/error/cache，避免每頁手刻 fetch 邏輯            |
-| 2D 繪製    | Canvas（固定尺寸像素網格編輯器，存座標 + 顏色）    | 資料即視覺，縮圖可直接從資料重繪，不用額外存圖（見 §7）          |
-| 3D 製作    | 方向未定，暫緩（最終 2D/3D 二選一，見 §0、§7）     | 先把 2D 像素版做出來再評估是否要換方向，不同時維護兩套           |
+| 2D 繪製    | Canvas（像素網格編輯器，網格尺寸可選，存座標 + 顏色） | 資料即視覺，縮圖可直接從資料重繪，不用額外存圖（見 §7）          |
+| 3D 製作    | 方向未定，暫緩（最終 2D/3D 二選一，見 §0、§7）    | 先把 2D 像素版做出來再評估是否要換方向，不同時維護兩套           |
 | p5.js 畫廊 | p5.js instance mode                               | 多個 sketch 共存不衝突、可隨路由掛載/卸載                        |
 | 2D 物理    | matter-js                                         | 「金屬碰撞」單件作品的剛體模擬，只有該 sketch 模組引用           |
 | 後端       | Supabase（Postgres + Storage + RPC function）     | 你已指定；只在「朋友創作」這個真正需要動態寫入的功能上發揮價值   |
@@ -67,7 +67,7 @@
                     ┌─────────────────────────────┐
                     │   Supabase Studio（後台）      │
                     │   你在這裡新增/編輯：           │
-                    │   人生事件、審核朋友創作         │
+                    │   邀請碼、審核朋友創作           │
                     └─────────────────────────────┘
 ```
 
@@ -83,13 +83,13 @@
 
 適合：你自己慢慢寫、不常變動、寫起來像「文章」的內容。
 
-| 區塊              | 格式建議                                                                         |
-| ----------------- | -------------------------------------------------------------------------------- |
-| 文章（含讀書心得）| 每篇一個 `.md`（frontmatter：`type: book\|note`、標題/日期；`author`/`rating` 只有 book 才填；`excerpt` 可選，沒填就自動從正文萃取前 100 字）；渲染為詳細頁 `/articles/:slug`，支援篩選器（標題、分類、評分、日期） |
-| 夢想清單          | 一個 `dreams.json`（陣列，每項含 title/desc，無狀態欄位）                        |
-| 專案區            | 一個 `projects.json`（`slug/name/desc/date/status: todo\|in-progress\|done/tags/collaborators/period/advisor/screenshotUrl/githubUrl`）；長文寫法另外放 `content/projects/<slug>.md`（選填，渲染為詳細頁 `/projects/:slug`）；MD H2 標題統一為：專案簡介、相關連結、系統架構、核心功能、心得 |
-| 經歷              | 硬寫在 `src/pages/experience/Experience.tsx`（條目不多、不需動態資料），渲染為 `/experience` 時間軸頁 |
-| 藝術畫廊 metadata | 一個 `artworks.json`（slug/title/date/縮圖路徑陣列/`openProcessingUrl` 原稿連結），sketch 程式碼本來就要進 repo；沒有另外的 sketch slug 欄位，`sketches/index.ts` 直接拿 artwork 的 `slug` 當 key 對應到 sketch factory，兩者共用同一個 slug。列表頁支援篩選器（標題、日期、互動類型、最新/最久排序），互動類型取自 `SketchEntry.interactions`，未移植的作品歸為「靜態展示」 |
+| 區塊               | 格式建議                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 文章（含讀書心得） | 每篇一個 `.md`（frontmatter：`type: book\|note`、標題/日期；`author`/`rating` 只有 book 才填；`excerpt` 可選，沒填就自動從正文萃取前 100 字）；渲染為詳細頁 `/articles/:slug`，支援篩選器（標題、分類、評分、日期）                                                                                                                                                          |
+| 夢想清單           | 一個 `dreams.json`（陣列，每項含 title/desc，無狀態欄位）                                                                                                                                                                                                                                                                                                                    |
+| 專案區             | 一個 `projects.json`（`slug/name/desc/date/status: todo\|in-progress\|done/tags/collaborators/period/advisor/screenshotUrl/githubUrl`）；長文寫法另外放 `content/projects/<slug>.md`（選填，渲染為詳細頁 `/projects/:slug`）；MD H2 標題統一為：專案簡介、相關連結、系統架構、核心功能、心得                                                                                 |
+| 經歷               | 硬寫在 `src/pages/experience/Experience.tsx`（條目不多、不需動態資料），渲染為 `/experience` 時間軸頁                                                                                                                                                                                                                                                                        |
+| 藝術畫廊 metadata  | 一個 `artworks.json`（slug/title/date/縮圖路徑陣列/`openProcessingUrl` 原稿連結），sketch 程式碼本來就要進 repo；沒有另外的 sketch slug 欄位，`sketches/index.ts` 直接拿 artwork 的 `slug` 當 key 對應到 sketch factory，兩者共用同一個 slug。列表頁支援篩選器（標題、日期、互動類型、最新/最久排序），互動類型取自 `SketchEntry.interactions`，未移植的作品歸為「靜態展示」 |
 
 優點：零後端延遲、版本控制、改完 `git push` 自動觸發部署，不用碰 Supabase。
 
@@ -97,10 +97,9 @@
 
 適合：變動頻率較高、或本質上是「執行期、多方寫入」的資料。
 
-| 區塊                     | 為什麼放 Supabase                                                                                   |
-| ------------------------ | --------------------------------------------------------------------------------------------------- |
-| 人生區（人生事件時間軸） | 想到就能補一筆，不想每次都 commit；用手機開 Supabase Studio 也能加                                  |
-| 朋友 2D/3D 創作 + 邀請碼 | **必須**是資料庫——這是執行期、由不特定第三方（朋友）寫入的資料，沒有任何方式能用 git 處理           |
+| 區塊                     | 為什麼放 Supabase                                                                         |
+| ------------------------ | ----------------------------------------------------------------------------------------- |
+| 朋友 2D/3D 創作 + 邀請碼 | **必須**是資料庫——這是執行期、由不特定第三方（朋友）寫入的資料，沒有任何方式能用 git 處理 |
 
 切換成本低：兩種方式在前端都只是「換一個 data fetching hook」（讀本地 JSON or 讀 Supabase），之後想把某區從 A 搬到 B（或反過來）都很容易，不是不可逆的決定。
 
@@ -108,26 +107,9 @@
 
 ## 4. Supabase 資料庫設計
 
-只列出「會放進 Supabase 的部分」：人生區、朋友創作 + 邀請碼。
+只列出「會放進 Supabase 的部分」：朋友創作 + 邀請碼。
 
 ```sql
--- 人生區：人生事件時間軸
-create table life_events (
-  id bigint generated always as identity primary key,
-  event_date date not null,
-  title text not null,
-  description text,
-  image_url text,
-  created_at timestamptz not null default now()
-);
-
-alter table life_events enable row level security;
-create policy "public can read life_events"
-  on life_events for select using (true);
--- 沒有 insert/update/delete policy → anon/authenticated 預設全部被拒絕
--- 只能透過 Supabase Studio（service role）修改
-
-
 -- 朋友功能：邀請碼
 create table invite_codes (
   id bigint generated always as identity primary key,
@@ -162,6 +144,11 @@ alter table friend_creations enable row level security;
 create policy "public can read visible creations"
   on friend_creations for select using (is_visible = true);
 -- 同樣不開放 anon 直接 insert，只能透過下面的 RPC
+
+-- Supabase 專案建立時關閉了「Automatically expose new tables」（手動控制授權），
+-- 表不會自動授權給 Data API 角色，需要手動 grant；
+-- invite_codes 刻意不給任何權限（anon 連 select 都不行，只能走 RPC 兌換）
+grant select on friend_creations to anon;
 ```
 
 ---
@@ -258,7 +245,7 @@ grant execute on function redeem_invite_and_create to anon;
 
 ### 2D 像素編輯器
 
-- 畫布是固定大小的網格（例如 16×16 或 32×32，視覺上像復古像素圖），朋友用滑鼠/觸控點格子上色，旁邊給一個固定色盤（不開放任意色相選擇也可以，色盤本身就是一種風格控制）。
+- 畫布是像素網格（已決定：**網格尺寸由朋友自選**，例如 16×16 / 32×32 擇一，開始作畫後鎖定；`data.grid` 欄位本來就帶尺寸，資料格式不用改），朋友用滑鼠/觸控點格子上色，配色採**自由選色**（color picker 任意色相），不做固定色盤。
 - `data jsonb` 直接存朋友畫出來的座標與顏色，採「只存有上色的格子」的稀疏陣列，空白格不用存：
 
   ```json
@@ -280,7 +267,7 @@ grant execute on function redeem_invite_and_create to anon;
 
 ### 內容風險
 
-固定網格 + 固定色盤本身就把「能畫出什麼」限制在很小的範圍內（最壞情況也只是一張低解析度像素圖），不需要額外的審核機制；`is_visible` 欄位還是留著，萬一真的有需要還是能手動關閉個別作品。
+低解析度像素網格本身就把「能畫出什麼」限制在很小的範圍內（即使自由選色，最壞情況也只是一張低解析度像素圖），不需要額外的審核機制；`is_visible` 欄位還是留著，萬一真的有需要還是能手動關閉個別作品。
 
 ---
 
@@ -290,7 +277,7 @@ grant execute on function redeem_invite_and_create to anon;
 /
 ├── public/
 │   ├── gallery/              # 畫廊縮圖 + hover 預覽影片
-│   └── images/               # 人生區、文章等的靜態圖片
+│   └── images/               # 文章、關於等的靜態圖片
 ├── content/                   # §3 的「Git 內容檔」
 │   ├── articles/*.md
 │   ├── projects/*.md          # 專案長文寫法，選填，檔名＝projects.json 裡的 slug
@@ -317,7 +304,6 @@ grant execute on function redeem_invite_and_create to anon;
 │   │   │   ├── GalleryGrid.tsx
 │   │   │   ├── GalleryDetail.tsx
 │   │   │   └── sketches/        # 搬遷後的 p5.js instance-mode 模組
-│   │   ├── life/
 │   │   ├── articles/
 │   │   │   ├── Articles.tsx
 │   │   │   └── ArticleDetail.tsx    # /articles/:slug，markdown 正文渲染
@@ -332,7 +318,7 @@ grant execute on function redeem_invite_and_create to anon;
 │   │       ├── Creator2D.tsx        # 像素編輯器，見 §7；3D 暫緩，未實作
 │   │       └── FriendGallery.tsx
 │   ├── components/             # NavBar、Card、Loading、MarkdownContent 等共用元件
-│   ├── hooks/                  # useLifeEvents 等資料 hook
+│   ├── hooks/                  # useFriendCreations 等資料 hook
 │   └── types/
 ├── supabase/
 │   └── migrations/             # §4、§5 的 SQL，用 Supabase CLI 管理版本
@@ -357,7 +343,7 @@ grant execute on function redeem_invite_and_create to anon;
 | ------- | ------------------------------------------------------------------------------------ |
 | Phase 1 | Vite + React 骨架、路由、Tailwind、GitHub Actions 部署打通（先讓一個空殼網站能上線） |
 | Phase 2 | 文章/夢想/專案區（§3-A 的 git 內容檔），先把「靜態內容類」頁面做完                   |
-| Phase 3 | Supabase 專案建立、§4 schema + RLS 上線，人生區接上即時資料                          |
+| Phase 3 | Supabase 專案建立、§4 schema + RLS 上線（`feat/supabase-setup`）                     |
 | Phase 4 | 藝術畫廊：先搬 3-5 個 OpenProcessing sketch 驗證 instance-mode 遷移 + hover 預覽機制 |
 | Phase 5 | 朋友創作功能（邀請碼 RPC + 2D 像素編輯器）                                           |
 | Phase 6 | 視覺風格打磨（含畫廊聚光燈效果）、SEO/OG meta、響應式                                |
@@ -368,8 +354,8 @@ grant execute on function redeem_invite_and_create to anon;
 
 ## 11. 待你後續決定的開放問題
 
-- 像素網格的具體尺寸與色盤（16×16？32×32？色盤要幾色、要不要包含黑/白/透明）。
 - 是否真的要做 3D 小怪獸這個替代方向，還是直接定案只做 2D 像素版。
-- 整體（非畫廊、非朋友創作區）的基礎視覺風格：色調、字體、是否要深色模式。
+
+已決定（2026-07-11）：像素網格尺寸由朋友自選（`data.grid` 帶尺寸）；色盤採自由選色（color picker），不做固定色盤。
 
 已決定不做／暫不考慮：訪客流量統計、第三方追蹤、邀請碼外流的速率限制（目前「一碼一用」的設計已足夠）。
