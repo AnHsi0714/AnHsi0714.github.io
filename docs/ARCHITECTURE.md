@@ -201,6 +201,19 @@ grant execute on function redeem_invite_and_create to anon;
 `supabase.rpc('redeem_invite_and_create', { p_code, p_nickname, p_kind, p_data })`。
 失敗（碼錯/已用）會直接拋例外，前端顯示「邀請碼無效或已使用」。
 
+**作畫前檢查與二次編輯**（`0002_check_and_edit_creation.sql`）：
+
+- `check_invite_code(p_code)`：InviteGate 在朋友開始作畫**前**呼叫，回傳
+  `invalid`（不存在／未使用但過期）／`unused`（可建立新作品）／`used` + 原作品資料。
+  避免朋友畫了半小時才發現碼無效；`used` 的碼會載入原作品進入編輯模式。
+  這個 function 等於公開了「某字串是不是有效碼」的檢查口——已決定不做速率限制
+  （§11），碼又是私下發放，此風險可接受。
+- `update_creation_with_code(p_code, p_nickname, p_data)`：**兌換過的邀請碼就是該作品
+  的永久編輯憑證**（拿到碼 = 能改那件作品），朋友再次輸入同一組碼即可覆蓋暱稱＋圖。
+  `is_visible` 不會被動到，你審核關閉的作品不因朋友重新編輯而重新出現。
+- 極端 race（gate 檢查通過後、送出前才被別人搶用同一碼）仍由 `redeem_invite_and_create`
+  的 `for update` 鎖擋住，前端在送出時顯示錯誤。
+
 **縮圖儲存**：因為走 2D 像素風，`data` 裡的座標 + 顏色本身就是完整的「圖」，不需要另外產生/儲存縮圖圖檔——朋友列表頁要顯示縮圖時，前端直接拿 `pixels` 陣列在一個小 `<canvas>`（或畫成 SVG `<rect>`）上重繪即可，省掉 base64/Storage 那一層。即使列表上同時顯示幾十個朋友作品，重繪像素方塊的成本也遠低於載入圖片或掛載 3D 場景。
 
 （如果之後真的改走 3D 方向，重新渲染一個 Three.js 場景的成本就高很多，那時才需要補上預渲染縮圖 + Storage bucket 的設計。）

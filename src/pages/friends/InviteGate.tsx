@@ -1,15 +1,16 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 
 interface InviteGateProps {
   initialCode?: string;
   initialNickname?: string;
-  onSubmit: (code: string, nickname: string) => void;
+  // 回傳錯誤訊息字串表示碼不能用（顯示在邀請碼欄位），回傳 null 表示通過
+  onSubmit: (code: string, nickname: string) => Promise<string | null>;
 }
 
-// 只做「有沒有填」的檢查；邀請碼是否有效要等送出作品時由 RPC 判定
-// （invite_codes 完全不開放 select，前端無從預先驗證，見 supabase/migrations/0001_init.sql）
+// 送出時呼叫 check_invite_code RPC 檢查碼的狀態：沒用過的碼進入創作模式、
+// 用過的碼載入原作品進入編輯模式（見 supabase/migrations/0002_check_and_edit_creation.sql）
 export default function InviteGate({
   initialCode = "",
   initialNickname = "",
@@ -17,12 +18,12 @@ export default function InviteGate({
 }: InviteGateProps) {
   const [code, setCode] = useState(initialCode);
   const [nickname, setNickname] = useState(initialNickname);
+  const [checking, setChecking] = useState(false);
   const [errors, setErrors] = useState<{ code?: string; nickname?: string }>(
     {},
   );
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     const trimmedCode = code.trim();
     const trimmedNickname = nickname.trim();
     const nextErrors = {
@@ -31,11 +32,28 @@ export default function InviteGate({
     };
     setErrors(nextErrors);
     if (nextErrors.code || nextErrors.nickname) return;
-    onSubmit(trimmedCode, trimmedNickname);
+
+    setChecking(true);
+    try {
+      const failure = await onSubmit(trimmedCode, trimmedNickname);
+      if (failure) setErrors({ code: failure });
+    } catch (err) {
+      setErrors({
+        code: err instanceof Error ? err.message : "檢查邀請碼時發生錯誤",
+      });
+    } finally {
+      setChecking(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto mt-8 max-w-sm space-y-4">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        void handleSubmit();
+      }}
+      className="mx-auto mt-8 max-w-sm space-y-4"
+    >
       <Input
         label="邀請碼"
         value={code}
@@ -53,8 +71,8 @@ export default function InviteGate({
         autoComplete="off"
         error={errors.nickname}
       />
-      <Button type="submit" className="w-full">
-        開始作畫
+      <Button type="submit" className="w-full" disabled={checking}>
+        {checking ? "檢查邀請碼中…" : "開始作畫"}
       </Button>
     </form>
   );
