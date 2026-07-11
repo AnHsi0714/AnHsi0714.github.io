@@ -58,7 +58,7 @@ export default function InviteGate({
         label="邀請碼"
         value={code}
         onChange={(e) => setCode(e.target.value)}
-        placeholder="輸入我私下給你的邀請碼"
+        placeholder="輸入我給的邀請碼"
         autoComplete="off"
         error={errors.code}
       />

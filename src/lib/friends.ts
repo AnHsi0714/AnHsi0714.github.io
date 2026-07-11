@@ -10,7 +10,7 @@ export async function fetchFriendCreations(): Promise<FriendCreationRow[]> {
 
   const { data, error } = await supabase
     .from("friend_creations")
-    .select("id, nickname, kind, data, created_at")
+    .select("id, nickname, kind, data, intro, created_at")
     .order("created_at", { ascending: false });
 
   if (error) throw error;
@@ -40,6 +40,7 @@ export async function redeemInviteAndCreate(params: {
   code: string;
   nickname: string;
   data: PixelData;
+  intro?: string;
 }): Promise<FriendCreationRow> {
   if (!supabase) throw new Error(NOT_CONFIGURED_MESSAGE);
 
@@ -48,6 +49,7 @@ export async function redeemInviteAndCreate(params: {
     p_nickname: params.nickname,
     p_kind: "2d",
     p_data: params.data,
+    p_intro: params.intro ?? null,
   });
 
   if (error) throw error;
@@ -59,6 +61,7 @@ export async function updateCreationWithCode(params: {
   code: string;
   nickname: string;
   data: PixelData;
+  intro?: string;
 }): Promise<FriendCreationRow> {
   if (!supabase) throw new Error(NOT_CONFIGURED_MESSAGE);
 
@@ -66,6 +69,7 @@ export async function updateCreationWithCode(params: {
     p_code: params.code,
     p_nickname: params.nickname,
     p_data: params.data,
+    p_intro: params.intro ?? null,
   });
 
   if (error) throw error;

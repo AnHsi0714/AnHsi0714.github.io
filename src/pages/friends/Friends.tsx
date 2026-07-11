@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Alert from "../../components/Alert";
@@ -35,9 +36,34 @@ function FriendCreationCarousel({
   const scrollRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showIntro, setShowIntro] = useState(false);
   const [focus, setFocus] = useState<{ scale: number; brightness: number }[]>(
     [],
   );
+
+  // 換到別的作品（點擊或捲動）就收起敘述遮罩
+  useEffect(() => {
+    setShowIntro(false);
+  }, [activeIndex]);
+
+  // 遮罩開啟期間：Esc 可關閉、鎖住頁面捲動（同 ExpandableCard 的做法）
+  useEffect(() => {
+    if (!showIntro) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setShowIntro(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [showIntro]);
+
+  const activeCreation = creations[activeIndex] as
+    | FriendCreationRow
+    | undefined;
   const [spacerWidth, setSpacerWidth] = useState(0);
 
   // 兩端留白，確保第一個／最後一個作品也能被捲到正中間（見下方 spacer 元素）
@@ -158,11 +184,27 @@ function FriendCreationCarousel({
             }}
             role="button"
             tabIndex={0}
-            onClick={() => centerItem(index)}
+            aria-label={
+              index === activeIndex && creation.intro
+                ? `${creation.nickname} 的作品，點擊查看敘述`
+                : `前往 ${creation.nickname} 的作品`
+            }
+            // 點還沒置中的作品 → 把它捲到中間；點已置中且有敘述的作品 → 開啟整頁敘述遮罩
+            onClick={() => {
+              if (index === activeIndex) {
+                if (creation.intro) setShowIntro(true);
+              } else {
+                centerItem(index);
+              }
+            }}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                centerItem(index);
+                if (index === activeIndex) {
+                  if (creation.intro) setShowIntro(true);
+                } else {
+                  centerItem(index);
+                }
               }
             }}
             className="shrink-0 cursor-pointer snap-center will-change-transform transition-transform duration-150 ease-out"
@@ -208,6 +250,31 @@ function FriendCreationCarousel({
           />
         ))}
       </div>
+
+      {/* 敘述遮罩：整頁置中的一句話，像作者本人站出來講了句玩笑話；點任意處或 Esc 關閉 */}
+      {showIntro &&
+        activeCreation?.intro &&
+        createPortal(
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${activeCreation.nickname} 的作品敘述`}
+            onClick={() => setShowIntro(false)}
+            className={`${styles.introBackdrop} fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center bg-black/70 px-8 backdrop-blur-sm`}
+          >
+            <blockquote
+              className={`${styles.intro} max-w-xl text-center text-2xl leading-relaxed text-white transition-all duration-300 hover:text-amber-300
+    hover:scale-105
+    hover:-skew-x-12`}
+            >
+              「{activeCreation.intro}」
+            </blockquote>
+            <p className="mt-6 text-sm text-white/60">
+              —— {activeCreation.nickname}
+            </p>
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }

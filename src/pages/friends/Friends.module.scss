@@ -6,3 +6,17 @@
     display: none;
   }
 }
+
+// 敘述遮罩淡入（關閉是直接卸載，不做淡出以免拖慢互動）
+.introBackdrop {
+  animation: intro-fade-in 0.2s ease-out;
+}
+
+@keyframes intro-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

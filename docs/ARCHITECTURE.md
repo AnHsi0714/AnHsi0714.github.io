@@ -134,6 +134,7 @@ create table friend_creations (
   nickname text not null,
   kind text not null default '2d' check (kind in ('2d', '3d')),  -- 保留彈性，目前只會用到 '2d'
   data jsonb not null,
+  intro text check (char_length(intro) <= 200),  -- 選填敘述，點擊置中作品時顯示（0003 加入）
   thumbnail_url text,             -- 2D 像素版不需要；若日後改走 3D 才需要存預渲染縮圖
   invite_code_id bigint references invite_codes(id),
   is_visible boolean not null default true,  -- 你審核後可關閉顯示

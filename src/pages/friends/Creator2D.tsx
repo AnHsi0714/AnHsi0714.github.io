@@ -100,7 +100,11 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
   switch (action.type) {
     case "strokeCell": {
       const { key, color } = action;
-      if (color === null ? !state.pixels.has(key) : state.pixels.get(key) === color) {
+      if (
+        color === null
+          ? !state.pixels.has(key)
+          : state.pixels.get(key) === color
+      ) {
         return state;
       }
       const pixels = new Map(state.pixels);
@@ -178,7 +182,9 @@ function EditorCanvas({
     for (let y = 0; y < grid; y++) {
       for (let x = 0; x < grid; x++) {
         ctx.fillStyle =
-          (x + y) % 2 === 0 ? "rgba(127,127,127,0.06)" : "rgba(127,127,127,0.14)";
+          (x + y) % 2 === 0
+            ? "rgba(127,127,127,0.06)"
+            : "rgba(127,127,127,0.14)";
         ctx.fillRect(x * CELL_PX, y * CELL_PX, CELL_PX, CELL_PX);
       }
     }
@@ -254,11 +260,17 @@ export default function Creator2D() {
   const [grid, setGrid] = useState<number | null>(null);
   const [color, setColor] = useState(DEFAULT_COLOR);
   const [tool, setTool] = useState<Tool>("paint");
+  const [intro, setIntro] = useState("");
   const [editor, dispatchEditor] = useReducer(editorReducer, emptyEditorState);
   const { pixels, past, future } = editor;
 
   const mutation = useMutation({
-    mutationFn: (vars: { code: string; nickname: string; data: PixelData }) =>
+    mutationFn: (vars: {
+      code: string;
+      nickname: string;
+      data: PixelData;
+      intro?: string;
+    }) =>
       mode === "edit"
         ? updateCreationWithCode(vars)
         : redeemInviteAndCreate(vars),
@@ -316,6 +328,11 @@ export default function Creator2D() {
           data={mutation.data.data}
           className="mt-6 h-48 w-48 rounded-md border border-[var(--color-border)]"
         />
+        {mutation.data.intro && (
+          <p className="mt-4 max-w-md text-sm text-[var(--color-text-muted)]">
+            「{mutation.data.intro}」
+          </p>
+        )}
         <Link to="/friends" className="mt-6">
           <Button>去創作牆看看</Button>
         </Link>
@@ -343,6 +360,7 @@ export default function Creator2D() {
               // 只在還沒開始作畫時載入原作品，避免中途改邀請碼把畫到一半的圖蓋掉
               if (grid === null) {
                 setGrid(result.creation.data.grid);
+                setIntro(result.creation.intro ?? "");
                 dispatchEditor({
                   type: "load",
                   pixels: fromPixelData(result.creation.data),
@@ -471,6 +489,24 @@ export default function Creator2D() {
             </div>
           )}
 
+          <label className="w-full max-w-[480px] text-sm">
+            <span className="mb-1 block text-[var(--color-text-muted)]">
+              作品、個人敘述 or
+              其他（選填，別人點開你的作品時會顯示，嚴禁不當內容）
+            </span>
+            <textarea
+              value={intro}
+              onChange={(e) => setIntro(e.target.value)}
+              maxLength={200}
+              rows={3}
+              placeholder="想對看到這張圖的人說的話"
+              className="w-full resize-none rounded-md border border-[var(--color-border)] bg-transparent px-3 py-2 outline-none focus:border-[var(--color-primary)]"
+            />
+            <span className="mt-1 block text-right text-xs text-[var(--color-text-muted)]">
+              {intro.length}/200
+            </span>
+          </label>
+
           {mutation.isError && (
             <Alert variant="error" className="w-full max-w-[480px]">
               送出失敗：{mutation.error.message}
@@ -486,6 +522,7 @@ export default function Creator2D() {
                 code: identity.code,
                 nickname: identity.nickname,
                 data: pixelData,
+                intro: intro.trim() || undefined,
               });
             }}
           >

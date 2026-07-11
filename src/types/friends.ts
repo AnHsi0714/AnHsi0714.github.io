@@ -19,5 +19,6 @@ export interface FriendCreationRow {
   nickname: string;
   kind: CreationKind;
   data: PixelData;
+  intro: string | null; // 選填敘述，創作牆上點擊置中作品時顯示
   created_at: string;
 }
