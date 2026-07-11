@@ -3,14 +3,13 @@ import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { to: "/", label: "Cheng An Hsi" },
-  { to: "/gallery", label: "藝術畫廊" },
   { to: "/about", label: "關於" },
   { to: "/experience", label: "經歷" },
-  { to: "/articles", label: "文章" },
   { to: "/projects", label: "專案" },
+  { to: "/articles", label: "文章" },
+  { to: "/gallery", label: "藝術畫廊" },
   { to: "/dreams", label: "夢想" },
   { to: "/friends", label: "朋友創作" },
-  // todo: remove after development
   { to: "/dev/components", label: "組件預覽" },
 ];
 

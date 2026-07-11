@@ -17,19 +17,20 @@ import Chip from "../../components/Chip";
 
 const skillGroups = [
   {
-    label: "語言 & 工具",
-    items: [
-      "Python",
-      "TypeScript",
-      "D3.js",
-      "R",
-      "Tableau",
-      "React",
-      "HTML/SCSS",
-      "C++",
-      "Angular",
-      "p5.js",
-    ],
+    label: "Programming",
+    items: ["Python", "TypeScript", "C++"],
+  },
+  {
+    label: "Data & Visualization",
+    items: ["D3.js", "Tableau", "R"],
+  },
+  {
+    label: "Frontend",
+    items: ["React", "Angular", "HTML / SCSS"],
+  },
+  {
+    label: "Others",
+    items: ["p5.js"],
   },
   {
     label: "專業方向",
@@ -38,7 +39,6 @@ const skillGroups = [
       "資料分析與探索",
       "NLP Pipeline 設計與評估",
       "互動式演算法／資料結構視覺化",
-      "前端工程實踐（Scrum / Sprint Review / 設計文件）",
       "Creative Coding / 藝術程式創作",
     ],
   },
@@ -58,17 +58,28 @@ const academicRecord = [
 ];
 
 const researchInterests = [
-  { layer: "核心 Core", items: ["Visual Analytics"] },
+  {
+    layer: "核心 Core",
+    items: ["Visual Analytics", "Interactive Data Exploration"],
+  },
   {
     layer: "支撐方法 Methods",
     items: [
-      "Interactive Visualization",
-      "Explainable AI",
-      "Human-AI Interaction",
-      "NLP / 文本分析",
+      "Information Visualization",
+      "Human-Computer Interaction",
+      "Natural Language Processing",
+      "Knowledge Graph",
     ],
   },
-  { layer: "應用領域 Applied", items: ["Programming Education"] },
+  {
+    layer: "應用領域 Applied",
+    items: [
+      "Programming Education",
+      "Developer Tools",
+      "Human-AI Collaboration",
+      "Software Engineering",
+    ],
+  },
 ];
 
 const achievements = [
@@ -84,10 +95,13 @@ const achievements = [
 
 const experienceHighlights = [
   { year: "2022", text: "全國工科技藝競賽 金手獎第七名" },
-  { year: "2023", text: "赴美見學交流（亞特蘭大 & 舊金山）" },
-  { year: "2023–25", text: "母校技藝競賽選手培訓教師" },
+  { year: "2023 / 5", text: "赴美見學交流（亞特蘭大 & 舊金山）" },
+  { year: "2023~2025", text: "母校技藝競賽選手培訓教師" },
   { year: "2025 / 12", text: "教育大數據微學程 成果發表 佳作" },
-  { year: "2025–27", text: "美商太陽鳥軟體 前端開發實習" },
+  {
+    year: "2025~2027",
+    text: "美商太陽鳥軟體 前端開發實習（Scrum / Sprint Review / 設計文件）",
+  },
 ];
 
 const interests = [
@@ -186,7 +200,7 @@ export default function About() {
           )}
         </div>
 
-        <div className="py-6">
+        <div id="research-interests" className="py-6">
           <p className="font-semibold text-[var(--color-primary)]">
             研究興趣 Research Interests
           </p>
