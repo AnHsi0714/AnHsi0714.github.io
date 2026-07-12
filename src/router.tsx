@@ -13,6 +13,8 @@ import Dreams from './pages/dreams/Dreams'
 import Friends from './pages/friends/Friends'
 import Creator2D from './pages/friends/Creator2D'
 import ComponentsPreview from './pages/dev/ComponentsPreview'
+import CreatureDemo from './pages/dev/CreatureDemo'
+import CreatureBuilder from './pages/dev/CreatureBuilder'
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +34,8 @@ export const router = createBrowserRouter([
       { path: 'friends', element: <Friends /> },
       { path: 'friends/create', element: <Creator2D /> },
       { path: 'dev/components', element: <ComponentsPreview /> },
+      { path: 'dev/creature', element: <CreatureDemo /> },
+      { path: 'dev/creature-builder', element: <CreatureBuilder /> },
     ],
   },
 ])

@@ -11,6 +11,8 @@ const links = [
   { to: "/dreams", label: "夢想" },
   { to: "/friends", label: "朋友創作" },
   { to: "/dev/components", label: "組件預覽" },
+  { to: "/dev/creature", label: "怪獸預覽" },
+  { to: "/dev/creature-builder", label: "怪獸捏造" },
 ];
 
 export default function NavBar() {
