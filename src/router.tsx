@@ -11,8 +11,10 @@ import ProjectDetail from './pages/projects/ProjectDetail'
 import Experience from './pages/experience/Experience'
 import Dreams from './pages/dreams/Dreams'
 import Friends from './pages/friends/Friends'
-import Creator2D from './pages/friends/Creator2D'
+import Creator from './pages/friends/Creator'
 import ComponentsPreview from './pages/dev/ComponentsPreview'
+import CreatureDemo from './pages/dev/CreatureDemo'
+import CreatureBuilder from './pages/dev/CreatureBuilder'
 
 export const router = createBrowserRouter([
   {
@@ -30,8 +32,10 @@ export const router = createBrowserRouter([
       { path: 'experience', element: <Experience /> },
       { path: 'dreams', element: <Dreams /> },
       { path: 'friends', element: <Friends /> },
-      { path: 'friends/create', element: <Creator2D /> },
+      { path: 'friends/create', element: <Creator /> },
       { path: 'dev/components', element: <ComponentsPreview /> },
+      { path: 'dev/creature', element: <CreatureDemo /> },
+      { path: 'dev/creature-builder', element: <CreatureBuilder /> },
     ],
   },
 ])
