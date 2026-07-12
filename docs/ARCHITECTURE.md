@@ -90,6 +90,7 @@
 | 專案區             | 一個 `projects.json`（`slug/name/desc/date/status: todo\|in-progress\|done/tags/collaborators/period/advisor/screenshotUrl/githubUrl`）；長文寫法另外放 `content/projects/<slug>.md`（選填，渲染為詳細頁 `/projects/:slug`）；MD H2 標題統一為：專案簡介、相關連結、系統架構、核心功能、心得                                                                                 |
 | 經歷               | 硬寫在 `src/pages/experience/Experience.tsx`（條目不多、不需動態資料），渲染為 `/experience` 時間軸頁                                                                                                                                                                                                                                                                        |
 | 藝術畫廊 metadata  | 一個 `artworks.json`（slug/title/date/縮圖路徑陣列/`openProcessingUrl` 原稿連結），sketch 程式碼本來就要進 repo；沒有另外的 sketch slug 欄位，`sketches/index.ts` 直接拿 artwork 的 `slug` 當 key 對應到 sketch factory，兩者共用同一個 slug。列表頁支援篩選器（標題、日期、互動類型、最新/最久排序），互動類型取自 `SketchEntry.interactions`，未移植的作品歸為「靜態展示」 |
+| 名詞解釋 Glossary  | 一個 `glossary.json`（`Record<id, { term, definition, application }>`）；文章／專案長文（`content/articles`、`content/projects/<slug>.md`）裡技術名詞用 `<span data-term="id">名詞</span>` 標記——`MarkdownContent.tsx` 靠 `rehype-raw` 允許內嵌 HTML，再攔截渲染出來的 `<span>`，若 `data-term` 對應到 glossary 有該 id 就換成 `Term.tsx`（可點擊、彈出定義＋「在此專案中如何被應用」兩段說明，定位邏輯會依觸發點在畫面上下的剩餘空間決定彈出方向）；查無對應 id 就原樣輸出 `<span>`，不會噴錯。`application` 欄位刻意寫「這個專案怎麼用這個名詞」而非教科書通用解釋，讓讀者（含審查委員）不必離開頁面查維基就能懂 CodePulse／ABSA 這類研究向專案裡的專有名詞 |
 
 優點：零後端延遲、版本控制、改完 `git push` 自動觸發部署，不用碰 Supabase。
 
@@ -329,7 +330,8 @@ values ('party-2026', now() + interval '7 days');
 │   ├── projects/*.md          # 專案長文寫法，選填，檔名＝projects.json 裡的 slug
 │   ├── dreams.json
 │   ├── projects.json          # 含 tags/collaborators/period/advisor/date 欄位
-│   └── artworks.json
+│   ├── artworks.json
+│   └── glossary.json          # 名詞解釋，見 §3-A；articles/projects 長文用 <span data-term="id"> 標記引用
 ├── docs/
 │   ├── ARCHITECTURE.md
 │   ├── templates/
