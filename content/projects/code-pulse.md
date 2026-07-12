@@ -12,6 +12,10 @@ CodePulse 是一套整合互動式視覺化、程式執行追蹤與 AI 演算法
 
 現有的程式視覺化工具也存在取捨：低門檻的動畫工具（如 VisuAlgo）多半只能展示預先定義好的演算法，無法分析使用者自己寫的程式碼；傳統除錯工具雖然完整，但呈現方式偏向開發者視角，對初學者負擔較重。CodePulse 試圖同時兼顧兩者的優點，在教學系統性與程式碼的探索彈性之間取得平衡。
 
+## English Summary
+
+CodePulse is a data-structures-and-algorithms learning platform that combines interactive visualization, execution tracing, and AI-based algorithm recognition: learners can follow pre-built animated lessons, or paste in their own Python code and have the system analyze and visualize how it actually runs. Its core design is a two-tier visualization scheme that automatically switches between a high-level semantic animation and a generic control-flow graph, depending on the recognizer's confidence score — balancing pedagogical structure with the flexibility to explore arbitrary code. A pre/post user study found that, over a short session, the tool significantly improved learners' confidence (university group p < 0.001, high-school group p = 0.021), while test scores only trended positive without reaching significance — a gap between the interface's psychological benefit and measurable learning gains that is itself a direction worth further study.
+
 ## 系統架構
 
 前後端分離，分四層：展示層（Code Editor、Visualization Renderer、Learning Dashboard 等元件）、應用層（身份驗證、使用者管理、執行管理、分析管理、練習與進度管理）、基礎設施層（非同步任務佇列、Sandbox 隔離執行、執行追蹤引擎）、資料持久層（PostgreSQL）。另外整合 Gemini API、Cloudinary、SMTP 等外部服務支援 AI 分析、媒體與通知。

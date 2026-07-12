@@ -228,6 +228,23 @@ export default function About() {
             Pipeline 則讓我對方法取捨產生興趣——規則式流程可解釋、零成本，但天花板受限於隱含語意；LLM
             覆蓋率高，卻是黑盒且有 API 成本，兩者沒有絕對優劣，端看場景需求。研究所階段希望把這兩個興趣收斂在一起：研究人機協作的介面設計與評估方法，讓開發者工具、程式教育這類系統不只是功能堆得多，而是有實證支持它真的有幫助。
           </p>
+          <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
+            Working on CodePulse taught me that a well-designed interface and measurably
+            better learning outcomes are two separate claims that need to be verified
+            independently — our pre/post study showed a significant gain in learners'
+            confidence, yet test scores only trended positive without reaching statistical
+            significance. That gap is what actually pulled me toward Visual Analytics / HCI
+            as a graduate research direction: I want to learn more rigorous user-research
+            methods so that intuitions about whether a tool "feels usable" become falsifiable
+            research questions instead. The ABSA pipeline project sharpened a related
+            interest in method trade-offs — a rule-based pipeline is interpretable and free
+            to run but capped by implicit semantics it can't resolve, while an LLM covers
+            more cases but is a costlier black box; neither is strictly better, it depends on
+            the context. Going forward, I hope to bring these two interests together:
+            studying interface design and evaluation methods for human-AI collaboration, so
+            that developer tools and programming-education systems are judged not by how many
+            features they ship, but by evidence that they actually help.
+          </p>
         </div>
 
         <div className="py-6">

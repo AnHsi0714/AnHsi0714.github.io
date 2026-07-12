@@ -6,6 +6,10 @@
 
 問卷回饋是自由文字，難以系統性分析：哪個功能最需要改進？使用者真正在意什麼？哪個面向有具體問題？
 
+## English Summary
+
+This project analyzes user feedback from the CodePulse platform using two parallel pipelines — a rule-based NLP pipeline and a Gemini zero-shot pipeline — for Aspect-Based Sentiment Analysis (ABSA), turning free-text feedback like "the animation is smooth, but submitting a quiz lags" into actionable quadruplets such as (animation, ANIMATION, smooth, positive) and (submitting a quiz, QUIZ, lags, negative). Unlike traditional sentiment analysis, which only judges a whole sentence as positive or negative, ABSA pinpoints exactly which feature is being praised or criticized, letting the development team map feedback directly to concrete fixes. On the same hand-annotated ground truth, the Gemini zero-shot pipeline outperforms the rule-based pipeline on full-quadruplet extraction (Partial F1, +0.207), mostly by recovering implicit aspects the rules miss; the rule-based pipeline still has its own advantages — zero API cost, high interpretability, and the ability to run locally in privacy-sensitive settings — so the two approaches complement rather than replace each other.
+
 ## 研究問題
 
 1. 回饋文字屬於哪個面向（Aspect）？
