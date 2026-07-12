@@ -105,7 +105,7 @@ OOPL 的期末專案
 
 使用到的OOP技術：<br>
 封裝、繼承 <br>
-Function overload
+<span data-term="function-overload">Function overload</span>
 
 ## 結語
 

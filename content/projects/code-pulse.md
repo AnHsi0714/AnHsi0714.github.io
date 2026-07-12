@@ -40,7 +40,7 @@
   <figcaption style="text-align: center;">知識補充站：陣列複雜度分析</figcaption>
 </figure>
 
-學完教學模式後接練習模式：單選、多選、程式填空與程式追蹤等題型(包含題組形式)，並採用基於 ELO Rating 的能力評估機制動態調整題目難度——加入 K-factor 衰減與首次作答（First Blood）策略，讓重複作答不會持續拉高評分，同時保留 XP 獎勵提升學習動機。
+學完教學模式後接練習模式：單選、多選、程式填空與程式追蹤等題型(包含題組形式)，並採用基於 <span data-term="elo-rating">ELO Rating</span> 的能力評估機制動態調整題目難度——加入 <span data-term="k-factor">K-factor</span> 衰減與首次作答（First Blood）策略，讓重複作答不會持續拉高評分，同時保留 XP 獎勵提升學習動機。
 
 <figure>
   <img src="/images/projects/code-pulse/practice-page.png" alt="練習模式：題目作答" style="display: block; margin: 0 auto; max-width: 100%;" />
@@ -61,7 +61,7 @@
   <figcaption style="text-align: center;">Lab 模式：多演算法並排比較</figcaption>
 </figure>
 
-**Playground** 則是這個專題的核心難點：允許使用者提交任意 Python 程式碼，系統透過 AST 靜態分析建立控制流程圖（CFG），並用 `sys.settrace` 在 Docker sandbox 中動態追蹤執行事件，取得變數狀態與函式呼叫關係。
+**Playground** 則是這個專題的核心難點：允許使用者提交任意 Python 程式碼，系統透過 <span data-term="ast">AST</span> 靜態分析建立<span data-term="cfg">控制流程圖（CFG）</span>，並用 `sys.settrace` 在 Docker sandbox 中動態追蹤執行事件，取得變數狀態與函式呼叫關係。
 
 ### 雙層視覺化機制
 
@@ -77,7 +77,7 @@
 
 ### 演算法辨識：語意嵌入模型比較
 
-辨識流程把使用者程式碼轉成向量，與預先建立的演算法參考向量庫做 cosine similarity 比對。比較了 5 個候選嵌入模型（CodeBERT、GraphCodeBERT、UniXcoder、MiniLM-L6-v2、Jina-Code v2），並測試不正規化／部分正規化／完整正規化三種命名正規化策略——完整正規化會把變數名也抹掉，反而讓已知/未知案例的相似度分布更容易重疊；不正規化則容易被函式命名牽著走。部分正規化（只正規化函式名與參數名，保留函式內部變數名）在多數模型上都取得最好的平衡。
+辨識流程把使用者程式碼轉成向量，與預先建立的演算法參考向量庫做 <span data-term="cosine-similarity-codepulse">cosine similarity</span> 比對。比較了 5 個候選嵌入模型（CodeBERT、GraphCodeBERT、UniXcoder、MiniLM-L6-v2、Jina-Code v2），並測試不正規化／部分正規化／完整正規化三種命名正規化策略——完整正規化會把變數名也抹掉，反而讓已知/未知案例的相似度分布更容易重疊；不正規化則容易被函式命名牽著走。部分正規化（只正規化函式名與參數名，保留函式內部變數名）在多數模型上都取得最好的平衡。
 
 最終採用 **Jina-Code v2 + 部分正規化**：已知演算法辨識準確率 100%，且在含輔助函式的多函式案例中仍維持 100% 準確率，辨識閾值設為 0.80 作為觸發 Level 1 動畫的門檻。低於門檻或結構不符模板時，系統不勉強輸出語意動畫，改採較保守的 CFG 視覺化，並由 Gemini 負責生成程式摘要、複雜度說明與學習回饋。
 
@@ -87,7 +87,7 @@
 
 | 指標                     | 大學組                       | 高中組                       |
 | ------------------------ | ---------------------------- | ---------------------------- |
-| 測驗分數 Normalized Gain | 0.222（p = 0.292，未達顯著） | 0.230（p = 0.214，未達顯著） |
+| 測驗分數 <span data-term="normalized-gain">Normalized Gain</span> | 0.222（p = 0.292，未達顯著） | 0.230（p = 0.214，未達顯著） |
 | 學習信心提升             | p < 0.001（顯著）            | p = 0.021（顯著）            |
 
 測驗分數呈正向但未達統計顯著，推測與操作時間較短、樣本量有限有關；但學習信心在兩組都顯著提升，顯示動態視覺化確實降低了受試者對演算法的心理負擔。

@@ -7,7 +7,7 @@ Demo: https://youtu.be/oEN80YCLeAc
 
 ## 專案簡介
 
-資料庫系統的期末專案，目標是把所學的資料庫設計與需求文件撰寫實際應用在一個完整系統上。題目選定為「SilkRoad 飲品電商平台」，一個 B2C 的線上飲品交易平台，讓飲品的上架、銷售、付款、配送整個流程都能在線上完成——顧客省時間，店家多一個銷售管道，管理員則負責維護平台的公平與安全。
+資料庫系統的期末專案，目標是把所學的資料庫設計與需求文件撰寫實際應用在一個完整系統上。題目選定為「SilkRoad 飲品電商平台」，一個 <span data-term="b2c">B2C</span> 的線上飲品交易平台，讓飲品的上架、銷售、付款、配送整個流程都能在線上完成——顧客省時間，店家多一個銷售管道，管理員則負責維護平台的公平與安全。
 
 依角色拆出三種使用情境：
 
@@ -31,7 +31,7 @@ Demo: https://youtu.be/oEN80YCLeAc
 | 店家管理     | VMS  | 商家資訊、商品上下架入口     |
 | 顧客管理     | CMS  | 會員資料、登入狀態           |
 | 購物車       | SCS  | 暫存商品，結帳前置           |
-| 商品管理     | PMS  | 商品 CRUD、客製化選項        |
+| 商品管理     | PMS  | 商品 <span data-term="crud">CRUD</span>、客製化選項        |
 | 財務管理     | FMS  | 金流交易、折扣、退款         |
 | 商店評價管理 | SRRS | 顧客評分與評論               |
 | 訂單配送管理 | ODMS | 訂單狀態、配送資訊           |
@@ -49,11 +49,11 @@ Demo: https://youtu.be/oEN80YCLeAc
 
 ## 資料庫設計
 
-最大的設計挑戰是飲品特有的「多重客製化屬性」：同一杯飲料有甜度、冰塊、容量三種選項，而容量還牽涉加價。為了在正規化與查詢效能間取得平衡，最後把這些選項拆成獨立的 `SUGAR_OPTIONS`、`ICE_OPTIONS`、`SIZES_OPTIONS` 子表（皆以 `product_id` 為 FK），讓每個商品可以有各自的選項組合，`SIZES_OPTIONS` 再額外帶一個 `price_step` 處理容量加價。
+最大的設計挑戰是飲品特有的「多重客製化屬性」：同一杯飲料有甜度、冰塊、容量三種選項，而容量還牽涉加價。為了在<span data-term="normalization">正規化</span>與查詢效能間取得平衡，最後把這些選項拆成獨立的 `SUGAR_OPTIONS`、`ICE_OPTIONS`、`SIZES_OPTIONS` 子表（皆以 `product_id` 為 <span data-term="pk-fk">FK</span>），讓每個商品可以有各自的選項組合，`SIZES_OPTIONS` 再額外帶一個 `price_step` 處理容量加價。
 
 下單時，`CART_ITEM` / `ORDER_ITEM` 會把當時選擇的 `selected_sugar` / `selected_ice` / `selected_size` 與成交價格 `price` 直接存一份快照，而不是即時參照 `PRODUCT` 當前設定——這樣即使店家之後更動商品選項或價格，已成立的歷史訂單也不會被意外連動改變。
 
-角色設計上，`USER` 是共用基底資料表，`ADMIN` / `CUSTOMER` / `VENDOR` 用 1:1 的 PK-FK 關聯去模擬繼承。`VENDOR` 另外拉出 `VENDOR_MANAGER` 實體，因為同一位店家負責人可能名下管理多間分店（例如「50 嵐 - 大安店」與「可不可 - 信義店」可能同屬一位區經理）。
+角色設計上，`USER` 是共用基底資料表，`ADMIN` / `CUSTOMER` / `VENDOR` 用 1:1 的 <span data-term="pk-fk">PK-FK</span> 關聯去模擬繼承。`VENDOR` 另外拉出 `VENDOR_MANAGER` 實體，因為同一位店家負責人可能名下管理多間分店（例如「50 嵐 - 大安店」與「可不可 - 信義店」可能同屬一位區經理）。
 
 <figure>
   <img src="/images/projects/silkroad/erdplus.png" alt="SilkRoad ER Model" style="display: block; margin: 0 auto; max-width: 100%;" />
@@ -120,4 +120,4 @@ Demo: https://youtu.be/oEN80YCLeAc
 
 ## 心得
 
-從最初的 ER Model 設計到拆分客製化屬性關聯表，這次專題讓我們直接體會到 schema 設計怎麼影響後端 API 的邏輯複雜度，以及前端使用者的操作體驗；也提早體驗了前後端分離下的協作模式——串接 API 時常因資料格式轉換或訪客／會員購物車狀態不同步而卡關，靠團隊密切溝通與除錯逐一解決。
+從最初的 <span data-term="er-model">ER Model</span> 設計到拆分客製化屬性關聯表，這次專題讓我們直接體會到 schema 設計怎麼影響後端 API 的邏輯複雜度，以及前端使用者的操作體驗；也提早體驗了前後端分離下的協作模式——串接 API 時常因資料格式轉換或訪客／會員購物車狀態不同步而卡關，靠團隊密切溝通與除錯逐一解決。

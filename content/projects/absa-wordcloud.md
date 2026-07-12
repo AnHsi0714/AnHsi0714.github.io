@@ -54,10 +54,10 @@
 用五個階段的規則式流程，從零組裝出完整的 ABSA Quadruplet：
 
 1. 以標點與轉折連詞對複合句做子句切割，確保語意單元獨立
-2. CKIP（BERT-base）詞性標注，合併相鄰名詞（Na/Nb/Nv）為複合 Aspect Term，保留狀態動詞（VH/VJ/VK）為 Opinion Term 候選
-3. Stanza 依存句法（nsubj / amod）配對 (Aspect, Opinion)，依存關係不足時退為子句邊界 fallback，並附加否定詞極性提示
-4. SBERT（多語言語意向量）對 Aspect Term 與人工定義的種子詞錨點做 cosine similarity，歸類為六大核心主題
-5. 優先採用否定詞極性提示，否則用 DistilBERT 對 Opinion Term 做情感分類
+2. <span data-term="ckip">CKIP</span>（BERT-base）詞性標注，合併相鄰名詞（Na/Nb/Nv）為複合 Aspect Term，保留狀態動詞（VH/VJ/VK）為 Opinion Term 候選
+3. <span data-term="stanza">Stanza</span> 依存句法（nsubj / amod）配對 (Aspect, Opinion)，依存關係不足時退為子句邊界 fallback，並附加否定詞極性提示
+4. SBERT（多語言語意向量）對 Aspect Term 與人工定義的種子詞錨點做 <span data-term="cosine-similarity-absa">cosine similarity</span>，歸類為六大核心主題
+5. 優先採用否定詞極性提示，否則用 <span data-term="distilbert">DistilBERT</span> 對 Opinion Term 做情感分類
 
 | 模型                                  | 用途                                             | Stage   |
 | ------------------------------------- | ------------------------------------------------ | ------- |
@@ -68,7 +68,7 @@
 
 ### 為什麼放棄純 Clustering
 
-一開始嘗試用 Agglomerative Clustering 做面向分群，但傳統分群只看數學幾何距離、不管業務邏輯，容易讓語意邊界模糊（例如 UI 和動畫的相似度只差 0.007）。改用 Anchor-Guided 分類後，靠人工給定的種子詞在向量空間中打下明確的語意地標，同時保有高可解釋性，不需要再用 Silhouette 分數去猜「最佳分群數」。
+一開始嘗試用 <span data-term="agglomerative-clustering">Agglomerative Clustering</span> 做面向分群，但傳統分群只看數學幾何距離、不管業務邏輯，容易讓語意邊界模糊（例如 UI 和動畫的相似度只差 0.007）。改用 Anchor-Guided 分類後，靠人工給定的種子詞在向量空間中打下明確的語意地標，同時保有高可解釋性，不需要再用 Silhouette 分數去猜「最佳分群數」。
 
 ### 從 ACSA 到 ABSA Quadruplet
 
@@ -95,7 +95,7 @@ Prompt 設計把六大面向定義、polarity 規則（優點 = pos；缺點/建
 
 流程：使用者回饋文字 → system prompt → Gemini API（rate_delay=6s，50 rows ≈ 5 分鐘）→ JSON 解析 + 欄位驗證 → 快取 → 與 Track A 同一套 Ground Truth 計算 Quadruplet Partial F1。
 
-把面向定義中的種子詞補進 prompt 後，Track B 的 Category macro F1 從 0.6094 提升到 0.7881，Quad Partial F1 也跟著從 0.4155 提升到 0.5352。
+把面向定義中的種子詞補進 prompt 後，Track B 的 Category macro F1 從 0.6094 提升到 0.7881，Quad <span data-term="partial-f1">Partial F1</span> 也跟著從 0.4155 提升到 0.5352。
 
 ## 雙軌對比分析
 
@@ -137,5 +137,5 @@ Demo：[sengq1011.github.io/absa-wordcloud](https://sengq1011.github.io/absa-wor
 
 1. ABSA Quadruplet（term-level）比單純的 ACSA（category-level）更能精確告訴開發者「哪個詞被如何評價」
 2. 採用系統性 per-stage 迭代：每個 Stage 只改一個變數，確保每一步的改善都可被解釋
-3. Gemini Zero-shot 在同一 Quadruplet 任務上優於 Rule-based（+0.2070 Quad F1），主要優勢在 implicit aspect 補全與 aspect recall
+3. Gemini <span data-term="zero-shot">Zero-shot</span> 在同一 Quadruplet 任務上優於 Rule-based（+0.2070 Quad F1），主要優勢在 implicit aspect 補全與 aspect recall
 4. 完整實作並開源：5-Stage Rule-Based ABSA Pipeline、Gemini Zero-Shot Pipeline、101-tuple 手標 Ground Truth、per-stage 量化評估框架、D3 互動視覺化
