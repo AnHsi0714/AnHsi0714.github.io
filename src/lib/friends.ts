@@ -1,5 +1,10 @@
 import { supabase } from "./supabaseClient";
-import type { FriendCreationRow, PixelData } from "../types/friends";
+import type {
+  CreationKind,
+  FriendCreationRow,
+  PixelData,
+  VoxelCreatureData,
+} from "../types/friends";
 
 const NOT_CONFIGURED_MESSAGE =
   "Supabase 尚未設定（缺 VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY）";
@@ -42,7 +47,8 @@ export async function checkInviteCode(code: string): Promise<InviteCheckResult> 
 export async function redeemInviteAndCreate(params: {
   code: string;
   nickname: string;
-  data: PixelData;
+  kind: CreationKind;
+  data: PixelData | VoxelCreatureData;
   intro?: string;
 }): Promise<FriendCreationRow> {
   if (!supabase) throw new Error(NOT_CONFIGURED_MESSAGE);
@@ -50,7 +56,7 @@ export async function redeemInviteAndCreate(params: {
   const { data, error } = await supabase.rpc("redeem_invite_and_create", {
     p_code: params.code,
     p_nickname: params.nickname,
-    p_kind: "2d",
+    p_kind: params.kind,
     p_data: params.data,
     p_intro: params.intro ?? null,
   });
@@ -59,11 +65,12 @@ export async function redeemInviteAndCreate(params: {
   return data as FriendCreationRow;
 }
 
-// 二次編輯：已兌換的邀請碼是該作品的編輯憑證，送出即覆蓋暱稱＋圖
+// 二次編輯：已兌換的邀請碼是該作品的編輯憑證，送出即覆蓋暱稱＋圖。不能換 kind——
+// 一件作品建立時是 2D 就永遠是 2D（RPC 本來就沒有 p_kind 參數）。
 export async function updateCreationWithCode(params: {
   code: string;
   nickname: string;
-  data: PixelData;
+  data: PixelData | VoxelCreatureData;
   intro?: string;
 }): Promise<FriendCreationRow> {
   if (!supabase) throw new Error(NOT_CONFIGURED_MESSAGE);

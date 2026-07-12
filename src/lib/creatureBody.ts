@@ -293,3 +293,51 @@ export const creatureColors = {
   tail: "#5c5346",
   leg: "#5c5346",
 };
+
+// 給塗色功能用：把整隻怪獸拆成 8 個「可上色區域」，每個都有自己的 origin（世界座標
+// 偏移）+ 方塊清單。四隻腳形狀上共用 legCubes 樣板，但塗色時各自獨立（可以塗不同
+// 顏色），所以這裡分成四個區域而不是一個，跟 legs/tail 那組「共用形狀」的樞軸系統
+// 是兩回事——這裡只是把「哪裡有方塊」攤平成一份清單，塗色資料另外存。
+export type VoxelRegion =
+  | "torso"
+  | "head"
+  | "horn"
+  | "tail"
+  | "legFrontLeft"
+  | "legFrontRight"
+  | "legBackLeft"
+  | "legBackRight";
+
+const ORIGIN: VoxelCoord = { x: 0, y: 0, z: 0 };
+
+export const REGIONS: { id: VoxelRegion; origin: VoxelCoord; cubes: VoxelCoord[] }[] = [
+  { id: "torso", origin: ORIGIN, cubes: torsoCubes },
+  { id: "head", origin: ORIGIN, cubes: headCubes },
+  { id: "horn", origin: ORIGIN, cubes: hornCubes },
+  { id: "tail", origin: tail.pivot, cubes: tail.cubes },
+  { id: "legFrontLeft", origin: legs.frontLeft.pivot, cubes: legs.frontLeft.cubes },
+  { id: "legFrontRight", origin: legs.frontRight.pivot, cubes: legs.frontRight.cubes },
+  { id: "legBackLeft", origin: legs.backLeft.pivot, cubes: legs.backLeft.cubes },
+  { id: "legBackRight", origin: legs.backRight.pivot, cubes: legs.backRight.cubes },
+];
+
+// 唯讀檢視（創作牆卡片／放大檢視）的鏡頭對準點兼自轉軸心，從 REGIONS 動態算，
+// 之後重雕形狀不用手動重調鏡頭：
+// - y 取包圍盒中心（腳底到角頂的中點），構圖上下平衡
+// - x/z 取所有方塊的質心：頭部＋角的方塊都在 +z 那端、尾巴方塊少，包圍盒中心
+//   會偏離視覺重心，拿它當自轉軸心會看起來像繞著偏一邊的軸打轉；用質心轉起來
+//   才像在原地自轉
+const worldCubes = REGIONS.flatMap((r) =>
+  r.cubes.map((c) => ({
+    x: r.origin.x + c.x,
+    y: r.origin.y + c.y,
+    z: r.origin.z + c.z,
+  })),
+);
+const worldYs = worldCubes.map((c) => c.y);
+const average = (ns: number[]) => ns.reduce((a, b) => a + b, 0) / ns.length;
+export const creatureViewCenter: [number, number, number] = [
+  average(worldCubes.map((c) => c.x)) * CUBE_SIZE,
+  ((Math.min(...worldYs) + Math.max(...worldYs)) / 2) * CUBE_SIZE,
+  average(worldCubes.map((c) => c.z)) * CUBE_SIZE,
+];
