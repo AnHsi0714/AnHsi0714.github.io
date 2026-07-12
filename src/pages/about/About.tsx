@@ -220,6 +220,18 @@ export default function About() {
 
         <div className="py-6">
           <p className="font-semibold text-[var(--color-primary)]">
+            研究動機 Research Statement
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
+            CodePulse 讓我發現「介面做得好」跟「使用者真的學得更好」是兩件需要分開驗證的事——前後測顯示學習信心顯著提升，但測驗分數只是正向趨勢、未達統計顯著，這個落差比拿到漂亮的準確率數字更讓我想深入理解，也是我想申請 Visual
+            Analytics／HCI 方向研究所的原因：想學習更嚴謹的使用者研究方法，把「工具好不好用」的直覺判斷換成能被驗證、能被反駁的研究問題。ABSA
+            Pipeline 則讓我對方法取捨產生興趣——規則式流程可解釋、零成本，但天花板受限於隱含語意；LLM
+            覆蓋率高，卻是黑盒且有 API 成本，兩者沒有絕對優劣，端看場景需求。研究所階段希望把這兩個興趣收斂在一起：研究人機協作的介面設計與評估方法，讓開發者工具、程式教育這類系統不只是功能堆得多，而是有實證支持它真的有幫助。
+          </p>
+        </div>
+
+        <div className="py-6">
+          <p className="font-semibold text-[var(--color-primary)]">
             學術成果 Academic Achievements
           </p>
           <div className="mt-2 flex flex-col gap-3 text-sm text-[var(--color-text-muted)]">
