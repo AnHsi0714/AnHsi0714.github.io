@@ -149,6 +149,12 @@ export default function Home() {
         >
           OpenProcessing →
         </a>
+        <a
+          href={`mailto:${t.home.email}`}
+          className="hover:text-[var(--color-text)]"
+        >
+          {t.home.email}
+        </a>
       </section>
     </div>
   );
