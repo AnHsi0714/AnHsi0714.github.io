@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { glossary } from "../lib/glossary";
+import { useGlossary } from "../lib/glossary";
+import { useTranslation } from "../i18n/useTranslation";
 
 const POPOVER_WIDTH = 288;
 const VIEWPORT_MARGIN = 12;
@@ -12,6 +13,8 @@ interface TermProps {
 }
 
 export default function Term({ id, children }: TermProps) {
+  const glossary = useGlossary();
+  const { t } = useTranslation();
   const entry = glossary[id];
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
@@ -105,7 +108,7 @@ export default function Term({ id, children }: TermProps) {
             <p className="mt-1 text-[var(--color-text-muted)]">{entry.definition}</p>
             <p className="mt-2 border-t border-[var(--color-border)] pt-2 text-[var(--color-text-muted)]">
               <span className="font-medium text-[var(--color-text)]">
-                在此專案中：
+                {t.term.inThisProject}
               </span>
               {entry.application}
             </p>

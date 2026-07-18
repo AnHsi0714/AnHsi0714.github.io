@@ -1,0 +1,64 @@
+[
+  {
+    "slug": "personal-website",
+    "name": "Personal Website",
+    "desc": "A personal website built with React + Vite + TypeScript + Supabase, documenting life, reading, projects, and dreams.",
+    "date": "2026-06",
+    "status": "in-progress",
+    "tags": ["WEB"],
+    "period": "2026/06 ~",
+    "screenshotUrl": "",
+    "githubUrl": "https://github.com/AnHsi0714/AnHsi0714.github.io"
+  },
+  {
+    "slug": "super-mario",
+    "name": "Super Mario",
+    "desc": "A recreation of the original 1985 Super Mario, built in C++ using OOP techniques.",
+    "date": "2025-06",
+    "status": "done",
+    "tags": ["GAME", "OOP"],
+    "collaborators": ["鄭安琋", "婁O翔"],
+    "period": "2025/03 ~ 2025/06",
+    "screenshotUrl": "/images/projects/super-mario/gameimg (2).png",
+    "screenshotPosition": { "w": 0, "h": 70 },
+    "githubUrl": "https://github.com/AnHsi0714/Super_Mario_"
+  },
+  {
+    "slug": "silkroad",
+    "name": "SilkRoad — Beverage E-Commerce Platform",
+    "desc": "A full-stack CRUD database project.",
+    "date": "2026-01",
+    "status": "done",
+    "tags": ["WEB", "DB"],
+    "collaborators": ["鄭安琋", "郭O暘", "郭O帆", "陳O佑", "黃O安", "林O安"],
+    "period": "2025/09 ~ 2026/01",
+    "screenshotUrl": "/images/projects/silkroad/buy-drink.png",
+    "githubUrl": "https://github.com/Sajuna94/SilkRoad"
+  },
+  {
+    "slug": "absa-wordcloud",
+    "name": "ABSA Pipeline — CodePulse User Feedback Sentiment Analysis",
+    "desc": "Extracts sentiment quadruplets from user feedback using both an Aspect-Based Sentiment Analysis pipeline and an LLM, compares their performance, and visualizes the results as word clouds.",
+    "date": "2026-06",
+    "status": "done",
+    "tags": ["NLP", "AI", "VIZ"],
+    "collaborators": ["鄭安琋", "葉凱成"],
+    "period": "2026/06",
+    "screenshotUrl": "/images/projects/absa-wordcloud/trackB.png",
+    "screenshotPosition": { "w": 0, "h": 0 },
+    "githubUrl": "https://github.com/SengQ1011/absa-wordcloud"
+  },
+  {
+    "slug": "code-pulse",
+    "name": "CodePulse — Data Structures & Algorithms Visualization Learning Platform",
+    "desc": "A capstone project combining interactive visualization, code execution tracing, and AI-based algorithm recognition into a data-structures-and-algorithms teaching platform.",
+    "date": "2026-06",
+    "status": "done",
+    "tags": ["AI", "WEB", "EDU", "VIZ"],
+    "collaborators": ["鄭安琋", "葉凱成", "鄭錦鑫"],
+    "advisor": "陳香君",
+    "period": "2025/06 ~ 2026/06",
+    "screenshotUrl": "/images/projects/code-pulse/home-page.png",
+    "githubUrl": "https://github.com/Jx-study/CodePulse"
+  }
+]

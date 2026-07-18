@@ -1,0 +1,80 @@
+{
+  "entries": [
+    {
+      "period": "2022 / 11",
+      "title": "National Skills Competition — Computer Software Design",
+      "subtitle": "7th Place, Golden Hand Award",
+      "tags": [{ "label": "Competition", "variant": "success" }],
+      "highlights": [
+        "Wrote six hands-on programming problems in VB and solved all of them",
+        "Covered data structures, basic algorithms, UI layout, component usage, and data processing",
+        "Practiced 7–8 hours a day during preparation to sharpen logical analysis and implementation speed"
+      ]
+    },
+    {
+      "period": "2023 / 05",
+      "title": "New Taipei Golden Hand Delegation — US Study Tour",
+      "subtitle": "Atlanta & San Francisco",
+      "tags": [{ "label": "Overseas", "variant": "success" }],
+      "highlights": [
+        "Exchanged culture and professional skills with local student partners",
+        "Visited notable sites and analyzed the factors behind their success",
+        "Broadened international perspective on overseas education and technology adoption"
+      ]
+    },
+    {
+      "period": "2023 – 2025",
+      "title": "Skills Competition Coach at Alma Mater",
+      "subtitle": "Trained the following three cohorts of Computer Software Design competitors",
+      "tags": [{ "label": "Teaching", "variant": "success" }],
+      "highlights": [
+        "Led competitors to 2 award-winning placements",
+        "Experimented with varied teaching methods: instructional videos, original practice problems, curriculum planning, and targeted remediation of weak points",
+        "Sharpened verbal explanation and problem-analysis skills through the coaching process"
+      ]
+    },
+    {
+      "period": "2025 / 12",
+      "title": "Educational Big Data Micro-Program — 2025 Capstone Presentation Competition",
+      "subtitle": "\"Long-Term Effects of Digital Learning Policy in Junior High Schools\" (3-person team) — Honorable Mention",
+      "tags": [{ "label": "Research", "variant": "default" }],
+      "highlights": [
+        "Investigated differences in learning outcomes before and after a junior-high digital learning policy rollout",
+        "Split data collection, analysis, and the final report across a 3-person team"
+      ]
+    },
+    {
+      "period": "2025 / 07 – 2027 / 01",
+      "title": "Sun Bird Software Co., Ltd. (Taiwan Branch)",
+      "subtitle": "Frontend Development Team — Intern",
+      "tags": [{ "label": "Internship", "variant": "info" }],
+      "highlights": [
+        "Developed and maintained frontend features in Angular, writing HTML, SCSS, and TypeScript",
+        "Participated in the full frontend development workflow, including code reviews and sprint reviews",
+        "Wrote technical and design documentation, and contributed to frontend architecture planning",
+        "Collaborated via Kanban, providing a weekly High Level Estimate to the PM",
+        "Gained fluency with agile development cadence and project-scale estimation"
+      ]
+    }
+  ],
+  "secondaryEntries": [
+    {
+      "period": "2021 / 11 & 2022 / 10",
+      "title": "Hungkuo Delin University of Technology — Computer & Communication Engineering Programming Competition",
+      "result": "1st Place (2022), 3rd Place (2021)",
+      "tags": [{ "label": "Competition", "variant": "success" }]
+    },
+    {
+      "period": "2022",
+      "title": "8th New Taipei English Elite Cup — AI Vocabulary Category",
+      "result": "Golden Brain Award, Vocational High School General Track",
+      "tags": [{ "label": "Competition", "variant": "success" }]
+    },
+    {
+      "period": "High School",
+      "title": "PVQC English Vocabulary Proficiency International Certification",
+      "result": "Level 5 Specialist — ICT / AI Literacy / eSports / Electrical",
+      "tags": [{ "label": "Certification", "variant": "default" }]
+    }
+  ]
+}

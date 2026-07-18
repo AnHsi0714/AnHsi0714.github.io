@@ -1,16 +1,21 @@
-import experienceData from "../../../content/experience.json";
+import experienceDataZh from "../../../content/experience.json";
+import experienceDataEn from "../../../content/experience.en.json";
 import Chip from "../../components/Chip";
 import type { ExperienceEntry, SecondaryExperienceEntry } from "../../types/content";
-
-const entries = experienceData.entries as ExperienceEntry[];
-const secondaryEntries = experienceData.secondaryEntries as SecondaryExperienceEntry[];
+import { useLocalized } from "../../lib/localized";
+import { useTranslation } from "../../i18n/useTranslation";
 
 export default function Experience() {
+  const { t } = useTranslation();
+  const experienceData = useLocalized(experienceDataZh, experienceDataEn);
+  const entries = experienceData.entries as ExperienceEntry[];
+  const secondaryEntries = experienceData.secondaryEntries as SecondaryExperienceEntry[];
+
   return (
     <section>
-      <h1 className="text-2xl font-bold">競賽與經歷</h1>
+      <h1 className="text-2xl font-bold">{t.experience.title}</h1>
       <p className="mt-2 text-[var(--color-text-muted)]">
-        參與過的競賽、交流活動與工作經歷。
+        {t.experience.subtitle}
       </p>
 
       <div className="mt-10 flex flex-col gap-0">
@@ -65,7 +70,7 @@ export default function Experience() {
       {secondaryEntries.length > 0 && (
         <div className="mt-2">
           <h2 className="text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
-            其他獎項
+            {t.experience.otherAwards}
           </h2>
           <div className="mt-3 flex flex-col gap-2 border-l-2 border-[var(--color-border)] pl-4">
             {secondaryEntries.map((entry) => (

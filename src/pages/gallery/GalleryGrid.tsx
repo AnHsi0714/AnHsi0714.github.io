@@ -1,35 +1,22 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import artworksData from "../../../content/artworks.json";
+import artworksDataZh from "../../../content/artworks.json";
+import artworksDataEn from "../../../content/artworks.en.json";
 import type { Artwork } from "../../types/content";
 import sketches, { type SketchInteraction } from "./sketches";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
 import styles from "./GalleryGrid.module.scss";
-
-const artworks = artworksData as Artwork[];
+import { useLocalized } from "../../lib/localized";
+import { useTranslation } from "../../i18n/useTranslation";
 
 // 篩選用的作品標籤：有互動 sketch 的吃它在 sketches/index.ts 宣告的互動類型，
 // 還沒移植的作品歸為「靜態展示」。
 type ArtworkTag = SketchInteraction | "static";
 
-const TAG_LABELS: Record<ArtworkTag, string> = {
-  "click-regenerate": "點擊重製",
-  "drag-draw": "拖曳作畫",
-  "keyboard-game": "鍵盤遊戲",
-  "button-game": "按鈕遊戲",
-  "drag-physics": "物理拖曳",
-  static: "靜態展示",
-};
-
 const artworkTags = (artwork: Artwork): ArtworkTag[] =>
   sketches[artwork.slug]?.interactions ?? ["static"];
-
-// 只列出實際有作品的標籤，順序照 TAG_LABELS 的宣告順序。
-const allTags = (Object.keys(TAG_LABELS) as ArtworkTag[]).filter((tag) =>
-  artworks.some((artwork) => artworkTags(artwork).includes(tag)),
-);
 
 // artworks.json 的日期是 YYMMDD 六碼，轉成 ISO 才能跟 <input type="date"> 的值比較。
 const toISODate = (d: string) =>
@@ -38,6 +25,15 @@ const toISODate = (d: string) =>
 type SortOrder = "newest" | "oldest";
 
 export default function GalleryGrid() {
+  const { t } = useTranslation();
+  const artworks = useLocalized(artworksDataZh, artworksDataEn) as Artwork[];
+
+  const TAG_LABELS = t.gallery.tags;
+  // 只列出實際有作品的標籤，順序照 TAG_LABELS 的宣告順序。
+  const allTags = (Object.keys(TAG_LABELS) as ArtworkTag[]).filter((tag) =>
+    artworks.some((artwork) => artworkTags(artwork).includes(tag)),
+  );
+
   // 從作品詳細頁按「回畫廊」回來時，GalleryDetail.tsx 會透過 Link state 帶上
   // 剛剛看的那件作品 slug，讓展場捲回原本的位置，而不是每次都回到第一件。
   const location = useLocation();
@@ -108,7 +104,7 @@ export default function GalleryGrid() {
           ? b.date.localeCompare(a.date)
           : a.date.localeCompare(b.date),
       );
-  }, [titleQuery, selectedTags, dateFrom, dateTo, sortOrder]);
+  }, [artworks, titleQuery, selectedTags, dateFrom, dateTo, sortOrder]);
 
   // 每次進場隨機挑一張截圖，呼應生成式作品「每次執行都長得不一樣」
   const posters = useMemo(
@@ -119,7 +115,7 @@ export default function GalleryGrid() {
           a.images[Math.floor(Math.random() * a.images.length)],
         ]),
       ),
-    [],
+    [artworks],
   );
 
   // 掛載時如果帶了 focusSlug，直接跳（不要動畫捲動）到那件作品置中，
@@ -216,8 +212,8 @@ export default function GalleryGrid() {
   return (
     <section className={styles.room}>
       <div className={styles.header}>
-        <h1>藝術畫廊</h1>
-        <p>左右捲動瀏覽畫廊，點擊作品進入互動版本。</p>
+        <h1>{t.gallery.title}</h1>
+        <p>{t.gallery.subtitle}</p>
 
         <div className="relative mt-4 inline-block" ref={filterRef}>
           <Button
@@ -226,27 +222,27 @@ export default function GalleryGrid() {
             size="sm"
             onClick={() => setIsFilterOpen((prev) => !prev)}
           >
-            篩選 / 排序{activeFilterCount > 0 ? `（${activeFilterCount}）` : ""}
+            {t.common.filterSort}{activeFilterCount > 0 ? `（${activeFilterCount}）` : ""}
           </Button>
 
           {isFilterOpen && (
             <div className="absolute left-0 top-full z-20 mt-2 w-[min(32rem,90vw)] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 shadow-lg">
               <div className="flex flex-wrap items-end gap-4">
                 <Input
-                  label="搜尋標題"
-                  placeholder="輸入標題關鍵字"
+                  label={t.common.searchTitle}
+                  placeholder={t.common.titleKeywordPlaceholder}
                   value={titleQuery}
                   onChange={(event) => setTitleQuery(event.target.value)}
                   className="w-40"
                 />
                 <Input
-                  label="起始日期"
+                  label={t.common.startDate}
                   type="date"
                   value={dateFrom}
                   onChange={(event) => setDateFrom(event.target.value)}
                 />
                 <Input
-                  label="結束日期"
+                  label={t.common.endDate}
                   type="date"
                   value={dateTo}
                   onChange={(event) => setDateTo(event.target.value)}
@@ -277,7 +273,7 @@ export default function GalleryGrid() {
 
               <div className="mt-4 flex items-center gap-2">
                 <span className="text-sm font-medium text-[var(--color-text)]">
-                  排序
+                  {t.common.sort}
                 </span>
                 <Button
                   type="button"
@@ -285,7 +281,7 @@ export default function GalleryGrid() {
                   variant={sortOrder === "oldest" ? "primary" : "secondary"}
                   onClick={() => setSortOrder("oldest")}
                 >
-                  最久
+                  {t.common.oldest}
                 </Button>
                 <Button
                   type="button"
@@ -293,7 +289,7 @@ export default function GalleryGrid() {
                   variant={sortOrder === "newest" ? "primary" : "secondary"}
                   onClick={() => setSortOrder("newest")}
                 >
-                  最新
+                  {t.common.newest}
                 </Button>
               </div>
             </div>
@@ -304,8 +300,8 @@ export default function GalleryGrid() {
       {visibleArtworks.length === 0 ? (
         <div className="flex flex-1 items-center justify-center p-8">
           <EmptyState
-            title="沒有符合條件的作品"
-            description="試試調整篩選條件。"
+            title={t.gallery.noMatch}
+            description={t.gallery.tryAdjustFilter}
           />
         </div>
       ) : (

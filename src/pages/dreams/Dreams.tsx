@@ -1,19 +1,23 @@
-import dreamsData from '../../../content/dreams.json'
+import dreamsDataZh from '../../../content/dreams.json'
+import dreamsDataEn from '../../../content/dreams.en.json'
 import Card from '../../components/Card'
 import EmptyState from '../../components/EmptyState'
 import ProgressBar from '../../components/ProgressBar'
 import type { Dream } from '../../types/content'
-
-const dreams = dreamsData as Dream[]
+import { useLocalized } from '../../lib/localized'
+import { useTranslation } from '../../i18n/useTranslation'
 
 export default function Dreams() {
+  const { t } = useTranslation()
+  const dreams = useLocalized(dreamsDataZh, dreamsDataEn) as Dream[]
+
   return (
     <section>
-      <h1 className="text-2xl font-bold">夢想</h1>
-      <p className="mt-2 text-[var(--color-text-muted)]">想做的事，以及為什麼想做。</p>
+      <h1 className="text-2xl font-bold">{t.dreams.title}</h1>
+      <p className="mt-2 text-[var(--color-text-muted)]">{t.dreams.subtitle}</p>
 
       {dreams.length === 0 ? (
-        <EmptyState title="尚無夢想清單" description="之後會陸續補上想做的事。" />
+        <EmptyState title={t.dreams.emptyTitle} description={t.dreams.emptyDesc} />
       ) : (
         <ul className="mt-6 flex flex-col gap-3">
           {dreams.map((dream) => (

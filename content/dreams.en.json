@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Build my own personal website",
+    "desc": "Bringing together experience, reading, projects, and dreams in one place — currently building it out page by page."
+  },
+  {
+    "title": "Write a reading reflection in 2026",
+    "desc": "Turning my reading habit into actual writing.",
+    "progress": {
+      "current": 0,
+      "target": 1,
+      "unit": "piece"
+    }
+  },
+  {
+    "title": "Finish a small tactics game",
+    "desc": "Fulfilling a childhood dream of making something of my own."
+  },
+  {
+    "title": "Publish an article before the end of July",
+    "desc": "Pick a few topics from my own archive and share my take on them.",
+    "progress": {
+      "current": 0,
+      "target": 1,
+      "unit": "piece"
+    }
+  },
+  {
+    "title": "Try waking up early for a morning project",
+    "desc": "Reclaim time for myself by getting up earlier, and use it to start the day well.",
+    "progress": {
+      "current": 0,
+      "target": 30,
+      "unit": "days"
+    }
+  }
+]

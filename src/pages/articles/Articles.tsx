@@ -6,24 +6,22 @@ import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
 import Chip from "../../components/Chip";
 import type { Article } from "../../types/content";
-import { articles } from "../../lib/articles";
-
-const allCategories = Array.from(
-  new Set(articles.flatMap((article) => article.categories)),
-);
+import { useArticles } from "../../lib/articles";
+import { useTranslation } from "../../i18n/useTranslation";
+import type { Strings } from "../../i18n/strings";
 
 type SortOrder = "newest" | "oldest";
 
-export function Stars({ rating }: { rating: number }) {
+export function Stars({ rating, t }: { rating: number; t: Strings }) {
   return (
-    <span aria-label={`評分 ${rating} / 5`} className="text-amber-500">
+    <span aria-label={t.articles.ratingLabel(rating)} className="text-amber-500">
       {"★".repeat(rating)}
       <span className="text-[var(--color-border)]">{"★".repeat(5 - rating)}</span>
     </span>
   );
 }
 
-function ArticleRow({ article }: { article: Article }) {
+function ArticleRow({ article, t }: { article: Article; t: Strings }) {
   const subtitle = article.author
     ? `${article.author} · ${article.date}`
     : article.date;
@@ -55,7 +53,7 @@ function ArticleRow({ article }: { article: Article }) {
               <Chip key={category} size="sm">{category}</Chip>
             ))}
           </div>
-          {article.rating !== undefined && <Stars rating={article.rating} />}
+          {article.rating !== undefined && <Stars rating={article.rating} t={t} />}
         </div>
       </Card>
     </Link>
@@ -63,6 +61,12 @@ function ArticleRow({ article }: { article: Article }) {
 }
 
 export default function Articles() {
+  const { t } = useTranslation();
+  const articles = useArticles();
+  const allCategories = Array.from(
+    new Set(articles.flatMap((article) => article.categories)),
+  );
+
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
   const [titleQuery, setTitleQuery] = useState("");
@@ -128,12 +132,12 @@ export default function Articles() {
           ? b.date.localeCompare(a.date)
           : a.date.localeCompare(b.date),
       );
-  }, [titleQuery, selectedCategories, minRating, dateFrom, dateTo, sortOrder]);
+  }, [articles, titleQuery, selectedCategories, minRating, dateFrom, dateTo, sortOrder]);
 
   return (
     <section>
-      <h1 className="text-2xl font-bold">文章</h1>
-      <p className="mt-2 text-[var(--color-text-muted)]">讀過的書、寫下的筆記與心得。</p>
+      <h1 className="text-2xl font-bold">{t.articles.title}</h1>
+      <p className="mt-2 text-[var(--color-text-muted)]">{t.articles.subtitle}</p>
 
       <div className="relative mt-6 inline-block" ref={filterRef}>
         <Button
@@ -142,22 +146,22 @@ export default function Articles() {
           size="sm"
           onClick={() => setIsFilterOpen((prev) => !prev)}
         >
-          篩選 / 排序{activeFilterCount > 0 ? `（${activeFilterCount}）` : ""}
+          {t.common.filterSort}{activeFilterCount > 0 ? `（${activeFilterCount}）` : ""}
         </Button>
 
         {isFilterOpen && (
           <div className="absolute left-0 top-full z-20 mt-2 w-[min(36rem,90vw)] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 shadow-lg">
             <div className="flex flex-wrap items-end gap-4">
               <Input
-                label="搜尋標題"
-                placeholder="輸入標題關鍵字"
+                label={t.common.searchTitle}
+                placeholder={t.common.titleKeywordPlaceholder}
                 value={titleQuery}
                 onChange={(event) => setTitleQuery(event.target.value)}
                 className="w-40"
               />
 
               <label className="flex flex-col gap-1 text-sm font-medium text-[var(--color-text)]">
-                最低評分
+                {t.articles.minRating}
                 <select
                   value={minRating}
                   onChange={(event) => setMinRating(Number(event.target.value))}
@@ -167,7 +171,7 @@ export default function Articles() {
                     value={0}
                     className="bg-[var(--color-bg)] text-[var(--color-text)]"
                   >
-                    不限
+                    {t.articles.unlimited}
                   </option>
                   <option
                     value={5}
@@ -179,37 +183,37 @@ export default function Articles() {
                     value={4}
                     className="bg-[var(--color-bg)] text-[var(--color-text)]"
                   >
-                    4★ 以上
+                    4★{t.articles.andAbove}
                   </option>
                   <option
                     value={3}
                     className="bg-[var(--color-bg)] text-[var(--color-text)]"
                   >
-                    3★ 以上
+                    3★{t.articles.andAbove}
                   </option>
                   <option
                     value={2}
                     className="bg-[var(--color-bg)] text-[var(--color-text)]"
                   >
-                    2★ 以上
+                    2★{t.articles.andAbove}
                   </option>
                   <option
                     value={1}
                     className="bg-[var(--color-bg)] text-[var(--color-text)]"
                   >
-                    1★ 以上
+                    1★{t.articles.andAbove}
                   </option>
                 </select>
               </label>
 
               <Input
-                label="起始日期"
+                label={t.common.startDate}
                 type="date"
                 value={dateFrom}
                 onChange={(event) => setDateFrom(event.target.value)}
               />
               <Input
-                label="結束日期"
+                label={t.common.endDate}
                 type="date"
                 value={dateTo}
                 onChange={(event) => setDateTo(event.target.value)}
@@ -239,14 +243,14 @@ export default function Articles() {
             </div>
 
             <div className="mt-4 flex items-center gap-2">
-              <span className="text-sm font-medium text-[var(--color-text)]">排序</span>
+              <span className="text-sm font-medium text-[var(--color-text)]">{t.common.sort}</span>
               <Button
                 type="button"
                 size="sm"
                 variant={sortOrder === "newest" ? "primary" : "secondary"}
                 onClick={() => setSortOrder("newest")}
               >
-                最新
+                {t.common.newest}
               </Button>
               <Button
                 type="button"
@@ -254,7 +258,7 @@ export default function Articles() {
                 variant={sortOrder === "oldest" ? "primary" : "secondary"}
                 onClick={() => setSortOrder("oldest")}
               >
-                最久
+                {t.common.oldest}
               </Button>
             </div>
           </div>
@@ -264,15 +268,15 @@ export default function Articles() {
       {filteredArticles.length === 0 ? (
         <div className="mt-8">
           <EmptyState
-            title="沒有符合條件的內容"
-            description="試試調整篩選條件。"
+            title={t.articles.noMatch}
+            description={t.articles.tryAdjustFilter}
           />
         </div>
       ) : (
         <ul className="mt-8 flex flex-col gap-3">
           {filteredArticles.map((article) => (
             <li key={article.slug}>
-              <ArticleRow article={article} />
+              <ArticleRow article={article} t={t} />
             </li>
           ))}
         </ul>

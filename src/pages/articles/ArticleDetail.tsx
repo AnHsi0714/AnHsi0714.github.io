@@ -1,25 +1,28 @@
 import { Link, useParams } from "react-router-dom";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
-import { articles } from "../../lib/articles";
+import { useArticles } from "../../lib/articles";
 import { Stars } from "./Articles";
+import { useTranslation } from "../../i18n/useTranslation";
 
 export default function ArticleDetail() {
   const { slug } = useParams();
+  const { t } = useTranslation();
+  const articles = useArticles();
   const article = articles.find((item) => item.slug === slug);
 
   if (!article) {
     return (
       <section>
         <EmptyState
-          title="找不到這篇文章"
-          description="可能已經被移除或網址有誤。"
+          title={t.articles.notFoundTitle}
+          description={t.articles.notFoundDesc}
         />
         <Link
           to="/articles"
           className="mt-4 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
         >
-          ← 回文章列表
+          {t.articles.backToList}
         </Link>
       </section>
     );
@@ -35,7 +38,7 @@ export default function ArticleDetail() {
         to="/articles"
         className="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
       >
-        ← 回文章列表
+        {t.articles.backToList}
       </Link>
 
       {article.coverUrl && (
@@ -58,7 +61,7 @@ export default function ArticleDetail() {
             {category}
           </span>
         ))}
-        {article.rating !== undefined && <Stars rating={article.rating} />}
+        {article.rating !== undefined && <Stars rating={article.rating} t={t} />}
       </div>
 
       <MarkdownContent className="mt-6">{article.body}</MarkdownContent>

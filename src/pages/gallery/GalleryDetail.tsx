@@ -1,26 +1,18 @@
 import { useEffect, useRef, type CSSProperties } from "react";
 import { Link, useParams } from "react-router-dom";
 import type p5 from "p5";
-import artworksData from "../../../content/artworks.json";
+import artworksDataZh from "../../../content/artworks.json";
+import artworksDataEn from "../../../content/artworks.en.json";
 import type { Artwork } from "../../types/content";
-import sketches, { type SketchInteraction } from "./sketches";
+import sketches from "./sketches";
 import styles from "./GalleryDetail.module.scss";
-
-const artworks = artworksData as Artwork[];
-
-// 依 sketch 宣告的互動方式組出對應的操作提示文字；「按下 S 儲存」是大部分作品共通
-// 的操作，不需要每個 sketch 自己宣告互動類型，但實際綁定的鍵可以透過 saveKey 覆寫
-// （例如迷宮競速的 S 被 WASD 移動占用，改綁 H）。
-const interactionHints: Record<SketchInteraction, string> = {
-  "click-regenerate": "點擊畫布重新產生一次構圖",
-  "drag-draw": "按住滑鼠拖曳可以在畫布上留下筆觸",
-  "keyboard-game": "方向鍵／WASD 移動，點擊畫面上的按鈕與選項開始遊戲",
-  "button-game": "點擊 START 按鈕開始，每輪結束後再按 START 進下一輪",
-  "drag-physics": "按住滑鼠可以抓取、拖曳畫面上的物件",
-};
+import { useLocalized } from "../../lib/localized";
+import { useTranslation } from "../../i18n/useTranslation";
 
 export default function GalleryDetail() {
   const { slug } = useParams();
+  const { t, language } = useTranslation();
+  const artworks = useLocalized(artworksDataZh, artworksDataEn) as Artwork[];
   const artwork = artworks.find((a) => a.slug === slug);
   const sketchEntry = slug ? sketches[slug] : undefined;
   const canvasHostRef = useRef<HTMLDivElement>(null);
@@ -49,9 +41,9 @@ export default function GalleryDetail() {
     return (
       <section className={styles.stage}>
         <Link to="/gallery" className={styles.back}>
-          ← 回畫廊
+          {t.gallery.back}
         </Link>
-        <p className={styles.notFound}>找不到這件作品。</p>
+        <p className={styles.notFound}>{t.gallery.notFound}</p>
       </section>
     );
   }
@@ -63,7 +55,7 @@ export default function GalleryDetail() {
         state={{ focusSlug: artwork.slug }}
         className={styles.back}
       >
-        ← 回畫廊
+        {t.gallery.back}
       </Link>
       <div className={styles.spotlight}>
         {sketchEntry ? (
@@ -88,10 +80,10 @@ export default function GalleryDetail() {
         {sketchEntry && (
           <p className={styles.hint}>
             {[
-              ...sketchEntry.interactions.map((i) => interactionHints[i]),
-              `按下 ${(sketchEntry.saveKey ?? "S").toUpperCase()} 儲存目前畫面`,
-            ].join("，")}
-            。
+              ...sketchEntry.interactions.map((i) => t.gallery.hints[i]),
+              t.gallery.saveHint((sketchEntry.saveKey ?? "S").toUpperCase()),
+            ].join(language === "en" ? "; " : "，")}
+            {language === "en" ? "." : "。"}
           </p>
         )}
         {artwork.openProcessingUrl && (
@@ -101,7 +93,7 @@ export default function GalleryDetail() {
             rel="noreferrer"
             className={styles.openProcessing}
           >
-            在 OpenProcessing 查看原稿 ↗
+            {t.gallery.viewOnOpenProcessing}
           </a>
         )}
       </div>

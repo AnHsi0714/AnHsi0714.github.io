@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import projectsData from "../../../content/projects.json";
+import projectsDataZh from "../../../content/projects.json";
+import projectsDataEn from "../../../content/projects.en.json";
 import Card from "../../components/Card";
 import Badge from "../../components/Badge";
 import Chip from "../../components/Chip";
@@ -8,22 +9,13 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
 import type { Project, ProjectStatus, ProjectTag } from "../../types/content";
+import { useLocalized } from "../../lib/localized";
+import { useTranslation } from "../../i18n/useTranslation";
+import type { Strings } from "../../i18n/strings";
 
 const allStatuses: ProjectStatus[] = ["todo", "in-progress", "done"];
 
-const projects = projectsData as Project[];
-
-const allTags = Array.from(
-  new Set(projects.flatMap((p) => p.tags ?? [])),
-) as ProjectTag[];
-
 type SortOrder = "newest" | "oldest";
-
-export const statusLabel: Record<ProjectStatus, string> = {
-  todo: "todo",
-  "in-progress": "doing",
-  done: "done",
-};
 
 export const statusBadgeVariant: Record<ProjectStatus, "todo" | "doing" | "done"> = {
   todo: "todo",
@@ -31,7 +23,7 @@ export const statusBadgeVariant: Record<ProjectStatus, "todo" | "doing" | "done"
   done: "done",
 };
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, t }: { project: Project; t: Strings }) {
   return (
     <Card hoverable>
       <Link to={`/projects/${project.slug}`} className="block">
@@ -48,7 +40,7 @@ function ProjectCard({ project }: { project: Project }) {
           />
         ) : (
           <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
-            尚無預覽圖
+            {t.common.noPreviewImage}
           </div>
         )}
         <div className="mt-3 flex items-center justify-between gap-2">
@@ -61,7 +53,7 @@ function ProjectCard({ project }: { project: Project }) {
               variant={statusBadgeVariant[project.status]}
               className="shrink-0"
             >
-              {statusLabel[project.status]}
+              {t.projects.status[project.status]}
             </Badge>
           </div>
         </div>
@@ -76,7 +68,7 @@ function ProjectCard({ project }: { project: Project }) {
           rel="noreferrer"
           className="mt-3 inline-block text-sm font-medium text-[var(--color-text)]"
         >
-          查看 GitHub →
+          {t.common.viewGithub}
         </a>
       )}
     </Card>
@@ -84,6 +76,12 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 export default function Projects() {
+  const { t } = useTranslation();
+  const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
+  const allTags = Array.from(
+    new Set(projects.flatMap((p) => p.tags ?? [])),
+  ) as ProjectTag[];
+
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
   const [titleQuery, setTitleQuery] = useState("");
@@ -156,13 +154,13 @@ export default function Projects() {
           ? b.date.localeCompare(a.date)
           : a.date.localeCompare(b.date),
       );
-  }, [titleQuery, selectedTags, selectedStatuses, dateFrom, dateTo, sortOrder]);
+  }, [projects, titleQuery, selectedTags, selectedStatuses, dateFrom, dateTo, sortOrder]);
 
   return (
     <section>
-      <h1 className="text-2xl font-bold">專案</h1>
+      <h1 className="text-2xl font-bold">{t.projects.title}</h1>
       <p className="mt-2 text-[var(--color-text-muted)]">
-        做過、正在做的專案。
+        {t.projects.subtitle}
       </p>
 
       <div className="relative mt-6 inline-block" ref={filterRef}>
@@ -172,27 +170,27 @@ export default function Projects() {
           size="sm"
           onClick={() => setIsFilterOpen((prev) => !prev)}
         >
-          篩選 / 排序{activeFilterCount > 0 ? `（${activeFilterCount}）` : ""}
+          {t.common.filterSort}{activeFilterCount > 0 ? `（${activeFilterCount}）` : ""}
         </Button>
 
         {isFilterOpen && (
           <div className="absolute left-0 top-full z-20 mt-2 w-[min(36rem,90vw)] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 shadow-lg">
             <div className="flex flex-wrap items-end gap-4">
               <Input
-                label="搜尋標題"
-                placeholder="輸入標題關鍵字"
+                label={t.common.searchTitle}
+                placeholder={t.common.titleKeywordPlaceholder}
                 value={titleQuery}
                 onChange={(event) => setTitleQuery(event.target.value)}
                 className="w-40"
               />
               <Input
-                label="起始月份"
+                label={t.common.startMonth}
                 type="month"
                 value={dateFrom}
                 onChange={(event) => setDateFrom(event.target.value)}
               />
               <Input
-                label="結束月份"
+                label={t.common.endMonth}
                 type="month"
                 value={dateTo}
                 onChange={(event) => setDateTo(event.target.value)}
@@ -215,7 +213,7 @@ export default function Projects() {
                         : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
                     ].join(" ")}
                   >
-                    {statusLabel[status]}
+                    {t.projects.status[status]}
                   </button>
                 );
               })}
@@ -245,7 +243,7 @@ export default function Projects() {
 
             <div className="mt-4 flex items-center gap-2">
               <span className="text-sm font-medium text-[var(--color-text)]">
-                排序
+                {t.common.sort}
               </span>
               <Button
                 type="button"
@@ -253,7 +251,7 @@ export default function Projects() {
                 variant={sortOrder === "newest" ? "primary" : "secondary"}
                 onClick={() => setSortOrder("newest")}
               >
-                最新
+                {t.common.newest}
               </Button>
               <Button
                 type="button"
@@ -261,7 +259,7 @@ export default function Projects() {
                 variant={sortOrder === "oldest" ? "primary" : "secondary"}
                 onClick={() => setSortOrder("oldest")}
               >
-                最久
+                {t.common.oldest}
               </Button>
             </div>
           </div>
@@ -271,14 +269,14 @@ export default function Projects() {
       {filteredProjects.length === 0 ? (
         <div className="mt-8">
           <EmptyState
-            title="沒有符合條件的專案"
-            description="試試調整篩選條件。"
+            title={t.projects.noMatch}
+            description={t.projects.tryAdjustFilter}
           />
         </div>
       ) : (
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {filteredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+            <ProjectCard key={project.slug} project={project} t={t} />
           ))}
         </div>
       )}
