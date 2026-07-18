@@ -10,6 +10,17 @@ export interface Strings {
     devComponents: string
     devCreature: string
     devCreatureBuilder: string
+    playground: string
+    cv: string
+  }
+  playground: {
+    title: string
+    subtitle: string
+    dreamsDesc: string
+    friendsDesc: string
+    devComponentsDesc: string
+    devCreatureDesc: string
+    devCreatureBuilderDesc: string
   }
   languageToggle: {
     switchToEnglish: string
@@ -196,6 +207,17 @@ export const strings: Record<'zh' | 'en', Strings> = {
       devComponents: '組件預覽',
       devCreature: '怪獸預覽',
       devCreatureBuilder: '怪獸捏造',
+      playground: 'Playground',
+      cv: 'CV',
+    },
+    playground: {
+      title: 'Playground',
+      subtitle: '比較個人、還在玩的東西——夢想清單、朋友的創作、開發用的小工具。',
+      dreamsDesc: '想做的事，以及為什麼想做',
+      friendsDesc: '朋友們用邀請碼創作的 2D 像素畫與 3D 怪獸',
+      devComponentsDesc: 'UI 組件庫預覽（開發用）',
+      devCreatureDesc: '3D 怪獸走路動畫驗證（開發用）',
+      devCreatureBuilderDesc: '堆積木雕刻 3D 怪獸形狀（開發用）',
     },
     languageToggle: {
       switchToEnglish: '切換成英文',
@@ -391,6 +413,17 @@ export const strings: Record<'zh' | 'en', Strings> = {
       devComponents: 'Components Preview',
       devCreature: 'Creature Preview',
       devCreatureBuilder: 'Creature Builder',
+      playground: 'Playground',
+      cv: 'CV',
+    },
+    playground: {
+      title: 'Playground',
+      subtitle: 'More personal, still-in-progress things — a dream list, creations by friends, and dev tools.',
+      dreamsDesc: 'Things I want to do, and why',
+      friendsDesc: '2D pixel art and 3D creatures made by friends using invite codes',
+      devComponentsDesc: 'UI component library preview (dev tool)',
+      devCreatureDesc: '3D creature walk-animation testbed (dev tool)',
+      devCreatureBuilderDesc: 'Block-by-block 3D creature shape sculptor (dev tool)',
     },
     languageToggle: {
       switchToEnglish: 'Switch to English',

@@ -359,7 +359,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="pt-6">
+        <div id="resume" className="pt-6">
           <Button type="button">{t.about.downloadResume}</Button>
           <span className="mt-2 text-xs text-[var(--color-text-muted)]">
             {t.about.resumePending}

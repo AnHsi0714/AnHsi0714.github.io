@@ -13,11 +13,7 @@ export default function NavBar() {
     { to: "/projects", label: t.nav.projects },
     { to: "/articles", label: t.nav.articles },
     { to: "/gallery", label: t.nav.gallery },
-    { to: "/dreams", label: t.nav.dreams },
-    { to: "/friends", label: t.nav.friends },
-    { to: "/dev/components", label: t.nav.devComponents },
-    { to: "/dev/creature", label: t.nav.devCreature },
-    { to: "/dev/creature-builder", label: t.nav.devCreatureBuilder },
+    { to: "/playground", label: t.nav.playground },
   ];
 
   return (
@@ -36,6 +32,12 @@ export default function NavBar() {
           {link.label}
         </NavLink>
       ))}
+      <NavLink
+        to="/about#resume"
+        className="rounded-md border border-[var(--color-border)] px-2.5 py-1 text-sm font-medium text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+      >
+        {t.nav.cv}
+      </NavLink>
       <LanguageToggle />
       <ThemeToggle />
     </nav>

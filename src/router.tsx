@@ -12,6 +12,7 @@ import Experience from './pages/experience/Experience'
 import Dreams from './pages/dreams/Dreams'
 import Friends from './pages/friends/Friends'
 import Creator from './pages/friends/Creator'
+import Playground from './pages/playground/Playground'
 import ComponentsPreview from './pages/dev/ComponentsPreview'
 import CreatureDemo from './pages/dev/CreatureDemo'
 import CreatureBuilder from './pages/dev/CreatureBuilder'
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
       { path: 'projects', element: <Projects /> },
       { path: 'projects/:slug', element: <ProjectDetail /> },
       { path: 'experience', element: <Experience /> },
+      { path: 'playground', element: <Playground /> },
       { path: 'dreams', element: <Dreams /> },
       { path: 'friends', element: <Friends /> },
       { path: 'friends/create', element: <Creator /> },
