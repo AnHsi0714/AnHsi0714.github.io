@@ -307,7 +307,7 @@ export const strings: Record<'zh' | 'en', Strings> = {
     },
     gallery: {
       title: '生成視覺',
-      subtitle: '左右捲動瀏覽畫廊，點擊作品進入互動版本。',
+      subtitle: '捲動瀏覽畫廊，點擊作品進入互動版本。',
       noMatch: '沒有符合條件的作品',
       tryAdjustFilter: '試試調整篩選條件。',
       back: '← 回畫廊',
@@ -513,7 +513,7 @@ export const strings: Record<'zh' | 'en', Strings> = {
     },
     gallery: {
       title: 'Generative Visuals',
-      subtitle: 'Scroll sideways to browse, click a piece to open its interactive version.',
+      subtitle: 'Scroll to browse, click a piece to open its interactive version.',
       noMatch: 'No pieces match these filters',
       tryAdjustFilter: 'Try adjusting the filters.',
       back: '← Back to gallery',

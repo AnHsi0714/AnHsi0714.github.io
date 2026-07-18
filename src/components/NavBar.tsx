@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import LanguageToggle from "./LanguageToggle";
@@ -5,6 +6,25 @@ import { useTranslation } from "../i18n/useTranslation";
 
 export default function NavBar() {
   const { t } = useTranslation();
+  const navRef = useRef<HTMLElement>(null);
+
+  // NavBar 用 flex-wrap，實際高度會隨語言、視窗寬度換行而變（手機甚至會
+  // 疊到 3 行）。曝露成 CSS 變數，讓需要「扣掉 NavBar 淨空」的頁面（例如
+  // 畫廊展場的滿版房間）能用 calc() 動態算，不用自己猜一個容易過時的數字。
+  useEffect(() => {
+    const el = navRef.current;
+    if (!el) return;
+    const setHeight = () => {
+      document.documentElement.style.setProperty(
+        "--nav-h",
+        `${el.offsetHeight}px`,
+      );
+    };
+    setHeight();
+    const observer = new ResizeObserver(setHeight);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const links = [
     { to: "/", label: "Cheng An Hsi" },
@@ -17,7 +37,10 @@ export default function NavBar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3">
+    <nav
+      ref={navRef}
+      className="sticky top-0 z-50 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3"
+    >
       {links.map((link) => (
         <NavLink
           key={link.to}
