@@ -38,8 +38,10 @@ export default function NavBar() {
       >
         {t.nav.cv}
       </NavLink>
-      <LanguageToggle />
-      <ThemeToggle />
+      <div className="ml-auto flex items-center gap-4">
+        <LanguageToggle />
+        <ThemeToggle />
+      </div>
     </nav>
   );
 }

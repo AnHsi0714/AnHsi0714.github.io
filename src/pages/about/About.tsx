@@ -212,7 +212,34 @@ export default function About() {
       </div>
 
       <div className="flex-1 divide-y divide-[var(--color-border)]">
-        <div className="pb-6">
+        <div id="research-interests" className="pb-6">
+          <p className="font-semibold text-[var(--color-primary)]">
+            {t.about.researchInterests}
+          </p>
+          <div className="mt-3 flex flex-col gap-2">
+            {data.researchInterests.map(({ layer, items }) => (
+              <div key={layer} className="flex items-baseline gap-3 text-sm">
+                <span className="w-32 shrink-0 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)] opacity-80">
+                  {layer}
+                </span>
+                <span className="text-[var(--color-text-muted)]">
+                  {items.join(" · ")}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="py-6">
+          <p className="font-semibold text-[var(--color-primary)]">
+            {t.about.researchStatement}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
+            {data.researchStatement}
+          </p>
+        </div>
+
+        <div className="py-6">
           <p className="font-semibold text-[var(--color-primary)]">
             {t.about.skills}
           </p>
@@ -282,33 +309,6 @@ export default function About() {
           )}
         </div>
 
-        <div id="research-interests" className="py-6">
-          <p className="font-semibold text-[var(--color-primary)]">
-            {t.about.researchInterests}
-          </p>
-          <div className="mt-3 flex flex-col gap-2">
-            {data.researchInterests.map(({ layer, items }) => (
-              <div key={layer} className="flex items-baseline gap-3 text-sm">
-                <span className="w-32 shrink-0 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)] opacity-80">
-                  {layer}
-                </span>
-                <span className="text-[var(--color-text-muted)]">
-                  {items.join(" · ")}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="py-6">
-          <p className="font-semibold text-[var(--color-primary)]">
-            {t.about.researchStatement}
-          </p>
-          <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
-            {data.researchStatement}
-          </p>
-        </div>
-
         <div className="py-6">
           <p className="font-semibold text-[var(--color-primary)]">
             {t.about.academicAchievements}
@@ -359,9 +359,9 @@ export default function About() {
           </div>
         </div>
 
-        <div id="resume" className="pt-6">
+        <div id="resume" className="flex flex-col items-start gap-2 pt-6">
           <Button type="button">{t.about.downloadResume}</Button>
-          <span className="mt-2 text-xs text-[var(--color-text-muted)]">
+          <span className="text-xs text-[var(--color-text-muted)]">
             {t.about.resumePending}
           </span>
         </div>
