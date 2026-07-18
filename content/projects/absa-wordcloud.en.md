@@ -56,7 +56,7 @@ A five-stage rule-based pipeline that assembles a complete ABSA quadruplet from 
 1. Split compound sentences into clauses using punctuation and transition conjunctions, so each semantic unit stands independently
 2. <span data-term="ckip">CKIP</span> (BERT-base) part-of-speech tagging merges adjacent nouns (Na/Nb/Nv) into compound Aspect Term candidates, and keeps stative verbs (VH/VJ/VK) as Opinion Term candidates
 3. <span data-term="stanza">Stanza</span> dependency parsing (nsubj / amod) pairs (Aspect, Opinion) terms; when the dependency relation is insufficient, it falls back to clause-boundary pairing, with negation cues attached as a polarity hint
-4. SBERT (multilingual semantic embeddings) computes <span data-term="cosine-similarity-absa">Cosine Similarity</span> between each Aspect Term and a set of hand-defined seed-word anchors, classifying it into one of the six core categories
+4. SBERT (multilingual semantic embeddings) computes <span data-term="cosine-similarity">Cosine Similarity</span> between each Aspect Term and a set of hand-defined seed-word anchors, classifying it into one of the six core categories
 5. Negation-cue polarity hints are used first when available; otherwise <span data-term="distilbert">DistilBERT</span> classifies the Opinion Term's sentiment
 
 | Model | Purpose | Stage |

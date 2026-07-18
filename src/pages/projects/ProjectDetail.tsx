@@ -6,6 +6,7 @@ import Chip from "../../components/Chip";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
 import { useProjectBodies } from "../../lib/projects";
+import { useKnowledgeNodesLinkedTo } from "../../lib/knowledge";
 import type { Project } from "../../types/content";
 import { statusBadgeVariant } from "./Projects";
 import { useLocalized } from "../../lib/localized";
@@ -17,6 +18,7 @@ export default function ProjectDetail() {
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
   const project = projects.find((item) => item.slug === slug);
   const projectBodies = useProjectBodies();
+  const relatedKnowledge = useKnowledgeNodesLinkedTo("project", slug ?? "");
 
   if (!project) {
     return (
@@ -94,6 +96,19 @@ export default function ProjectDetail() {
         >
           {t.common.viewGithub}
         </a>
+      )}
+
+      {relatedKnowledge.length > 0 && (
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold">{t.knowledge.relatedKnowledge}</h2>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {relatedKnowledge.map((node) => (
+              <Link key={node.slug} to={`/knowledge/${node.slug}`}>
+                <Chip>{node.term}</Chip>
+              </Link>
+            ))}
+          </div>
+        </div>
       )}
 
       {body && <MarkdownContent className="mt-6">{body}</MarkdownContent>}

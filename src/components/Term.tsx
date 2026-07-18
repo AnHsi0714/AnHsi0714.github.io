@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { useGlossary } from "../lib/glossary";
+import { Link } from "react-router-dom";
+import { useKnowledgeMap } from "../lib/knowledge";
 import { useTranslation } from "../i18n/useTranslation";
 
 const POPOVER_WIDTH = 288;
@@ -13,9 +14,9 @@ interface TermProps {
 }
 
 export default function Term({ id, children }: TermProps) {
-  const glossary = useGlossary();
+  const knowledgeMap = useKnowledgeMap();
   const { t } = useTranslation();
-  const entry = glossary[id];
+  const entry = knowledgeMap[id];
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -106,12 +107,22 @@ export default function Term({ id, children }: TermProps) {
           >
             <p className="font-semibold text-[var(--color-text)]">{entry.term}</p>
             <p className="mt-1 text-[var(--color-text-muted)]">{entry.definition}</p>
-            <p className="mt-2 border-t border-[var(--color-border)] pt-2 text-[var(--color-text-muted)]">
-              <span className="font-medium text-[var(--color-text)]">
-                {t.term.inThisProject}
-              </span>
-              {entry.application}
-            </p>
+            {entry.application && (
+              <p className="mt-2 border-t border-[var(--color-border)] pt-2 text-[var(--color-text-muted)]">
+                <span className="font-medium text-[var(--color-text)]">
+                  {t.term.inThisProject}
+                </span>
+                {entry.application}
+              </p>
+            )}
+            {entry.status === "published" && (
+              <Link
+                to={`/knowledge/${id}`}
+                className="mt-2 inline-block text-sm font-medium text-[var(--color-text)] hover:underline"
+              >
+                {t.term.viewNode}
+              </Link>
+            )}
           </div>,
           document.body,
         )}

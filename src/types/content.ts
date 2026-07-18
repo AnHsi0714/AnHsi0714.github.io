@@ -67,11 +67,30 @@ export interface Artwork {
   openProcessingUrl: string;
 }
 
-export interface GlossaryEntry {
+export type KnowledgeStatus = "draft" | "published";
+
+export type KnowledgeRelationType =
+  | "prerequisite"
+  | "related"
+  | "applies_to"
+  | "contrasts_with";
+
+export interface KnowledgeRelatedNode {
+  slug: string;
+  type: KnowledgeRelationType;
+}
+
+export interface KnowledgeNode {
   term: string;
   definition: string;
-  // 這個詞彙在專案裡實際如何被應用，非通用字典解釋
-  application: string;
+  // 這個詞彙在專案裡實際如何被應用，非通用字典解釋；沒有對應專案的純知識點可留空
+  application?: string;
+  // 分類代碼沿用 ProjectTag 的簡短風格（ALGO/NLP/DB/WEB/EVAL...），不強制列舉，允許之後自由擴充
+  category: string;
+  status: KnowledgeStatus;
+  relatedProjects?: string[];
+  relatedArticles?: string[];
+  relatedNodes?: KnowledgeRelatedNode[];
 }
 
 export type ArticleType = "book" | "note";

@@ -162,6 +162,12 @@ export default function Projects() {
       <p className="mt-2 text-[var(--color-text-muted)]">
         {t.projects.subtitle}
       </p>
+      <Link
+        to="/knowledge"
+        className="mt-1 block text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+      >
+        {t.knowledge.entryPointHint}
+      </Link>
 
       <div className="relative mt-6 inline-block" ref={filterRef}>
         <Button

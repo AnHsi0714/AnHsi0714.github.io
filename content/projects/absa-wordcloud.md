@@ -56,7 +56,7 @@
 1. 以標點與轉折連詞對複合句做子句切割，確保語意單元獨立
 2. <span data-term="ckip">CKIP</span>（BERT-base）詞性標注，合併相鄰名詞（Na/Nb/Nv）為複合 Aspect Term，保留狀態動詞（VH/VJ/VK）為 Opinion Term 候選
 3. <span data-term="stanza">Stanza</span> 依存句法（nsubj / amod）配對 (Aspect, Opinion)，依存關係不足時退為子句邊界 fallback，並附加否定詞極性提示
-4. SBERT（多語言語意向量）對 Aspect Term 與人工定義的種子詞錨點做 <span data-term="cosine-similarity-absa">cosine similarity</span>，歸類為六大核心主題
+4. SBERT（多語言語意向量）對 Aspect Term 與人工定義的種子詞錨點做 <span data-term="cosine-similarity">cosine similarity</span>，歸類為六大核心主題
 5. 優先採用否定詞極性提示，否則用 <span data-term="distilbert">DistilBERT</span> 對 Opinion Term 做情感分類
 
 | 模型                                  | 用途                                             | Stage   |

@@ -1,0 +1,241 @@
+{
+  "elo-rating": {
+    "term": "ELO Rating",
+    "definition": "A scoring system commonly used in competitive games like chess: after each match, both players' scores are adjusted based on the gap between the actual result and their pre-match expected win probability — beating a stronger opponent earns more points than beating a weaker one.",
+    "application": "CodePulse treats the \"user\" and the \"problem\" as two competing sides — a correct or incorrect answer counts as one \"match\" — to dynamically adjust the difficulty of the next problem and compute the user's skill rating.",
+    "category": "ALGO",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "k-factor", "type": "related" }]
+  },
+  "k-factor": {
+    "term": "K-factor",
+    "definition": "The coefficient in the ELO Rating formula that controls how many points a single match can shift; a larger K means a single result has a bigger impact on the score.",
+    "application": "CodePulse decays the K-factor based on how many times the same problem has been attempted — repeated attempts on the same problem get a smaller K — so users can't keep inflating their rating by grinding the same question, keeping the score closer to true ability.",
+    "category": "ALGO",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "elo-rating", "type": "prerequisite" }]
+  },
+  "cfg": {
+    "term": "CFG (Control Flow Graph)",
+    "definition": "A graph representation of a program's execution paths: each node represents a block of code, and edges represent possible execution order, such as if/else branches or loop jumps.",
+    "application": "When the Playground can't recognize which standard algorithm a user's code corresponds to, it falls back to showing the CFG / call graph, so learners can still see the code's execution path and function-call relationships, just with a lower level of visual abstraction.",
+    "category": "ALGO",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "ast", "type": "prerequisite" }]
+  },
+  "ast": {
+    "term": "AST (Abstract Syntax Tree)",
+    "definition": "The tree structure a compiler or interpreter produces after parsing source code, where each node represents a syntactic element (a loop, a conditional, a function call) — the first step in analyzing program structure.",
+    "application": "The Playground first parses a user's submitted Python code into an AST, which lets it statically derive the control flow graph (CFG) without actually executing the code, forming the basis for later dynamic tracing and visualization.",
+    "category": "ALGO",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "cfg", "type": "applies_to" }]
+  },
+  "cosine-similarity": {
+    "term": "Cosine Similarity",
+    "definition": "A measure of how similar the direction of two vectors is, ranging from -1 to 1 — the closer to 1, the more semantically similar the two are; commonly used to compare code or text after being converted into vectors.",
+    "application": "CodePulse converts a user's code into a semantic vector and compares it against a prebuilt library of standard-algorithm vectors via cosine similarity; a similarity above the threshold (0.80) triggers the corresponding Level 1 semantic animation. The ABSA Pipeline converts each Aspect Term into a semantic vector and compares it against the seed-word vectors of six categories via cosine similarity; the category with the highest similarity becomes the term's assigned category, replacing manual sentence-by-sentence classification.",
+    "category": "ALGO",
+    "status": "published",
+    "relatedProjects": ["code-pulse", "absa-wordcloud"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "agglomerative-clustering", "type": "contrasts_with" }]
+  },
+  "normalized-gain": {
+    "term": "Normalized Gain",
+    "definition": "A learning-outcome metric common in education research, measuring the \"actual improvement\" from pre-test to post-test as a fraction of the \"maximum possible improvement\" — the closer to 1, the closer the gain is to a perfect score.",
+    "application": "CodePulse's user study used Normalized Gain to measure the change in test scores before and after using the platform; both the university and high-school groups trended positive but did not reach statistical significance, suggesting learning gains were limited but directionally correct given the short session length.",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "partial-f1", "type": "related" }]
+  },
+  "ckip": {
+    "term": "CKIP",
+    "definition": "A Chinese NLP toolkit developed by Academia Sinica's CKIP Lab that performs Chinese word segmentation and part-of-speech (POS) tagging, identifying whether each word is a noun, verb, or another part of speech.",
+    "application": "This project uses CKIP (bert-base-chinese) to segment user-feedback sentences and tag their parts of speech, merging adjacent nouns into Aspect Term candidates and keeping stative verbs as Opinion Term candidates.",
+    "category": "NLP",
+    "status": "published",
+    "relatedProjects": ["absa-wordcloud"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "stanza", "type": "related" }]
+  },
+  "stanza": {
+    "term": "Stanza",
+    "definition": "A multilingual NLP toolkit from Stanford University, used here for dependency parsing — identifying the grammatical relationships between words in a sentence, such as which word is whose subject or modifier.",
+    "application": "Stanza is used to find dependency relations between Aspect Terms and Opinion Terms (e.g., the nsubj subject relation, the amod adjectival-modifier relation) to correctly pair words like \"animation\" and \"smooth\" together.",
+    "category": "NLP",
+    "status": "published",
+    "relatedProjects": ["absa-wordcloud"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "ckip", "type": "prerequisite" }]
+  },
+  "distilbert": {
+    "term": "DistilBERT",
+    "definition": "A lightweight version of BERT with fewer parameters and faster inference, while retaining most of its language-understanding ability; commonly used for text classification tasks.",
+    "application": "In the final step of the rule-based pipeline, DistilBERT (multilingual version) determines whether an Opinion Term is positive or negative, producing the final polarity label for the Aspect-Opinion pair.",
+    "category": "NLP",
+    "status": "published",
+    "relatedProjects": ["absa-wordcloud"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "zero-shot", "type": "contrasts_with" }]
+  },
+  "zero-shot": {
+    "term": "Zero-Shot Learning",
+    "definition": "A setting where a model performs a new task directly using only the knowledge learned during pretraining, without additional task-specific training or examples.",
+    "application": "In Track B, Gemini is given no labeled examples from this dataset — it reads the six categories and rules defined directly in the system prompt and produces ABSA quadruplets in the same format as the rule-based pipeline in a single pass.",
+    "category": "NLP",
+    "status": "published",
+    "relatedProjects": ["absa-wordcloud"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "distilbert", "type": "contrasts_with" },
+      { "slug": "partial-f1", "type": "related" }
+    ]
+  },
+  "partial-f1": {
+    "term": "Partial F1",
+    "definition": "F1 is the harmonic mean of precision and recall, used to evaluate overall performance on classification/extraction tasks; \"Partial\" means a looser matching standard is used (counted correct if the text overlaps or is semantically close), rather than requiring an exact character-for-character match.",
+    "application": "Partial F1 is used to evaluate extraction quality at four levels — Aspect, Opinion, Pair, and Quadruplet — serving as the head-to-head comparison metric between Track A (rule-based) and Track B (Gemini).",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["absa-wordcloud"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "normalized-gain", "type": "related" }]
+  },
+  "agglomerative-clustering": {
+    "term": "Agglomerative Clustering",
+    "definition": "A bottom-up clustering algorithm: each data point starts as its own cluster, and the two closest clusters are repeatedly merged until the desired number of clusters remains.",
+    "application": "The project initially tried using Agglomerative Clustering to automatically sort feedback into six categories based on the geometric distance between semantic vectors, but found some categories sat too close together (e.g., UI and Animation differed by only 0.007), blurring the cluster boundaries — so the approach was switched to an Anchor-Guided classification method using manually defined seed words.",
+    "category": "ALGO",
+    "status": "published",
+    "relatedProjects": ["absa-wordcloud"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "cosine-similarity", "type": "contrasts_with" }]
+  },
+  "b2c": {
+    "term": "B2C",
+    "definition": "Business-to-Consumer: a trading model where a business sells goods or services directly to end consumers, with no intermediary wholesaler in between.",
+    "application": "SilkRoad is a textbook B2C platform: beverage shops list products on the platform, customers order directly, and the entire transaction happens online.",
+    "category": "DB",
+    "status": "published",
+    "relatedProjects": ["silkroad"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "er-model", "type": "related" }]
+  },
+  "pk-fk": {
+    "term": "PK / FK",
+    "definition": "A PK (Primary Key) is the field that uniquely identifies a row in a database table; an FK (Foreign Key) is a field in one table that references another table's primary key, used to establish relationships between tables.",
+    "application": "SilkRoad uses product_id as an FK to relate the sweetness, ice-level, and size option sub-tables to the product table; the role tables use a 1:1 PK-FK relationship so that ADMIN, CUSTOMER, and VENDOR each extend a shared USER table, simulating inheritance.",
+    "category": "DB",
+    "status": "published",
+    "relatedProjects": ["silkroad"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "er-model", "type": "prerequisite" }]
+  },
+  "crud": {
+    "term": "CRUD",
+    "definition": "An acronym for Create, Read, Update, and Delete — the four basic data operations that nearly every management feature is built from.",
+    "application": "The Product Management Subsystem (PMS) lets shops perform CRUD on their own products: listing new products, browsing the product list, editing prices or options, and delisting products — though to preserve transaction integrity, \"delete\" is actually restricted to delisting only; products with existing transaction records can never be truly deleted.",
+    "category": "DB",
+    "status": "published",
+    "relatedProjects": ["silkroad"],
+    "relatedArticles": [],
+    "relatedNodes": []
+  },
+  "normalization": {
+    "term": "Normalization",
+    "definition": "A database design technique that splits data into multiple related tables to reduce duplicate storage and update anomalies; the more finely data is split, the more table joins are typically needed at query time, trading some performance for data integrity.",
+    "application": "SilkRoad splits sweetness, ice level, and size options into separate sub-tables instead of cramming every combination into the product table, avoiding duplicate storage of the same option combinations and letting shops adjust options without bulk-updating existing data.",
+    "category": "DB",
+    "status": "published",
+    "relatedProjects": ["silkroad"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "er-model", "type": "applies_to" }]
+  },
+  "er-model": {
+    "term": "ER Model (Entity-Relationship Model)",
+    "definition": "A blueprint for database design that maps out \"entities\" (like customers and products) and \"relationships\" (like a customer purchasing a product) — a tool for clarifying data structure and business logic before building actual tables.",
+    "application": "SilkRoad's design started from an ER Model, first clarifying the relationships between entities like customers, shops, products, and orders, then splitting customizable attributes (sweetness/ice/size) into separate sub-tables before finally converting everything into an actual database schema.",
+    "category": "DB",
+    "status": "published",
+    "relatedProjects": ["silkroad"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "normalization", "type": "prerequisite" },
+      { "slug": "pk-fk", "type": "related" }
+    ]
+  },
+  "function-overload": {
+    "term": "Function Overload",
+    "definition": "Letting the same function name map to different implementations depending on the type or number of arguments passed in; the compiler automatically picks the matching version at the call site.",
+    "application": "The game's character and object classes use function overloading so that a function with the same name can run different logic depending on the calling context (e.g., initialization or collision handling for different object types), without needing a separately named function for every case.",
+    "category": "ALGO",
+    "status": "published",
+    "relatedProjects": ["super-mario"],
+    "relatedArticles": [],
+    "relatedNodes": []
+  },
+  "rls": {
+    "term": "RLS (Row Level Security)",
+    "definition": "A security mechanism in databases (like PostgreSQL) that sets visibility or write conditions at the level of individual rows, below the table level — different roles querying the same table may see only the rows that match their conditions.",
+    "application": "The personal website's Supabase tables use RLS so the anonymous role can only read friend creations where is_visible = true; the invite_codes table has no RLS policy open to the anonymous role at all — codes can only be redeemed indirectly through an RPC, preventing them from being queried and leaked directly.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": ["personal-website"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "security-definer", "type": "related" }]
+  },
+  "security-definer": {
+    "term": "Security Definer Function",
+    "definition": "A database function execution mode where the function runs with the privileges of its creator rather than its caller, letting lower-privileged callers perform operations they otherwise couldn't — but only within the logic written inside that function.",
+    "application": "The personal website's invite-code redemption and re-editing flows are both written as security definer RPC functions, letting an anonymous user with no table write permissions at all complete the combined \"validate invite code + write friend creation\" action — while being restricted to only what the function allows, with no ability to write arbitrary data elsewhere.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": ["personal-website"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "rls", "type": "related" },
+      { "slug": "race-condition", "type": "applies_to" }
+    ]
+  },
+  "race-condition": {
+    "term": "Race Condition",
+    "definition": "A bug where multiple operations access and modify the same data at the same time, and the result becomes inconsistent or unexpected depending on execution order — common when multiple users or threads read and write the same record simultaneously.",
+    "application": "If two friends submit the same invite code at nearly the same instant, a naive frontend flow of \"check if the code is used, then write\" could let both pass the check and redeem the code twice. The personal website uses the database's FOR UPDATE to lock the row, ensuring the \"check + mark used + write creation\" sequence can't be interrupted by another concurrent request.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": ["personal-website"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "security-definer", "type": "prerequisite" }]
+  },
+  "intersection-observer": {
+    "term": "IntersectionObserver",
+    "definition": "A built-in browser API for detecting whether an element has entered (or left) a given viewport, without manually computing element coordinates inside a scroll handler.",
+    "application": "The 3D creature cards on the friends' creation wall use IntersectionObserver to detect whether a card has scrolled into view — only then does it mount a live-rendered Three.js scene, unmounting back to a static placeholder once it scrolls out, so too many WebGL contexts never exist at once and drag down performance.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": ["personal-website"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "instancing", "type": "related" }]
+  },
+  "instancing": {
+    "term": "Instancing",
+    "definition": "A 3D-rendering technique that merges a large number of shapes that share geometry — differing only in position or color — into a single draw call, instead of issuing one draw call per object; it dramatically cuts the rendering overhead of large numbers of repeated geometries.",
+    "application": "The 3D creature-painting feature splits an entire creature into hundreds of cubes and merges them into a single instanced render using React Three Fiber's <Instances>; since limit only allocates the buffer size at mount time and doesn't react to later changes, it must be given a sufficiently large fixed upper bound while range dynamically controls how many are actually shown — otherwise a change in cube count can exceed buffer capacity and fail to render.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": ["personal-website"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "intersection-observer", "type": "related" }]
+  }
+}

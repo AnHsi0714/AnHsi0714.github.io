@@ -157,6 +157,28 @@ export interface Strings {
   };
   term: {
     inThisProject: string;
+    viewNode: string;
+  };
+  knowledge: {
+    title: string;
+    subtitle: string;
+    searchPlaceholder: string;
+    allCategories: string;
+    noMatch: string;
+    tryAdjustFilter: string;
+    notFoundTitle: string;
+    notFoundDesc: string;
+    backToList: string;
+    relatedProjects: string;
+    relatedArticles: string;
+    relatedNodes: string;
+    timeline: string;
+    relationType: Record<
+      "prerequisite" | "related" | "applies_to" | "contrasts_with",
+      string
+    >;
+    entryPointHint: string;
+    relatedKnowledge: string;
   };
   creator: {
     inviteCode: string;
@@ -369,6 +391,30 @@ export const strings: Record<"zh" | "en", Strings> = {
     },
     term: {
       inThisProject: "在此專案中：",
+      viewNode: "深入了解 →",
+    },
+    knowledge: {
+      title: "知識",
+      subtitle: "所學過、應用過的概念，串連專案與文章背後的知識點。",
+      searchPlaceholder: "搜尋知識點",
+      allCategories: "全部分類",
+      noMatch: "沒有符合條件的知識點",
+      tryAdjustFilter: "試試調整搜尋或分類篩選。",
+      notFoundTitle: "找不到這個知識點",
+      notFoundDesc: "可能已經被移除或網址有誤。",
+      backToList: "← 回知識列表",
+      relatedProjects: "相關專案",
+      relatedArticles: "相關文章",
+      relatedNodes: "相關知識點",
+      timeline: "時間軸",
+      relationType: {
+        prerequisite: "先備知識",
+        related: "相關概念",
+        applies_to: "延伸應用",
+        contrasts_with: "對比概念",
+      },
+      entryPointHint: "想更深入了解背後概念？逛逛 Knowledge →",
+      relatedKnowledge: "相關知識",
     },
     creator: {
       inviteCode: "邀請碼",
@@ -592,6 +638,31 @@ export const strings: Record<"zh" | "en", Strings> = {
     },
     term: {
       inThisProject: "In this project: ",
+      viewNode: "Learn more →",
+    },
+    knowledge: {
+      title: "Knowledge",
+      subtitle:
+        "Concepts I've learned and applied, connecting the ideas behind projects and articles.",
+      searchPlaceholder: "Search knowledge",
+      allCategories: "All categories",
+      noMatch: "No knowledge nodes match these filters",
+      tryAdjustFilter: "Try adjusting the search or category filter.",
+      notFoundTitle: "Knowledge node not found",
+      notFoundDesc: "It may have been removed, or the link is incorrect.",
+      backToList: "← Back to knowledge",
+      relatedProjects: "Related Projects",
+      relatedArticles: "Related Articles",
+      relatedNodes: "Related Nodes",
+      timeline: "Timeline",
+      relationType: {
+        prerequisite: "Prerequisite",
+        related: "Related",
+        applies_to: "Applies to",
+        contrasts_with: "Contrasts with",
+      },
+      entryPointHint: "Want to dig into the concepts behind this? Browse Knowledge →",
+      relatedKnowledge: "Related Knowledge",
     },
     creator: {
       inviteCode: "Invite Code",
