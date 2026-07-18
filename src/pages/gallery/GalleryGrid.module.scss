@@ -59,17 +59,19 @@
      calc(50% - 50vw) 剛好等於內容邊緣到視窗邊緣的距離（負值） */
   margin-inline: calc(50% - 50vw);
   margin-bottom: -2rem; /* 抵銷 main 的 pb-8，讓展場貼齊頁尾 */
-  /* 抵銷 main 的 pt-20，讓房間從頁面最頂端開始（背景藏在不透明的 fixed
-     NavBar 後面，不會在 NavBar 下緣出現一條「背景色在此瞬間切換」的分界線）。
-     高度鎖成正好一個視窗高：main 的上下 padding 都被負 margin 抵銷了，
-     頁面總高＝房間高＝視窗高，右側就不會出現頁面的垂直捲軸；
-     dvh 讓行動裝置網址列收合時也跟著視窗實際高度走。header 改成絕對定位
-     浮在展牆上（見 .header），scroller 因此能撐滿整個房間，畫作垂直置中
-     的基準就是整個視窗，橫向捲軸也剛好落在視窗底邊。 */
-  margin-top: -5rem;
-  padding-top: 10rem;
-  height: 100vh;
-  height: 100dvh;
+  /* 抵銷 main 的 pt-8，讓房間從 NavBar 底部無縫接上（NavBar 是 sticky、佔
+     真實版面高度，這裡只需要蓋掉 main 自己多出來的上下 padding）。
+     高度鎖成「視窗高減掉 NavBar 淨空」：NavBar 用 flex-wrap，換行時淨空
+     會變，寫死的數字很快就會跟實際高度對不上，所以吃 NavBar.tsx 用
+     ResizeObserver 即時量出來的 --nav-h（見該檔案），而不是猜一個常數。
+     這樣「房間頂到 NavBar 底部、房間底頂到視窗底部」永遠成立，頁面就不會
+     多出垂直捲軸；dvh 讓行動裝置網址列收合時也跟著視窗實際高度走。header
+     改成絕對定位浮在展牆上（見 .header），scroller 因此能撐滿整個房間，
+     畫作垂直置中的基準就是整個視窗，橫向捲軸也剛好落在視窗底邊。 */
+  margin-top: -2rem;
+  padding-top: 7rem;
+  height: calc(100vh - var(--nav-h, 4rem));
+  height: calc(100dvh - var(--nav-h, 4rem));
   position: relative;
   display: flex;
   flex-direction: column;
@@ -88,11 +90,12 @@
 
 .header {
   /* 浮在展牆上層而不佔版面高度，scroller 才能吃滿整個房間來做視窗置中；
-     top: 5rem 是 NavBar 的淨空（原本由 .room 的 padding-top 提供）。
+     top: 2rem 是跟 NavBar 底部的視覺留白（NavBar 本身的淨空已經是 sticky
+     真實佔位，這裡只是額外的呼吸空間）。
      自己不吃滑鼠事件、只讓子元素吃：不然這條橫跨全寬的隱形帶會擋住
      底下展牆的滾輪跟點擊。 */
   position: absolute;
-  top: 5rem;
+  top: 2rem;
   left: 0;
   right: 0;
   z-index: 3;
@@ -284,4 +287,61 @@
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   color: var(--room-placard-meta);
+}
+
+/* 手機版：橫向展牆＋吊燈聚光在觸控裝置上不好操作（橫向捲動跟頁面手勢衝突），
+   改成直向捲動的清單；聚光燈效果也從「由上而下的光束」改成「畫作四周擴散
+   的光暈」，不再需要吊燈本體。 */
+@media (max-width: 640px) {
+  .room {
+    /* 標題改回正常版面流（見下面 .header），不再需要幫「浮在展牆上層的
+       標題」預留版面；margin-top 已經精確抵銷 main 的 pt-8，這裡只是
+       NavBar 下面的呼吸空間。 */
+    padding-top: 2rem;
+  }
+
+  .header {
+    /* 桌機版浮在展牆上層是因為橫向捲動不會把畫作捲到標題底下；手機版改直向
+       捲動後，浮動標題會被捲上來的畫作蓋住／蓋住畫作，改回正常版面流，
+       讓 scroller 接在標題下面。 */
+    position: static;
+    padding: 0 1.25rem;
+    pointer-events: auto;
+  }
+
+  .scroller {
+    flex-direction: column;
+    gap: 3.5rem;
+    padding: 2.5rem 1.5rem 3rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-snap-type: y proximity;
+  }
+
+  .lamp,
+  .beam {
+    display: none;
+  }
+
+  .frame {
+    margin-top: 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -1.5rem;
+      z-index: -1;
+      border-radius: 50%;
+      background: radial-gradient(
+        closest-side,
+        var(--room-beam-core),
+        var(--room-beam-mid) 55%,
+        transparent 78%
+      );
+      filter: blur(20px);
+      mix-blend-mode: var(--room-beam-blend);
+      opacity: var(--lit);
+      transition: opacity 0.6s ease;
+    }
+  }
 }

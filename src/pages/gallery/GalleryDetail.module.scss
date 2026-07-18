@@ -12,10 +12,15 @@
   }
 
   margin-inline: calc(50% - 50vw);
-  margin-top: -5rem;
+  /* margin-top 精確抵銷 main 的 pt-8，讓展場貼齊 NavBar 底部（不留縫、不重疊，
+     見 GalleryGrid.module.scss .room 的同一套修正跟理由）；min-height 扣掉
+     NavBar.tsx 用 ResizeObserver 量出來的即時淨空 --nav-h，內容不夠一頁高時
+     也不會逼出頁面垂直捲軸。 */
+  margin-top: -2rem;
   margin-bottom: -2rem; /* 抵銷 main 的 pb-8，避免底下露出一截白色背景可以捲到 */
-  padding-top: 5rem;
-  min-height: 100vh;
+  padding-top: 2rem;
+  min-height: calc(100vh - var(--nav-h, 4rem));
+  min-height: calc(100dvh - var(--nav-h, 4rem));
   position: relative;
   display: flex;
   flex-direction: column;
@@ -43,11 +48,10 @@
 .back {
   position: absolute;
   z-index: 2;
-  /* .stage 本身用 margin-top: -5rem + padding-top: 5rem 把背景延伸到 navbar
-     後方，但這代表 absolute 子元素的 top:0 基準點也跟著往上移了 5rem
-     （藏在固定 navbar 底下）。這裡要再加回那 5rem，位置才會落在 navbar
-     下方實際可見的區域。 */
-  top: calc(5rem + 1.5rem);
+  /* .stage 本身用 margin-top: -2rem 把背景貼齊 navbar 底部，這代表 absolute
+     子元素的 top:0 基準點也跟著往上移了 2rem（藏在 navbar 底下）。這裡要再
+     加回那 2rem，位置才會落在 navbar 下方實際可見的區域。 */
+  top: calc(2rem + 1.5rem);
   left: clamp(1rem, 6vw, 3rem);
   display: inline-flex;
   align-items: center;

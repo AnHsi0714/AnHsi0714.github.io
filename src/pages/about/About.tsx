@@ -164,19 +164,27 @@ const content = {
       "Working on CodePulse taught me that a well-designed interface and measurably better learning outcomes are two separate claims that need to be verified independently — our pre/post study showed a significant gain in learners' confidence, yet test scores only trended positive without reaching statistical significance. That gap is what actually pulled me toward Visual Analytics / HCI as a graduate research direction: I want to learn more rigorous user-research methods so that intuitions about whether a tool \"feels usable\" become falsifiable research questions instead. The ABSA pipeline project sharpened a related interest in method trade-offs — a rule-based pipeline is interpretable and free to run but capped by implicit semantics it can't resolve, while an LLM covers more cases but is a costlier black box; neither is strictly better, it depends on the context. Going forward, I hope to bring these two interests together: studying interface design and evaluation methods for human-AI collaboration, so that developer tools and programming-education systems are judged not by how many features they ship, but by evidence that they actually help.",
     achievements: [
       {
-        title: "CodePulse — Data Structures & Algorithms Visualization Teaching Platform",
+        title:
+          "CodePulse — Data Structures & Algorithms Visualization Teaching Platform",
         desc: "2025 Academic Year Capstone Project, Dept. of CSIE ｜ Advisor: 陳香君",
       },
       {
-        title: "A Dual-Track NLP Approach to Automated Semantic Analysis of User Feedback",
+        title:
+          "A Dual-Track NLP Approach to Automated Semantic Analysis of User Feedback",
         desc: "June 2026 ｜ NLP Course Final Project",
       },
     ],
     experienceHighlights: [
-      { year: "2022", text: "National Skills Competition — 7th Place, Golden Hand Award" },
+      {
+        year: "2022",
+        text: "National Skills Competition — 7th Place, Golden Hand Award",
+      },
       { year: "2023 / 5", text: "US Study Exchange (Atlanta & San Francisco)" },
       { year: "2023~2025", text: "Skills Competition Coach at Alma Mater" },
-      { year: "2025 / 12", text: "Educational Big Data Micro-Program — Honorable Mention" },
+      {
+        year: "2025 / 12",
+        text: "Educational Big Data Micro-Program — Honorable Mention",
+      },
       {
         year: "2025~2027",
         text: "Sun Bird Software — Frontend Development Intern (Scrum / Sprint Review / Design Docs)",
@@ -201,17 +209,17 @@ export default function About() {
   const data = content[language];
 
   return (
-    <section className="flex flex-col lg:flex-row lg:-ml-[calc(50vw-50rem)]">
-      <div className="lg:shrink-0 lg:w-[calc(50vw-25rem)] lg:sticky lg:top-1/2 lg:-translate-y-1/2 lg:self-start">
-        <p className="text-7xl font-light leading-none text-[var(--color-text)] lg:text-[10rem]">
+    <section className="flex flex-col gap-8 lg:relative lg:left-1/2 lg:grid lg:w-screen lg:-translate-x-1/2 lg:grid-cols-[10%_30%_5%_45%_10%]">
+      <div className="flex flex-wrap items-baseline gap-x-4 lg:block lg:sticky lg:top-1/2 lg:col-start-2 lg:-translate-y-1/2 lg:self-start">
+        <p className="text-5xl font-light leading-none text-[var(--color-text)] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem]">
           About
         </p>
-        <p className="mt-4 text-7xl font-light leading-none text-[var(--color-text)] lg:text-[10rem]">
+        <p className="text-5xl font-light leading-none text-[var(--color-text)] sm:text-6xl md:text-7xl lg:mt-3 lg:text-8xl xl:text-9xl 2xl:text-[10rem]">
           Me
         </p>
       </div>
 
-      <div className="flex-1 divide-y divide-[var(--color-border)]">
+      <div className="divide-y divide-[var(--color-border)] lg:col-start-4">
         <div id="research-interests" className="pb-6">
           <p className="font-semibold text-[var(--color-primary)]">
             {t.about.researchInterests}
@@ -247,7 +255,9 @@ export default function About() {
             {data.skillGroups.map((group) => (
               <div key={group.label}>
                 <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)]">
-                  {group.label === "專業方向" ? t.about.professionalDirection : group.label}
+                  {group.label === "專業方向"
+                    ? t.about.professionalDirection
+                    : group.label}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                   {group.items.map((item) =>

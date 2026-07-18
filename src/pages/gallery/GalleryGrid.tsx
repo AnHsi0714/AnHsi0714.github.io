@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { Link, useLocation } from "react-router-dom";
 import artworksDataZh from "../../../content/artworks.json";
 import artworksDataEn from "../../../content/artworks.en.json";
@@ -43,6 +44,9 @@ export default function GalleryGrid() {
   const [activeSlug, setActiveSlug] = useState<string | undefined>(
     focusSlug ?? artworks[0]?.slug,
   );
+  // 手機版展牆改直向捲動（見 GalleryGrid.module.scss 的手機 media query），
+  // 這裡的閾值要跟 SCSS 那邊的 640px 對齊，捲動軸向的 JS 邏輯才會一致。
+  const isMobile = useMediaQuery("(max-width: 640px)");
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
@@ -126,12 +130,12 @@ export default function GalleryGrid() {
     const el = scrollerRef.current;
     if (!el) return;
     const item = el.querySelector<HTMLElement>(`[data-slug="${focusSlug}"]`);
-    item?.scrollIntoView({
-      behavior: "instant",
-      inline: "center",
-      block: "nearest",
-    });
-  }, [focusSlug]);
+    item?.scrollIntoView(
+      isMobile
+        ? { behavior: "instant", block: "center", inline: "nearest" }
+        : { behavior: "instant", inline: "center", block: "nearest" },
+    );
+  }, [focusSlug, isMobile]);
 
   // 切換排序時把展牆直接拉回新順序的第一件作品：如果留在原本的捲動位置，
   // 牆面在腳下重新洗牌、置中的卻常常還是同一件（最舊↔最新切換時尤其明顯，
@@ -145,21 +149,22 @@ export default function GalleryGrid() {
     const el = scrollerRef.current;
     if (!el) return;
     const first = el.querySelector<HTMLElement>("[data-slug]");
-    first?.scrollIntoView({
-      behavior: "instant",
-      inline: "center",
-      block: "nearest",
-    });
-  }, [sortOrder]);
+    first?.scrollIntoView(
+      isMobile
+        ? { behavior: "instant", block: "center", inline: "nearest" }
+        : { behavior: "instant", inline: "center", block: "nearest" },
+    );
+  }, [sortOrder, isMobile]);
 
   // 滾輪垂直捲動轉成展牆的橫向移動（React 的 onWheel 是 passive，擋不了預設捲動，
   // 所以自己掛非 passive listener）。邊界不用手動判斷，scrollLeft 賦值超出範圍時
-  // 瀏覽器會自動夾在 [0, scrollWidth - clientWidth] 之間。
+  // 瀏覽器會自動夾在 [0, scrollWidth - clientWidth] 之間。手機版展牆改直向捲動，
+  // 滾輪本來就該正常捲動，不用轉軸。
   // 依賴 visibleArtworks：篩到空集合時 scroller 會整個卸載、再出現時是新的
   // DOM 節點，listener 要重新掛。
   useEffect(() => {
     const el = scrollerRef.current;
-    if (!el) return;
+    if (!el || isMobile) return;
     const onWheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return;
       el.scrollLeft += e.deltaY;
@@ -167,7 +172,7 @@ export default function GalleryGrid() {
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
-  }, [visibleArtworks]);
+  }, [visibleArtworks, isMobile]);
 
   // 偵測誰在展牆中央：每次捲動都算出「哪一件作品的中心點離展牆中心最近」，
   // 直接點亮那件——用重疊區間判斷（IntersectionObserver + threshold）在捲動
@@ -182,12 +187,17 @@ export default function GalleryGrid() {
     let raf = 0;
     const updateActive = () => {
       const rootRect = el.getBoundingClientRect();
-      const rootCenter = rootRect.left + rootRect.width / 2;
+      const rootCenter = isMobile
+        ? rootRect.top + rootRect.height / 2
+        : rootRect.left + rootRect.width / 2;
       let closest: HTMLElement | undefined;
       let minDist = Infinity;
       for (const item of items) {
         const rect = item.getBoundingClientRect();
-        const dist = Math.abs(rect.left + rect.width / 2 - rootCenter);
+        const itemCenter = isMobile
+          ? rect.top + rect.height / 2
+          : rect.left + rect.width / 2;
+        const dist = Math.abs(itemCenter - rootCenter);
         if (dist < minDist) {
           minDist = dist;
           closest = item;
@@ -207,7 +217,7 @@ export default function GalleryGrid() {
       el.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [visibleArtworks]);
+  }, [visibleArtworks, isMobile]);
 
   return (
     <section className={styles.room}>

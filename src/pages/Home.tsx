@@ -51,19 +51,19 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-16">
-      <section className="lg:-ml-[calc(50vw-50rem)]">
-        <p className="text-4xl font-light leading-tight text-[var(--color-text)] sm:text-5xl lg:text-7xl">
+      <section className="pt-4 sm:pt-8 lg:pt-12">
+        <p className="text-4xl font-light leading-tight text-[var(--color-text)] sm:text-5xl md:text-6xl lg:text-7xl">
           {t.home.titleZh} {t.home.titleEn}
         </p>
-        <p className="mt-2 text-lg text-[var(--color-text-muted)]">
+        <p className="mt-3 text-lg text-[var(--color-text-muted)]">
           {t.home.tagline}
         </p>
-        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--color-text-muted)]">
+        <p className="mt-5 max-w-2xl text-sm leading-relaxed text-[var(--color-text-muted)]">
           {t.home.bio}
         </p>
         <Link
           to="/about#research-interests"
-          className="mt-4 flex flex-wrap gap-2"
+          className="mt-6 flex flex-wrap gap-2"
         >
           {researchInterestTags.map((tag) => (
             <Chip key={tag} size="md">
@@ -71,7 +71,7 @@ export default function Home() {
             </Chip>
           ))}
         </Link>
-        <div className="mt-6 flex gap-3">
+        <div className="mt-8 flex gap-3">
           <Link to="/about">
             <Button type="button">{t.home.aboutMe}</Button>
           </Link>
