@@ -10,6 +10,7 @@
    會讓整頁多出幾 px 的橫向捲動；整站本來就不該有水平捲動，直接 clip 掉 */
 html {
   overflow-x: clip;
+  font-size: 18px;
 }
 
 /* Tailwind Typography 的 prose-neutral 預設用固定灰階色，不會跟著 .dark 切換。

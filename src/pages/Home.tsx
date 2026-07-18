@@ -51,7 +51,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-16">
-      <section className="lg:-ml-[calc(50vw-50rem)]">
+      <section className="lg:ml-[calc((min(100vw,64rem)-100vw)/2-1rem)]">
         <p className="text-4xl font-light leading-tight text-[var(--color-text)] sm:text-5xl lg:text-7xl">
           {t.home.titleZh} {t.home.titleEn}
         </p>
