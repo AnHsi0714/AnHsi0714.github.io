@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import { useTranslation } from "../../i18n/useTranslation";
 
 interface InviteGateProps {
   initialCode?: string;
@@ -16,6 +17,7 @@ export default function InviteGate({
   initialNickname = "",
   onSubmit,
 }: InviteGateProps) {
+  const { t } = useTranslation();
   const [code, setCode] = useState(initialCode);
   const [nickname, setNickname] = useState(initialNickname);
   const [checking, setChecking] = useState(false);
@@ -27,8 +29,8 @@ export default function InviteGate({
     const trimmedCode = code.trim();
     const trimmedNickname = nickname.trim();
     const nextErrors = {
-      code: trimmedCode ? undefined : "請輸入邀請碼",
-      nickname: trimmedNickname ? undefined : "請輸入暱稱",
+      code: trimmedCode ? undefined : t.creator.codeRequired,
+      nickname: trimmedNickname ? undefined : t.creator.nicknameRequired,
     };
     setErrors(nextErrors);
     if (nextErrors.code || nextErrors.nickname) return;
@@ -39,7 +41,7 @@ export default function InviteGate({
       if (failure) setErrors({ code: failure });
     } catch (err) {
       setErrors({
-        code: err instanceof Error ? err.message : "檢查邀請碼時發生錯誤",
+        code: err instanceof Error ? err.message : t.creator.checkError,
       });
     } finally {
       setChecking(false);
@@ -55,24 +57,24 @@ export default function InviteGate({
       className="mx-auto mt-8 max-w-sm space-y-4"
     >
       <Input
-        label="邀請碼"
+        label={t.creator.inviteCode}
         value={code}
         onChange={(e) => setCode(e.target.value)}
-        placeholder="輸入我給的邀請碼"
+        placeholder={t.creator.inviteCodePlaceholder}
         autoComplete="off"
         error={errors.code}
       />
       <Input
-        label="暱稱"
+        label={t.creator.nickname}
         value={nickname}
         onChange={(e) => setNickname(e.target.value)}
-        placeholder="會跟作品一起展示的名字"
+        placeholder={t.creator.nicknamePlaceholder}
         maxLength={20}
         autoComplete="off"
         error={errors.nickname}
       />
       <Button type="submit" className="w-full" disabled={checking}>
-        {checking ? "檢查邀請碼中…" : "開始作畫"}
+        {checking ? t.creator.checking : t.creator.start}
       </Button>
     </form>
   );

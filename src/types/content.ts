@@ -67,6 +67,13 @@ export interface Artwork {
   openProcessingUrl: string;
 }
 
+export interface GlossaryEntry {
+  term: string;
+  definition: string;
+  // 這個詞彙在專案裡實際如何被應用，非通用字典解釋
+  application: string;
+}
+
 export type ArticleType = "book" | "note";
 
 export interface Article {

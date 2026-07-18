@@ -1,6 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import Term from "./Term";
 
 interface MarkdownContentProps {
   children: string;
@@ -26,6 +27,13 @@ export default function MarkdownContent({
               {linkChildren}
             </a>
           ),
+          span: ({ children: spanChildren, ...props }) => {
+            const termId = (props as Record<string, unknown>)["data-term"];
+            if (typeof termId === "string") {
+              return <Term id={termId}>{spanChildren}</Term>;
+            }
+            return <span {...props}>{spanChildren}</span>;
+          },
         }}
       >
         {children}

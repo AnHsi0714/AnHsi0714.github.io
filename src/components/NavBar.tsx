@@ -1,21 +1,21 @@
 import { NavLink } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
-
-const links = [
-  { to: "/", label: "Cheng An Hsi" },
-  { to: "/about", label: "關於" },
-  { to: "/experience", label: "經歷" },
-  { to: "/projects", label: "專案" },
-  { to: "/articles", label: "文章" },
-  { to: "/gallery", label: "藝術畫廊" },
-  { to: "/dreams", label: "夢想" },
-  { to: "/friends", label: "朋友創作" },
-  { to: "/dev/components", label: "組件預覽" },
-  { to: "/dev/creature", label: "怪獸預覽" },
-  { to: "/dev/creature-builder", label: "怪獸捏造" },
-];
+import LanguageToggle from "./LanguageToggle";
+import { useTranslation } from "../i18n/useTranslation";
 
 export default function NavBar() {
+  const { t } = useTranslation();
+
+  const links = [
+    { to: "/", label: "Cheng An Hsi" },
+    { to: "/about", label: t.nav.about },
+    { to: "/experience", label: t.nav.experience },
+    { to: "/projects", label: t.nav.projects },
+    { to: "/articles", label: t.nav.articles },
+    { to: "/gallery", label: t.nav.gallery },
+    { to: "/playground", label: t.nav.playground },
+  ];
+
   return (
     <nav className="fixed top-0 inset-x-0 z-50 flex flex-wrap items-center gap-4 border-b border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3">
       {links.map((link) => (
@@ -32,7 +32,16 @@ export default function NavBar() {
           {link.label}
         </NavLink>
       ))}
-      <ThemeToggle />
+      <NavLink
+        to="/about#resume"
+        className="rounded-md border border-[var(--color-border)] px-2.5 py-1 text-sm font-medium text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+      >
+        {t.nav.cv}
+      </NavLink>
+      <div className="ml-auto flex items-center gap-4">
+        <LanguageToggle />
+        <ThemeToggle />
+      </div>
     </nav>
   );
 }

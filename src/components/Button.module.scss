@@ -40,12 +40,16 @@
 .primary {
   background-color: transparent;
   border-color: $color-border;
-  border-width: 2px;
+  font-weight: 700;
   color: $color-primary;
+  // 額外疊一圈 inset box-shadow 讓外框看起來加粗到 3px，box-shadow 不佔版面空間，
+  // 不會像調 border-width 那樣連帶把其他 variant 的按鈕高度撐高。
+  box-shadow: inset 0 0 0 2px $color-primary-text;
 
   &:hover:not(:disabled) {
     background-color: $color-primary-hover;
     color: $color-primary-text;
+    box-shadow: inset 0 0 0 2px $color-primary-text;
     transition: 1s;
   }
 }

@@ -1,0 +1,122 @@
+{
+  "elo-rating": {
+    "term": "ELO Rating",
+    "definition": "西洋棋等對戰型遊戲常用的積分評等系統：每次對戰後，用實際勝負跟賽前預期勝率的差距來調整雙方分數，贏過強者加分較多，贏過弱者加分較少。",
+    "application": "CodePulse 把「使用者」與「題目」視為對戰雙方，答對／答錯就是一次「比賽」，藉此動態調整下一題難度，並算出使用者的能力段位分數。"
+  },
+  "k-factor": {
+    "term": "K-factor",
+    "definition": "ELO Rating 公式裡控制「每次比賽最多能調整多少分數」的係數，K 值越大，單次結果對分數的影響越大。",
+    "application": "CodePulse 讓 K-factor 隨同一題的作答次數衰減，重複作答同一題時 K 值變小，避免使用者靠反覆刷題持續拉高評分，讓分數更能反映真實能力。"
+  },
+  "cfg": {
+    "term": "CFG（控制流程圖）",
+    "definition": "Control Flow Graph，把程式的執行路徑畫成圖：每個節點代表一段程式碼，邊代表可能的執行順序，例如 if/else 分支、迴圈跳轉。",
+    "application": "Playground 辨識不出使用者程式碼對應哪個標準演算法時，會退回顯示 CFG／Call Graph，讓學習者仍能看到程式的執行路徑與函式呼叫關係，只是視覺化的抽象程度較低。"
+  },
+  "ast": {
+    "term": "AST（抽象語法樹）",
+    "definition": "Abstract Syntax Tree，編譯器/直譯器把程式碼解析後得到的樹狀結構，每個節點代表一個語法元素（如迴圈、判斷式、函式呼叫），是分析程式結構的第一步。",
+    "application": "Playground 先把使用者提交的 Python 程式碼解析成 AST，才能在不真正執行程式的情況下，靜態分析出控制流程圖（CFG），作為後續動態追蹤與視覺化的基礎。"
+  },
+  "cosine-similarity-codepulse": {
+    "term": "Cosine Similarity（餘弦相似度）",
+    "definition": "衡量兩個向量方向相似程度的指標，數值介於 -1 到 1，越接近 1 代表兩者語意越相近，常用於比較程式碼或文字轉成向量後的相似程度。",
+    "application": "CodePulse 把使用者程式碼轉成語意向量，跟預先建好的標準演算法向量庫做 cosine similarity 比對，相似度高於門檻（0.80）才觸發對應的 Level 1 語意動畫。"
+  },
+  "normalized-gain": {
+    "term": "Normalized Gain（標準化增益）",
+    "definition": "教育研究常用的學習成效指標，衡量前測到後測「實際進步」占「理論最大可進步空間」的比例，數值越接近 1 代表進步幅度越接近滿分。",
+    "application": "CodePulse 的使用者測試用 Normalized Gain 衡量學習者操作平台前後的測驗分數變化，大學組與高中組都是正向但未達統計顯著，反映短時間操作下學習成效有限但方向正確。"
+  },
+  "ckip": {
+    "term": "CKIP",
+    "definition": "中央研究院詞庫小組開發的中文自然語言處理工具，能做中文斷詞與詞性標注（POS tagging），判斷每個詞是名詞、動詞還是其他詞性。",
+    "application": "本專案用 CKIP（bert-base-chinese）把使用者回饋句子斷詞並標注詞性，合併相鄰名詞當作 Aspect Term 候選，保留狀態動詞當作 Opinion Term 候選。"
+  },
+  "stanza": {
+    "term": "Stanza",
+    "definition": "史丹佛大學開發的多語言 NLP 工具，這裡用它做依存句法分析（Dependency Parsing），標出句子中詞與詞之間的文法關係，例如誰是誰的主詞、誰在修飾誰。",
+    "application": "用 Stanza 找出 Aspect Term 與 Opinion Term 之間的依存關係（如 nsubj 主謂關係、amod 形容詞修飾），把「動畫」和「流暢」這類詞正確配對在一起。"
+  },
+  "cosine-similarity-absa": {
+    "term": "Cosine Similarity（餘弦相似度）",
+    "definition": "衡量兩個向量方向相似程度的指標，數值介於 -1 到 1，越接近 1 代表兩者語意越相近，常用於比較兩段文字轉成向量後的語意接近程度。",
+    "application": "把每個 Aspect Term 轉成語意向量，跟六大面向的種子詞向量算 cosine similarity，相似度最高的面向就是這個詞被歸類的類別，取代人工逐句判斷分類。"
+  },
+  "distilbert": {
+    "term": "DistilBERT",
+    "definition": "BERT 的輕量化版本，參數量更少、推理速度更快，但保留大部分語言理解能力，常用於文字分類任務。",
+    "application": "在規則式流程的最後一步，用 DistilBERT（多語言版本）判斷 Opinion Term 的情感是正面還是負面，作為 Aspect-Opinion pair 的最終極性標籤。"
+  },
+  "zero-shot": {
+    "term": "Zero-Shot（零樣本學習）",
+    "definition": "模型不需要針對特定任務額外訓練或提供範例，直接靠預訓練時學到的知識完成新任務。",
+    "application": "Track B 讓 Gemini 在沒看過這份資料集標註範例的情況下，直接讀懂 system prompt 裡定義的六大面向與規則，一次性輸出跟規則式流程相同格式的 ABSA 四元組。"
+  },
+  "partial-f1": {
+    "term": "Partial F1",
+    "definition": "F1 是準確率（Precision）與召回率（Recall）的調和平均，用來評估分類／抽取任務的整體表現；「Partial」代表採用較寬鬆的匹配標準（文字有重疊、語意相近即算對），而非要求逐字完全相同。",
+    "application": "用 Partial F1 分別評估 Aspect／Opinion／Pair／Quadruplet 四個層級的抽取品質，作為 Track A（規則式）與 Track B（Gemini）的橫向比較指標。"
+  },
+  "agglomerative-clustering": {
+    "term": "Agglomerative Clustering（階層式分群）",
+    "definition": "一種由下往上的分群演算法：一開始把每筆資料當成獨立一群，逐步合併距離最近的兩群，直到剩下指定的群數為止。",
+    "application": "專案最初嘗試用 Agglomerative Clustering 依語意向量的幾何距離自動把回饋分成六類，但發現部分類別間距離太接近（例如 UI 和動畫只差 0.007），分群邊界模糊，因此改用人工定義種子詞的 Anchor-Guided 分類法。"
+  },
+  "b2c": {
+    "term": "B2C",
+    "definition": "Business-to-Consumer，企業對消費者的交易模式，也就是店家直接把商品或服務賣給一般消費者，中間沒有其他中盤商。",
+    "application": "SilkRoad 就是典型的 B2C 平台：飲品店家在平台上架商品，顧客直接下單購買，交易全程在線上完成。"
+  },
+  "pk-fk": {
+    "term": "PK / FK",
+    "definition": "PK（Primary Key，主鍵）是資料表中能唯一識別一筆資料的欄位；FK（Foreign Key，外來鍵）則是某張表裡指向另一張表主鍵的欄位，用來建立資料表之間的關聯。",
+    "application": "SilkRoad 用 product_id 當 FK，把甜度、冰塊、容量選項的子表跟商品表關聯起來；角色資料表則用 1:1 的 PK-FK 關聯，讓 ADMIN／CUSTOMER／VENDOR 各自延伸自共用的 USER 表，模擬繼承關係。"
+  },
+  "crud": {
+    "term": "CRUD",
+    "definition": "Create（新增）、Read（讀取）、Update（修改）、Delete（刪除）四個基本資料操作的縮寫，幾乎所有管理功能都是這四種操作的組合。",
+    "application": "商品管理子系統（PMS）讓店家對自己的商品做 CRUD：上架新商品、瀏覽商品清單、修改價格或選項、下架商品——但基於交易紀錄的完整性，「刪除」實際上被限制為只能下架，不能真的刪除已有交易紀錄的商品。"
+  },
+  "normalization": {
+    "term": "正規化（Normalization）",
+    "definition": "資料庫設計手法，把資料拆成多張關聯表以減少重複儲存與維護異常；拆得越細，查詢時通常需要越多次表格合併（JOIN），會換來一些效能成本。",
+    "application": "SilkRoad 把飲料的甜度、冰塊、容量選項拆成獨立子表，而不是把所有組合都塞進同一張商品表，避免同樣的選項組合被重複儲存，也讓店家調整選項時不用大量更新既有資料。"
+  },
+  "er-model": {
+    "term": "ER Model（實體關聯模型）",
+    "definition": "Entity-Relationship Model，用「實體」（如顧客、商品）與「關聯」（如顧客購買商品）畫出資料庫設計藍圖，是動手建表之前用來釐清資料結構與商業邏輯的工具。",
+    "application": "SilkRoad 從 ER Model 開始設計，先釐清顧客、店家、商品、訂單等實體之間的關聯，再把客製化屬性（甜度／冰塊／容量）拆成獨立子表，最後才轉成實際的資料庫 Schema。"
+  },
+  "function-overload": {
+    "term": "Function Overload（函式多載）",
+    "definition": "讓同一個函式名稱依傳入參數的型別或數量不同，對應到不同的實作內容，呼叫時編譯器會自動選擇符合的版本。",
+    "application": "遊戲的角色與物件類別中用到函式多載，讓同名函式可以依不同的呼叫情境（例如不同物件型別的初始化或碰撞處理）執行對應的邏輯，不用為每種情況另外取一個函式名稱。"
+  },
+  "rls": {
+    "term": "RLS（Row Level Security）",
+    "definition": "資料庫（如 PostgreSQL）在資料表層級之下，針對「每一列」設定可見或可寫入條件的安全機制，不同角色查詢同一張表時可能只看得到符合條件的部分列。",
+    "application": "個人網站的 Supabase 資料表用 RLS 讓匿名角色只能讀到 `is_visible = true` 的朋友創作，`invite_codes` 表則完全不開放任何 RLS policy 給匿名角色，只能透過 RPC 間接兌換，避免邀請碼被直接查詢外流。"
+  },
+  "security-definer": {
+    "term": "Security Definer（安全定義者函式）",
+    "definition": "資料庫函式的一種執行權限模式：函式執行時使用「建立者」的權限而非「呼叫者」的權限，讓權限較低的呼叫者也能透過這個函式完成原本沒有權限直接做的操作，但操作範圍被限定在函式內寫好的邏輯裡。",
+    "application": "個人網站的邀請碼兌換與二次編輯都寫成 `security definer` 的 RPC function，讓沒有任何資料表寫入權限的匿名使用者，也能透過這個函式完成「驗證邀請碼＋寫入朋友創作」這組動作，且只能做函式允許的事，不能任意寫入其他資料。"
+  },
+  "race-condition": {
+    "term": "Race Condition（競態條件）",
+    "definition": "多個操作同時存取、修改同一份資料時，因為執行順序的先後而導致結果不一致或出乎預期的問題，常見於多個使用者或多個執行緒同時讀寫同一筆記錄的情境。",
+    "application": "如果兩位朋友在同一瞬間輸入同一組邀請碼，單純在前端「先檢查碼是否已用，再寫入」會有機會兩邊都通過檢查、碼被重複兌換。個人網站用資料庫的 `for update` 鎖住該列，確保「檢查＋標記已用＋寫入創作」這組操作不會被另一次同時執行的請求打斷。"
+  },
+  "intersection-observer": {
+    "term": "IntersectionObserver",
+    "definition": "瀏覽器內建的 API，用來偵測某個元素是否進入（或離開）指定的可視範圍（通常是視窗），不需要自己在 scroll 事件裡手動計算元素座標。",
+    "application": "朋友創作牆的 3D 怪獸卡片用 IntersectionObserver 偵測卡片是否捲進畫面可視範圍，只有捲進來才掛載即時渲染的 Three.js 場景，捲出去就卸載換回靜態佔位，避免同時存在過多 WebGL context 拖垮效能。"
+  },
+  "instancing": {
+    "term": "Instancing（實例化渲染）",
+    "definition": "3D 繪圖中，把大量形狀相同、只有位置或顏色不同的物件合併成一次繪圖呼叫處理的技術，不用替每個物件各自發送一次繪圖指令，能大幅降低渲染大量重複幾何體時的效能開銷。",
+    "application": "3D 怪獸塗色功能把整隻怪獸拆成上百顆方塊，用 React Three Fiber 的 `<Instances>` 把它們合併成一次 instanced 渲染；因為 `limit` 只在掛載當下配置緩衝區大小、不是即時反應變化，需固定給一個夠大的上限再用 `range` 動態控制實際顯示數量，否則格數變動後會超出緩衝區容量而畫不出來。"
+  }
+}

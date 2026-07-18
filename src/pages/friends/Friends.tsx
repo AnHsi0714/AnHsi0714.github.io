@@ -13,8 +13,18 @@ import { fetchFriendCreations } from "../../lib/friends";
 import { isSupabaseConfigured } from "../../lib/supabaseClient";
 import type { FriendCreationRow } from "../../types/friends";
 import styles from "./Friends.module.scss";
+import { useTranslation } from "../../i18n/useTranslation";
+import type { Strings } from "../../i18n/strings";
 
-function FriendCreationCard({ creation }: { creation: FriendCreationRow }) {
+function FriendCreationCard({
+  creation,
+  t,
+  language,
+}: {
+  creation: FriendCreationRow;
+  t: Strings;
+  language: string;
+}) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -56,13 +66,15 @@ function FriendCreationCard({ creation }: { creation: FriendCreationRow }) {
               🐾
             </span>
             <span className="text-sm text-[var(--color-text-muted)]">
-              3D 怪獸
+              {t.friends.threeDCreature}
             </span>
           </div>
         )}
         <p className="mt-3 font-semibold">{creation.nickname}</p>
         <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-          {new Date(creation.created_at).toLocaleDateString("zh-TW")}
+          {new Date(creation.created_at).toLocaleDateString(
+            language === "en" ? "en-US" : "zh-TW",
+          )}
         </p>
       </Card>
     </div>
@@ -71,8 +83,12 @@ function FriendCreationCard({ creation }: { creation: FriendCreationRow }) {
 
 function FriendCreationCarousel({
   creations,
+  t,
+  language,
 }: {
   creations: FriendCreationRow[];
+  t: Strings;
+  language: string;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -206,8 +222,8 @@ function FriendCreationCarousel({
   if (creations.length === 0) {
     return (
       <EmptyState
-        title="尚無朋友創作"
-        description="之後會陸續累積邀請碼兌換後的作品。"
+        title={t.friends.emptyTitle}
+        description={t.friends.emptyDesc}
       />
     );
   }
@@ -216,7 +232,7 @@ function FriendCreationCarousel({
     <div className="relative">
       <button
         type="button"
-        aria-label="上一個作品"
+        aria-label={t.friends.prev}
         disabled={activeIndex === 0}
         onClick={() => centerItem(activeIndex - 1)}
         className="absolute left-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] text-2xl shadow-md hover:bg-[var(--color-surface)] disabled:cursor-not-allowed disabled:opacity-30"
@@ -244,8 +260,8 @@ function FriendCreationCarousel({
               tabIndex={0}
               aria-label={
                 index === activeIndex && canOpenDetail
-                  ? `${creation.nickname} 的作品，點擊放大查看`
-                  : `前往 ${creation.nickname} 的作品`
+                  ? t.friends.openDetail(creation.nickname)
+                  : t.friends.gotoPlain(creation.nickname)
               }
               // 點還沒置中的作品 → 把它捲到中間；點已置中的作品 → 開啟整頁檢視遮罩
               onClick={() => {
@@ -271,7 +287,7 @@ function FriendCreationCarousel({
                 filter: `brightness(${focus[index]?.brightness ?? 1})`,
               }}
             >
-              <FriendCreationCard creation={creation} />
+              <FriendCreationCard creation={creation} t={t} language={language} />
             </div>
           );
         })}
@@ -284,7 +300,7 @@ function FriendCreationCarousel({
 
       <button
         type="button"
-        aria-label="下一個作品"
+        aria-label={t.friends.next}
         disabled={activeIndex === creations.length - 1}
         onClick={() => centerItem(activeIndex + 1)}
         className="absolute right-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] text-2xl shadow-md hover:bg-[var(--color-surface)] disabled:cursor-not-allowed disabled:opacity-30"
@@ -297,7 +313,7 @@ function FriendCreationCarousel({
           <button
             key={creation.id}
             type="button"
-            aria-label={`前往第 ${index + 1} 個作品：${creation.nickname}`}
+            aria-label={t.friends.goto(index + 1, creation.nickname)}
             aria-current={index === activeIndex}
             onClick={() => centerItem(index)}
             className={[
@@ -336,7 +352,7 @@ function FriendCreationCarousel({
                   className="h-[50vh] w-full cursor-grab active:cursor-grabbing"
                 />
                 <p className="mt-1 text-xs text-white/50">
-                  拖曳旋轉視角，滾輪縮放
+                  {t.friends.dragToRotate}
                 </p>
               </div>
             )}
@@ -360,6 +376,7 @@ function FriendCreationCarousel({
 }
 
 export default function Friends() {
+  const { t, language } = useTranslation();
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["friend-creations"],
     queryFn: fetchFriendCreations,
@@ -368,32 +385,32 @@ export default function Friends() {
 
   return (
     <section>
-      <h1 className="text-2xl font-bold">朋友創作</h1>
+      <h1 className="text-2xl font-bold">{t.friends.title}</h1>
       <p className="mt-2 text-[var(--color-text-muted)]">
-        朋友們用邀請碼創作的 2D 像素畫與 3D 怪獸。
+        {t.friends.subtitle}
       </p>
 
       <div className="mt-4">
         <Link to="/friends/create">
-          <Button variant="secondary">我有邀請碼，我要作畫</Button>
+          <Button variant="secondary">{t.friends.iHaveCode}</Button>
         </Link>
       </div>
 
       {!isSupabaseConfigured ? (
         <Alert variant="info" className="mt-8">
-          後端尚未設定（缺 Supabase 環境變數），暫時無法載入朋友作品。
+          {t.friends.backendNotConfigured}
         </Alert>
       ) : isPending ? (
         <div className="mt-8 flex justify-center">
-          <Loading label="載入朋友作品中…" />
+          <Loading label={t.friends.loading} />
         </div>
       ) : isError ? (
         <Alert variant="error" className="mt-8">
-          載入失敗：{error.message}
+          {t.friends.loadFailed}{error.message}
         </Alert>
       ) : (
         <div className="mt-8 ml-[calc(50%_-_50vw)] mr-[calc(50%_-_50vw)] w-screen px-6 sm:px-10">
-          <FriendCreationCarousel creations={data} />
+          <FriendCreationCarousel creations={data} t={t} language={language} />
         </div>
       )}
     </section>

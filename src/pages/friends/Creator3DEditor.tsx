@@ -7,6 +7,7 @@ import Button from "../../components/Button";
 import { pivotPosition } from "../../components/VoxelCreature";
 import { CUBE_SIZE, REGIONS, type VoxelCoord, type VoxelRegion } from "../../lib/creatureBody";
 import type { VoxelCreatureData } from "../../types/friends";
+import { useTranslation } from "../../i18n/useTranslation";
 
 const DEFAULT_COLOR = "#33dbdb";
 const HISTORY_LIMIT = 100;
@@ -189,6 +190,7 @@ export default function Creator3DEditor({
   submitting,
   submitError,
 }: Creator3DEditorProps) {
+  const { t } = useTranslation();
   const [color, setColor] = useState(DEFAULT_COLOR);
   const [tool, setTool] = useState<Tool>("paint");
   const [intro, setIntro] = useState(initialIntro);
@@ -247,7 +249,7 @@ export default function Creator3DEditor({
     <div className="mt-8 flex flex-col items-center gap-6">
       <div className="flex flex-wrap items-center justify-center gap-3">
         <label className="flex items-center gap-2 text-sm">
-          顏色
+          {t.creator.color}
           <input
             type="color"
             value={color}
@@ -260,14 +262,14 @@ export default function Creator3DEditor({
           variant={tool === "paint" ? "primary" : "ghost"}
           onClick={() => setTool("paint")}
         >
-          上色
+          {t.creator.paint}
         </Button>
         <Button
           size="sm"
           variant={tool === "erase" ? "primary" : "ghost"}
           onClick={() => setTool("erase")}
         >
-          清除
+          {t.creator.erase}
         </Button>
         <Button
           size="sm"
@@ -275,7 +277,7 @@ export default function Creator3DEditor({
           disabled={past.length === 0}
           onClick={() => dispatchEditor({ type: "undo" })}
         >
-          上一步
+          {t.creator.undo}
         </Button>
         <Button
           size="sm"
@@ -283,7 +285,7 @@ export default function Creator3DEditor({
           disabled={future.length === 0}
           onClick={() => dispatchEditor({ type: "redo" })}
         >
-          下一步
+          {t.creator.redo}
         </Button>
         <Button
           size="sm"
@@ -291,12 +293,12 @@ export default function Creator3DEditor({
           disabled={colors.size === 0}
           onClick={() => dispatchEditor({ type: "clear" })}
         >
-          清空
+          {t.creator.clear}
         </Button>
       </div>
 
       <p className="text-sm text-[var(--color-text-muted)]">
-        左鍵拖曳塗色，右鍵拖曳轉視角，滾輪縮放。
+        {t.creator.dragToRotateHint}
       </p>
 
       <div className="h-[60vh] w-full overflow-hidden rounded-md border border-[var(--color-border)]">
@@ -325,14 +327,14 @@ export default function Creator3DEditor({
 
       <label className="w-full max-w-[480px] text-sm">
         <span className="mb-1 block text-[var(--color-text-muted)]">
-          作品、個人敘述 or 其他（選填，別人點開你的作品時會顯示，嚴禁不當內容）
+          {t.creator.introLabel2d}
         </span>
         <textarea
           value={intro}
           onChange={(e) => setIntro(e.target.value)}
           maxLength={200}
           rows={3}
-          placeholder="想對看到這隻怪獸的人說的話"
+          placeholder={t.creator.introPlaceholder3d}
           className="w-full resize-none rounded-md border border-[var(--color-border)] bg-transparent px-3 py-2 outline-none focus:border-[var(--color-primary)]"
         />
         <span className="mt-1 block text-right text-xs text-[var(--color-text-muted)]">
@@ -342,7 +344,7 @@ export default function Creator3DEditor({
 
       {submitError && (
         <Alert variant="error" className="w-full max-w-[480px]">
-          送出失敗：{submitError}
+          {t.creator.submitFailed}{submitError}
         </Alert>
       )}
 
@@ -358,7 +360,7 @@ export default function Creator3DEditor({
           });
         }}
       >
-        {submitting ? "送出中…" : mode === "edit" ? "更新作品" : "送出作品"}
+        {submitting ? t.creator.submitting : mode === "edit" ? t.creator.update : t.creator.submit}
       </Button>
     </div>
   );

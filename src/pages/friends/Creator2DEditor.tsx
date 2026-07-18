@@ -3,6 +3,7 @@ import Alert from "../../components/Alert";
 import Button from "../../components/Button";
 import PixelCanvas from "../../components/PixelCanvas";
 import type { PixelData } from "../../types/friends";
+import { useTranslation } from "../../i18n/useTranslation";
 
 const GRID_OPTIONS = [16, 32] as const;
 const CELL_PX = 20; // 編輯畫布的內部解析度（每格 px），CSS 再縮放成響應式
@@ -263,6 +264,7 @@ export default function Creator2DEditor({
   submitting,
   submitError,
 }: Creator2DEditorProps) {
+  const { t } = useTranslation();
   const [grid, setGrid] = useState<number | null>(initialData?.grid ?? null);
   const [color, setColor] = useState(DEFAULT_COLOR);
   const [tool, setTool] = useState<Tool>("paint");
@@ -302,7 +304,7 @@ export default function Creator2DEditor({
   if (grid === null) {
     return (
       <div className="mt-8 flex flex-col items-center gap-4">
-        <p>選一個畫布尺寸（開始作畫後就不能改囉）</p>
+        <p>{t.creator.chooseGridSize}</p>
         <div className="flex gap-4">
           {GRID_OPTIONS.map((option) => (
             <Button
@@ -323,7 +325,7 @@ export default function Creator2DEditor({
     <div className="mt-8 flex flex-col items-center gap-6">
       <div className="flex flex-wrap items-center justify-center gap-3">
         <label className="flex items-center gap-2 text-sm">
-          顏色
+          {t.creator.color}
           <input
             type="color"
             value={color}
@@ -336,21 +338,21 @@ export default function Creator2DEditor({
           variant={tool === "paint" ? "primary" : "ghost"}
           onClick={() => setTool("paint")}
         >
-          畫筆
+          {t.creator.brush}
         </Button>
         <Button
           size="sm"
           variant={tool === "fill" ? "primary" : "ghost"}
           onClick={() => setTool("fill")}
         >
-          油漆桶
+          {t.creator.fill}
         </Button>
         <Button
           size="sm"
           variant={tool === "erase" ? "primary" : "ghost"}
           onClick={() => setTool("erase")}
         >
-          橡皮擦
+          {t.creator.erase}
         </Button>
         <Button
           size="sm"
@@ -358,7 +360,7 @@ export default function Creator2DEditor({
           disabled={past.length === 0}
           onClick={() => dispatchEditor({ type: "undo" })}
         >
-          上一步
+          {t.creator.undo}
         </Button>
         <Button
           size="sm"
@@ -366,7 +368,7 @@ export default function Creator2DEditor({
           disabled={future.length === 0}
           onClick={() => dispatchEditor({ type: "redo" })}
         >
-          下一步
+          {t.creator.redo}
         </Button>
         <Button
           size="sm"
@@ -374,7 +376,7 @@ export default function Creator2DEditor({
           disabled={pixels.size === 0}
           onClick={() => dispatchEditor({ type: "clear" })}
         >
-          清空
+          {t.creator.clear}
         </Button>
       </div>
 
@@ -388,7 +390,7 @@ export default function Creator2DEditor({
 
       {pixelData && pixels.size > 0 && (
         <div className="flex items-center gap-3 text-sm text-[var(--color-text-muted)]">
-          縮圖預覽
+          {t.creator.thumbnailPreview}
           <PixelCanvas
             data={pixelData}
             className="h-16 w-16 rounded border border-[var(--color-border)]"
@@ -398,14 +400,14 @@ export default function Creator2DEditor({
 
       <label className="w-full max-w-[480px] text-sm">
         <span className="mb-1 block text-[var(--color-text-muted)]">
-          作品、個人敘述 or 其他（選填，別人點開你的作品時會顯示，嚴禁不當內容）
+          {t.creator.introLabel2d}
         </span>
         <textarea
           value={intro}
           onChange={(e) => setIntro(e.target.value)}
           maxLength={200}
           rows={3}
-          placeholder="想對看到這張圖的人說的話"
+          placeholder={t.creator.introPlaceholder2d}
           className="w-full resize-none rounded-md border border-[var(--color-border)] bg-transparent px-3 py-2 outline-none focus:border-[var(--color-primary)]"
         />
         <span className="mt-1 block text-right text-xs text-[var(--color-text-muted)]">
@@ -415,7 +417,7 @@ export default function Creator2DEditor({
 
       {submitError && (
         <Alert variant="error" className="w-full max-w-[480px]">
-          送出失敗：{submitError}
+          {t.creator.submitFailed}{submitError}
         </Alert>
       )}
 
@@ -432,7 +434,7 @@ export default function Creator2DEditor({
           });
         }}
       >
-        {submitting ? "送出中…" : mode === "edit" ? "更新作品" : "送出作品"}
+        {submitting ? t.creator.submitting : mode === "edit" ? t.creator.update : t.creator.submit}
       </Button>
     </div>
   );

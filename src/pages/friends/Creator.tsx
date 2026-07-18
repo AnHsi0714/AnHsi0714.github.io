@@ -19,6 +19,7 @@ import type {
 import InviteGate from "./InviteGate";
 import Creator2DEditor from "./Creator2DEditor";
 import Creator3DEditor from "./Creator3DEditor";
+import { useTranslation } from "../../i18n/useTranslation";
 
 interface SubmitVars {
   code: string;
@@ -31,6 +32,7 @@ interface SubmitVars {
 // 後可回頭改，不會弄丟畫到一半的東西。已用過的碼在 gate 就載入原作品（含 kind，
 // 不能在編輯模式換類型）進入編輯模式。
 export default function Creator() {
+  const { t } = useTranslation();
   const [identity, setIdentity] = useState<{
     code: string;
     nickname: string;
@@ -53,9 +55,9 @@ export default function Creator() {
   if (!isSupabaseConfigured) {
     return (
       <section>
-        <h1 className="text-2xl font-bold">畫一個作品</h1>
+        <h1 className="text-2xl font-bold">{t.creator.pageTitle}</h1>
         <Alert variant="info" className="mt-6">
-          後端尚未設定（缺 Supabase 環境變數），暫時無法提交作品。
+          {t.creator.backendNotConfigured}
         </Alert>
       </section>
     );
@@ -66,13 +68,12 @@ export default function Creator() {
     return (
       <section className="flex flex-col items-center text-center">
         <h1 className="text-2xl font-bold">
-          {mode === "edit" ? "作品已更新！" : "作品已送出！"}
+          {mode === "edit" ? t.creator.updatedTitle : t.creator.submittedTitle}
         </h1>
         <p className="mt-2 text-[var(--color-text-muted)]">
-          謝謝你，{result.nickname}，
           {mode === "edit"
-            ? "創作牆上的作品已經換成新的這張了。"
-            : "你的作品已經掛上創作牆了。"}
+            ? t.creator.thanksEdit(result.nickname)
+            : t.creator.thanksCreate(result.nickname)}
         </p>
         {result.kind === "2d" ? (
           <PixelCanvas
@@ -91,7 +92,7 @@ export default function Creator() {
           </p>
         )}
         <Link to="/friends" className="mt-6">
-          <Button>去創作牆看看</Button>
+          <Button>{t.creator.viewWall}</Button>
         </Link>
       </section>
     );
@@ -100,16 +101,16 @@ export default function Creator() {
   if (!identity || editingIdentity) {
     return (
       <section>
-        <h1 className="text-2xl font-bold">畫一個作品</h1>
+        <h1 className="text-2xl font-bold">{t.creator.pageTitle}</h1>
         <p className="mt-2 text-[var(--color-text-muted)]">
-          輸入邀請碼和暱稱就能開始創作；已經用過的邀請碼可以重新編輯之前的作品。
+          {t.creator.gateSubtitle}
         </p>
         <InviteGate
           initialCode={identity?.code}
           initialNickname={identity?.nickname}
           onSubmit={async (code, nickname) => {
             const result = await checkInviteCode(code);
-            if (result.status === "invalid") return "邀請碼無效或已過期";
+            if (result.status === "invalid") return t.creator.invalidCode;
             setIdentity({ code, nickname });
             setEditingIdentity(false);
             if (result.status === "used") {
@@ -132,33 +133,33 @@ export default function Creator() {
 
   return (
     <section>
-      <h1 className="text-2xl font-bold">畫一個作品</h1>
+      <h1 className="text-2xl font-bold">{t.creator.pageTitle}</h1>
       <p className="mt-2 text-[var(--color-text-muted)]">
-        以「{identity.nickname}」的名義創作。
+        {t.creator.asIdentity(identity.nickname)}
         <button
           type="button"
           onClick={() => setEditingIdentity(true)}
           className="ml-2 underline hover:text-[var(--color-text)]"
         >
-          修改邀請碼／暱稱
+          {t.creator.editIdentity}
         </button>
       </p>
 
       {mode === "edit" && (
         <Alert variant="info" className="mt-4">
-          這個邀請碼已經用過，現在是編輯模式——送出後會覆蓋你原本的作品。
+          {t.creator.editModeNotice}
         </Alert>
       )}
 
       {kind === null ? (
         <div className="mt-8 flex flex-col items-center gap-4">
-          <p>選擇創作類型（開始之後就不能換囉）</p>
+          <p>{t.creator.chooseKind}</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button variant="secondary" size="lg" onClick={() => setKind("2d")}>
-              2D 像素風
+              {t.creator.kind2d}
             </Button>
             <Button variant="secondary" size="lg" onClick={() => setKind("3d")}>
-              3D 怪獸塗色
+              {t.creator.kind3d}
             </Button>
           </div>
         </div>

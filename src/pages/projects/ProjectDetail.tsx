@@ -1,31 +1,35 @@
 import { Link, useParams } from "react-router-dom";
-import projectsData from "../../../content/projects.json";
+import projectsDataZh from "../../../content/projects.json";
+import projectsDataEn from "../../../content/projects.en.json";
 import Badge from "../../components/Badge";
 import Chip from "../../components/Chip";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
-import { projectBodies } from "../../lib/projects";
+import { useProjectBodies } from "../../lib/projects";
 import type { Project } from "../../types/content";
-import { statusBadgeVariant, statusLabel } from "./Projects";
-
-const projects = projectsData as Project[];
+import { statusBadgeVariant } from "./Projects";
+import { useLocalized } from "../../lib/localized";
+import { useTranslation } from "../../i18n/useTranslation";
 
 export default function ProjectDetail() {
   const { slug } = useParams();
+  const { t } = useTranslation();
+  const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
   const project = projects.find((item) => item.slug === slug);
+  const projectBodies = useProjectBodies();
 
   if (!project) {
     return (
       <section>
         <EmptyState
-          title="找不到這個專案"
-          description="可能已經被移除或網址有誤。"
+          title={t.projects.notFoundTitle}
+          description={t.projects.notFoundDesc}
         />
         <Link
           to="/projects"
           className="mt-4 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
         >
-          ← 回專案列表
+          {t.projects.backToList}
         </Link>
       </section>
     );
@@ -39,7 +43,7 @@ export default function ProjectDetail() {
         to="/projects"
         className="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
       >
-        ← 回專案列表
+        {t.projects.backToList}
       </Link>
 
       {project.screenshotUrl && (
@@ -62,7 +66,7 @@ export default function ProjectDetail() {
             <Chip key={tag} size="sm">{tag}</Chip>
           ))}
           <Badge variant={statusBadgeVariant[project.status]}>
-            {statusLabel[project.status]}
+            {t.projects.status[project.status]}
           </Badge>
         </div>
       </div>
@@ -73,11 +77,11 @@ export default function ProjectDetail() {
         (project.collaborators && project.collaborators.length > 0) ||
         project.advisor) && (
         <div className="mt-3 flex flex-col gap-1 text-sm text-[var(--color-text-muted)]">
-          {project.period && <span>期間：{project.period}</span>}
+          {project.period && <span>{t.projects.period}{project.period}</span>}
           {project.collaborators && project.collaborators.length > 0 && (
-            <span>合作者：{project.collaborators.join("、")}</span>
+            <span>{t.projects.collaborators}{project.collaborators.join("、")}</span>
           )}
-          {project.advisor && <span>指導教授：{project.advisor}</span>}
+          {project.advisor && <span>{t.projects.advisor}{project.advisor}</span>}
         </div>
       )}
 
@@ -88,7 +92,7 @@ export default function ProjectDetail() {
           rel="noreferrer"
           className="mt-3 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
         >
-          查看 GitHub →
+          {t.common.viewGithub}
         </a>
       )}
 
