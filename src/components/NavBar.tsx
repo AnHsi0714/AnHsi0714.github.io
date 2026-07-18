@@ -17,7 +17,7 @@ export default function NavBar() {
   ];
 
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 flex flex-wrap items-center gap-4 border-b border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3">
+    <nav className="sticky top-0 z-50 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3">
       {links.map((link) => (
         <NavLink
           key={link.to}
