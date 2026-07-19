@@ -11,6 +11,78 @@ import EmptyState from "../../components/EmptyState";
 import Modal from "../../components/Modal";
 import ProgressBar from "../../components/ProgressBar";
 import TextLink from "../../components/TextLink";
+import Tooltip from "../../components/Tooltip";
+import knowledgeData from "../../../content/knowledge.json";
+import type { KnowledgeNode } from "../../types/content";
+
+const knowledgeMap = knowledgeData as Record<string, KnowledgeNode>;
+
+const SECTIONS = [
+  { id: "button", label: "Button" },
+  { id: "card", label: "Card" },
+  { id: "badge", label: "Badge" },
+  { id: "chip", label: "Chip" },
+  { id: "input", label: "Input" },
+  { id: "alert", label: "Alert" },
+  { id: "loading", label: "Loading" },
+  { id: "progress-bar", label: "ProgressBar" },
+  { id: "text-link", label: "TextLink" },
+  { id: "modal", label: "Modal" },
+  { id: "tooltip", label: "Tooltip" },
+  { id: "empty-state", label: "EmptyState" },
+];
+
+function TableOfContents() {
+  const [isOpen, setIsOpen] = useState(true);
+
+  return (
+    <aside
+      // fixed 定位讓目錄浮在版面左側的空白區域，不佔用 flex 空間、不會擠壓主內容寬度；
+      // 只在版面夠寬（2xl，主內容 max-w-5xl 之外還留得出空間）時才顯示，避免窄一點的桌機螢幕蓋到內容。
+      className="fixed left-6 hidden w-44 2xl:block"
+      style={{ top: "calc(var(--nav-h, 0px) + 24px)" }}
+    >
+      <button
+        type="button"
+        onClick={() => setIsOpen((open) => !open)}
+        aria-expanded={isOpen}
+        className="flex w-full items-center justify-between gap-2 rounded-md border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 text-sm font-semibold"
+      >
+        元件目錄
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className={`h-4 w-4 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+        >
+          <path d="M5 7.5L10 12.5L15 7.5" />
+        </svg>
+      </button>
+      <div
+        className={`grid transition-[grid-template-rows] duration-200 ease-out ${
+          isOpen ? "mt-2 grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <ul className="flex flex-col gap-1 overflow-hidden text-sm text-[var(--color-text-muted)]">
+          {SECTIONS.map((section) => (
+            <li key={section.id}>
+              <a
+                href={`#${section.id}`}
+                className="block rounded-md px-2 py-1 hover:bg-[var(--color-surface)] hover:text-[var(--color-text)]"
+              >
+                {section.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </aside>
+  );
+}
 
 function LoadingProgressDemo() {
   const [progress, setProgress] = useState(0);
@@ -77,7 +149,8 @@ function ModalDemo() {
 export default function ComponentsPreview() {
   return (
     <div className="flex flex-col gap-10">
-      <section>
+      <TableOfContents />
+      <section id="button" className="scroll-mt-20">
         <h2 className="text-xl font-bold">Button</h2>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <Button variant="primary">Primary</Button>
@@ -95,7 +168,7 @@ export default function ComponentsPreview() {
         </div>
       </section>
 
-      <section>
+      <section id="card" className="scroll-mt-20">
         <h2 className="text-xl font-bold">Card</h2>
         <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Card>一般卡片內容</Card>
@@ -156,7 +229,7 @@ export default function ComponentsPreview() {
         </div>
       </section>
 
-      <section>
+      <section id="badge" className="scroll-mt-20">
         <h2 className="text-xl font-bold">Badge</h2>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <Badge variant="neutral">neutral</Badge>
@@ -168,7 +241,7 @@ export default function ComponentsPreview() {
         </div>
       </section>
 
-      <section>
+      <section id="chip" className="scroll-mt-20">
         <h2 className="text-xl font-bold">Chip</h2>
         <p className="mt-1 text-sm text-[var(--color-text-muted)]">
           內容標籤元件，微透明背景。適用於技能、分類、書卷等標註。
@@ -212,7 +285,7 @@ export default function ComponentsPreview() {
         </div>
       </section>
 
-      <section>
+      <section id="input" className="scroll-mt-20">
         <h2 className="text-xl font-bold">Input</h2>
         <div className="mt-3 flex max-w-sm flex-col gap-4">
           <Input label="暱稱" placeholder="輸入暱稱" />
@@ -224,7 +297,7 @@ export default function ComponentsPreview() {
         </div>
       </section>
 
-      <section>
+      <section id="alert" className="scroll-mt-20">
         <h2 className="text-xl font-bold">Alert</h2>
         <div className="mt-3 flex flex-col gap-3">
           <Alert variant="info">這是一則提示訊息</Alert>
@@ -233,7 +306,7 @@ export default function ComponentsPreview() {
         </div>
       </section>
 
-      <section>
+      <section id="loading" className="scroll-mt-20">
         <h2 className="text-xl font-bold">Loading</h2>
         <div className="mt-3 flex flex-wrap items-center gap-6">
           <Loading size="sm" label="載入中…" />
@@ -243,7 +316,7 @@ export default function ComponentsPreview() {
         </div>
       </section>
 
-      <section>
+      <section id="progress-bar" className="scroll-mt-20">
         <h2 className="text-xl font-bold">ProgressBar</h2>
         <div className="mt-3 flex max-w-sm flex-col gap-3">
           <ProgressBar progress={30} />
@@ -277,7 +350,7 @@ export default function ComponentsPreview() {
         </div>
       </section>
 
-      <section>
+      <section id="text-link" className="scroll-mt-20">
         <h2 className="text-xl font-bold">TextLink</h2>
         <div className="mt-3 flex flex-wrap items-center gap-4 text-sm">
           <TextLink to="/playground">站內連結（react-router Link）</TextLink>
@@ -288,14 +361,43 @@ export default function ComponentsPreview() {
         </div>
       </section>
 
-      <section>
+      <section id="modal" className="scroll-mt-20">
         <h2 className="text-xl font-bold">Modal</h2>
         <div className="mt-3">
           <ModalDemo />
         </div>
       </section>
 
-      <section>
+      <section id="tooltip" className="scroll-mt-20">
+        <h2 className="text-xl font-bold">Tooltip</h2>
+        <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+          Hover／focus 觸發的輕量提示泡泡，跟 Term
+          共用同一套「量測後決定開上方或下方」定位邏輯，但外觀更輕量、沒有點擊互動，適合替內文中的專有名詞加上簡短補充。下方套用跟
+          MarkdownContent 一樣的 prose 樣式，模擬實際嵌在文章段落中的樣子。
+        </p>
+        <div className="prose prose-neutral mt-3 max-w-none">
+          <p>
+            CodePulse 把使用者程式碼跟標準演算法比對
+            <Tooltip content={knowledgeMap["cosine-similarity"].definition}>
+              <span className="font-semibold">
+                {" "}
+                {knowledgeMap["cosine-similarity"].term}{" "}
+              </span>
+            </Tooltip>
+            ，相似度高於門檻才觸發對應的動畫效果。
+          </p>
+        </div>
+        <div className="mt-4 flex flex-wrap items-center gap-6 text-sm">
+          <Tooltip content={knowledgeMap["elo-rating"].definition}>
+            {knowledgeMap["elo-rating"].term}
+          </Tooltip>
+          <Tooltip content={knowledgeMap["rls"].definition}>
+            {knowledgeMap["rls"].term}
+          </Tooltip>
+        </div>
+      </section>
+
+      <section id="empty-state" className="scroll-mt-20">
         <h2 className="text-xl font-bold">EmptyState</h2>
         <div className="mt-3">
           <EmptyState title="尚無內容" description="這個區塊還沒有任何資料" />

@@ -1,0 +1,60 @@
+@use "../styles/tokens" as *;
+
+.trigger {
+  display: inline;
+  cursor: help;
+  border-bottom: 1px dotted $color-text-muted;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+.wrapper {
+  position: fixed;
+  z-index: 50;
+}
+
+// 跟站內卡片式浮層（Term 的知識點彈窗）同一套底色，用 --color-bg 加邊框，
+// 不用反白／黑底，維持全站一致的淺色卡片視覺。
+.bubble {
+  position: relative;
+  z-index: 1;
+  border-radius: $radius-sm;
+  border: 1px solid $color-border;
+  background-color: $color-bg;
+  color: $color-text;
+  padding: $space-1 $space-2;
+  font-size: $font-size-sm - 0.125rem; // 0.75rem
+  line-height: 1.4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+// 指向觸發元素的箭頭：一個旋轉 45 度的方形，跟泡泡同色同邊框，
+// 靠 z-index 疊在泡泡下方，露出視窗外的那個角就是箭頭尖端，
+// 不用另外裁邊框也能跟泡泡邊界無縫接上。
+.arrowTop,
+.arrowBottom {
+  position: absolute;
+  z-index: 0;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  background-color: $color-bg;
+  border: 1px solid $color-border;
+  transform: rotate(45deg);
+}
+
+.arrowTop {
+  top: -5px;
+}
+
+.arrowBottom {
+  bottom: -5px;
+}
