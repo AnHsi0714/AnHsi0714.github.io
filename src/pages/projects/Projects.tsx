@@ -8,6 +8,7 @@ import Chip from "../../components/Chip";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
+import TextLink from "../../components/TextLink";
 import type { Project, ProjectStatus, ProjectTag } from "../../types/content";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
@@ -162,12 +163,9 @@ export default function Projects() {
       <p className="mt-2 text-[var(--color-text-muted)]">
         {t.projects.subtitle}
       </p>
-      <Link
-        to="/knowledge"
-        className="mt-1 block text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-      >
+      <TextLink to="/knowledge" className="mt-1 block text-sm">
         {t.knowledge.entryPointHint}
-      </Link>
+      </TextLink>
 
       <div className="relative mt-6 inline-block" ref={filterRef}>
         <Button

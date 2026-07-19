@@ -11,9 +11,9 @@ import {
   faLightbulb,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 import Chip from "../../components/Chip";
+import TextLink from "../../components/TextLink";
 import { useTranslation } from "../../i18n/useTranslation";
 
 const content = {
@@ -347,12 +347,9 @@ export default function About() {
               </div>
             ))}
           </div>
-          <Link
-            to="/experience"
-            className="mt-3 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-          >
+          <TextLink to="/experience" className="mt-3 inline-block text-sm font-medium">
             {t.about.viewFullExperience}
-          </Link>
+          </TextLink>
         </div>
 
         <div className="py-6">

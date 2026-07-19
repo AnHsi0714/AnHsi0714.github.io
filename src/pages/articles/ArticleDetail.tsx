@@ -4,6 +4,7 @@ import MarkdownContent from "../../components/MarkdownContent";
 import Chip from "../../components/Chip";
 import { useArticles } from "../../lib/articles";
 import { useKnowledgeNodesLinkedTo } from "../../lib/knowledge";
+import TextLink from "../../components/TextLink";
 import { Stars } from "./Articles";
 import { useTranslation } from "../../i18n/useTranslation";
 
@@ -21,12 +22,9 @@ export default function ArticleDetail() {
           title={t.articles.notFoundTitle}
           description={t.articles.notFoundDesc}
         />
-        <Link
-          to="/articles"
-          className="mt-4 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-        >
+        <TextLink to="/articles" className="mt-4 inline-block text-sm font-medium">
           {t.articles.backToList}
-        </Link>
+        </TextLink>
       </section>
     );
   }
@@ -37,12 +35,9 @@ export default function ArticleDetail() {
 
   return (
     <section>
-      <Link
-        to="/articles"
-        className="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-      >
+      <TextLink to="/articles" className="text-sm font-medium">
         {t.articles.backToList}
-      </Link>
+      </TextLink>
 
       {article.coverUrl && (
         <img

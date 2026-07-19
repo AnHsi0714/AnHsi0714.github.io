@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { Link } from "react-router-dom";
 import { useKnowledgeMap } from "../lib/knowledge";
+import TextLink from "./TextLink";
 import { useTranslation } from "../i18n/useTranslation";
 
 const POPOVER_WIDTH = 288;
@@ -116,12 +116,9 @@ export default function Term({ id, children }: TermProps) {
               </p>
             )}
             {entry.status === "published" && (
-              <Link
-                to={`/knowledge/${id}`}
-                className="mt-2 inline-block text-sm font-medium text-[var(--color-text)] hover:underline"
-              >
+              <TextLink to={`/knowledge/${id}`} className="mt-2 inline-block text-sm font-medium">
                 {t.term.viewNode}
-              </Link>
+              </TextLink>
             )}
           </div>,
           document.body,

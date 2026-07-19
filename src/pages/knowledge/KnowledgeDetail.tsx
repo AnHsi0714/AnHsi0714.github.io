@@ -5,6 +5,7 @@ import Chip from "../../components/Chip";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
 import { useKnowledgeNode, useKnowledgeMap } from "../../lib/knowledge";
+import TextLink from "../../components/TextLink";
 import { useArticles } from "../../lib/articles";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
@@ -32,12 +33,9 @@ export default function KnowledgeDetail() {
           title={t.knowledge.notFoundTitle}
           description={t.knowledge.notFoundDesc}
         />
-        <Link
-          to="/knowledge"
-          className="mt-4 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-        >
+        <TextLink to="/knowledge" className="mt-4 inline-block text-sm font-medium">
           {t.knowledge.backToList}
-        </Link>
+        </TextLink>
       </section>
     );
   }
@@ -74,12 +72,9 @@ export default function KnowledgeDetail() {
 
   return (
     <section>
-      <Link
-        to="/knowledge"
-        className="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-      >
+      <TextLink to="/knowledge" className="text-sm font-medium">
         {t.knowledge.backToList}
-      </Link>
+      </TextLink>
 
       <div className="mt-4 flex items-start justify-between gap-2">
         <h1 className="text-2xl font-bold">{node.term}</h1>
@@ -148,12 +143,12 @@ export default function KnowledgeDetail() {
       {timeline.length > 0 && (
         <div className="mt-6">
           <h2 className="text-lg font-semibold">{t.knowledge.timeline}</h2>
-          <ul className="mt-2 flex flex-col gap-1 text-sm text-[var(--color-text-muted)]">
+          <ul className="mt-2 flex flex-col gap-1 text-sm">
             {timeline.map((entry) => (
               <li key={entry.to}>
-                <Link to={entry.to} className="hover:text-[var(--color-text)]">
+                <TextLink to={entry.to}>
                   {entry.date} — {entry.label}
-                </Link>
+                </TextLink>
               </li>
             ))}
           </ul>

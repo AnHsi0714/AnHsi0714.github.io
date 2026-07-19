@@ -37,7 +37,10 @@
     "status": "published",
     "relatedProjects": ["code-pulse"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "cfg", "type": "applies_to" }]
+    "relatedNodes": [
+      { "slug": "cfg", "type": "applies_to" },
+      { "slug": "interactive-data-exploration", "type": "related" }
+    ]
   },
   "cosine-similarity": {
     "term": "Cosine Similarity",
@@ -47,7 +50,10 @@
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "agglomerative-clustering", "type": "contrasts_with" }]
+    "relatedNodes": [
+      { "slug": "agglomerative-clustering", "type": "contrasts_with" },
+      { "slug": "visual-analytics", "type": "related" }
+    ]
   },
   "normalized-gain": {
     "term": "Normalized Gain",
@@ -57,7 +63,11 @@
     "status": "published",
     "relatedProjects": ["code-pulse"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "partial-f1", "type": "related" }]
+    "relatedNodes": [
+      { "slug": "partial-f1", "type": "related" },
+      { "slug": "human-computer-interaction", "type": "related" },
+      { "slug": "visual-analytics", "type": "related" }
+    ]
   },
   "ckip": {
     "term": "CKIP",
@@ -67,7 +77,10 @@
     "status": "published",
     "relatedProjects": ["absa-wordcloud"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "stanza", "type": "related" }]
+    "relatedNodes": [
+      { "slug": "stanza", "type": "related" },
+      { "slug": "natural-language-processing", "type": "related" }
+    ]
   },
   "stanza": {
     "term": "Stanza",
@@ -77,7 +90,10 @@
     "status": "published",
     "relatedProjects": ["absa-wordcloud"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "ckip", "type": "prerequisite" }]
+    "relatedNodes": [
+      { "slug": "ckip", "type": "prerequisite" },
+      { "slug": "natural-language-processing", "type": "related" }
+    ]
   },
   "distilbert": {
     "term": "DistilBERT",
@@ -99,7 +115,8 @@
     "relatedArticles": [],
     "relatedNodes": [
       { "slug": "distilbert", "type": "contrasts_with" },
-      { "slug": "partial-f1", "type": "related" }
+      { "slug": "partial-f1", "type": "related" },
+      { "slug": "natural-language-processing", "type": "related" }
     ]
   },
   "partial-f1": {
@@ -237,5 +254,85 @@
     "relatedProjects": ["personal-website"],
     "relatedArticles": [],
     "relatedNodes": [{ "slug": "intersection-observer", "type": "related" }]
+  },
+  "visual-analytics": {
+    "term": "Visual Analytics",
+    "definition": "A research field combining interactive visualization with analytical reasoning: letting users manipulate a visual representation of data while reasoning about it, rather than just reading a pre-computed static report; the core concern is whether a visualization actually helps users make better judgments, not just whether it looks good.",
+    "application": "CodePulse turns algorithm execution into an interactive animation rather than a plain-text explanation, but the pre/post-test study revealed that \"a well-designed interface\" and \"users genuinely learning more\" are two things that need to be verified separately — that gap is exactly why I want to pursue graduate study in Visual Analytics, to learn more rigorous user-research methods.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "information-visualization", "type": "related" },
+      { "slug": "human-computer-interaction", "type": "related" },
+      { "slug": "interactive-data-exploration", "type": "related" },
+      { "slug": "cosine-similarity", "type": "applies_to" },
+      { "slug": "normalized-gain", "type": "applies_to" }
+    ]
+  },
+  "interactive-data-exploration": {
+    "term": "Interactive Data Exploration",
+    "definition": "Letting users explore data or a program's execution by directly manipulating it — filtering, drilling down, tracing — rather than passively receiving a pre-packaged conclusion; the exploration path itself is part of understanding the problem.",
+    "application": "CodePulse's Playground lets users submit arbitrary code and dynamically traces its execution so users can explore variable changes and function-call relationships themselves, instead of only watching a fixed example animation; this website's own search and category filters on the Projects and Knowledge pages follow the same \"let users find their own path\" design.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "visual-analytics", "type": "related" },
+      { "slug": "ast", "type": "applies_to" }
+    ]
+  },
+  "information-visualization": {
+    "term": "Information Visualization",
+    "definition": "Converting abstract data — numbers, program structure, text statistics — into graphical representations, so people can grasp structure and patterns through visual perception instead of reading line by line.",
+    "application": "CodePulse renders a program's control flow as a CFG / call graph; the ABSA Pipeline renders user-feedback sentiment results as a word cloud — both convert processed abstract data into a graphical form whose patterns are visible at a glance.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": ["code-pulse", "absa-wordcloud"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "visual-analytics", "type": "related" },
+      { "slug": "cfg", "type": "applies_to" }
+    ]
+  },
+  "human-computer-interaction": {
+    "term": "Human-Computer Interaction (HCI)",
+    "definition": "The field studying how people interact with computer systems, covering usability evaluation and user-research methodology — concerned with rigorously verifying whether a system is actually good to use, rather than relying on intuition.",
+    "application": "CodePulse's user study recruited two groups — university and high-school students — for a pre/post-test, using Normalized Gain to measure the change in test scores before and after using the platform. This was my first hands-on experience with a common HCI user-research method, and it showed me that \"users reporting more confidence\" and \"a statistically significant test-score improvement\" are two pieces of evidence that can't substitute for each other.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "visual-analytics", "type": "related" },
+      { "slug": "normalized-gain", "type": "applies_to" }
+    ]
+  },
+  "natural-language-processing": {
+    "term": "Natural Language Processing (NLP)",
+    "definition": "The research field concerned with having computers understand, analyze, and generate human language — common tasks include word segmentation, part-of-speech tagging, dependency parsing, and sentiment analysis — essentially turning unstructured text into structured information a program can process.",
+    "application": "The ABSA Pipeline compared a rule-based approach (CKIP segmentation + Stanza dependency parsing + DistilBERT sentiment classification) against Gemini Zero-Shot, extracting sentiment quadruplets from user feedback and comparing their Partial F1 scores — my first time designing and evaluating a full NLP pipeline end to end.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": ["absa-wordcloud"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "knowledge-graph", "type": "related" },
+      { "slug": "ckip", "type": "applies_to" },
+      { "slug": "stanza", "type": "applies_to" },
+      { "slug": "zero-shot", "type": "applies_to" }
+    ]
+  },
+  "knowledge-graph": {
+    "term": "Knowledge Graph",
+    "definition": "Organizing concepts as nodes and the relationships between them as edges into an interconnected, queryable network of knowledge, so that knowledge isn't just a set of isolated records but something that can cross-reference itself and support reasoning and exploration.",
+    "application": "This website's Knowledge section is itself a small hands-on attempt at this: each technical concept is a node, nodes are connected by prerequisite/related/applies_to/contrasts_with relationships, and each node links back to the projects and articles that reference it. It's still small in scale and manually curated — there's no automated entity/relation extraction or graph visualization yet — but it's my first hands-on implementation of this specific interest.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": ["personal-website"],
+    "relatedArticles": [],
+    "relatedNodes": [{ "slug": "natural-language-processing", "type": "related" }]
   }
 }
