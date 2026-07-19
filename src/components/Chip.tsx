@@ -1,37 +1,54 @@
 import type { HTMLAttributes } from "react";
+import styles from "./Chip.module.scss";
 
 export type ChipVariant = "default" | "success" | "info" | "warn" | "danger";
 export type ChipSize = "sm" | "md";
+export type ChipTone = "outline" | "filled";
 
 interface ChipProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: ChipVariant;
   size?: ChipSize;
+  tone?: ChipTone;
 }
 
-const variantClasses: Record<ChipVariant, string> = {
-  default: "bg-[var(--color-surface)] text-[var(--color-text-muted)]",
-  success:
-    "bg-emerald-500/15 text-emerald-700 dark:bg-emerald-400/15 dark:text-emerald-400",
-  info: "bg-sky-500/15 text-sky-700 dark:bg-sky-400/15 dark:text-sky-400",
-  warn: "bg-amber-500/15 text-amber-700 dark:bg-amber-400/15 dark:text-amber-400",
-  danger: "bg-red-500/15 text-red-700 dark:bg-red-400/15 dark:text-red-400",
+const variantClassKey: Record<ChipTone, Record<ChipVariant, string>> = {
+  outline: {
+    default: "outlineDefault",
+    success: "outlineSuccess",
+    info: "outlineInfo",
+    warn: "outlineWarn",
+    danger: "outlineDanger",
+  },
+  filled: {
+    default: "filledDefault",
+    success: "filledSuccess",
+    info: "filledInfo",
+    warn: "filledWarn",
+    danger: "filledDanger",
+  },
 };
 
-const sizeClasses: Record<ChipSize, string> = {
-  sm: "px-1.5 py-0 text-xs",
-  md: "px-2.5 py-0.5 text-sm",
+const sizeClassKey: Record<ChipTone, Record<ChipSize, string>> = {
+  outline: { sm: "outlineSm", md: "outlineMd" },
+  filled: { sm: "filledSm", md: "filledMd" },
 };
 
 export default function Chip({
   variant = "default",
   size = "md",
+  tone = "outline",
   className,
   ...rest
 }: ChipProps) {
-  return (
-    <span
-      className={`inline-flex items-center rounded-full font-medium ${variantClasses[variant]} ${sizeClasses[size]} ${className ?? ""}`}
-      {...rest}
-    />
-  );
+  const classNames = [
+    styles.chip,
+    styles[tone],
+    styles[variantClassKey[tone][variant]],
+    styles[sizeClassKey[tone][size]],
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return <span className={classNames} {...rest} />;
 }

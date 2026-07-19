@@ -155,6 +155,13 @@ export default function ComponentsPreview() {
           <Chip variant="warn" size="sm">書卷</Chip>
           <Chip variant="danger" size="sm">danger sm</Chip>
         </div>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <Chip tone="filled">default filled</Chip>
+          <Chip tone="filled" variant="success">success filled</Chip>
+          <Chip tone="filled" variant="info">info filled</Chip>
+          <Chip tone="filled" variant="warn">warn filled</Chip>
+          <Chip tone="filled" variant="danger">danger filled</Chip>
+        </div>
       </section>
 
       <section>

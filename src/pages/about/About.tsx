@@ -264,12 +264,9 @@ export default function About() {
                     group.label === "專業方向" ? (
                       <Chip key={item}>{item}</Chip>
                     ) : (
-                      <span
-                        key={item}
-                        className="rounded-full bg-[var(--color-surface)] px-2.5 py-0.5 text-sm text-[var(--color-text-muted)]"
-                      >
+                      <Chip key={item} tone="filled">
                         {item}
-                      </span>
+                      </Chip>
                     ),
                   )}
                 </div>

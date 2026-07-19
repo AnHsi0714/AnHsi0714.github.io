@@ -1,0 +1,109 @@
+@use "../styles/tokens" as *;
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+// outline：透明底、大寫字、字距加寬，對應描邊藥丸樣式
+.outline {
+  background-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+// filled：實心淺底，維持一般大小寫（技能名稱等專有名詞不宜轉大寫）
+.filled {
+}
+
+.outlineDefault {
+  border-color: $color-border;
+  color: $color-text-muted;
+}
+
+// success / info / danger 直接沿用 Badge 的顏色 token（tokens.scss），
+// 跟著 .dark class 自動切換，不用另外寫 dark 覆寫。
+// success / info 的「色相」放在 -bg 這個 token，base token 是給實心底配的淺色文字；
+// danger 相反，base token 本身就是色相，-text token 才是給實心底配的淺色文字。
+.outlineSuccess {
+  border-color: $color-success-bg;
+  color: $color-success-bg;
+}
+
+.outlineInfo {
+  border-color: $color-info-bg;
+  color: $color-info-bg;
+}
+
+.outlineDanger {
+  border-color: $color-danger;
+  color: $color-danger;
+}
+
+// warn 在 Badge 裡沒有對應色，暫時維持獨立的琥珀色
+.outlineWarn {
+  border-color: rgba(217, 119, 6, 0.4);
+  color: #b45309;
+
+  :global(.dark) & {
+    border-color: rgba(251, 191, 36, 0.4);
+    color: #fbbf24;
+  }
+}
+
+// filled：實心淺底，對應技能標籤等既有樣式
+.filledDefault {
+  background-color: $color-surface;
+  color: $color-text-muted;
+}
+
+.filledSuccess {
+  background-color: $color-success-bg;
+  color: $color-success;
+}
+
+.filledInfo {
+  background-color: $color-info-bg;
+  color: $color-info;
+}
+
+.filledDanger {
+  background-color: $color-danger;
+  color: $color-danger-text;
+}
+
+// warn 在 Badge 裡沒有對應色，暫時維持獨立的琥珀色
+.filledWarn {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #b45309;
+
+  :global(.dark) & {
+    background-color: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
+  }
+}
+
+// 尺寸：outline 與 filled 各自的間距／字級不同，分開管理
+.outlineSm {
+  padding: 2px 10px;
+  font-size: 0.65rem;
+}
+
+.outlineMd {
+  padding: 4px 14px;
+  font-size: $font-size-sm - 0.125rem; // 0.75rem
+}
+
+.filledSm {
+  padding: 0 6px;
+  font-size: $font-size-sm - 0.125rem; // 0.75rem
+}
+
+.filledMd {
+  padding: 2px 10px;
+  font-size: $font-size-sm;
+}
