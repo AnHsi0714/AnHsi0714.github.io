@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope, faPalette } from "@fortawesome/free-solid-svg-icons";
 import projectsDataZh from "../../content/projects.json";
 import projectsDataEn from "../../content/projects.en.json";
 import Card from "../components/Card";
@@ -26,6 +29,24 @@ export default function Home() {
   const featuredProjects = featuredSlugs
     .map((slug) => projects.find((p) => p.slug === slug))
     .filter((p): p is Project => Boolean(p));
+
+  const socialLinks = [
+    {
+      href: "https://github.com/stars/AnHsi0714/lists/projects-i-participated-in",
+      icon: faGithub,
+      label: "GitHub",
+    },
+    {
+      href: "https://openprocessing.org/@u455151",
+      icon: faPalette,
+      label: "OpenProcessing",
+    },
+    {
+      href: `mailto:${t.home.email}`,
+      icon: faEnvelope,
+      label: t.home.email,
+    },
+  ];
 
   const quickLinks = [
     {
@@ -133,14 +154,19 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flex items-center gap-4 border-t border-[var(--color-border)] pt-6 text-sm">
-        <TextLink href="https://github.com/stars/AnHsi0714/lists/projects-i-participated-in">
-          GitHub →
-        </TextLink>
-        <TextLink href="https://openprocessing.org/@u455151">
-          OpenProcessing →
-        </TextLink>
-        <TextLink href={`mailto:${t.home.email}`}>{t.home.email}</TextLink>
+      <section className="flex flex-wrap justify-center gap-x-8 gap-y-3 border-t border-[var(--color-border)] pt-8 text-sm">
+        {socialLinks.map(({ href, icon, label }) => (
+          <a
+            key={href}
+            href={href}
+            target={href.startsWith("mailto:") ? undefined : "_blank"}
+            rel={href.startsWith("mailto:") ? undefined : "noreferrer"}
+            className="inline-flex items-center gap-2 text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-primary)]"
+          >
+            <FontAwesomeIcon icon={icon} className="text-base" aria-hidden="true" />
+            {label}
+          </a>
+        ))}
       </section>
     </div>
   );
