@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import Card from "../../components/Card";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -12,6 +14,7 @@ import { useTranslation } from "../../i18n/useTranslation";
 import type { Strings } from "../../i18n/strings";
 
 type SortOrder = "newest" | "oldest";
+type FeaturedFilter = "all" | "featured" | "not-featured";
 
 export function Stars({ rating, t }: { rating: number; t: Strings }) {
   return (
@@ -28,36 +31,51 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
     : article.date;
 
   return (
-    <Link to={`/articles/${article.slug}`} className="block">
-      <Card className="flex items-start gap-4">
-        {article.coverUrl ? (
-          <img
-            src={article.coverUrl}
-            alt={article.title}
-            className="h-20 w-20 shrink-0 rounded-md object-cover sm:h-24 sm:w-24"
-          />
-        ) : (
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-[var(--color-surface)] text-2xl font-semibold text-[var(--color-border)] sm:h-24 sm:w-24">
-            {article.title.slice(0, 1)}
+    <div className="relative">
+      {article.featured && (
+        <span
+          title={t.common.pinned}
+          aria-label={t.common.pinned}
+          className="absolute -left-2 -top-2 z-10 flex h-6 w-6 items-center justify-center rounded-full shadow"
+          style={{
+            backgroundColor: "var(--color-primary)",
+            color: "var(--color-primary-text)",
+          }}
+        >
+          <FontAwesomeIcon icon={faThumbtack} className="text-[10px]" />
+        </span>
+      )}
+      <Link to={`/articles/${article.slug}`} className="block">
+        <Card className="flex items-start gap-4">
+          {article.coverUrl ? (
+            <img
+              src={article.coverUrl}
+              alt={article.title}
+              className="h-20 w-20 shrink-0 rounded-md object-cover sm:h-24 sm:w-24"
+            />
+          ) : (
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-[var(--color-surface)] text-2xl font-semibold text-[var(--color-border)] sm:h-24 sm:w-24">
+              {article.title.slice(0, 1)}
+            </div>
+          )}
+          <div className="min-w-0 flex-1">
+            <p className="font-semibold">{article.title}</p>
+            <p className="text-sm text-[var(--color-text-muted)]">{subtitle}</p>
+            <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
+              {article.excerpt}
+            </p>
           </div>
-        )}
-        <div className="min-w-0 flex-1">
-          <p className="font-semibold">{article.title}</p>
-          <p className="text-sm text-[var(--color-text-muted)]">{subtitle}</p>
-          <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
-            {article.excerpt}
-          </p>
-        </div>
-        <div className="flex shrink-0 flex-col items-end gap-1">
-          <div className="flex flex-wrap justify-end gap-1">
-            {article.categories.map((category) => (
-              <Chip key={category} size="sm">{category}</Chip>
-            ))}
+          <div className="flex shrink-0 flex-col items-end gap-1">
+            <div className="flex flex-wrap justify-end gap-1">
+              {article.categories.map((category) => (
+                <Chip key={category} size="sm">{category}</Chip>
+              ))}
+            </div>
+            {article.rating !== undefined && <Stars rating={article.rating} t={t} />}
           </div>
-          {article.rating !== undefined && <Stars rating={article.rating} t={t} />}
-        </div>
-      </Card>
-    </Link>
+        </Card>
+      </Link>
+    </div>
   );
 }
 
@@ -76,6 +94,7 @@ export default function Articles() {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
+  const [featuredFilter, setFeaturedFilter] = useState<FeaturedFilter>("all");
 
   useEffect(() => {
     if (!isFilterOpen) return;
@@ -104,7 +123,8 @@ export default function Articles() {
     (selectedCategories.length > 0 ? 1 : 0) +
     (minRating > 0 ? 1 : 0) +
     (dateFrom ? 1 : 0) +
-    (dateTo ? 1 : 0);
+    (dateTo ? 1 : 0) +
+    (featuredFilter !== "all" ? 1 : 0);
 
   const filteredArticles = useMemo(() => {
     return articles
@@ -126,14 +146,27 @@ export default function Articles() {
         if (minRating > 0 && (article.rating ?? 0) < minRating) return false;
         if (dateFrom && article.date < dateFrom) return false;
         if (dateTo && article.date > dateTo) return false;
+        if (featuredFilter === "featured" && !article.featured) return false;
+        if (featuredFilter === "not-featured" && article.featured) return false;
         return true;
       })
-      .sort((a, b) =>
-        sortOrder === "newest"
+      .sort((a, b) => {
+        const featuredDiff = Number(Boolean(b.featured)) - Number(Boolean(a.featured));
+        if (featuredDiff !== 0) return featuredDiff;
+        return sortOrder === "newest"
           ? b.date.localeCompare(a.date)
-          : a.date.localeCompare(b.date),
-      );
-  }, [articles, titleQuery, selectedCategories, minRating, dateFrom, dateTo, sortOrder]);
+          : a.date.localeCompare(b.date);
+      });
+  }, [
+    articles,
+    titleQuery,
+    selectedCategories,
+    minRating,
+    dateFrom,
+    dateTo,
+    sortOrder,
+    featuredFilter,
+  ]);
 
   return (
     <section>
@@ -244,6 +277,34 @@ export default function Articles() {
                   </button>
                 );
               })}
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="text-sm font-medium text-[var(--color-text)]">
+                {t.common.featuredFilterLabel}
+              </span>
+              {(
+                [
+                  ["all", t.common.filterAll],
+                  ["featured", t.common.filterFeatured],
+                  ["not-featured", t.common.filterNotFeatured],
+                ] as [FeaturedFilter, string][]
+              ).map(([value, label]) => (
+                <button
+                  key={value}
+                  type="button"
+                  aria-pressed={featuredFilter === value}
+                  onClick={() => setFeaturedFilter(value)}
+                  className={[
+                    "rounded-full border px-3 py-1 text-sm transition-colors",
+                    featuredFilter === value
+                      ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
+                      : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
+                  ].join(" ")}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
 
             <div className="mt-4 flex items-center gap-2">

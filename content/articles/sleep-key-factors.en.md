@@ -4,6 +4,7 @@ title: Sleeping More or Less, What's Best? The Key Factors Behind Good Sleep
 date: 2024-04-09
 categories: [Science, Health, Sleep]
 excerpt: Understanding why sleep matters, and exploring how sleep duration and other factors shape its quality.
+featured: true
 ---
 
 We spend about a third of our lives asleep. Sleep is deeply intertwined with our well-being — a good night's rest leaves us feeling recharged and ready to take on a new day. But how exactly does sleep affect us? And whether you sleep more or less, what does it actually take to get good-quality sleep? Let's dig in.

@@ -39,6 +39,11 @@ export interface Strings {
     oldest: string;
     viewGithub: string;
     noPreviewImage: string;
+    pinned: string;
+    filterAll: string;
+    filterFeatured: string;
+    filterNotFeatured: string;
+    featuredFilterLabel: string;
   };
   home: {
     titleZh: string;
@@ -269,6 +274,11 @@ export const strings: Record<"zh" | "en", Strings> = {
       oldest: "最久",
       viewGithub: "查看 GitHub →",
       noPreviewImage: "尚無預覽圖",
+      pinned: "站長精選",
+      filterAll: "不限",
+      filterFeatured: "精選",
+      filterNotFeatured: "非精選",
+      featuredFilterLabel: "精選狀態",
     },
     home: {
       titleZh: "鄭安琋",
@@ -511,6 +521,11 @@ export const strings: Record<"zh" | "en", Strings> = {
       oldest: "Oldest",
       viewGithub: "View on GitHub →",
       noPreviewImage: "No preview yet",
+      pinned: "Pinned by author",
+      filterAll: "All",
+      filterFeatured: "Featured",
+      filterNotFeatured: "Not featured",
+      featuredFilterLabel: "Featured status",
     },
     home: {
       titleZh: "Cheng An Hsi",

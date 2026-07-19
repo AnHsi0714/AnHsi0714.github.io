@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import projectsDataZh from "../../../content/projects.json";
 import projectsDataEn from "../../../content/projects.en.json";
 import Card from "../../components/Card";
@@ -17,6 +19,7 @@ import type { Strings } from "../../i18n/strings";
 const allStatuses: ProjectStatus[] = ["todo", "in-progress", "done"];
 
 type SortOrder = "newest" | "oldest";
+type FeaturedFilter = "all" | "featured" | "not-featured";
 
 export const statusBadgeVariant: Record<ProjectStatus, "todo" | "doing" | "done"> = {
   todo: "todo",
@@ -26,53 +29,68 @@ export const statusBadgeVariant: Record<ProjectStatus, "todo" | "doing" | "done"
 
 function ProjectCard({ project, t }: { project: Project; t: Strings }) {
   return (
-    <Card hoverable>
-      <Link to={`/projects/${project.slug}`} className="block">
-        {project.screenshotUrl ? (
-          <img
-            src={project.screenshotUrl}
-            alt={project.name}
-            className="aspect-video w-full rounded-md object-cover"
-            style={{
-              objectPosition: project.screenshotPosition
-                ? `${project.screenshotPosition.w}% ${project.screenshotPosition.h}%`
-                : undefined,
-            }}
-          />
-        ) : (
-          <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
-            {t.common.noPreviewImage}
-          </div>
-        )}
-        <div className="mt-3 flex items-center justify-between gap-2">
-          <p className="font-semibold">{project.name}</p>
-          <div className="flex shrink-0 flex-wrap justify-end items-center gap-1">
-            {project.tags?.map((tag) => (
-              <Chip key={tag} size="sm">{tag}</Chip>
-            ))}
-            <Badge
-              variant={statusBadgeVariant[project.status]}
-              className="shrink-0"
-            >
-              {t.projects.status[project.status]}
-            </Badge>
-          </div>
-        </div>
-        <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
-          {project.desc}
-        </p>
-      </Link>
-      {project.githubUrl && (
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-3 inline-block text-sm font-medium text-[var(--color-text)]"
+    <div className="relative">
+      {project.featured && (
+        <span
+          title={t.common.pinned}
+          aria-label={t.common.pinned}
+          className="absolute -left-3 -top-3 z-10 flex h-7 w-7 items-center justify-center rounded-full shadow"
+          style={{
+            backgroundColor: "var(--color-primary)",
+            color: "var(--color-primary-text)",
+          }}
         >
-          {t.common.viewGithub}
-        </a>
+          <FontAwesomeIcon icon={faThumbtack} className="text-xs" />
+        </span>
       )}
-    </Card>
+      <Card hoverable>
+        <Link to={`/projects/${project.slug}`} className="block">
+          {project.screenshotUrl ? (
+            <img
+              src={project.screenshotUrl}
+              alt={project.name}
+              className="aspect-video w-full rounded-md object-cover"
+              style={{
+                objectPosition: project.screenshotPosition
+                  ? `${project.screenshotPosition.w}% ${project.screenshotPosition.h}%`
+                  : undefined,
+              }}
+            />
+          ) : (
+            <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
+              {t.common.noPreviewImage}
+            </div>
+          )}
+          <div className="mt-3 flex items-center justify-between gap-2">
+            <p className="font-semibold">{project.name}</p>
+            <div className="flex shrink-0 flex-wrap justify-end items-center gap-1">
+              {project.tags?.map((tag) => (
+                <Chip key={tag} size="sm">{tag}</Chip>
+              ))}
+              <Badge
+                variant={statusBadgeVariant[project.status]}
+                className="shrink-0"
+              >
+                {t.projects.status[project.status]}
+              </Badge>
+            </div>
+          </div>
+          <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
+            {project.desc}
+          </p>
+        </Link>
+        {project.githubUrl && (
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-block text-sm font-medium text-[var(--color-text)]"
+          >
+            {t.common.viewGithub}
+          </a>
+        )}
+      </Card>
+    </div>
   );
 }
 
@@ -91,6 +109,7 @@ export default function Projects() {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
+  const [featuredFilter, setFeaturedFilter] = useState<FeaturedFilter>("all");
 
   useEffect(() => {
     if (!isFilterOpen) return;
@@ -123,7 +142,8 @@ export default function Projects() {
     (selectedTags.length > 0 ? 1 : 0) +
     (selectedStatuses.length > 0 ? 1 : 0) +
     (dateFrom ? 1 : 0) +
-    (dateTo ? 1 : 0);
+    (dateTo ? 1 : 0) +
+    (featuredFilter !== "all" ? 1 : 0);
 
   const filteredProjects = useMemo(() => {
     return projects
@@ -148,14 +168,27 @@ export default function Projects() {
         }
         if (dateFrom && project.date < dateFrom) return false;
         if (dateTo && project.date > dateTo) return false;
+        if (featuredFilter === "featured" && !project.featured) return false;
+        if (featuredFilter === "not-featured" && project.featured) return false;
         return true;
       })
-      .sort((a, b) =>
-        sortOrder === "newest"
+      .sort((a, b) => {
+        const featuredDiff = Number(Boolean(b.featured)) - Number(Boolean(a.featured));
+        if (featuredDiff !== 0) return featuredDiff;
+        return sortOrder === "newest"
           ? b.date.localeCompare(a.date)
-          : a.date.localeCompare(b.date),
-      );
-  }, [projects, titleQuery, selectedTags, selectedStatuses, dateFrom, dateTo, sortOrder]);
+          : a.date.localeCompare(b.date);
+      });
+  }, [
+    projects,
+    titleQuery,
+    selectedTags,
+    selectedStatuses,
+    dateFrom,
+    dateTo,
+    sortOrder,
+    featuredFilter,
+  ]);
 
   return (
     <section>
@@ -243,6 +276,34 @@ export default function Projects() {
                   </button>
                 );
               })}
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="text-sm font-medium text-[var(--color-text)]">
+                {t.common.featuredFilterLabel}
+              </span>
+              {(
+                [
+                  ["all", t.common.filterAll],
+                  ["featured", t.common.filterFeatured],
+                  ["not-featured", t.common.filterNotFeatured],
+                ] as [FeaturedFilter, string][]
+              ).map(([value, label]) => (
+                <button
+                  key={value}
+                  type="button"
+                  aria-pressed={featuredFilter === value}
+                  onClick={() => setFeaturedFilter(value)}
+                  className={[
+                    "rounded-full border px-3 py-1 text-sm transition-colors",
+                    featuredFilter === value
+                      ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
+                      : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
+                  ].join(" ")}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
 
             <div className="mt-4 flex items-center gap-2">

@@ -36,6 +36,8 @@ export interface Project {
   // 縮圖裁切錨點（百分比，0~100）。w/h 對應 object-position 的 x/y，預設置中 (50, 50)
   screenshotPosition?: { w: number; h: number };
   githubUrl?: string;
+  // 站長手動置頂／精選，會排在列表最前面並顯示圖釘圖示
+  featured?: boolean;
 }
 
 export interface ExperienceTag {
@@ -107,4 +109,6 @@ export interface Article {
   // 僅 type: 'book' 會用到
   author?: string;
   rating?: number;
+  // 站長手動置頂／精選，會排在列表最前面並顯示圖釘圖示
+  featured?: boolean;
 }

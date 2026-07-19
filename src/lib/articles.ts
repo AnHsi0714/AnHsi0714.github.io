@@ -25,6 +25,7 @@ function parseArticle(slug: string, raw: string): Article {
     coverUrl: data.coverUrl || undefined,
     author: data.author || undefined,
     rating: data.rating ? Number(data.rating) : undefined,
+    featured: data.featured === "true",
   };
 }
 

@@ -59,6 +59,7 @@
     "advisor": "陳香君",
     "period": "2025/06 ~ 2026/06",
     "screenshotUrl": "/images/projects/code-pulse/home-page.png",
-    "githubUrl": "https://github.com/Jx-study/CodePulse"
+    "githubUrl": "https://github.com/Jx-study/CodePulse",
+    "featured": true
   }
 ]
