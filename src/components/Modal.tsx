@@ -13,6 +13,9 @@ interface ModalProps {
    * 適合「整個彈窗都是可點擊關閉區」的用法（如 Friends 的作品詳情）。
    * 預設 false：點擊內容區塊不關閉，只有點背景或 Esc 才關閉（如 ExpandableCard）。 */
   closeOnContentClick?: boolean
+  /** 作品介紹專用的「美術館說明牌」造型：暖紙色、無圓角、遮罩加深。
+   * 尺寸／捲動等版面樣式仍由呼叫端的 panelClassName 決定。 */
+  placard?: boolean
 }
 
 export default function Modal({
@@ -23,6 +26,7 @@ export default function Modal({
   backdropClassName,
   panelClassName,
   closeOnContentClick = false,
+  placard = false,
 }: ModalProps) {
   const panelRef = useRef<HTMLDivElement>(null)
 
@@ -51,7 +55,9 @@ export default function Modal({
 
   return createPortal(
     <div
-      className={backdropClassName ? [styles.backdrop, backdropClassName].join(' ') : styles.backdrop}
+      className={[styles.backdrop, placard && styles.placardBackdrop, backdropClassName]
+        .filter(Boolean)
+        .join(' ')}
       onClick={onClose}
     >
       <div
@@ -60,7 +66,9 @@ export default function Modal({
         aria-modal="true"
         aria-label={ariaLabel}
         tabIndex={-1}
-        className={panelClassName ? [styles.panel, panelClassName].join(' ') : styles.panel}
+        className={[styles.panel, placard && styles.placardPanel, panelClassName]
+          .filter(Boolean)
+          .join(' ')}
         onClick={closeOnContentClick ? undefined : (event) => event.stopPropagation()}
       >
         {children}

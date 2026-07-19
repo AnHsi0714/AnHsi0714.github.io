@@ -7,7 +7,8 @@
       "/images/gallery/Entanglement0.png",
       "/images/gallery/Entanglement1.png"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2323357"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2323357",
+    "description": "A generative drawing built from curves chasing one another: each line keeps searching for its next anchor, crossing and knotting with its neighbours along the way, until they tangle into a ball of seemingly chaotic yet self-ordered thread. Every run grows a different entanglement — these two captures are just two of the possibilities."
   },
   {
     "slug": "moontain",

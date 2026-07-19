@@ -8,6 +8,7 @@ import sketches, { type SketchInteraction } from "./sketches";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
+import Modal from "../../components/Modal";
 import styles from "./GalleryGrid.module.scss";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
@@ -47,6 +48,10 @@ export default function GalleryGrid() {
   // 手機版展牆改直向捲動（見 GalleryGrid.module.scss 的手機 media query），
   // 這裡的閾值要跟 SCSS 那邊的 640px 對齊，捲動軸向的 JS 邏輯才會一致。
   const isMobile = useMediaQuery("(max-width: 640px)");
+
+  // 展牆名牌點開的「美術館說明牌」：記住目前打開哪件作品的介紹
+  const [introSlug, setIntroSlug] = useState<string | null>(null);
+  const introArtwork = artworks.find((a) => a.slug === introSlug);
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
@@ -335,13 +340,47 @@ export default function GalleryGrid() {
                   loading="lazy"
                 />
               </Link>
-              <div className={styles.placard}>
-                <div className={styles.placardTitle}>{artwork.title}</div>
-                <div className={styles.placardMeta}>{artwork.date}</div>
-              </div>
+              {artwork.description ? (
+                // 有寫介紹的作品，名牌本身變成按鈕，點開「美術館說明牌」彈窗
+                <button
+                  type="button"
+                  onClick={() => setIntroSlug(artwork.slug)}
+                  className={`${styles.placard} ${styles.placardClickable}`}
+                >
+                  <span className={styles.placardTitle}>{artwork.title}</span>
+                  <span className={styles.placardMeta}>{artwork.date}</span>
+                </button>
+              ) : (
+                <div className={styles.placard}>
+                  <span className={styles.placardTitle}>{artwork.title}</span>
+                  <span className={styles.placardMeta}>{artwork.date}</span>
+                </div>
+              )}
             </div>
           ))}
         </div>
+      )}
+
+      {introArtwork && (
+        <Modal
+          open
+          placard
+          onClose={() => setIntroSlug(null)}
+          ariaLabel={introArtwork.title}
+          backdropClassName="p-6"
+          panelClassName="w-full max-w-md max-h-full overflow-y-auto"
+        >
+          <div className="px-6 pb-6 pt-5">
+            <p className="text-lg font-semibold">{introArtwork.title}</p>
+            <p className="mt-0.5 text-xs tracking-widest text-[var(--color-text-muted)]">
+              {introArtwork.date} · p5.js
+            </p>
+            <hr className="my-3 border-[var(--color-border)]" />
+            <p className="text-sm leading-relaxed text-[var(--color-text-muted)]">
+              {introArtwork.description}
+            </p>
+          </div>
+        </Modal>
       )}
     </section>
   );

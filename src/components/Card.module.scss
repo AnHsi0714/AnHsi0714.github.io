@@ -1,20 +1,38 @@
 @use '../styles/tokens' as *;
 
+// 雙線框：外實線＋內淡線的印刷規線感，取代原本 1px 灰框＋12px 圓角的模板長相。
+// 內線用 ::before 疊在 padding 區內側（inset 4px），不佔版面空間。
 .card {
+  position: relative;
   background-color: $color-bg;
   border: 1px solid $color-border;
-  border-radius: $radius-lg;
+  border-radius: 2px;
   padding: $space-4;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid $color-border;
+    border-radius: 1px;
+    opacity: 0.55;
+    pointer-events: none;
+    transition:
+      border-color $transition-fast,
+      opacity $transition-fast;
+  }
 }
 
 .hoverable {
   cursor: pointer;
-  transition:
-    box-shadow $transition-fast,
-    transform $transition-fast;
+  transition: transform $transition-fast;
 
   &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    transform: scale(1.02);
+    transform: translateY(-2px);
+
+    &::before {
+      border-color: $color-primary;
+      opacity: 1;
+    }
   }
 }

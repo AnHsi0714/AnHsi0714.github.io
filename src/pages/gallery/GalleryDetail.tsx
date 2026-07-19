@@ -5,6 +5,7 @@ import artworksDataZh from "../../../content/artworks.json";
 import artworksDataEn from "../../../content/artworks.en.json";
 import type { Artwork } from "../../types/content";
 import sketches from "./sketches";
+import TextLink from "../../components/TextLink";
 import styles from "./GalleryDetail.module.scss";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
@@ -87,14 +88,12 @@ export default function GalleryDetail() {
           </p>
         )}
         {artwork.openProcessingUrl && (
-          <a
+          <TextLink
             href={artwork.openProcessingUrl}
-            target="_blank"
-            rel="noreferrer"
             className={styles.openProcessing}
           >
             {t.gallery.viewOnOpenProcessing}
-          </a>
+          </TextLink>
         )}
       </div>
     </section>

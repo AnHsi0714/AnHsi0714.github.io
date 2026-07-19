@@ -67,6 +67,8 @@ export interface Artwork {
   // public/gallery/ 下的截圖；展場載入時隨機挑一張，呼應生成式作品每次執行都不一樣
   images: string[];
   openProcessingUrl: string;
+  // 作品介紹；有寫的作品，展牆名牌會變成可點擊、展開「美術館說明牌」彈窗
+  description?: string;
 }
 
 export type KnowledgeStatus = "draft" | "published";

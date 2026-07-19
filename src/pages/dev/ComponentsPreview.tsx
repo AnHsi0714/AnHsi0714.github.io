@@ -172,7 +172,7 @@ export default function ComponentsPreview() {
         <h2 className="text-xl font-bold">Card</h2>
         <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Card>一般卡片內容</Card>
-          <Card hoverable>滑過會浮起的卡片（無圖，可點擊項目用）</Card>
+          <Card hoverable>滑過會浮起的卡片（無圖，可點擊至其他頁面用）</Card>
           <Card hoverable>
             <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
               圖片預覽
@@ -189,27 +189,34 @@ export default function ComponentsPreview() {
             </p>
           </Card>
           <ExpandableCard
+            placard
             image={
-              <div className="flex h-80 w-full items-center justify-center rounded-md-lg bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
+              <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
                 圖片預覽
               </div>
             }
             expandedContent={
-              <div className="max-h-40 overflow-y-auto px-6 pb-6 pt-3">
-                <p className="font-semibold">完整內容</p>
-                <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-                  點擊卡片時，會在全螢幕置中顯示這層遮罩與完整內容，圖片會跟卡片一樣顯示在最上方、
-                  文字接在下面。按遮罩外或 Esc
-                  即可關閉。AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+              <div className="max-h-60 overflow-y-auto px-6 pb-6 pt-4">
+                <p className="text-lg font-semibold">Perlin 山水</p>
+                <p className="mt-0.5 text-xs tracking-widest text-[var(--color-text-muted)]">
+                  2026 · p5.js · 互動生成
+                </p>
+                <hr className="my-3 border-[var(--color-border)]" />
+                <p className="text-sm leading-relaxed text-[var(--color-text-muted)]">
+                  以流場噪聲繪製的動態山水，每次載入都是獨一無二的構圖。滑鼠移動可以擾動流場的方向，
+                  按住拖曳能在畫面上留下墨色的軌跡；山勢的起伏由多層 Perlin
+                  noise 疊加而成，前景與遠景以不同的頻率呼吸。
+                  這層展開面板做成「美術館說明牌」：無圓角，淺色模式是啞光紙色、
+                  深色模式轉成展牆名牌的暗色配色，跟生成視覺的作品介紹同一套。
+                  按遮罩外或 Esc 即可關閉。
                 </p>
               </div>
             }
           >
-            <p className="mt-3 font-semibold">點擊顯示完整內容</p>
+            <p className="mt-3 font-semibold">Perlin 山水</p>
             <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
-              這段文字被截斷了，點擊卡片可以看到完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容、完整內容。
+              這段介紹被截斷了，點擊卡片會在暗色遮罩上展開完整的作品說明牌，
+              對應之後生成視覺的作品介紹用法。
             </p>
           </ExpandableCard>
           <Card className="flex items-start gap-4">

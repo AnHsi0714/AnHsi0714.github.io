@@ -276,6 +276,7 @@
 }
 
 .placardTitle {
+  display: block;
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -283,10 +284,39 @@
 }
 
 .placardMeta {
+  display: block;
   margin-top: 2px;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   color: var(--room-placard-meta);
+}
+
+/* 有作品介紹時，名牌本身是 <button>：標題帶細虛線底線（網頁「可點名詞」
+   的慣例語感）提示可以點開說明牌彈窗；hover 虛線轉實線、名牌完全點亮
+   並微微浮起 */
+.placardClickable {
+  cursor: pointer;
+  font: inherit;
+  transition:
+    opacity 0.6s ease,
+    transform 0.15s ease;
+
+  .placardTitle {
+    text-decoration: underline dotted;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--room-placard-meta);
+    text-underline-offset: 4px;
+  }
+
+  &:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+
+    .placardTitle {
+      text-decoration-style: solid;
+      text-decoration-color: var(--room-placard-title);
+    }
+  }
 }
 
 /* 手機版：橫向展牆＋吊燈聚光在觸控裝置上不好操作（橫向捲動跟頁面手勢衝突），
