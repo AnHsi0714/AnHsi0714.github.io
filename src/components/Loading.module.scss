@@ -96,18 +96,8 @@ $mouth-color: $color-bg;
   height: 72px;
 }
 
-.progress {
+.progressWrapper {
   width: 96px;
-  height: 6px;
-  border-radius: $radius-sm;
-  background-color: $color-border;
-  overflow: hidden;
-}
-
-.progressBar {
-  height: 100%;
-  background-color: $color-primary;
-  transition: width 0.2s linear;
 }
 
 .label {

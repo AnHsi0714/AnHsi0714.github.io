@@ -8,6 +8,7 @@ import Input from "../../components/Input";
 import Alert from "../../components/Alert";
 import Loading from "../../components/Loading";
 import EmptyState from "../../components/EmptyState";
+import ProgressBar from "../../components/ProgressBar";
 
 function LoadingProgressDemo() {
   const [progress, setProgress] = useState(0);
@@ -115,7 +116,9 @@ export default function ComponentsPreview() {
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-semibold">範例文章標題</p>
-              <p className="text-sm text-[var(--color-text-muted)]">2026-06-27</p>
+              <p className="text-sm text-[var(--color-text-muted)]">
+                2026-06-27
+              </p>
               <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
                 橫向排列、圖片在左側的卡片，對應 Articles 頁面的列表項目排版。
               </p>
@@ -150,17 +153,33 @@ export default function ComponentsPreview() {
         </div>
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <Chip size="sm">default sm</Chip>
-          <Chip variant="success" size="sm">success sm</Chip>
-          <Chip variant="info" size="sm">info sm</Chip>
-          <Chip variant="warn" size="sm">書卷</Chip>
-          <Chip variant="danger" size="sm">danger sm</Chip>
+          <Chip variant="success" size="sm">
+            success sm
+          </Chip>
+          <Chip variant="info" size="sm">
+            info sm
+          </Chip>
+          <Chip variant="warn" size="sm">
+            書卷
+          </Chip>
+          <Chip variant="danger" size="sm">
+            danger sm
+          </Chip>
         </div>
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <Chip tone="filled">default filled</Chip>
-          <Chip tone="filled" variant="success">success filled</Chip>
-          <Chip tone="filled" variant="info">info filled</Chip>
-          <Chip tone="filled" variant="warn">warn filled</Chip>
-          <Chip tone="filled" variant="danger">danger filled</Chip>
+          <Chip tone="filled" variant="success">
+            success filled
+          </Chip>
+          <Chip tone="filled" variant="info">
+            info filled
+          </Chip>
+          <Chip tone="filled" variant="warn">
+            warn filled
+          </Chip>
+          <Chip tone="filled" variant="danger">
+            danger filled
+          </Chip>
         </div>
       </section>
 
@@ -192,6 +211,14 @@ export default function ComponentsPreview() {
           <Loading size="md" label="載入中…" />
           <Loading size="lg" label="載入中…" />
           <LoadingProgressDemo />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-xl font-bold">ProgressBar</h2>
+        <div className="mt-3 flex max-w-sm flex-col gap-3">
+          <ProgressBar progress={30} />
+          <ProgressBar current={3} target={10} unit="本" />
         </div>
       </section>
 

@@ -1,4 +1,5 @@
 import { useMemo, type CSSProperties } from "react";
+import ProgressBar from "./ProgressBar";
 import styles from "./Loading.module.scss";
 
 type LoadingSize = "sm" | "md" | "lg";
@@ -58,11 +59,8 @@ export default function Loading({
         <div className={styles.mouth}></div>
       </div>
       {typeof progress === "number" && (
-        <div className={styles.progress}>
-          <div
-            className={styles.progressBar}
-            style={{ width: `${progress}%` }}
-          />
+        <div className={styles.progressWrapper}>
+          <ProgressBar progress={progress} />
         </div>
       )}
       {label && <span className={styles.label}>{label}</span>}
