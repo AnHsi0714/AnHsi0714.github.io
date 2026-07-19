@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import Card from "../../components/Card";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -31,51 +29,36 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
     : article.date;
 
   return (
-    <div className="relative">
-      {article.featured && (
-        <span
-          title={t.common.pinned}
-          aria-label={t.common.pinned}
-          className="absolute -left-2 -top-2 z-10 flex h-6 w-6 items-center justify-center rounded-full shadow"
-          style={{
-            backgroundColor: "var(--color-primary)",
-            color: "var(--color-primary-text)",
-          }}
-        >
-          <FontAwesomeIcon icon={faThumbtack} className="text-[10px]" />
-        </span>
-      )}
-      <Link to={`/articles/${article.slug}`} className="block">
-        <Card className="flex items-start gap-4">
-          {article.coverUrl ? (
-            <img
-              src={article.coverUrl}
-              alt={article.title}
-              className="h-20 w-20 shrink-0 rounded-md object-cover sm:h-24 sm:w-24"
-            />
-          ) : (
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-[var(--color-surface)] text-2xl font-semibold text-[var(--color-border)] sm:h-24 sm:w-24">
-              {article.title.slice(0, 1)}
-            </div>
-          )}
-          <div className="min-w-0 flex-1">
-            <p className="font-semibold">{article.title}</p>
-            <p className="text-sm text-[var(--color-text-muted)]">{subtitle}</p>
-            <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
-              {article.excerpt}
-            </p>
+    <Link to={`/articles/${article.slug}`} className="block">
+      <Card className="flex items-start gap-4">
+        {article.coverUrl ? (
+          <img
+            src={article.coverUrl}
+            alt={article.title}
+            className="h-20 w-20 shrink-0 rounded-md object-cover sm:h-24 sm:w-24"
+          />
+        ) : (
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-[var(--color-surface)] text-2xl font-semibold text-[var(--color-border)] sm:h-24 sm:w-24">
+            {article.title.slice(0, 1)}
           </div>
-          <div className="flex shrink-0 flex-col items-end gap-1">
-            <div className="flex flex-wrap justify-end gap-1">
-              {article.categories.map((category) => (
-                <Chip key={category} size="sm">{category}</Chip>
-              ))}
-            </div>
-            {article.rating !== undefined && <Stars rating={article.rating} t={t} />}
+        )}
+        <div className="min-w-0 flex-1">
+          <p className="font-semibold">{article.title}</p>
+          <p className="text-sm text-[var(--color-text-muted)]">{subtitle}</p>
+          <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
+            {article.excerpt}
+          </p>
+        </div>
+        <div className="flex shrink-0 flex-col items-end gap-1">
+          <div className="flex flex-wrap justify-end gap-1">
+            {article.categories.map((category) => (
+              <Chip key={category} size="sm">{category}</Chip>
+            ))}
           </div>
-        </Card>
-      </Link>
-    </div>
+          {article.rating !== undefined && <Stars rating={article.rating} t={t} />}
+        </div>
+      </Card>
+    </Link>
   );
 }
 
@@ -150,13 +133,11 @@ export default function Articles() {
         if (featuredFilter === "not-featured" && article.featured) return false;
         return true;
       })
-      .sort((a, b) => {
-        const featuredDiff = Number(Boolean(b.featured)) - Number(Boolean(a.featured));
-        if (featuredDiff !== 0) return featuredDiff;
-        return sortOrder === "newest"
+      .sort((a, b) =>
+        sortOrder === "newest"
           ? b.date.localeCompare(a.date)
-          : a.date.localeCompare(b.date);
-      });
+          : a.date.localeCompare(b.date),
+      );
   }, [
     articles,
     titleQuery,
@@ -167,6 +148,11 @@ export default function Articles() {
     sortOrder,
     featuredFilter,
   ]);
+
+  const featuredArticles = useMemo(
+    () => filteredArticles.filter((article) => article.featured),
+    [filteredArticles],
+  );
 
   return (
     <section>
@@ -338,13 +324,34 @@ export default function Articles() {
           />
         </div>
       ) : (
-        <ul className="mt-8 flex flex-col gap-3">
-          {filteredArticles.map((article) => (
-            <li key={article.slug}>
-              <ArticleRow article={article} t={t} />
-            </li>
-          ))}
-        </ul>
+        <>
+          {featuredArticles.length > 0 && (
+            <div className="mt-8">
+              <p className="font-semibold text-[var(--color-primary)]">
+                {t.articles.featuredSectionTitle}
+              </p>
+              <ul className="mt-3 flex flex-col gap-3">
+                {featuredArticles.map((article) => (
+                  <li key={article.slug}>
+                    <ArticleRow article={article} t={t} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div className="mt-8">
+            <p className="font-semibold text-[var(--color-primary)]">
+              {t.articles.allSectionTitle}
+            </p>
+            <ul className="mt-3 flex flex-col gap-3">
+              {filteredArticles.map((article) => (
+                <li key={article.slug}>
+                  <ArticleRow article={article} t={t} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
       )}
     </section>
   );

@@ -39,7 +39,6 @@ export interface Strings {
     oldest: string;
     viewGithub: string;
     noPreviewImage: string;
-    pinned: string;
     filterAll: string;
     filterFeatured: string;
     filterNotFeatured: string;
@@ -96,6 +95,8 @@ export interface Strings {
     period: string;
     collaborators: string;
     advisor: string;
+    featuredSectionTitle: string;
+    allSectionTitle: string;
   };
   articles: {
     title: string;
@@ -108,6 +109,8 @@ export interface Strings {
     notFoundTitle: string;
     notFoundDesc: string;
     backToList: string;
+    featuredSectionTitle: string;
+    allSectionTitle: string;
     ratingLabel: (rating: number) => string;
   };
   gallery: {
@@ -274,7 +277,6 @@ export const strings: Record<"zh" | "en", Strings> = {
       oldest: "最久",
       viewGithub: "查看 GitHub →",
       noPreviewImage: "尚無預覽圖",
-      pinned: "站長精選",
       filterAll: "不限",
       filterFeatured: "精選",
       filterNotFeatured: "非精選",
@@ -335,6 +337,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       period: "期間：",
       collaborators: "合作者：",
       advisor: "指導教授：",
+      featuredSectionTitle: "精選",
+      allSectionTitle: "全部",
     },
     articles: {
       title: "文章",
@@ -347,6 +351,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       notFoundTitle: "找不到這篇文章",
       notFoundDesc: "可能已經被移除或網址有誤。",
       backToList: "← 回文章列表",
+      featuredSectionTitle: "精選",
+      allSectionTitle: "全部",
       ratingLabel: (rating: number) => `評分 ${rating} / 5`,
     },
     gallery: {
@@ -521,7 +527,6 @@ export const strings: Record<"zh" | "en", Strings> = {
       oldest: "Oldest",
       viewGithub: "View on GitHub →",
       noPreviewImage: "No preview yet",
-      pinned: "Pinned by author",
       filterAll: "All",
       filterFeatured: "Featured",
       filterNotFeatured: "Not featured",
@@ -583,6 +588,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       period: "Period: ",
       collaborators: "Collaborators: ",
       advisor: "Advisor: ",
+      featuredSectionTitle: "Featured",
+      allSectionTitle: "All",
     },
     articles: {
       title: "Articles",
@@ -595,6 +602,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       notFoundTitle: "Article not found",
       notFoundDesc: "It may have been removed, or the link is incorrect.",
       backToList: "← Back to articles",
+      featuredSectionTitle: "Featured",
+      allSectionTitle: "All",
       ratingLabel: (rating: number) => `Rating ${rating} / 5`,
     },
     gallery: {

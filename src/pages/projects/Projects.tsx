@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import projectsDataZh from "../../../content/projects.json";
 import projectsDataEn from "../../../content/projects.en.json";
 import Card from "../../components/Card";
@@ -29,68 +27,53 @@ export const statusBadgeVariant: Record<ProjectStatus, "todo" | "doing" | "done"
 
 function ProjectCard({ project, t }: { project: Project; t: Strings }) {
   return (
-    <div className="relative">
-      {project.featured && (
-        <span
-          title={t.common.pinned}
-          aria-label={t.common.pinned}
-          className="absolute -left-3 -top-3 z-10 flex h-7 w-7 items-center justify-center rounded-full shadow"
-          style={{
-            backgroundColor: "var(--color-primary)",
-            color: "var(--color-primary-text)",
-          }}
-        >
-          <FontAwesomeIcon icon={faThumbtack} className="text-xs" />
-        </span>
-      )}
-      <Card hoverable>
-        <Link to={`/projects/${project.slug}`} className="block">
-          {project.screenshotUrl ? (
-            <img
-              src={project.screenshotUrl}
-              alt={project.name}
-              className="aspect-video w-full rounded-md object-cover"
-              style={{
-                objectPosition: project.screenshotPosition
-                  ? `${project.screenshotPosition.w}% ${project.screenshotPosition.h}%`
-                  : undefined,
-              }}
-            />
-          ) : (
-            <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
-              {t.common.noPreviewImage}
-            </div>
-          )}
-          <div className="mt-3 flex items-center justify-between gap-2">
-            <p className="font-semibold">{project.name}</p>
-            <div className="flex shrink-0 flex-wrap justify-end items-center gap-1">
-              {project.tags?.map((tag) => (
-                <Chip key={tag} size="sm">{tag}</Chip>
-              ))}
-              <Badge
-                variant={statusBadgeVariant[project.status]}
-                className="shrink-0"
-              >
-                {t.projects.status[project.status]}
-              </Badge>
-            </div>
+    <Card hoverable>
+      <Link to={`/projects/${project.slug}`} className="block">
+        {project.screenshotUrl ? (
+          <img
+            src={project.screenshotUrl}
+            alt={project.name}
+            className="aspect-video w-full rounded-md object-cover"
+            style={{
+              objectPosition: project.screenshotPosition
+                ? `${project.screenshotPosition.w}% ${project.screenshotPosition.h}%`
+                : undefined,
+            }}
+          />
+        ) : (
+          <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
+            {t.common.noPreviewImage}
           </div>
-          <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
-            {project.desc}
-          </p>
-        </Link>
-        {project.githubUrl && (
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-3 inline-block text-sm font-medium text-[var(--color-text)]"
-          >
-            {t.common.viewGithub}
-          </a>
         )}
-      </Card>
-    </div>
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <p className="font-semibold">{project.name}</p>
+          <div className="flex shrink-0 flex-wrap justify-end items-center gap-1">
+            {project.tags?.map((tag) => (
+              <Chip key={tag} size="sm">{tag}</Chip>
+            ))}
+            <Badge
+              variant={statusBadgeVariant[project.status]}
+              className="shrink-0"
+            >
+              {t.projects.status[project.status]}
+            </Badge>
+          </div>
+        </div>
+        <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
+          {project.desc}
+        </p>
+      </Link>
+      {project.githubUrl && (
+        <a
+          href={project.githubUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-3 inline-block text-sm font-medium text-[var(--color-text)]"
+        >
+          {t.common.viewGithub}
+        </a>
+      )}
+    </Card>
   );
 }
 
@@ -172,13 +155,11 @@ export default function Projects() {
         if (featuredFilter === "not-featured" && project.featured) return false;
         return true;
       })
-      .sort((a, b) => {
-        const featuredDiff = Number(Boolean(b.featured)) - Number(Boolean(a.featured));
-        if (featuredDiff !== 0) return featuredDiff;
-        return sortOrder === "newest"
+      .sort((a, b) =>
+        sortOrder === "newest"
           ? b.date.localeCompare(a.date)
-          : a.date.localeCompare(b.date);
-      });
+          : a.date.localeCompare(b.date),
+      );
   }, [
     projects,
     titleQuery,
@@ -189,6 +170,11 @@ export default function Projects() {
     sortOrder,
     featuredFilter,
   ]);
+
+  const featuredProjects = useMemo(
+    () => filteredProjects.filter((project) => project.featured),
+    [filteredProjects],
+  );
 
   return (
     <section>
@@ -339,11 +325,30 @@ export default function Projects() {
           />
         </div>
       ) : (
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {filteredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} t={t} />
-          ))}
-        </div>
+        <>
+          {featuredProjects.length > 0 && (
+            <div className="mt-8">
+              <p className="font-semibold text-[var(--color-primary)]">
+                {t.projects.featuredSectionTitle}
+              </p>
+              <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {featuredProjects.map((project) => (
+                  <ProjectCard key={project.slug} project={project} t={t} />
+                ))}
+              </div>
+            </div>
+          )}
+          <div className="mt-8">
+            <p className="font-semibold text-[var(--color-primary)]">
+              {t.projects.allSectionTitle}
+            </p>
+            <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {filteredProjects.map((project) => (
+                <ProjectCard key={project.slug} project={project} t={t} />
+              ))}
+            </div>
+          </div>
+        </>
       )}
     </section>
   );
