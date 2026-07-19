@@ -60,7 +60,7 @@ export default function Loading({
       </div>
       {typeof progress === "number" && (
         <div className={styles.progressWrapper}>
-          <ProgressBar progress={progress} />
+          <ProgressBar progress={progress} variant="footprint" steps={6} />
         </div>
       )}
       {label && <span className={styles.label}>{label}</span>}

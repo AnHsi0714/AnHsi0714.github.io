@@ -220,6 +220,32 @@ export default function ComponentsPreview() {
           <ProgressBar progress={30} />
           <ProgressBar current={3} target={10} unit="本" />
         </div>
+        <p className="mt-4 text-sm text-[var(--color-text-muted)]">
+          分段色塊（segmented）
+        </p>
+        <div className="mt-2 flex max-w-sm flex-col gap-3">
+          <ProgressBar
+            progress={37}
+            variant="segmented"
+            current={37}
+            target={100}
+            unit="%"
+          />
+          <ProgressBar
+            progress={70}
+            variant="segmented"
+            current={70}
+            target={100}
+            unit="%"
+          />
+        </div>
+        <p className="mt-4 text-sm text-[var(--color-text-muted)]">
+          腳印（footprint）
+        </p>
+        <div className="mt-2 flex max-w-sm flex-col gap-3">
+          <ProgressBar progress={30} variant="footprint" />
+          <ProgressBar progress={70} variant="footprint" />
+        </div>
       </section>
 
       <section>

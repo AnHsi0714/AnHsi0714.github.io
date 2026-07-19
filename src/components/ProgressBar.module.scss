@@ -21,6 +21,69 @@
   transition: width $transition-fast;
 }
 
+// 分段色塊：細外框圍住一列長條矩形色塊，未填滿的格子留空
+.segments {
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  height: 18px;
+  padding: 2px;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+}
+
+.segment {
+  position: relative;
+  width: 7px;
+  border-radius: 1px;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.segmentFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background-color: $color-primary;
+  transition: width $transition-fast;
+}
+
+// 腳印：狼人殺的爪印一步步往前走，交錯左右腳、淡入呈現進度
+.footprints {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 18px;
+}
+
+.footprint {
+  display: inline-flex;
+  font-size: 14px;
+  color: $color-primary;
+  transition: opacity $transition-fast;
+
+  &:nth-child(odd) {
+    transform: translateY(-3px);
+  }
+
+  &:nth-child(even) {
+    transform: translateY(3px);
+  }
+}
+
+// faPaw 預設腳趾朝上，轉 90 度讓爪印指向前進方向（往右）
+.footprintIcon {
+  transform: rotate(90deg);
+}
+
+.footprint:nth-child(odd) .footprintIcon {
+  transform: rotate(80deg);
+}
+
+.footprint:nth-child(even) .footprintIcon {
+  transform: rotate(100deg);
+}
+
 .label {
   flex-shrink: 0;
   font-size: $font-size-sm;
