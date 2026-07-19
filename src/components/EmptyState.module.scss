@@ -40,6 +40,18 @@ $drool-color: #8ecae6;
   width: 25%;
   height: 35%;
   background-color: var(--horn-color, $horn-color);
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 32%,
+    rgba(0, 0, 0, 0.25) 32%,
+    rgba(0, 0, 0, 0.25) 38%,
+    transparent 38%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.25) 60%,
+    rgba(0, 0, 0, 0.25) 66%,
+    transparent 66%
+  );
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
