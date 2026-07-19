@@ -8,6 +8,7 @@ import Chip from "../../components/Chip";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
+import TextLink from "../../components/TextLink";
 import type { Project, ProjectStatus, ProjectTag } from "../../types/content";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
@@ -16,6 +17,7 @@ import type { Strings } from "../../i18n/strings";
 const allStatuses: ProjectStatus[] = ["todo", "in-progress", "done"];
 
 type SortOrder = "newest" | "oldest";
+type FeaturedFilter = "all" | "featured" | "not-featured";
 
 export const statusBadgeVariant: Record<ProjectStatus, "todo" | "doing" | "done"> = {
   todo: "todo",
@@ -90,6 +92,7 @@ export default function Projects() {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
+  const [featuredFilter, setFeaturedFilter] = useState<FeaturedFilter>("all");
 
   useEffect(() => {
     if (!isFilterOpen) return;
@@ -122,7 +125,8 @@ export default function Projects() {
     (selectedTags.length > 0 ? 1 : 0) +
     (selectedStatuses.length > 0 ? 1 : 0) +
     (dateFrom ? 1 : 0) +
-    (dateTo ? 1 : 0);
+    (dateTo ? 1 : 0) +
+    (featuredFilter !== "all" ? 1 : 0);
 
   const filteredProjects = useMemo(() => {
     return projects
@@ -147,6 +151,8 @@ export default function Projects() {
         }
         if (dateFrom && project.date < dateFrom) return false;
         if (dateTo && project.date > dateTo) return false;
+        if (featuredFilter === "featured" && !project.featured) return false;
+        if (featuredFilter === "not-featured" && project.featured) return false;
         return true;
       })
       .sort((a, b) =>
@@ -154,7 +160,21 @@ export default function Projects() {
           ? b.date.localeCompare(a.date)
           : a.date.localeCompare(b.date),
       );
-  }, [projects, titleQuery, selectedTags, selectedStatuses, dateFrom, dateTo, sortOrder]);
+  }, [
+    projects,
+    titleQuery,
+    selectedTags,
+    selectedStatuses,
+    dateFrom,
+    dateTo,
+    sortOrder,
+    featuredFilter,
+  ]);
+
+  const featuredProjects = useMemo(
+    () => filteredProjects.filter((project) => project.featured),
+    [filteredProjects],
+  );
 
   return (
     <section>
@@ -162,6 +182,9 @@ export default function Projects() {
       <p className="mt-2 text-[var(--color-text-muted)]">
         {t.projects.subtitle}
       </p>
+      <TextLink to="/knowledge" className="mt-1 block text-sm">
+        {t.knowledge.entryPointHint}
+      </TextLink>
 
       <div className="relative mt-6 inline-block" ref={filterRef}>
         <Button
@@ -241,6 +264,34 @@ export default function Projects() {
               })}
             </div>
 
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="text-sm font-medium text-[var(--color-text)]">
+                {t.common.featuredFilterLabel}
+              </span>
+              {(
+                [
+                  ["all", t.common.filterAll],
+                  ["featured", t.common.filterFeatured],
+                  ["not-featured", t.common.filterNotFeatured],
+                ] as [FeaturedFilter, string][]
+              ).map(([value, label]) => (
+                <button
+                  key={value}
+                  type="button"
+                  aria-pressed={featuredFilter === value}
+                  onClick={() => setFeaturedFilter(value)}
+                  className={[
+                    "rounded-full border px-3 py-1 text-sm transition-colors",
+                    featuredFilter === value
+                      ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
+                      : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
+                  ].join(" ")}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
             <div className="mt-4 flex items-center gap-2">
               <span className="text-sm font-medium text-[var(--color-text)]">
                 {t.common.sort}
@@ -274,11 +325,30 @@ export default function Projects() {
           />
         </div>
       ) : (
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {filteredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} t={t} />
-          ))}
-        </div>
+        <>
+          {featuredProjects.length > 0 && (
+            <div className="mt-8">
+              <p className="font-semibold text-[var(--color-primary)]">
+                {t.projects.featuredSectionTitle}
+              </p>
+              <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {featuredProjects.map((project) => (
+                  <ProjectCard key={project.slug} project={project} t={t} />
+                ))}
+              </div>
+            </div>
+          )}
+          <div className="mt-8">
+            <p className="font-semibold text-[var(--color-primary)]">
+              {t.projects.allSectionTitle}
+            </p>
+            <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {filteredProjects.map((project) => (
+                <ProjectCard key={project.slug} project={project} t={t} />
+              ))}
+            </div>
+          </div>
+        </>
       )}
     </section>
   );

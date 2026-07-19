@@ -19,7 +19,7 @@ export default function LanguageToggle() {
     >
       <span
         aria-hidden="true"
-        className="absolute left-0.5 flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold transition-transform duration-200"
+        className="absolute left-0.5 flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium leading-none tracking-tighter transition-transform duration-200"
         style={{
           backgroundColor: 'var(--color-primary)',
           color: 'var(--color-primary-text)',

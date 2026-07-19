@@ -1,0 +1,7 @@
+@use "../styles/tokens" as *;
+
+.link {
+  color: $color-primary;
+  font-weight: bold;
+  text-decoration: underline;
+}

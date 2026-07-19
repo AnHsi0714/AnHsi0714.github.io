@@ -51,7 +51,7 @@
   {
     "slug": "code-pulse",
     "name": "CodePulse — Data Structures & Algorithms Visualization Learning Platform",
-    "desc": "A capstone project combining interactive visualization, code execution tracing, and AI-based algorithm recognition into a data-structures-and-algorithms teaching platform.",
+    "desc": "An algorithm teaching platform combining interactive visualization and code execution tracing. Pre/post-test research showed it significantly boosted learners' confidence, while also revealing a gap between interface effectiveness and measurable learning outcomes.",
     "date": "2026-06",
     "status": "done",
     "tags": ["AI", "WEB", "EDU", "VIZ"],
@@ -59,6 +59,7 @@
     "advisor": "陳香君",
     "period": "2025/06 ~ 2026/06",
     "screenshotUrl": "/images/projects/code-pulse/home-page.png",
-    "githubUrl": "https://github.com/Jx-study/CodePulse"
+    "githubUrl": "https://github.com/Jx-study/CodePulse",
+    "featured": true
   }
 ]

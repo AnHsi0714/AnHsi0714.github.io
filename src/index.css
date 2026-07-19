@@ -31,3 +31,19 @@ html {
   --tw-prose-th-borders: var(--color-border);
   --tw-prose-td-borders: var(--color-border);
 }
+
+/* Typography 預設只把行內 code 加粗並前後插入純文字反引號，看起來跟一般文字沒兩樣。
+   這裡改成灰底圓角的 code chip，並移除 pre 區塊以外不需要的反引號字元；
+   :not(pre) > code 只選到行內 code，不影響 pre 內的多行程式碼區塊。 */
+.prose :not(pre) > code {
+  background-color: var(--color-surface);
+  border-radius: 0.3em;
+  padding: 0.15em 0.4em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.875em;
+  font-weight: 500;
+}
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none;
+}

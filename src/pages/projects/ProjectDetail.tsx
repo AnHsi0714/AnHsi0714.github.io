@@ -6,6 +6,8 @@ import Chip from "../../components/Chip";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
 import { useProjectBodies } from "../../lib/projects";
+import { useKnowledgeNodesLinkedTo } from "../../lib/knowledge";
+import TextLink from "../../components/TextLink";
 import type { Project } from "../../types/content";
 import { statusBadgeVariant } from "./Projects";
 import { useLocalized } from "../../lib/localized";
@@ -17,6 +19,7 @@ export default function ProjectDetail() {
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
   const project = projects.find((item) => item.slug === slug);
   const projectBodies = useProjectBodies();
+  const relatedKnowledge = useKnowledgeNodesLinkedTo("project", slug ?? "");
 
   if (!project) {
     return (
@@ -25,12 +28,9 @@ export default function ProjectDetail() {
           title={t.projects.notFoundTitle}
           description={t.projects.notFoundDesc}
         />
-        <Link
-          to="/projects"
-          className="mt-4 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-        >
+        <TextLink to="/projects" className="mt-4 inline-block text-sm font-medium">
           {t.projects.backToList}
-        </Link>
+        </TextLink>
       </section>
     );
   }
@@ -39,12 +39,9 @@ export default function ProjectDetail() {
 
   return (
     <section>
-      <Link
-        to="/projects"
-        className="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-      >
+      <TextLink to="/projects" className="text-sm font-medium">
         {t.projects.backToList}
-      </Link>
+      </TextLink>
 
       {project.screenshotUrl && (
         <img
@@ -86,14 +83,22 @@ export default function ProjectDetail() {
       )}
 
       {project.githubUrl && (
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-3 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-        >
+        <TextLink href={project.githubUrl} className="mt-3 inline-block text-sm font-medium">
           {t.common.viewGithub}
-        </a>
+        </TextLink>
+      )}
+
+      {relatedKnowledge.length > 0 && (
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold">{t.knowledge.relatedKnowledge}</h2>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {relatedKnowledge.map((node) => (
+              <Link key={node.slug} to={`/knowledge/${node.slug}`}>
+                <Chip>{node.term}</Chip>
+              </Link>
+            ))}
+          </div>
+        </div>
       )}
 
       {body && <MarkdownContent className="mt-6">{body}</MarkdownContent>}

@@ -51,7 +51,7 @@
   {
     "slug": "code-pulse",
     "name": "資料結構與演算法視覺化學習平台 CodePulse",
-    "desc": "畢業專題，整合互動式視覺化、程式執行追蹤與 AI 演算法辨識的資料結構與演算法教學平台。",
+    "desc": "整合互動式視覺化與程式執行追蹤的演算法教學平台。前後測研究顯示能顯著提升學習者信心，並揭露介面效益與可量測學習成效之間的落差。",
     "date": "2026-06",
     "status": "done",
     "tags": ["AI", "WEB", "EDU", "VIZ"],
@@ -59,6 +59,7 @@
     "advisor": "陳香君",
     "period": "2025/06 ~ 2026/06",
     "screenshotUrl": "/images/projects/code-pulse/home-page.png",
-    "githubUrl": "https://github.com/Jx-study/CodePulse"
+    "githubUrl": "https://github.com/Jx-study/CodePulse",
+    "featured": true
   }
 ]

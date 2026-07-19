@@ -8,6 +8,8 @@ import Articles from './pages/articles/Articles'
 import ArticleDetail from './pages/articles/ArticleDetail'
 import Projects from './pages/projects/Projects'
 import ProjectDetail from './pages/projects/ProjectDetail'
+import Knowledge from './pages/knowledge/Knowledge'
+import KnowledgeDetail from './pages/knowledge/KnowledgeDetail'
 import Experience from './pages/experience/Experience'
 import Dreams from './pages/dreams/Dreams'
 import Friends from './pages/friends/Friends'
@@ -30,6 +32,8 @@ export const router = createBrowserRouter([
       { path: 'articles/:slug', element: <ArticleDetail /> },
       { path: 'projects', element: <Projects /> },
       { path: 'projects/:slug', element: <ProjectDetail /> },
+      { path: 'knowledge', element: <Knowledge /> },
+      { path: 'knowledge/:slug', element: <KnowledgeDetail /> },
       { path: 'experience', element: <Experience /> },
       { path: 'playground', element: <Playground /> },
       { path: 'dreams', element: <Dreams /> },

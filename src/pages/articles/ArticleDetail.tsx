@@ -1,7 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
+import Chip from "../../components/Chip";
 import { useArticles } from "../../lib/articles";
+import { useKnowledgeNodesLinkedTo } from "../../lib/knowledge";
+import TextLink from "../../components/TextLink";
 import { Stars } from "./Articles";
 import { useTranslation } from "../../i18n/useTranslation";
 
@@ -10,6 +13,7 @@ export default function ArticleDetail() {
   const { t } = useTranslation();
   const articles = useArticles();
   const article = articles.find((item) => item.slug === slug);
+  const relatedKnowledge = useKnowledgeNodesLinkedTo("article", slug ?? "");
 
   if (!article) {
     return (
@@ -18,12 +22,9 @@ export default function ArticleDetail() {
           title={t.articles.notFoundTitle}
           description={t.articles.notFoundDesc}
         />
-        <Link
-          to="/articles"
-          className="mt-4 inline-block text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-        >
+        <TextLink to="/articles" className="mt-4 inline-block text-sm font-medium">
           {t.articles.backToList}
-        </Link>
+        </TextLink>
       </section>
     );
   }
@@ -34,12 +35,9 @@ export default function ArticleDetail() {
 
   return (
     <section>
-      <Link
-        to="/articles"
-        className="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-      >
+      <TextLink to="/articles" className="text-sm font-medium">
         {t.articles.backToList}
-      </Link>
+      </TextLink>
 
       {article.coverUrl && (
         <img
@@ -63,6 +61,19 @@ export default function ArticleDetail() {
         ))}
         {article.rating !== undefined && <Stars rating={article.rating} t={t} />}
       </div>
+
+      {relatedKnowledge.length > 0 && (
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold">{t.knowledge.relatedKnowledge}</h2>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {relatedKnowledge.map((node) => (
+              <Link key={node.slug} to={`/knowledge/${node.slug}`}>
+                <Chip>{node.term}</Chip>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       <MarkdownContent className="mt-6">{article.body}</MarkdownContent>
     </section>

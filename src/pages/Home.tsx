@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope, faPalette } from "@fortawesome/free-solid-svg-icons";
 import projectsDataZh from "../../content/projects.json";
 import projectsDataEn from "../../content/projects.en.json";
 import Card from "../components/Card";
 import Chip from "../components/Chip";
 import Button from "../components/Button";
+import TextLink from "../components/TextLink";
 import type { Project } from "../types/content";
 import { useLocalized } from "../lib/localized";
 import { useTranslation } from "../i18n/useTranslation";
@@ -25,6 +29,24 @@ export default function Home() {
   const featuredProjects = featuredSlugs
     .map((slug) => projects.find((p) => p.slug === slug))
     .filter((p): p is Project => Boolean(p));
+
+  const socialLinks = [
+    {
+      href: "https://github.com/stars/AnHsi0714/lists/projects-i-participated-in",
+      icon: faGithub,
+      label: "GitHub",
+    },
+    {
+      href: "https://openprocessing.org/@u455151",
+      icon: faPalette,
+      label: "OpenProcessing",
+    },
+    {
+      href: `mailto:${t.home.email}`,
+      icon: faEnvelope,
+      label: t.home.email,
+    },
+  ];
 
   const quickLinks = [
     {
@@ -55,14 +77,14 @@ export default function Home() {
         <p className="text-4xl font-light leading-tight text-[var(--color-text)] sm:text-5xl md:text-6xl lg:text-7xl">
           {t.home.titleZh} {t.home.titleEn}
         </p>
-        <p className="mt-3 text-lg text-[var(--color-text-muted)]">
+        <TextLink to="/about#research-interests" className="mt-3 block text-lg">
           {t.home.tagline}
-        </p>
+        </TextLink>
         <p className="mt-5 max-w-2xl text-sm leading-relaxed text-[var(--color-text-muted)]">
           {t.home.bio}
         </p>
         <Link
-          to="/about#research-interests"
+          to="/knowledge?category=RESEARCH"
           className="mt-6 flex flex-wrap gap-2"
         >
           {researchInterestTags.map((tag) => (
@@ -132,23 +154,19 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flex items-center gap-4 border-t border-[var(--color-border)] pt-6 text-sm text-[var(--color-text-muted)]">
-        <a
-          href="https://github.com/stars/AnHsi0714/lists/projects-i-participated-in"
-          target="_blank"
-          rel="noreferrer"
-          className="hover:text-[var(--color-text)]"
-        >
-          GitHub →
-        </a>
-        <a
-          href="https://openprocessing.org/@u455151"
-          target="_blank"
-          rel="noreferrer"
-          className="hover:text-[var(--color-text)]"
-        >
-          OpenProcessing →
-        </a>
+      <section className="flex flex-wrap justify-center gap-x-8 gap-y-3 border-t border-[var(--color-border)] pt-8 text-sm">
+        {socialLinks.map(({ href, icon, label }) => (
+          <a
+            key={href}
+            href={href}
+            target={href.startsWith("mailto:") ? undefined : "_blank"}
+            rel={href.startsWith("mailto:") ? undefined : "noreferrer"}
+            className="inline-flex items-center gap-2 text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-primary)]"
+          >
+            <FontAwesomeIcon icon={icon} className="text-base" aria-hidden="true" />
+            {label}
+          </a>
+        ))}
       </section>
     </div>
   );

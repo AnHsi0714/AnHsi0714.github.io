@@ -5,12 +5,14 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
 import Chip from "../../components/Chip";
+import TextLink from "../../components/TextLink";
 import type { Article } from "../../types/content";
 import { useArticles } from "../../lib/articles";
 import { useTranslation } from "../../i18n/useTranslation";
 import type { Strings } from "../../i18n/strings";
 
 type SortOrder = "newest" | "oldest";
+type FeaturedFilter = "all" | "featured" | "not-featured";
 
 export function Stars({ rating, t }: { rating: number; t: Strings }) {
   return (
@@ -75,6 +77,7 @@ export default function Articles() {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
+  const [featuredFilter, setFeaturedFilter] = useState<FeaturedFilter>("all");
 
   useEffect(() => {
     if (!isFilterOpen) return;
@@ -103,7 +106,8 @@ export default function Articles() {
     (selectedCategories.length > 0 ? 1 : 0) +
     (minRating > 0 ? 1 : 0) +
     (dateFrom ? 1 : 0) +
-    (dateTo ? 1 : 0);
+    (dateTo ? 1 : 0) +
+    (featuredFilter !== "all" ? 1 : 0);
 
   const filteredArticles = useMemo(() => {
     return articles
@@ -125,6 +129,8 @@ export default function Articles() {
         if (minRating > 0 && (article.rating ?? 0) < minRating) return false;
         if (dateFrom && article.date < dateFrom) return false;
         if (dateTo && article.date > dateTo) return false;
+        if (featuredFilter === "featured" && !article.featured) return false;
+        if (featuredFilter === "not-featured" && article.featured) return false;
         return true;
       })
       .sort((a, b) =>
@@ -132,12 +138,29 @@ export default function Articles() {
           ? b.date.localeCompare(a.date)
           : a.date.localeCompare(b.date),
       );
-  }, [articles, titleQuery, selectedCategories, minRating, dateFrom, dateTo, sortOrder]);
+  }, [
+    articles,
+    titleQuery,
+    selectedCategories,
+    minRating,
+    dateFrom,
+    dateTo,
+    sortOrder,
+    featuredFilter,
+  ]);
+
+  const featuredArticles = useMemo(
+    () => filteredArticles.filter((article) => article.featured),
+    [filteredArticles],
+  );
 
   return (
     <section>
       <h1 className="text-2xl font-bold">{t.articles.title}</h1>
       <p className="mt-2 text-[var(--color-text-muted)]">{t.articles.subtitle}</p>
+      <TextLink to="/knowledge" className="mt-1 block text-sm">
+        {t.knowledge.entryPointHint}
+      </TextLink>
 
       <div className="relative mt-6 inline-block" ref={filterRef}>
         <Button
@@ -242,6 +265,34 @@ export default function Articles() {
               })}
             </div>
 
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="text-sm font-medium text-[var(--color-text)]">
+                {t.common.featuredFilterLabel}
+              </span>
+              {(
+                [
+                  ["all", t.common.filterAll],
+                  ["featured", t.common.filterFeatured],
+                  ["not-featured", t.common.filterNotFeatured],
+                ] as [FeaturedFilter, string][]
+              ).map(([value, label]) => (
+                <button
+                  key={value}
+                  type="button"
+                  aria-pressed={featuredFilter === value}
+                  onClick={() => setFeaturedFilter(value)}
+                  className={[
+                    "rounded-full border px-3 py-1 text-sm transition-colors",
+                    featuredFilter === value
+                      ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
+                      : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
+                  ].join(" ")}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
             <div className="mt-4 flex items-center gap-2">
               <span className="text-sm font-medium text-[var(--color-text)]">{t.common.sort}</span>
               <Button
@@ -273,13 +324,34 @@ export default function Articles() {
           />
         </div>
       ) : (
-        <ul className="mt-8 flex flex-col gap-3">
-          {filteredArticles.map((article) => (
-            <li key={article.slug}>
-              <ArticleRow article={article} t={t} />
-            </li>
-          ))}
-        </ul>
+        <>
+          {featuredArticles.length > 0 && (
+            <div className="mt-8">
+              <p className="font-semibold text-[var(--color-primary)]">
+                {t.articles.featuredSectionTitle}
+              </p>
+              <ul className="mt-3 flex flex-col gap-3">
+                {featuredArticles.map((article) => (
+                  <li key={article.slug}>
+                    <ArticleRow article={article} t={t} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div className="mt-8">
+            <p className="font-semibold text-[var(--color-primary)]">
+              {t.articles.allSectionTitle}
+            </p>
+            <ul className="mt-3 flex flex-col gap-3">
+              {filteredArticles.map((article) => (
+                <li key={article.slug}>
+                  <ArticleRow article={article} t={t} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
       )}
     </section>
   );
