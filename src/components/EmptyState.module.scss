@@ -1,5 +1,12 @@
 @use '../styles/tokens' as *;
 
+$eye-color: $color-bg;
+$eyeball-color: $color-primary;
+$horn-color: #e0a435;
+$monster-color: #396969;
+$mouth-color: $color-bg;
+$drool-color: #8ecae6;
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -8,6 +15,95 @@
   padding: $space-6;
   text-align: center;
   color: $color-text-muted;
+}
+
+.monster {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin-bottom: $space-2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: $radius-lg;
+  background-color: var(--monster-color, $monster-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: empty-monster-idle 3s ease-in-out infinite;
+}
+
+.monster::before,
+.monster::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  width: 25%;
+  height: 35%;
+  background-color: var(--horn-color, $horn-color);
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 32%,
+    rgba(0, 0, 0, 0.25) 32%,
+    rgba(0, 0, 0, 0.25) 38%,
+    transparent 38%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.25) 60%,
+    rgba(0, 0, 0, 0.25) 66%,
+    transparent 66%
+  );
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.monster::before {
+  left: 20%;
+  transform: translateX(-50%) rotate(-15deg);
+}
+
+.monster::after {
+  right: 20%;
+  transform: translateX(60%) rotate(15deg);
+}
+
+.eye {
+  width: 42%;
+  height: 42%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: $eye-color;
+  overflow: hidden;
+}
+
+.eyeball {
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background-color: $eyeball-color;
+  animation: empty-monster-blink 4s ease-in-out infinite;
+}
+
+.mouth {
+  position: relative;
+  width: 32%;
+  height: 14%;
+  margin-top: 14%;
+  border-radius: 30% 30% 50% 50%;
+  background-color: $mouth-color;
+}
+
+.drop {
+  position: absolute;
+  left: 78%;
+  bottom: -2px;
+  width: 8px;
+  height: 10px;
+  background-color: $drool-color;
+  border-radius: 0 50% 50% 50%;
+  transform: rotate(45deg);
+  opacity: 0;
+  animation: empty-monster-drip 2.4s ease-in infinite;
 }
 
 .title {
@@ -22,4 +118,43 @@
 
 .action {
   margin-top: $space-2;
+}
+
+@keyframes empty-monster-idle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes empty-monster-blink {
+  0%,
+  90%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes empty-monster-drip {
+  0% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(14px) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(18px) rotate(45deg);
+    opacity: 0;
+  }
 }

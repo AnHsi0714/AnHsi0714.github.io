@@ -1,7 +1,18 @@
 @use "../styles/tokens" as *;
 
+// 跟展牆名牌標題同一套「可點提示」語言：平常細虛線、hover 轉實線。
+// 虛線用淡色＋拉開 4px 位移：1px 虛線如果跟字同色、又貼著字，
+// 渲染起來跟實線幾乎分不出來，看起來會像沒套用。
 .link {
   color: $color-primary;
   font-weight: bold;
-  text-decoration: underline;
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1px;
+  text-decoration-color: $color-text-muted;
+  text-underline-offset: 4px;
+
+  &:hover {
+    text-decoration-style: solid;
+    text-decoration-color: currentColor;
+  }
 }

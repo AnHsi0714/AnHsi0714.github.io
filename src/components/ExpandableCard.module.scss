@@ -1,12 +1,6 @@
 @use "../styles/tokens" as *;
 
 .backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: $space-6;
   background-color: rgba(0, 0, 0, 0.6);
 }
@@ -20,10 +14,6 @@
   overflow-wrap: anywhere;
   background-color: $color-bg;
   border-radius: $radius-lg;
-
-  &:focus {
-    outline: none;
-  }
 }
 
 .closeButton {

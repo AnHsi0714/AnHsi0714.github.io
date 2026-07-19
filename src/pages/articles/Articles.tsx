@@ -16,9 +16,14 @@ type FeaturedFilter = "all" | "featured" | "not-featured";
 
 export function Stars({ rating, t }: { rating: number; t: Strings }) {
   return (
-    <span aria-label={t.articles.ratingLabel(rating)} className="text-amber-500">
+    <span
+      aria-label={t.articles.ratingLabel(rating)}
+      className="text-amber-500"
+    >
       {"★".repeat(rating)}
-      <span className="text-[var(--color-border)]">{"★".repeat(5 - rating)}</span>
+      <span className="text-[var(--color-border)]">
+        {"★".repeat(5 - rating)}
+      </span>
     </span>
   );
 }
@@ -30,7 +35,7 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
 
   return (
     <Link to={`/articles/${article.slug}`} className="block">
-      <Card className="flex items-start gap-4">
+      <Card className="flex items-start gap-4" hoverable>
         {article.coverUrl ? (
           <img
             src={article.coverUrl}
@@ -52,10 +57,14 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
         <div className="flex shrink-0 flex-col items-end gap-1">
           <div className="flex flex-wrap justify-end gap-1">
             {article.categories.map((category) => (
-              <Chip key={category} size="sm">{category}</Chip>
+              <Chip key={category} size="sm">
+                {category}
+              </Chip>
             ))}
           </div>
-          {article.rating !== undefined && <Stars rating={article.rating} t={t} />}
+          {article.rating !== undefined && (
+            <Stars rating={article.rating} t={t} />
+          )}
         </div>
       </Card>
     </Link>
@@ -157,7 +166,9 @@ export default function Articles() {
   return (
     <section>
       <h1 className="text-2xl font-bold">{t.articles.title}</h1>
-      <p className="mt-2 text-[var(--color-text-muted)]">{t.articles.subtitle}</p>
+      <p className="mt-2 text-[var(--color-text-muted)]">
+        {t.articles.subtitle}
+      </p>
       <TextLink to="/knowledge" className="mt-1 block text-sm">
         {t.knowledge.entryPointHint}
       </TextLink>
@@ -169,7 +180,8 @@ export default function Articles() {
           size="sm"
           onClick={() => setIsFilterOpen((prev) => !prev)}
         >
-          {t.common.filterSort}{activeFilterCount > 0 ? `（${activeFilterCount}）` : ""}
+          {t.common.filterSort}
+          {activeFilterCount > 0 ? `（${activeFilterCount}）` : ""}
         </Button>
 
         {isFilterOpen && (
@@ -294,7 +306,9 @@ export default function Articles() {
             </div>
 
             <div className="mt-4 flex items-center gap-2">
-              <span className="text-sm font-medium text-[var(--color-text)]">{t.common.sort}</span>
+              <span className="text-sm font-medium text-[var(--color-text)]">
+                {t.common.sort}
+              </span>
               <Button
                 type="button"
                 size="sm"

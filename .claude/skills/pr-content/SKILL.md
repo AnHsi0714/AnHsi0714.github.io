@@ -11,8 +11,9 @@ Draft pull request text for this repo (`AnHsi0714.github.io`) as plain text outp
 
 1. Find the PR's commit range: `git merge-base main HEAD`, then `git log --oneline <merge-base>..HEAD` and `git diff --stat <merge-base>..HEAD` to see everything the PR would contain.
 2. Read the actual diffs/commit messages for anything not already obvious from this conversation — don't guess at scope.
-3. Write the title and body per the format below.
-4. Output the draft as plain text in the reply. Do not run `gh pr create`. Do not compute or paste a compare/create URL (`.../compare/main...branch`) unless the user separately asks for one.
+3. Check the progress log covers this PR: open the current week's file (`docs/progress/<YYYY-MM>/<週一日期>.md`, one file per week, day sections inside) and compare against the PR's range. If work in this PR isn't recorded yet, add the missing day-section entries in the same style/depth as existing ones — record decision context and dead ends, not just outcomes. Edit the file only; do not commit (progress notes are committed on the feature branch itself, by the user). Mention in the reply that the log was updated.
+4. Write the title and body per the format below.
+5. Output the draft as plain text in the reply. Do not run `gh pr create`. Do not compute or paste a compare/create URL (`.../compare/main...branch`) unless the user separately asks for one.
 
 ## Format
 

@@ -142,14 +142,20 @@
   margin-top: 0.5rem !important;
 }
 
-.openProcessing {
+/* 改用 TextLink 元件後這裡只保留「舞台專用」的覆寫：暗色舞台上不能用會跟著
+   日夜模式切換的主色，字級／字重也比一般內文連結小而輕。用 a.openProcessing
+   墊高 specificity（跨 CSS module 的 class 順序沒保證），確保蓋過 TextLink
+   基底的顏色與粗體；虛線→實線的底線行為直接沿用 TextLink。 */
+a.openProcessing {
   display: inline-block;
   margin-top: 0.6rem;
   font-size: 0.78rem;
+  font-weight: 400;
   letter-spacing: 0.06em;
   color: #8f8f95;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  /* TextLink 基底的虛線是主題的 muted 色；淺色模式的 muted 灰在這個
+     永遠暗色的舞台上會暗到看不見，改跟著本身的灰字色走 */
+  text-decoration-color: currentColor;
   transition: color 0.2s ease;
 
   &:hover {

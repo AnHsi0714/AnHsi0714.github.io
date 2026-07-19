@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Alert from "../../components/Alert";
@@ -7,6 +6,7 @@ import Button from "../../components/Button";
 import Card from "../../components/Card";
 import EmptyState from "../../components/EmptyState";
 import Loading from "../../components/Loading";
+import Modal from "../../components/Modal";
 import PixelCanvas from "../../components/PixelCanvas";
 import VoxelPaintedCreature from "../../components/VoxelPaintedCreature";
 import { fetchFriendCreations } from "../../lib/friends";
@@ -101,21 +101,6 @@ function FriendCreationCarousel({
   useEffect(() => {
     setShowDetail(false);
   }, [activeIndex]);
-
-  // 遮罩開啟期間：Esc 可關閉、鎖住頁面捲動（同 ExpandableCard 的做法）
-  useEffect(() => {
-    if (!showDetail) return;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setShowDetail(false);
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [showDetail]);
 
   const activeCreation = creations[activeIndex] as
     | FriendCreationRow
@@ -330,14 +315,14 @@ function FriendCreationCarousel({
           顯示可拖曳旋轉的怪獸（敘述有寫才附在下面）。點任意處或 Esc 關閉。 */}
       {showDetail &&
         activeCreation &&
-        (activeCreation.kind === "3d" || activeCreation.intro) &&
-        createPortal(
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label={`${activeCreation.nickname} 的作品`}
-            onClick={() => setShowDetail(false)}
-            className={`${styles.introBackdrop} fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center bg-black/70 px-8 backdrop-blur-sm`}
+        (activeCreation.kind === "3d" || activeCreation.intro) && (
+          <Modal
+            open
+            onClose={() => setShowDetail(false)}
+            ariaLabel={`${activeCreation.nickname} 的作品`}
+            backdropClassName={`${styles.introBackdrop} cursor-pointer bg-black/70 px-8 backdrop-blur-sm`}
+            panelClassName="flex w-full flex-col items-center"
+            closeOnContentClick
           >
             {activeCreation.kind === "3d" && (
               // 拖曳旋轉放開時會在這個容器上觸發 click，得擋住冒泡，
@@ -368,8 +353,7 @@ function FriendCreationCarousel({
             <p className="mt-6 text-sm text-white/60">
               —— {activeCreation.nickname}
             </p>
-          </div>,
-          document.body,
+          </Modal>
         )}
     </div>
   );

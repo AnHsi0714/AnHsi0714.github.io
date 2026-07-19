@@ -1,0 +1,58 @@
+@use '../styles/tokens' as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 內容透過 createPortal 掛到 document.body，脫離了 App.tsx 根節點設的
+// text-[var(--color-text)]，這裡補上預設文字色，避免深色模式下沒特別指定
+// 顏色的文字（黑字疊深色背景）看不見。個別元素仍可用自己的顏色 class 覆蓋。
+.panel {
+  color: $color-text;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// placard 變體（作品介紹專用）：遮罩加深、面板做成「美術館說明牌」——
+// 啞光紙色、無圓角、深色投影，像暗色展間裡打了光的作品說明。
+// 配色跟著日夜模式走，兩套都對齊生成視覺展牆名牌（GalleryGrid.module.scss
+// 的 --room-placard-*）的質感；把色彩變數整組換掉，內容裡用 var(--color-*)
+// 的文字／分隔線／圖片底色會自動跟著可讀。
+// 用 .backdrop.placardBackdrop 複合選擇器墊高 specificity：呼叫端透過
+// backdropClassName／panelClassName 傳進來的 class 也可能設背景色，
+// 跨 module 檔案的 CSS 順序沒有保證，單一 class 可能被蓋掉。
+.backdrop.placardBackdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.panel.placardPanel {
+  --color-text: #26231c;
+  --color-text-muted: #6f6a5c;
+  --color-border: #d9d3c3;
+  --color-surface: #ebe6d8;
+  --color-surface-hover: #e2dccb;
+  background-color: #f5f1e6;
+  color: var(--color-text);
+  border: 1px solid rgba(38, 35, 28, 0.18);
+  border-radius: 0;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+// 深色模式：參考展牆名牌的暗色配色（--room-placard-bg #232327 那組）
+:global(.dark) .panel.placardPanel {
+  --color-text: #e4e2da;
+  --color-text-muted: #8f8f95;
+  --color-border: #37373d;
+  --color-surface: #2a2a2e;
+  --color-surface-hover: #333339;
+  background-color: #232327;
+  border-color: #37373d;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+}

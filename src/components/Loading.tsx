@@ -1,4 +1,5 @@
 import { useMemo, type CSSProperties } from "react";
+import ProgressBar from "./ProgressBar";
 import styles from "./Loading.module.scss";
 
 type LoadingSize = "sm" | "md" | "lg";
@@ -10,7 +11,7 @@ interface LoadingProps {
   complete?: boolean;
 }
 
-const MONSTER_COLOR_PAIRS: { monster: string; horn: string }[] = [
+export const MONSTER_COLOR_PAIRS: { monster: string; horn: string }[] = [
   { monster: "#33dbdb", horn: "#e0a435" },
   { monster: "#725fe0", horn: "#d2f53a" },
   { monster: "#4a6bad", horn: "#f4a261" },
@@ -18,7 +19,7 @@ const MONSTER_COLOR_PAIRS: { monster: string; horn: string }[] = [
   { monster: "#61f054", horn: "#a894f2" },
 ];
 
-function useMonsterColors() {
+export function useMonsterColors() {
   return useMemo(() => {
     const pair =
       MONSTER_COLOR_PAIRS[
@@ -58,11 +59,8 @@ export default function Loading({
         <div className={styles.mouth}></div>
       </div>
       {typeof progress === "number" && (
-        <div className={styles.progress}>
-          <div
-            className={styles.progressBar}
-            style={{ width: `${progress}%` }}
-          />
+        <div className={styles.progressWrapper}>
+          <ProgressBar progress={progress} variant="footprint" steps={6} />
         </div>
       )}
       {label && <span className={styles.label}>{label}</span>}
