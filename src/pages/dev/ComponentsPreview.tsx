@@ -8,7 +8,9 @@ import Input from "../../components/Input";
 import Alert from "../../components/Alert";
 import Loading from "../../components/Loading";
 import EmptyState from "../../components/EmptyState";
+import Modal from "../../components/Modal";
 import ProgressBar from "../../components/ProgressBar";
+import TextLink from "../../components/TextLink";
 
 function LoadingProgressDemo() {
   const [progress, setProgress] = useState(0);
@@ -42,6 +44,33 @@ function LoadingProgressDemo() {
       progress={progress}
       complete={complete}
     />
+  );
+}
+
+function ModalDemo() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>開啟 Modal</Button>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        ariaLabel="範例彈窗"
+        backdropClassName="bg-black/60 p-6"
+        panelClassName="w-full max-w-sm rounded-lg bg-[var(--color-bg)] p-6 shadow-lg"
+      >
+        <p className="font-semibold">範例彈窗標題</p>
+        <p className="mt-2 text-sm text-[var(--color-text-muted)]">
+          點背景或按 Esc 即可關閉。ExpandableCard 跟 Friends
+          的作品詳情遮罩都是共用這個元件做的，各自用 backdropClassName／
+          panelClassName 套自己的樣式。
+        </p>
+        <Button className="mt-4" onClick={() => setOpen(false)}>
+          關閉
+        </Button>
+      </Modal>
+    </>
   );
 }
 
@@ -245,6 +274,24 @@ export default function ComponentsPreview() {
         <div className="mt-2 flex max-w-sm flex-col gap-3">
           <ProgressBar progress={30} variant="footprint" />
           <ProgressBar progress={70} variant="footprint" />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-xl font-bold">TextLink</h2>
+        <div className="mt-3 flex flex-wrap items-center gap-4 text-sm">
+          <TextLink to="/playground">站內連結（react-router Link）</TextLink>
+          <TextLink href="https://github.com">外部連結（新分頁開啟）</TextLink>
+          <TextLink href="mailto:test@example.com">
+            mailto 連結（不開新分頁）
+          </TextLink>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-xl font-bold">Modal</h2>
+        <div className="mt-3">
+          <ModalDemo />
         </div>
       </section>
 

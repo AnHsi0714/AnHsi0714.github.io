@@ -1,12 +1,6 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  type KeyboardEvent,
-  type ReactNode,
-} from "react";
-import { createPortal } from "react-dom";
+import { useState, type KeyboardEvent, type ReactNode } from "react";
 import Card from "./Card";
+import Modal from "./Modal";
 import styles from "./ExpandableCard.module.scss";
 
 interface ExpandableCardProps {
@@ -28,28 +22,6 @@ export default function ExpandableCard({
   className,
 }: ExpandableCardProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const panelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    panelRef.current?.focus();
-
-    const handleKeyDown = (event: globalThis.KeyboardEvent) => {
-      if (event.key === "Escape") setIsOpen(false);
-    };
-    document.addEventListener("keydown", handleKeyDown);
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = previousOverflow;
-      previouslyFocused?.focus();
-    };
-  }, [isOpen]);
 
   const handleTriggerKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -72,23 +44,15 @@ export default function ExpandableCard({
         {children}
       </Card>
 
-      {isOpen &&
-        createPortal(
-          <div className={styles.backdrop} onClick={() => setIsOpen(false)}>
-            <div
-              ref={panelRef}
-              className={styles.panel}
-              role="dialog"
-              aria-modal="true"
-              tabIndex={-1}
-              onClick={(event) => event.stopPropagation()}
-            >
-              {image}
-              {expandedContent}
-            </div>
-          </div>,
-          document.body,
-        )}
+      <Modal
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        backdropClassName={styles.backdrop}
+        panelClassName={styles.panel}
+      >
+        {image}
+        {expandedContent}
+      </Modal>
     </>
   );
 }

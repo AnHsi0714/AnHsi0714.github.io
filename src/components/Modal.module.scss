@@ -1,0 +1,21 @@
+@use '../styles/tokens' as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 內容透過 createPortal 掛到 document.body，脫離了 App.tsx 根節點設的
+// text-[var(--color-text)]，這裡補上預設文字色，避免深色模式下沒特別指定
+// 顏色的文字（黑字疊深色背景）看不見。個別元素仍可用自己的顏色 class 覆蓋。
+.panel {
+  color: $color-text;
+
+  &:focus {
+    outline: none;
+  }
+}
