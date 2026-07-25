@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import Home from './pages/Home'
+import NameCardPage from './pages/NameCardPage'
 import GalleryGrid from './pages/gallery/GalleryGrid'
 import GalleryDetail from './pages/gallery/GalleryDetail'
 import About from './pages/about/About'
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
+      { path: 'namecard', element: <NameCardPage /> },
       { path: 'gallery', element: <GalleryGrid /> },
       { path: 'gallery/:slug', element: <GalleryDetail /> },
       { path: 'about', element: <About /> },

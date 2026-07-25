@@ -97,6 +97,14 @@ export interface KnowledgeNode {
   relatedNodes?: KnowledgeRelatedNode[];
 }
 
+export interface NameCardContent {
+  name: string;
+  nameEnglish: string;
+  job: string;
+  about: string;
+  caption: string;
+}
+
 export type ArticleType = "book" | "note";
 
 export interface Article {

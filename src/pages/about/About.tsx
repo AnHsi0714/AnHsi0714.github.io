@@ -42,13 +42,7 @@ const content = {
       "新北市樟樹實中 JICTS 資訊科",
       "國立臺北科技大學 NTUT 資工系 大三",
     ],
-    academicRecord: [
-      { sem: "一上", rank: 1, score: 92.5, bookroll: true },
-      { sem: "一下", rank: 2, score: 91.8, bookroll: true },
-      { sem: "二上", rank: 4, score: 87.2, bookroll: true },
-      { sem: "二下", rank: 1, score: 96.0, bookroll: false },
-      { sem: "三上", rank: 6, score: 94.0, bookroll: false },
-    ],
+    academicSummary: { rank: "Rank: 3/62", percentile: "4.8%", gpa: "3.99" },
     researchInterests: [
       {
         layer: "核心 Core",
@@ -130,13 +124,7 @@ const content = {
       "New Taipei Municipal Zhangshu Experimental High School, JICTS Information Technology Program",
       "National Taipei University of Technology (NTUT), Dept. of Computer Science & Information Engineering — Junior (3rd year)",
     ],
-    academicRecord: [
-      { sem: "Y1 S1", rank: 1, score: 92.5, bookroll: true },
-      { sem: "Y1 S2", rank: 2, score: 91.8, bookroll: true },
-      { sem: "Y2 S1", rank: 4, score: 87.2, bookroll: true },
-      { sem: "Y2 S2", rank: 1, score: 96.0, bookroll: false },
-      { sem: "Y3 S1", rank: 6, score: 94.0, bookroll: false },
-    ],
+    academicSummary: { rank: "3/62", percentile: "4.8%", gpa: "3.99" },
     researchInterests: [
       {
         layer: "Core",
@@ -304,22 +292,10 @@ export default function About() {
               </button>
             </div>
             {showGrades && (
-              <div className="mt-3 flex flex-col gap-1 pl-4">
-                {data.academicRecord.map(({ sem, rank, score, bookroll }) => (
-                  <div
-                    key={sem}
-                    className="flex items-center gap-4 text-sm text-[var(--color-text-muted)]"
-                  >
-                    <span className="w-10 shrink-0">{sem}</span>
-                    <span className="w-10 shrink-0 tabular-nums">#{rank}</span>
-                    <span className="w-12 shrink-0 tabular-nums">{score}</span>
-                    {bookroll && (
-                      <Chip variant="warn" size="sm">
-                        {t.about.bookroll}
-                      </Chip>
-                    )}
-                  </div>
-                ))}
+              <div className="mt-3 flex items-center gap-4 pl-4 text-sm tabular-nums text-[var(--color-text-muted)]">
+                <span>{data.academicSummary.rank}</span>
+                <span>{data.academicSummary.percentile}</span>
+                <span>GPA {data.academicSummary.gpa}</span>
               </div>
             )}
           </div>
@@ -356,7 +332,10 @@ export default function About() {
                 </div>
               ))}
             </div>
-            <TextLink to="/experience" className="mt-3 inline-block text-sm font-medium">
+            <TextLink
+              to="/experience"
+              className="mt-3 inline-block text-sm font-medium"
+            >
               {t.about.viewFullExperience}
             </TextLink>
           </div>

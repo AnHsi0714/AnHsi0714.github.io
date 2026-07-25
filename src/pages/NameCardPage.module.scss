@@ -1,0 +1,43 @@
+// 還原原稿 CodePen 整頁的樣子（深藍底 + 上下橘色邊框），跳出 App.tsx 裡
+// <main class="max-w-5xl px-4 py-8"> 的容器限制做滿版效果。寫法跟 gallery
+// 展場（見 GalleryGrid.module.scss 的 .room）同一套，是已經驗證過的作法：
+// margin-inline: calc(50% - 50vw) 跳出容器寬度限制；上下負 margin 抵銷 main
+// 自己的 py-8；高度鎖成「視窗高減掉 NavBar 淨空」，吃 NavBar.tsx 用
+// ResizeObserver 即時量出來的 --nav-h，而不是猜一個容易過時的常數，這樣
+// 「頁面頂到 NavBar 底部、底邊頂到視窗底部」才會永遠成立。
+.page {
+  position: relative;
+  box-sizing: border-box;
+  margin-inline: calc(50% - 50vw);
+  margin-top: -2rem;
+  margin-bottom: -2rem;
+  height: calc(100vh - var(--nav-h, 4rem));
+  height: calc(100dvh - var(--nav-h, 4rem));
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background-color: #134;
+  border-top: solid 20px #ec9929;
+  border-bottom: solid 20px #ec9929;
+}
+
+.back {
+  position: absolute;
+  top: 32px;
+  left: 24px;
+  font-size: 14px;
+  color: #ffecdb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.caption {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+}

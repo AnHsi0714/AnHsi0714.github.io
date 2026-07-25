@@ -43,6 +43,7 @@ export interface Strings {
     filterFeatured: string;
     filterNotFeatured: string;
     featuredFilterLabel: string;
+    backToHome: string;
   };
   home: {
     titleZh: string;
@@ -62,6 +63,8 @@ export interface Strings {
     quickLinkGalleryDesc: string;
     quickLinkProjects: string;
     quickLinkProjectsDesc: string;
+    quickLinkNameCard: string;
+    quickLinkNameCardDesc: string;
     email: string;
   };
   about: {
@@ -75,7 +78,6 @@ export interface Strings {
     interests: string;
     downloadResume: string;
     resumePending: string;
-    bookroll: string;
     professionalDirection: string;
   };
   experience: {
@@ -281,6 +283,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       filterFeatured: "精選",
       filterNotFeatured: "非精選",
       featuredFilterLabel: "精選狀態",
+      backToHome: "← 回首頁",
     },
     home: {
       titleZh: "鄭安琋",
@@ -300,6 +303,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       quickLinkGalleryDesc: "p5.js 互動式創作",
       quickLinkProjects: "全部專案 Projects",
       quickLinkProjectsDesc: "完整專案列表",
+      quickLinkNameCard: "名片 Name Card",
+      quickLinkNameCardDesc: "動畫網頁課程作業：互動名片",
       email: "zhenganxi8@gmail.com",
     },
     about: {
@@ -313,7 +318,6 @@ export const strings: Record<"zh" | "en", Strings> = {
       interests: "休閒興趣 Interests",
       downloadResume: "下載履歷 Download Resume",
       resumePending: "（履歷檔案連結待補上）",
-      bookroll: "書卷",
       professionalDirection: "專業方向",
     },
     experience: {
@@ -531,6 +535,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       filterFeatured: "Featured",
       filterNotFeatured: "Not featured",
       featuredFilterLabel: "Featured status",
+      backToHome: "← Back to Home",
     },
     home: {
       titleZh: "Cheng An Hsi",
@@ -551,6 +556,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       quickLinkGalleryDesc: "Interactive p5.js creations",
       quickLinkProjects: "All Projects",
       quickLinkProjectsDesc: "Full project list",
+      quickLinkNameCard: "Name Card",
+      quickLinkNameCardDesc: "Web animation coursework: interactive name card",
       email: "zhenganxi8@gmail.com",
     },
     about: {
@@ -564,7 +571,6 @@ export const strings: Record<"zh" | "en", Strings> = {
       interests: "Interests",
       downloadResume: "Download Resume",
       resumePending: "(Resume link coming soon)",
-      bookroll: "Honor Roll",
       professionalDirection: "Focus Areas",
     },
     experience: {
