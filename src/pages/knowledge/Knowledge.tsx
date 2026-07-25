@@ -4,6 +4,7 @@ import Card from "../../components/Card";
 import Chip from "../../components/Chip";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
+import Reveal from "../../components/Reveal";
 import { usePublishedKnowledgeNodes } from "../../lib/knowledge";
 import { useTranslation } from "../../i18n/useTranslation";
 
@@ -52,8 +53,10 @@ export default function Knowledge() {
 
   return (
     <section>
-      <h1 className="text-2xl font-bold">{t.knowledge.title}</h1>
-      <p className="mt-2 text-[var(--color-text-muted)]">{t.knowledge.subtitle}</p>
+      <Reveal>
+        <h1 className="text-2xl font-bold">{t.knowledge.title}</h1>
+        <p className="mt-2 text-[var(--color-text-muted)]">{t.knowledge.subtitle}</p>
+      </Reveal>
 
       <div className="mt-6 flex flex-col gap-4">
         <Input
@@ -106,18 +109,20 @@ export default function Knowledge() {
         </div>
       ) : (
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {filteredNodes.map((node) => (
-            <Link key={node.slug} to={`/knowledge/${node.slug}`} className="block">
-              <Card hoverable>
-                <div className="flex items-center justify-between gap-2">
-                  <p className="font-semibold">{node.term}</p>
-                  <Chip size="sm">{node.category}</Chip>
-                </div>
-                <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
-                  {node.definition}
-                </p>
-              </Card>
-            </Link>
+          {filteredNodes.map((node, index) => (
+            <Reveal key={node.slug} delay={Math.min(index, 5) * 60} className="h-full">
+              <Link to={`/knowledge/${node.slug}`} className="block h-full">
+                <Card hoverable className="h-full">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="font-semibold">{node.term}</p>
+                    <Chip size="sm">{node.category}</Chip>
+                  </div>
+                  <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
+                    {node.definition}
+                  </p>
+                </Card>
+              </Link>
+            </Reveal>
           ))}
         </div>
       )}

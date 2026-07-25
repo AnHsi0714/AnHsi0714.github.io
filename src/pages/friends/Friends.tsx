@@ -8,6 +8,7 @@ import EmptyState from "../../components/EmptyState";
 import Loading from "../../components/Loading";
 import Modal from "../../components/Modal";
 import PixelCanvas from "../../components/PixelCanvas";
+import Reveal from "../../components/Reveal";
 import VoxelPaintedCreature from "../../components/VoxelPaintedCreature";
 import { fetchFriendCreations } from "../../lib/friends";
 import { isSupabaseConfigured } from "../../lib/supabaseClient";
@@ -369,16 +370,18 @@ export default function Friends() {
 
   return (
     <section>
-      <h1 className="text-2xl font-bold">{t.friends.title}</h1>
-      <p className="mt-2 text-[var(--color-text-muted)]">
-        {t.friends.subtitle}
-      </p>
+      <Reveal>
+        <h1 className="text-2xl font-bold">{t.friends.title}</h1>
+        <p className="mt-2 text-[var(--color-text-muted)]">
+          {t.friends.subtitle}
+        </p>
 
-      <div className="mt-4">
-        <Link to="/friends/create">
-          <Button variant="secondary">{t.friends.iHaveCode}</Button>
-        </Link>
-      </div>
+        <div className="mt-4">
+          <Link to="/friends/create">
+            <Button variant="secondary">{t.friends.iHaveCode}</Button>
+          </Link>
+        </div>
+      </Reveal>
 
       {!isSupabaseConfigured ? (
         <Alert variant="info" className="mt-8">

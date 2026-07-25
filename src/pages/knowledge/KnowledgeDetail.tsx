@@ -33,7 +33,7 @@ export default function KnowledgeDetail() {
           title={t.knowledge.notFoundTitle}
           description={t.knowledge.notFoundDesc}
         />
-        <TextLink to="/knowledge" className="mt-4 inline-block text-sm font-medium">
+        <TextLink to="/knowledge" restoreScroll className="mt-4 inline-block text-sm font-medium">
           {t.knowledge.backToList}
         </TextLink>
       </section>
@@ -72,7 +72,7 @@ export default function KnowledgeDetail() {
 
   return (
     <section>
-      <TextLink to="/knowledge" className="text-sm font-medium">
+      <TextLink to="/knowledge" restoreScroll className="text-sm font-medium">
         {t.knowledge.backToList}
       </TextLink>
 
