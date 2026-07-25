@@ -22,7 +22,7 @@ export default function ArticleDetail() {
           title={t.articles.notFoundTitle}
           description={t.articles.notFoundDesc}
         />
-        <TextLink to="/articles" className="mt-4 inline-block text-sm font-medium">
+        <TextLink to="/articles" restoreScroll className="mt-4 inline-block text-sm font-medium">
           {t.articles.backToList}
         </TextLink>
       </section>
@@ -35,7 +35,7 @@ export default function ArticleDetail() {
 
   return (
     <section>
-      <TextLink to="/articles" className="text-sm font-medium">
+      <TextLink to="/articles" restoreScroll className="text-sm font-medium">
         {t.articles.backToList}
       </TextLink>
 
