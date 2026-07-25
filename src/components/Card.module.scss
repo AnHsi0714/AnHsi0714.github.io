@@ -27,7 +27,9 @@
   cursor: pointer;
   transition: transform $transition-fast;
 
-  &:hover {
+  // .centered：手機（無 hover）捲動到畫面中央時由 JS 加上，效果同 :hover
+  &:hover,
+  &.centered {
     transform: translateY(-2px);
 
     &::before {
