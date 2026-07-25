@@ -8,6 +8,7 @@ import Card from "../components/Card";
 import Chip from "../components/Chip";
 import Button from "../components/Button";
 import TextLink from "../components/TextLink";
+import Reveal from "../components/Reveal";
 import type { Project } from "../types/content";
 import { useLocalized } from "../lib/localized";
 import { useTranslation } from "../i18n/useTranslation";
@@ -73,7 +74,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-16">
-      <section className="pt-4 sm:pt-8 lg:pt-12">
+      <Reveal as="section" className="pt-4 sm:pt-8 lg:pt-12">
         <p className="text-4xl font-light leading-tight text-[var(--color-text)] sm:text-5xl md:text-6xl lg:text-7xl">
           {t.home.titleZh} {t.home.titleEn}
         </p>
@@ -103,35 +104,37 @@ export default function Home() {
             </Button>
           </Link>
         </div>
-      </section>
+      </Reveal>
 
       <section>
         <p className="font-semibold text-[var(--color-primary)]">
           {t.home.featuredProjects}
         </p>
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {featuredProjects.map((project) => (
-            <Card key={project.slug} hoverable>
-              <Link to={`/projects/${project.slug}`} className="block">
-                <p className="font-semibold">{project.name}</p>
-                {project.advisor && (
-                  <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">
-                    {t.home.advisor}
-                    {project.advisor}
+          {featuredProjects.map((project, index) => (
+            <Reveal key={project.slug} delay={index * 80} className="h-full">
+              <Card hoverable className="h-full">
+                <Link to={`/projects/${project.slug}`} className="block">
+                  <p className="font-semibold">{project.name}</p>
+                  {project.advisor && (
+                    <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">
+                      {t.home.advisor}
+                      {project.advisor}
+                    </p>
+                  )}
+                  <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-3">
+                    {project.desc}
                   </p>
-                )}
-                <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-3">
-                  {project.desc}
-                </p>
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  {project.tags.map((tag) => (
-                    <Chip key={tag} size="sm">
-                      {tag}
-                    </Chip>
-                  ))}
-                </div>
-              </Link>
-            </Card>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {project.tags.map((tag) => (
+                      <Chip key={tag} size="sm">
+                        {tag}
+                      </Chip>
+                    ))}
+                  </div>
+                </Link>
+              </Card>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -141,20 +144,25 @@ export default function Home() {
           {t.home.explore}
         </p>
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {quickLinks.map((link) => (
-            <Link key={link.to} to={link.to}>
-              <Card hoverable>
-                <p className="font-semibold">{link.label}</p>
-                <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-                  {link.desc}
-                </p>
-              </Card>
-            </Link>
+          {quickLinks.map((link, index) => (
+            <Reveal key={link.to} delay={index * 80} className="h-full">
+              <Link to={link.to} className="block h-full">
+                <Card hoverable className="h-full">
+                  <p className="font-semibold">{link.label}</p>
+                  <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+                    {link.desc}
+                  </p>
+                </Card>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="flex flex-wrap justify-center gap-x-8 gap-y-3 border-t border-[var(--color-border)] pt-8 text-sm">
+      <Reveal
+        as="section"
+        className="flex flex-wrap justify-center gap-x-8 gap-y-3 border-t border-[var(--color-border)] pt-8 text-sm"
+      >
         {socialLinks.map(({ href, icon, label }) => (
           <a
             key={href}
@@ -167,7 +175,7 @@ export default function Home() {
             {label}
           </a>
         ))}
-      </section>
+      </Reveal>
     </div>
   );
 }

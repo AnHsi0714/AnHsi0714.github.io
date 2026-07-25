@@ -8,6 +8,7 @@ import Chip from "../../components/Chip";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
+import Reveal from "../../components/Reveal";
 import TextLink from "../../components/TextLink";
 import type { Project, ProjectStatus, ProjectTag } from "../../types/content";
 import { useLocalized } from "../../lib/localized";
@@ -27,7 +28,7 @@ export const statusBadgeVariant: Record<ProjectStatus, "todo" | "doing" | "done"
 
 function ProjectCard({ project, t }: { project: Project; t: Strings }) {
   return (
-    <Card hoverable>
+    <Card hoverable className="h-full">
       <Link to={`/projects/${project.slug}`} className="block">
         {project.screenshotUrl ? (
           <img
@@ -178,13 +179,15 @@ export default function Projects() {
 
   return (
     <section>
-      <h1 className="text-2xl font-bold">{t.projects.title}</h1>
-      <p className="mt-2 text-[var(--color-text-muted)]">
-        {t.projects.subtitle}
-      </p>
-      <TextLink to="/knowledge" className="mt-1 block text-sm">
-        {t.knowledge.entryPointHint}
-      </TextLink>
+      <Reveal>
+        <h1 className="text-2xl font-bold">{t.projects.title}</h1>
+        <p className="mt-2 text-[var(--color-text-muted)]">
+          {t.projects.subtitle}
+        </p>
+        <TextLink to="/knowledge" className="mt-1 block text-sm">
+          {t.knowledge.entryPointHint}
+        </TextLink>
+      </Reveal>
 
       <div className="relative mt-6 inline-block" ref={filterRef}>
         <Button
@@ -332,8 +335,10 @@ export default function Projects() {
                 {t.projects.featuredSectionTitle}
               </p>
               <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {featuredProjects.map((project) => (
-                  <ProjectCard key={project.slug} project={project} t={t} />
+                {featuredProjects.map((project, index) => (
+                  <Reveal key={project.slug} delay={Math.min(index, 5) * 60} className="h-full">
+                    <ProjectCard project={project} t={t} />
+                  </Reveal>
                 ))}
               </div>
             </div>
@@ -343,8 +348,10 @@ export default function Projects() {
               {t.projects.allSectionTitle}
             </p>
             <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {filteredProjects.map((project) => (
-                <ProjectCard key={project.slug} project={project} t={t} />
+              {filteredProjects.map((project, index) => (
+                <Reveal key={project.slug} delay={Math.min(index, 5) * 60} className="h-full">
+                  <ProjectCard project={project} t={t} />
+                </Reveal>
               ))}
             </div>
           </div>

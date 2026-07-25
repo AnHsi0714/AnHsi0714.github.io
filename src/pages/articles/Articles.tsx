@@ -5,6 +5,7 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
 import Chip from "../../components/Chip";
+import Reveal from "../../components/Reveal";
 import TextLink from "../../components/TextLink";
 import type { Article } from "../../types/content";
 import { useArticles } from "../../lib/articles";
@@ -165,13 +166,15 @@ export default function Articles() {
 
   return (
     <section>
-      <h1 className="text-2xl font-bold">{t.articles.title}</h1>
-      <p className="mt-2 text-[var(--color-text-muted)]">
-        {t.articles.subtitle}
-      </p>
-      <TextLink to="/knowledge" className="mt-1 block text-sm">
-        {t.knowledge.entryPointHint}
-      </TextLink>
+      <Reveal>
+        <h1 className="text-2xl font-bold">{t.articles.title}</h1>
+        <p className="mt-2 text-[var(--color-text-muted)]">
+          {t.articles.subtitle}
+        </p>
+        <TextLink to="/knowledge" className="mt-1 block text-sm">
+          {t.knowledge.entryPointHint}
+        </TextLink>
+      </Reveal>
 
       <div className="relative mt-6 inline-block" ref={filterRef}>
         <Button
@@ -345,9 +348,11 @@ export default function Articles() {
                 {t.articles.featuredSectionTitle}
               </p>
               <ul className="mt-3 flex flex-col gap-3">
-                {featuredArticles.map((article) => (
+                {featuredArticles.map((article, index) => (
                   <li key={article.slug}>
-                    <ArticleRow article={article} t={t} />
+                    <Reveal delay={Math.min(index, 5) * 60}>
+                      <ArticleRow article={article} t={t} />
+                    </Reveal>
                   </li>
                 ))}
               </ul>
@@ -358,9 +363,11 @@ export default function Articles() {
               {t.articles.allSectionTitle}
             </p>
             <ul className="mt-3 flex flex-col gap-3">
-              {filteredArticles.map((article) => (
+              {filteredArticles.map((article, index) => (
                 <li key={article.slug}>
-                  <ArticleRow article={article} t={t} />
+                  <Reveal delay={Math.min(index, 5) * 60}>
+                    <ArticleRow article={article} t={t} />
+                  </Reveal>
                 </li>
               ))}
             </ul>
