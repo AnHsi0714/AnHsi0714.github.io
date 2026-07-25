@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../components/Button";
 import Chip from "../../components/Chip";
+import Reveal from "../../components/Reveal";
 import TextLink from "../../components/TextLink";
 import { useTranslation } from "../../i18n/useTranslation";
 
@@ -220,155 +221,171 @@ export default function About() {
       </div>
 
       <div className="divide-y divide-[var(--color-border)] lg:col-start-4">
-        <div id="research-interests" className="pb-6">
-          <p className="font-semibold text-[var(--color-primary)]">
-            {t.about.researchInterests}
-          </p>
-          <div className="mt-3 flex flex-col gap-2">
-            {data.researchInterests.map(({ layer, items }) => (
-              <div key={layer} className="flex items-baseline gap-3 text-sm">
-                <span className="w-32 shrink-0 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)] opacity-80">
-                  {layer}
-                </span>
-                <span className="text-[var(--color-text-muted)]">
-                  {items.join(" · ")}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="py-6">
-          <p className="font-semibold text-[var(--color-primary)]">
-            {t.about.researchStatement}
-          </p>
-          <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
-            {data.researchStatement}
-          </p>
-        </div>
-
-        <div className="py-6">
-          <p className="font-semibold text-[var(--color-primary)]">
-            {t.about.skills}
-          </p>
-          <div className="mt-3 flex flex-col gap-4">
-            {data.skillGroups.map((group) => (
-              <div key={group.label}>
-                <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)]">
-                  {group.label === "專業方向"
-                    ? t.about.professionalDirection
-                    : group.label}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {group.items.map((item) =>
-                    group.label === "專業方向" ? (
-                      <Chip key={item}>{item}</Chip>
-                    ) : (
-                      <Chip key={item} tone="filled">
-                        {item}
-                      </Chip>
-                    ),
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="py-6">
-          <p className="font-semibold text-[var(--color-primary)]">
-            {t.about.education}
-          </p>
-          <div className="mt-2 flex flex-col gap-1">
-            <p className="text-sm text-[var(--color-text-muted)]">
-              {data.education[0]}
+        <Reveal>
+          <div id="research-interests" className="pb-6">
+            <p className="font-semibold text-[var(--color-primary)]">
+              {t.about.researchInterests}
             </p>
-            <button
-              type="button"
-              onClick={() => setShowGrades((g) => !g)}
-              className="flex w-fit items-center gap-1 text-left text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
-            >
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                className={`h-3 w-3 transition-transform duration-150 ${showGrades ? "rotate-90" : ""}`}
-              />
-              <span>{data.education[1]}</span>
-            </button>
-          </div>
-          {showGrades && (
-            <div className="mt-3 flex flex-col gap-1 pl-4">
-              {data.academicRecord.map(({ sem, rank, score, bookroll }) => (
-                <div
-                  key={sem}
-                  className="flex items-center gap-4 text-sm text-[var(--color-text-muted)]"
-                >
-                  <span className="w-10 shrink-0">{sem}</span>
-                  <span className="w-10 shrink-0 tabular-nums">#{rank}</span>
-                  <span className="w-12 shrink-0 tabular-nums">{score}</span>
-                  {bookroll && (
-                    <Chip variant="warn" size="sm">
-                      {t.about.bookroll}
-                    </Chip>
-                  )}
+            <div className="mt-3 flex flex-col gap-2">
+              {data.researchInterests.map(({ layer, items }) => (
+                <div key={layer} className="flex items-baseline gap-3 text-sm">
+                  <span className="w-32 shrink-0 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)] opacity-80">
+                    {layer}
+                  </span>
+                  <span className="text-[var(--color-text-muted)]">
+                    {items.join(" · ")}
+                  </span>
                 </div>
               ))}
             </div>
-          )}
-        </div>
-
-        <div className="py-6">
-          <p className="font-semibold text-[var(--color-primary)]">
-            {t.about.academicAchievements}
-          </p>
-          <div className="mt-2 flex flex-col gap-3 text-sm text-[var(--color-text-muted)]">
-            {data.achievements.map((item) => (
-              <div key={item.title}>
-                <p className="text-[var(--color-text)]">{item.title}</p>
-                <p className="mt-0.5">{item.desc}</p>
-              </div>
-            ))}
           </div>
-        </div>
+        </Reveal>
 
-        <div className="py-6">
-          <p className="font-semibold text-[var(--color-primary)]">
-            {t.about.experience}
-          </p>
-          <div className="mt-2 flex flex-col gap-1.5 text-sm text-[var(--color-text-muted)]">
-            {data.experienceHighlights.map((item) => (
-              <div key={item.text} className="flex items-baseline gap-3">
-                <span className="w-14 shrink-0 text-xs text-[var(--color-text-muted)] opacity-80">
-                  {item.year}
+        <Reveal>
+          <div className="py-6">
+            <p className="font-semibold text-[var(--color-primary)]">
+              {t.about.researchStatement}
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
+              {data.researchStatement}
+            </p>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="py-6">
+            <p className="font-semibold text-[var(--color-primary)]">
+              {t.about.skills}
+            </p>
+            <div className="mt-3 flex flex-col gap-4">
+              {data.skillGroups.map((group) => (
+                <div key={group.label}>
+                  <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)]">
+                    {group.label === "專業方向"
+                      ? t.about.professionalDirection
+                      : group.label}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {group.items.map((item) =>
+                      group.label === "專業方向" ? (
+                        <Chip key={item}>{item}</Chip>
+                      ) : (
+                        <Chip key={item} tone="filled">
+                          {item}
+                        </Chip>
+                      ),
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="py-6">
+            <p className="font-semibold text-[var(--color-primary)]">
+              {t.about.education}
+            </p>
+            <div className="mt-2 flex flex-col gap-1">
+              <p className="text-sm text-[var(--color-text-muted)]">
+                {data.education[0]}
+              </p>
+              <button
+                type="button"
+                onClick={() => setShowGrades((g) => !g)}
+                className="flex w-fit items-center gap-1 text-left text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
+              >
+                <FontAwesomeIcon
+                  icon={faChevronRight}
+                  className={`h-3 w-3 transition-transform duration-150 ${showGrades ? "rotate-90" : ""}`}
+                />
+                <span>{data.education[1]}</span>
+              </button>
+            </div>
+            {showGrades && (
+              <div className="mt-3 flex flex-col gap-1 pl-4">
+                {data.academicRecord.map(({ sem, rank, score, bookroll }) => (
+                  <div
+                    key={sem}
+                    className="flex items-center gap-4 text-sm text-[var(--color-text-muted)]"
+                  >
+                    <span className="w-10 shrink-0">{sem}</span>
+                    <span className="w-10 shrink-0 tabular-nums">#{rank}</span>
+                    <span className="w-12 shrink-0 tabular-nums">{score}</span>
+                    {bookroll && (
+                      <Chip variant="warn" size="sm">
+                        {t.about.bookroll}
+                      </Chip>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="py-6">
+            <p className="font-semibold text-[var(--color-primary)]">
+              {t.about.academicAchievements}
+            </p>
+            <div className="mt-2 flex flex-col gap-3 text-sm text-[var(--color-text-muted)]">
+              {data.achievements.map((item) => (
+                <div key={item.title}>
+                  <p className="text-[var(--color-text)]">{item.title}</p>
+                  <p className="mt-0.5">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="py-6">
+            <p className="font-semibold text-[var(--color-primary)]">
+              {t.about.experience}
+            </p>
+            <div className="mt-2 flex flex-col gap-1.5 text-sm text-[var(--color-text-muted)]">
+              {data.experienceHighlights.map((item) => (
+                <div key={item.text} className="flex items-baseline gap-3">
+                  <span className="w-14 shrink-0 text-xs text-[var(--color-text-muted)] opacity-80">
+                    {item.year}
+                  </span>
+                  <span>{item.text}</span>
+                </div>
+              ))}
+            </div>
+            <TextLink to="/experience" className="mt-3 inline-block text-sm font-medium">
+              {t.about.viewFullExperience}
+            </TextLink>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="py-6">
+            <p className="font-semibold text-[var(--color-primary)]">
+              {t.about.interests}
+            </p>
+            <div className="mt-3 grid grid-cols-4 gap-x-2 gap-y-2 text-sm text-[var(--color-text-muted)]">
+              {data.interests.map(({ icon, label }) => (
+                <span key={label} className="inline-flex items-center gap-1.5">
+                  <FontAwesomeIcon icon={icon} aria-hidden="true" />
+                  {label}
                 </span>
-                <span>{item.text}</span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-          <TextLink to="/experience" className="mt-3 inline-block text-sm font-medium">
-            {t.about.viewFullExperience}
-          </TextLink>
-        </div>
+        </Reveal>
 
-        <div className="py-6">
-          <p className="font-semibold text-[var(--color-primary)]">
-            {t.about.interests}
-          </p>
-          <div className="mt-3 grid grid-cols-4 gap-x-2 gap-y-2 text-sm text-[var(--color-text-muted)]">
-            {data.interests.map(({ icon, label }) => (
-              <span key={label} className="inline-flex items-center gap-1.5">
-                <FontAwesomeIcon icon={icon} aria-hidden="true" />
-                {label}
-              </span>
-            ))}
+        <Reveal>
+          <div id="resume" className="flex flex-col items-start gap-2 pt-6">
+            <Button type="button">{t.about.downloadResume}</Button>
+            <span className="text-xs text-[var(--color-text-muted)]">
+              {t.about.resumePending}
+            </span>
           </div>
-        </div>
-
-        <div id="resume" className="flex flex-col items-start gap-2 pt-6">
-          <Button type="button">{t.about.downloadResume}</Button>
-          <span className="text-xs text-[var(--color-text-muted)]">
-            {t.about.resumePending}
-          </span>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

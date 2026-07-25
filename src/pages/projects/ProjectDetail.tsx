@@ -28,7 +28,7 @@ export default function ProjectDetail() {
           title={t.projects.notFoundTitle}
           description={t.projects.notFoundDesc}
         />
-        <TextLink to="/projects" className="mt-4 inline-block text-sm font-medium">
+        <TextLink to="/projects" restoreScroll className="mt-4 inline-block text-sm font-medium">
           {t.projects.backToList}
         </TextLink>
       </section>
@@ -39,7 +39,7 @@ export default function ProjectDetail() {
 
   return (
     <section>
-      <TextLink to="/projects" className="text-sm font-medium">
+      <TextLink to="/projects" restoreScroll className="text-sm font-medium">
         {t.projects.backToList}
       </TextLink>
 

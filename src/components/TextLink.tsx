@@ -7,6 +7,9 @@ interface InternalTextLinkProps {
   href?: undefined;
   className?: string;
   children: ReactNode;
+  /** 語意上等同「上一頁」的連結（如「回列表」）：若離開該目的地時有記錄過捲動位置就還原，
+   * 而不是跳回頁首。技術上仍是一般的 PUSH 導覽，不影響瀏覽紀錄。 */
+  restoreScroll?: boolean;
 }
 
 interface ExternalTextLinkProps
@@ -24,7 +27,11 @@ export default function TextLink(props: TextLinkProps) {
 
   if (props.to !== undefined) {
     return (
-      <Link to={props.to} className={classNames}>
+      <Link
+        to={props.to}
+        state={props.restoreScroll ? { restoreScroll: true } : undefined}
+        className={classNames}
+      >
         {props.children}
       </Link>
     );
