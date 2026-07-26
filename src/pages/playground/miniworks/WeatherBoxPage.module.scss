@@ -1,13 +1,11 @@
-// 還原原稿 CodePen 整頁的樣子（深色底置中卡片），寫法跟 NameCardPage 一樣：
-// margin-inline 跳出容器寬度限制，上下負 margin 抵銷 main 自己的 py-8。
+@use '../../../styles/mixins' as *;
+
+// 還原原稿 CodePen 整頁的樣子（深色底置中卡片），寫法跟 NameCardPage 一樣，
+// 見 mixins.scss 的 full-bleed-under-nav。
 .page {
   position: relative;
   box-sizing: border-box;
-  margin-inline: calc(50% - 50vw);
-  margin-top: -2rem;
-  margin-bottom: -2rem;
-  height: calc(100vh - var(--nav-h, 4rem));
-  height: calc(100dvh - var(--nav-h, 4rem));
+  @include full-bleed-under-nav();
   padding: 20px;
   display: flex;
   flex-direction: column;
