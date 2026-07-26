@@ -1,5 +1,5 @@
 ---
-type: note
+type: journal
 title: Sleeping More or Less, What's Best? The Key Factors Behind Good Sleep
 date: 2024-04-09
 categories: [Science, Health, Sleep]

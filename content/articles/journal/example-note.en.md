@@ -1,5 +1,5 @@
 ---
-type: note
+type: journal
 title: (Example Note)
 date: 2026-06-25
 categories: [Miscellaneous]

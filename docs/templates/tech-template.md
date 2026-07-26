@@ -1,5 +1,5 @@
 ---
-type: note
+type: tech
 title: 技術主題／踩坑標題
 date: YYYY-MM-DD
 categories: [技術, ...]

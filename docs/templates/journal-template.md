@@ -1,5 +1,5 @@
 ---
-type: note
+type: journal
 title: 雜記標題
 date: YYYY-MM-DD
 categories: [雜記, ...]

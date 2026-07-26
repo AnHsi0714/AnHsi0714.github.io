@@ -1,5 +1,5 @@
 ---
-type: note
+type: paper
 title: YYYY 文獻筆記《論文標題》——一句話重點提問
 date: YYYY-MM-DD
 categories: [論文, 心得, ...]

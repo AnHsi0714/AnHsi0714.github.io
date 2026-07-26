@@ -105,7 +105,7 @@ export interface NameCardContent {
   caption: string;
 }
 
-export type ArticleType = "book" | "note";
+export type ArticleType = "book" | "paper" | "tech" | "journal";
 
 export interface Article {
   slug: string;

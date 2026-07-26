@@ -2,7 +2,7 @@ import type { Article, ArticleType } from "../types/content";
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { deriveExcerpt, parseFrontmatter, parseListField } from "./markdown";
 
-const modules = import.meta.glob("../../content/articles/*.md", {
+const modules = import.meta.glob("../../content/articles/**/*.md", {
   eager: true,
   query: "?raw",
   import: "default",
@@ -16,7 +16,7 @@ function parseArticle(slug: string, raw: string): Article {
   const { data, body } = parseFrontmatter(raw);
   return {
     slug,
-    type: (data.type as ArticleType) || "note",
+    type: (data.type as ArticleType) || "journal",
     title: data.title ?? slug,
     date: data.date ?? "",
     categories: data.categories ? parseListField(data.categories) : [],

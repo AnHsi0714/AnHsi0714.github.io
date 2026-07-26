@@ -1,7 +1,7 @@
 import type { ComponentType } from "react";
 import type { Strings } from "../../i18n/strings";
-import NameCardPage from "../NameCardPage";
-import BrandGuidePage from "../BrandGuidePage";
+import NameCardPage from "./miniworks/NameCardPage";
+import BrandGuidePage from "./miniworks/BrandGuidePage";
 
 export interface MiniWorkDefinition {
   slug: string;

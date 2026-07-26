@@ -2,7 +2,10 @@ import experienceDataZh from "../../../content/experience.json";
 import experienceDataEn from "../../../content/experience.en.json";
 import Chip from "../../components/Chip";
 import Reveal from "../../components/Reveal";
-import type { ExperienceEntry, SecondaryExperienceEntry } from "../../types/content";
+import type {
+  ExperienceEntry,
+  SecondaryExperienceEntry,
+} from "../../types/content";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
 
@@ -10,7 +13,8 @@ export default function Experience() {
   const { t } = useTranslation();
   const experienceData = useLocalized(experienceDataZh, experienceDataEn);
   const entries = experienceData.entries as ExperienceEntry[];
-  const secondaryEntries = experienceData.secondaryEntries as SecondaryExperienceEntry[];
+  const secondaryEntries =
+    experienceData.secondaryEntries as SecondaryExperienceEntry[];
 
   return (
     <section>
