@@ -16,6 +16,7 @@ import Dreams from './pages/dreams/Dreams'
 import Friends from './pages/friends/Friends'
 import Creator from './pages/friends/Creator'
 import Playground from './pages/playground/Playground'
+import MiniWorks from './pages/playground/MiniWorks'
 import ComponentsPreview from './pages/dev/ComponentsPreview'
 import CreatureDemo from './pages/dev/CreatureDemo'
 import CreatureBuilder from './pages/dev/CreatureBuilder'
@@ -26,7 +27,6 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'namecard', element: <NameCardPage /> },
       { path: 'gallery', element: <GalleryGrid /> },
       { path: 'gallery/:slug', element: <GalleryDetail /> },
       { path: 'about', element: <About /> },
@@ -38,6 +38,8 @@ export const router = createBrowserRouter([
       { path: 'knowledge/:slug', element: <KnowledgeDetail /> },
       { path: 'experience', element: <Experience /> },
       { path: 'playground', element: <Playground /> },
+      { path: 'playground/mini-works', element: <MiniWorks /> },
+      { path: 'playground/mini-works/namecard', element: <NameCardPage /> },
       { path: 'dreams', element: <Dreams /> },
       { path: 'friends', element: <Friends /> },
       { path: 'friends/create', element: <Creator /> },

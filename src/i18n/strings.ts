@@ -21,6 +21,16 @@ export interface Strings {
     devComponentsDesc: string;
     devCreatureDesc: string;
     devCreatureBuilderDesc: string;
+    miniWorksLabel: string;
+    miniWorksDesc: string;
+    miniWorks: {
+      title: string;
+      subtitle: string;
+      backToPlayground: string;
+      nameCardLabel: string;
+      nameCardDesc: string;
+      backToList: string;
+    };
   };
   languageToggle: {
     switchToEnglish: string;
@@ -63,8 +73,8 @@ export interface Strings {
     quickLinkGalleryDesc: string;
     quickLinkProjects: string;
     quickLinkProjectsDesc: string;
-    quickLinkNameCard: string;
-    quickLinkNameCardDesc: string;
+    quickLinkMiniWorks: string;
+    quickLinkMiniWorksDesc: string;
     email: string;
   };
   about: {
@@ -261,6 +271,16 @@ export const strings: Record<"zh" | "en", Strings> = {
       devComponentsDesc: "UI 組件庫預覽（開發用）",
       devCreatureDesc: "3D 怪獸走路動畫驗證（開發用）",
       devCreatureBuilderDesc: "堆積木雕刻 3D 怪獸形狀（開發用）",
+      miniWorksLabel: "小作品 Mini Works",
+      miniWorksDesc: "課堂作業、Codepen 練習等小型互動作品",
+      miniWorks: {
+        title: "小作品",
+        subtitle: "課堂作業、Codepen 練習等小型互動作品。",
+        backToPlayground: "← 回 Playground",
+        nameCardLabel: "名片 Name Card",
+        nameCardDesc: "動畫網頁課程作業：互動名片",
+        backToList: "← 回小作品列表",
+      },
     },
     languageToggle: {
       switchToEnglish: "切換成英文",
@@ -303,8 +323,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       quickLinkGalleryDesc: "p5.js 互動式創作",
       quickLinkProjects: "全部專案 Projects",
       quickLinkProjectsDesc: "完整專案列表",
-      quickLinkNameCard: "名片 Name Card",
-      quickLinkNameCardDesc: "動畫網頁課程作業：互動名片",
+      quickLinkMiniWorks: "小作品 Mini Works",
+      quickLinkMiniWorksDesc: "名片、Codepen 練習等課堂與課外小品",
       email: "zhenganxi8@gmail.com",
     },
     about: {
@@ -513,6 +533,17 @@ export const strings: Record<"zh" | "en", Strings> = {
       devCreatureDesc: "3D creature walk-animation testbed (dev tool)",
       devCreatureBuilderDesc:
         "Block-by-block 3D creature shape sculptor (dev tool)",
+      miniWorksLabel: "Mini Works",
+      miniWorksDesc: "Small interactive pieces from coursework and Codepen experiments",
+      miniWorks: {
+        title: "Mini Works",
+        subtitle:
+          "Small interactive pieces from coursework and Codepen experiments.",
+        backToPlayground: "← Back to Playground",
+        nameCardLabel: "Name Card",
+        nameCardDesc: "Web animation coursework: interactive name card",
+        backToList: "← Back to Mini Works",
+      },
     },
     languageToggle: {
       switchToEnglish: "Switch to English",
@@ -556,8 +587,9 @@ export const strings: Record<"zh" | "en", Strings> = {
       quickLinkGalleryDesc: "Interactive p5.js creations",
       quickLinkProjects: "All Projects",
       quickLinkProjectsDesc: "Full project list",
-      quickLinkNameCard: "Name Card",
-      quickLinkNameCardDesc: "Web animation coursework: interactive name card",
+      quickLinkMiniWorks: "Mini Works",
+      quickLinkMiniWorksDesc:
+        "Name card, Codepen experiments, and other small pieces",
       email: "zhenganxi8@gmail.com",
     },
     about: {

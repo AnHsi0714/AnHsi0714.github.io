@@ -13,8 +13,8 @@ export default function NameCardPage() {
 
   return (
     <div className={styles.page}>
-      <Link to="/" className={styles.back}>
-        {t.common.backToHome}
+      <Link to="/playground/mini-works" className={styles.back}>
+        {t.playground.miniWorks.backToList}
       </Link>
       <NameCard />
       <p className={styles.caption}>{data.caption}</p>

@@ -71,9 +71,9 @@ export default function Home() {
       desc: t.home.quickLinkProjectsDesc,
     },
     {
-      to: "/namecard",
-      label: t.home.quickLinkNameCard,
-      desc: t.home.quickLinkNameCardDesc,
+      to: "/playground/mini-works",
+      label: t.home.quickLinkMiniWorks,
+      desc: t.home.quickLinkMiniWorksDesc,
     },
   ];
 
