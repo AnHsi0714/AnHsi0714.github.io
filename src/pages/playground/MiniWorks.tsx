@@ -2,17 +2,16 @@ import { Link } from "react-router-dom";
 import Card from "../../components/Card";
 import TextLink from "../../components/TextLink";
 import { useTranslation } from "../../i18n/useTranslation";
+import { miniWorks } from "./miniWorksRegistry";
 
 export default function MiniWorks() {
   const { t } = useTranslation();
 
-  const links = [
-    {
-      to: "/playground/mini-works/namecard",
-      label: t.playground.miniWorks.nameCardLabel,
-      desc: t.playground.miniWorks.nameCardDesc,
-    },
-  ];
+  const links = miniWorks.map((work) => ({
+    to: `/playground/mini-works/${work.slug}`,
+    label: work.label(t),
+    desc: work.desc(t),
+  }));
 
   return (
     <section>

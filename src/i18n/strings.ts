@@ -29,6 +29,10 @@ export interface Strings {
       backToPlayground: string;
       nameCardLabel: string;
       nameCardDesc: string;
+      brandGuideLabel: string;
+      brandGuideDesc: string;
+      notFoundTitle: string;
+      notFoundDesc: string;
       backToList: string;
     };
   };
@@ -279,6 +283,10 @@ export const strings: Record<"zh" | "en", Strings> = {
         backToPlayground: "← 回 Playground",
         nameCardLabel: "名片 Name Card",
         nameCardDesc: "動畫網頁課程作業：互動名片",
+        brandGuideLabel: "品牌視覺 Brand Style Guide",
+        brandGuideDesc: "動畫網頁課程作業：品牌網頁視覺引導",
+        notFoundTitle: "找不到這個小作品",
+        notFoundDesc: "可能已經被移除或網址有誤。",
         backToList: "← 回小作品列表",
       },
     },
@@ -534,7 +542,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       devCreatureBuilderDesc:
         "Block-by-block 3D creature shape sculptor (dev tool)",
       miniWorksLabel: "Mini Works",
-      miniWorksDesc: "Small interactive pieces from coursework and Codepen experiments",
+      miniWorksDesc:
+        "Small interactive pieces from coursework and Codepen experiments",
       miniWorks: {
         title: "Mini Works",
         subtitle:
@@ -542,6 +551,10 @@ export const strings: Record<"zh" | "en", Strings> = {
         backToPlayground: "← Back to Playground",
         nameCardLabel: "Name Card",
         nameCardDesc: "Web animation coursework: interactive name card",
+        brandGuideLabel: "Brand Style Guide",
+        brandGuideDesc: "Web animation coursework: brand style guideline page",
+        notFoundTitle: "Mini work not found",
+        notFoundDesc: "It may have been removed, or the link is incorrect.",
         backToList: "← Back to Mini Works",
       },
     },
@@ -723,7 +736,8 @@ export const strings: Record<"zh" | "en", Strings> = {
         applies_to: "Applies to",
         contrasts_with: "Contrasts with",
       },
-      entryPointHint: "Want to dig into the concepts behind this? Browse Knowledge →",
+      entryPointHint:
+        "Want to dig into the concepts behind this? Browse Knowledge →",
       relatedKnowledge: "Related Knowledge",
     },
     creator: {

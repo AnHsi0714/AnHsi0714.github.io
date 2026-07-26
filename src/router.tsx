@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import Home from './pages/Home'
-import NameCardPage from './pages/NameCardPage'
 import GalleryGrid from './pages/gallery/GalleryGrid'
 import GalleryDetail from './pages/gallery/GalleryDetail'
 import About from './pages/about/About'
@@ -17,6 +16,7 @@ import Friends from './pages/friends/Friends'
 import Creator from './pages/friends/Creator'
 import Playground from './pages/playground/Playground'
 import MiniWorks from './pages/playground/MiniWorks'
+import MiniWorkDetail from './pages/playground/MiniWorkDetail'
 import ComponentsPreview from './pages/dev/ComponentsPreview'
 import CreatureDemo from './pages/dev/CreatureDemo'
 import CreatureBuilder from './pages/dev/CreatureBuilder'
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
       { path: 'experience', element: <Experience /> },
       { path: 'playground', element: <Playground /> },
       { path: 'playground/mini-works', element: <MiniWorks /> },
-      { path: 'playground/mini-works/namecard', element: <NameCardPage /> },
+      { path: 'playground/mini-works/:slug', element: <MiniWorkDetail /> },
       { path: 'dreams', element: <Dreams /> },
       { path: 'friends', element: <Friends /> },
       { path: 'friends/create', element: <Creator /> },
