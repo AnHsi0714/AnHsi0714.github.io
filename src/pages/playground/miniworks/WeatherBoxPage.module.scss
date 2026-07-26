@@ -1,0 +1,36 @@
+// 還原原稿 CodePen 整頁的樣子（深色底置中卡片），寫法跟 NameCardPage 一樣：
+// margin-inline 跳出容器寬度限制，上下負 margin 抵銷 main 自己的 py-8。
+.page {
+  position: relative;
+  box-sizing: border-box;
+  margin-inline: calc(50% - 50vw);
+  margin-top: -2rem;
+  margin-bottom: -2rem;
+  height: calc(100vh - var(--nav-h, 4rem));
+  height: calc(100dvh - var(--nav-h, 4rem));
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background-color: #222;
+}
+
+.back {
+  position: absolute;
+  top: 32px;
+  left: 24px;
+  font-size: 14px;
+  color: #f3f3f3;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.caption {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #f3f3f3;
+  text-align: center;
+}

@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import type { Strings } from "../../i18n/strings";
 import NameCardPage from "./miniworks/NameCardPage";
 import BrandGuidePage from "./miniworks/BrandGuidePage";
+import WeatherBoxPage from "./miniworks/WeatherBoxPage";
 
 export interface MiniWorkDefinition {
   slug: string;
@@ -25,6 +26,12 @@ export const miniWorks: MiniWorkDefinition[] = [
     Component: BrandGuidePage,
     label: (t) => t.playground.miniWorks.brandGuideLabel,
     desc: (t) => t.playground.miniWorks.brandGuideDesc,
+  },
+  {
+    slug: "weather-box",
+    Component: WeatherBoxPage,
+    label: (t) => t.playground.miniWorks.weatherBoxLabel,
+    desc: (t) => t.playground.miniWorks.weatherBoxDesc,
   },
 ];
 

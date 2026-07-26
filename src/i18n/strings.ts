@@ -31,6 +31,9 @@ export interface Strings {
       nameCardDesc: string;
       brandGuideLabel: string;
       brandGuideDesc: string;
+      weatherBoxLabel: string;
+      weatherBoxDesc: string;
+      weatherBoxCaption: string;
       notFoundTitle: string;
       notFoundDesc: string;
       backToList: string;
@@ -285,6 +288,9 @@ export const strings: Record<"zh" | "en", Strings> = {
         nameCardDesc: "動畫網頁課程作業：互動名片",
         brandGuideLabel: "品牌視覺 Brand Style Guide",
         brandGuideDesc: "動畫網頁課程作業：品牌網頁視覺引導",
+        weatherBoxLabel: "動態互動天氣盒子 Weather Box",
+        weatherBoxDesc: "動畫網頁課程作業：純 CSS 動態互動天氣盒子",
+        weatherBoxCaption: "點一下動態互動天氣盒子，切換日／夜模式",
         notFoundTitle: "找不到這個小作品",
         notFoundDesc: "可能已經被移除或網址有誤。",
         backToList: "← 回小作品列表",
@@ -316,7 +322,7 @@ export const strings: Record<"zh" | "en", Strings> = {
     home: {
       titleZh: "鄭安琋",
       titleEn: "Cheng An Hsi",
-      tagline: "視覺化研究 × 人機互動 × 前端實作",
+      tagline: "人機互動 × 視覺化研究 × 前端實作",
       bio: "國立臺北科技大學資工系，研究方向聚焦於 Visual Analytics 與 Human-Computer Interaction，並具備前端工程實務經驗（Angular / React）。畢業專題為資料結構與演算法視覺化學習平台 CodePulse，同時參與使用者回饋語意分析的 NLP 研究專題。",
       aboutMe: "關於我",
       viewProjects: "查看專案",
@@ -553,6 +559,10 @@ export const strings: Record<"zh" | "en", Strings> = {
         nameCardDesc: "Web animation coursework: interactive name card",
         brandGuideLabel: "Brand Style Guide",
         brandGuideDesc: "Web animation coursework: brand style guideline page",
+        weatherBoxLabel: "Dynamic Interactive Weather Box",
+        weatherBoxDesc:
+          "Web animation coursework: CSS-only day/night interactive weather box",
+        weatherBoxCaption: "Click the weather box to toggle day/night mode",
         notFoundTitle: "Mini work not found",
         notFoundDesc: "It may have been removed, or the link is incorrect.",
         backToList: "← Back to Mini Works",
@@ -585,7 +595,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       titleZh: "Cheng An Hsi",
       titleEn: "鄭安琋",
       tagline:
-        "Visualization Research × Human-Computer Interaction × Frontend Implementation",
+        "Human-Computer Interaction × Visualization Research × Frontend Implementation",
       bio: "Computer Science undergraduate at National Taipei University of Technology, focused on Visual Analytics and Human-Computer Interaction, with hands-on frontend engineering experience (Angular / React). Capstone project: CodePulse, a data-structures-and-algorithms visualization learning platform. Also worked on an NLP research project analyzing user-feedback sentiment.",
       aboutMe: "About Me",
       viewProjects: "View Projects",
