@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 /* 作品詳細頁：真正進入「展覽感」的一刻（見 docs/ARCHITECTURE.md §6.1）——
    背景轉成深色、聚光燈打在作品上，導覽列等 UI chrome 縮到只剩返回路徑。
    日間 navbar 是淺色，若展場沿用夜間那種近黑色反差過重，所以用 --stage-bg
@@ -11,16 +13,10 @@
     --stage-bg: #0a0a0d;
   }
 
-  margin-inline: calc(50% - 50vw);
-  /* margin-top 精確抵銷 main 的 pt-8，讓展場貼齊 NavBar 底部（不留縫、不重疊，
-     見 GalleryGrid.module.scss .room 的同一套修正跟理由）；min-height 扣掉
-     NavBar.tsx 用 ResizeObserver 量出來的即時淨空 --nav-h，內容不夠一頁高時
-     也不會逼出頁面垂直捲軸。 */
-  margin-top: -2rem;
-  margin-bottom: -2rem; /* 抵銷 main 的 pb-8，避免底下露出一截白色背景可以捲到 */
-  padding-top: 2rem;
-  min-height: calc(100vh - var(--nav-h, 4rem));
-  min-height: calc(100dvh - var(--nav-h, 4rem));
+  /* min-height（而非 height）讓內容不夠一頁高時也不會逼出頁面垂直捲軸；
+     padding-top 補回 margin-top 抵銷掉的頂部空間，內容才不會貼死在 NavBar
+     底下（見 mixins.scss 的 full-bleed-under-nav）。 */
+  @include full-bleed-under-nav($height-property: min-height, $top-padding: 2rem);
   position: relative;
   display: flex;
   flex-direction: column;

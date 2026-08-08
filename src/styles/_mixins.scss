@@ -1,0 +1,28 @@
+// 全站共用的版面 mixin。
+
+// 讓內容跳出 App.tsx <main class="max-w-5xl px-4 py-8"> 的容器限制做滿版效果，
+// 同時貼齊 NavBar 底部、精準填滿剩餘視窗高度。NavBar 是 sticky、佔真實版面
+// 高度，這裡只需要蓋掉 main 自己多出來的水平限制跟上下 padding；高度扣掉
+// NavBar.tsx 用 ResizeObserver 即時量出來的 --nav-h，不用猜一個容易過期的
+// 常數，這樣「頁面頂到 NavBar 底部、底邊頂到視窗底部」永遠成立，不會多出
+// 垂直捲軸。dvh 讓行動裝置網址列收合時也跟著視窗實際高度走。
+//
+// 每次新增全版面頁面（展場、mini works 等）都要重複這段算式，容易漏改或
+// 兩個 fallback 值只改一個，所以抽成 mixin，用的地方只需要一行 @include。
+//
+// $height-property: height（鎖死高度，內容必須自己控制不溢出，例如置中卡片）
+//   或 min-height（允許內容比視窗高時往下撐開，正常捲動，例如作品詳細頁）。
+// $top-padding: 抵銷 margin-top 之後，想再留給內容本身的頂部空間；0 代表不用
+//   （例如頁面自己已經有 padding，或用絕對定位的 header 另外處理留白）。
+@mixin full-bleed-under-nav($height-property: height, $top-padding: 0) {
+  margin-inline: calc(50% - 50vw);
+  margin-top: -2rem;
+  margin-bottom: -2rem;
+
+  @if $top-padding != 0 {
+    padding-top: $top-padding;
+  }
+
+  #{$height-property}: calc(100vh - var(--nav-h, 4rem));
+  #{$height-property}: calc(100dvh - var(--nav-h, 4rem));
+}

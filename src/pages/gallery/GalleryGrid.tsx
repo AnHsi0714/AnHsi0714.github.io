@@ -334,11 +334,13 @@ export default function GalleryGrid() {
               </div>
               <div className={styles.beam} />
               <Link to={`/gallery/${artwork.slug}`} className={styles.frame}>
-                <img
-                  src={posters[artwork.slug]}
-                  alt={artwork.title}
-                  loading="lazy"
-                />
+                <span className={styles.imageClip}>
+                  <img
+                    src={posters[artwork.slug]}
+                    alt={artwork.title}
+                    loading="lazy"
+                  />
+                </span>
               </Link>
               {artwork.description ? (
                 // 有寫介紹的作品，名牌本身變成按鈕，點開「美術館說明牌」彈窗

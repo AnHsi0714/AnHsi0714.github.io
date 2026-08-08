@@ -1,0 +1,189 @@
+// 還原原稿 CodePen「品牌網頁視覺引導」的樣子：header + 三段不同配色的規範
+// 區塊。跟 NameCardPage.module.scss 一樣用 margin-inline 跳出容器寬度限制、
+// 上下負 margin 抵銷 main 自己的 py-8 做滿版效果。
+$backcolor1: #095256; // 墨綠
+$backcolor2: #474973; // 紫色
+$accent-color: #a5ffd6; // 薄荷綠
+$text-color: #f3f7f7; // 白
+$header-color: #79b4a9;
+
+$font-base-size: 10px;
+$max-content-width: 768px;
+
+.page {
+  position: relative;
+  margin-inline: calc(50% - 50vw);
+  margin-top: -2rem;
+  margin-bottom: -2rem;
+  font-family: "Wittgenstein", "微軟正黑體", sans-serif;
+}
+
+.maxWidth {
+  max-width: $max-content-width;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header {
+  position: relative;
+  height: 250px;
+  background-color: $header-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .icon {
+    width: 150px;
+    height: 150px;
+    color: #fff;
+  }
+}
+
+.content {
+  padding: 50px;
+
+  h5 {
+    margin-top: 10px;
+  }
+
+  .titleHr {
+    border: solid 3px $accent-color;
+    width: 100px;
+  }
+
+  // 原稿沒特別設 heading margin，是吃瀏覽器預設的 h1/h2/h3 margin 撐出區塊間
+  // 距，下面 .smallEnglish 的 margin-top: -15px 才抵著它把英文副標拉近、而不
+  // 會蓋到中文標題。這裡的 margin 值就是照瀏覽器預設比例（0.67em/0.83em/1em）
+  // 换算成我們自訂的字級，不能拿掉。
+  h1 {
+    font-size: $font-base-size * 4;
+    margin: 0.67em 0;
+  }
+  h2 {
+    font-size: $font-base-size * 3;
+    margin: 0.83em 0;
+  }
+  h3 {
+    font-size: $font-base-size * 2;
+    margin: 1em 0;
+  }
+
+  // 拉近副標的負 margin 是照對應主標題字級等比例縮放（原稿統一用 -15px，是
+  // 對 h1 那組 40px 字級調的；直接套到 h2/h3 會因為主標題本身的 margin 也
+  // 跟著變小，扣完只剩幾 px，實測會蓋到 h3 的中文標題），比例跟原稿 h1 一致
+  // （-15px / 40px 主標字級）。
+  h1.smallEnglish {
+    font-size: $font-base-size * 2.4;
+    margin-top: -15px;
+  }
+  h2.smallEnglish {
+    font-size: $font-base-size * 1.6;
+    margin-top: -11px;
+  }
+  h3.smallEnglish {
+    font-size: $font-base-size * 1.2;
+    margin-top: -7px;
+  }
+
+  .button {
+    padding: 5px 25px;
+    display: inline-block;
+    margin-right: 10px;
+    letter-spacing: 2px;
+    font-size: $font-base-size * 1.5;
+    font-weight: 500;
+    border: solid 1px $backcolor2;
+  }
+
+  .button1 {
+    background-color: $backcolor2;
+    color: white;
+  }
+
+  .button2 {
+    background-color: $accent-color;
+    color: $backcolor2;
+    font-weight: bold;
+  }
+
+  // 用 flex + gap 排 tag 跟色塊，不用固定寬度的 .colorTag：Wittgenstein
+  // 不是等寬字體，"F" 比數字寬很多，固定 70px 塞不下「#F3F7F7」這種三個 F
+  // 的色碼會溢出、直接撞上色塊。gap 也順便把色塊旋轉 45 度後視覺上多出來的
+  // 對角線寬度（實際 layout box 還是 30px 正方形，只是轉了角度看起來更寬）
+  // 一起補掉，不然色塊會看起來往左上角貼過去。
+  .colorChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    margin-right: 25px;
+
+    .colorTag {
+      white-space: nowrap;
+    }
+    .colorBlock {
+      width: 30px;
+      height: 30px;
+      border: solid 2px white;
+      transform: rotate(45deg);
+      border-radius: 10%;
+    }
+    .colorBlock1 {
+      background-color: $accent-color;
+    }
+    .colorBlock2 {
+      background-color: $backcolor2;
+    }
+    .colorBlock3 {
+      background-color: $text-color;
+    }
+    .colorBlock4 {
+      background-color: $backcolor1;
+    }
+  }
+}
+
+.content1 {
+  background-color: $backcolor1;
+  color: $text-color;
+  .smallEnglish {
+    color: $accent-color;
+  }
+  h1,
+  h2,
+  h3 {
+    font-weight: 500;
+  }
+  .button {
+    border-color: white;
+  }
+}
+
+.content2 {
+  background-color: $backcolor2;
+  color: $text-color;
+  .smallEnglish {
+    color: $accent-color;
+  }
+  h1,
+  h2,
+  h3 {
+    font-weight: 500;
+  }
+  .button {
+    border-color: white;
+  }
+}
+
+.content3 {
+  background-color: $text-color;
+  color: $backcolor2;
+  .smallEnglish {
+    color: $backcolor2;
+  }
+  .button {
+    font-weight: bold;
+  }
+  .button1 {
+    font-weight: 500;
+  }
+}

@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 /* 畫廊展場：跟著站台日／夜模式切換的展覽房間。
    淺色＝白日展場（暖色調光線灑落米色牆面），深色＝夜間展場（暗房＋聚光燈）。
    用一組 --room-* 變數集中管理隨主題變化的顏色，:global(.dark) & 覆寫深色版本。 */
@@ -55,23 +57,11 @@
     --room-placard-meta: #8f8f95;
   }
 
-  /* 突破 App 容器 max-w-5xl 的滿版寫法：百分比 margin 以內容寬為基準，
-     calc(50% - 50vw) 剛好等於內容邊緣到視窗邊緣的距離（負值） */
-  margin-inline: calc(50% - 50vw);
-  margin-bottom: -2rem; /* 抵銷 main 的 pb-8，讓展場貼齊頁尾 */
-  /* 抵銷 main 的 pt-8，讓房間從 NavBar 底部無縫接上（NavBar 是 sticky、佔
-     真實版面高度，這裡只需要蓋掉 main 自己多出來的上下 padding）。
-     高度鎖成「視窗高減掉 NavBar 淨空」：NavBar 用 flex-wrap，換行時淨空
-     會變，寫死的數字很快就會跟實際高度對不上，所以吃 NavBar.tsx 用
-     ResizeObserver 即時量出來的 --nav-h（見該檔案），而不是猜一個常數。
-     這樣「房間頂到 NavBar 底部、房間底頂到視窗底部」永遠成立，頁面就不會
-     多出垂直捲軸；dvh 讓行動裝置網址列收合時也跟著視窗實際高度走。header
-     改成絕對定位浮在展牆上（見 .header），scroller 因此能撐滿整個房間，
-     畫作垂直置中的基準就是整個視窗，橫向捲軸也剛好落在視窗底邊。 */
-  margin-top: -2rem;
-  padding-top: 7rem;
-  height: calc(100vh - var(--nav-h, 4rem));
-  height: calc(100dvh - var(--nav-h, 4rem));
+  /* height（而非 min-height）鎖死視窗高度：header 改成絕對定位浮在展牆上
+     （見 .header），scroller 因此能撐滿整個房間，畫作垂直置中的基準就是
+     整個視窗，橫向捲軸也剛好落在視窗底邊。padding-top: 7rem 是留給 .header
+     的浮動空間（見 mixins.scss 的 full-bleed-under-nav）。 */
+  @include full-bleed-under-nav($height-property: height, $top-padding: 7rem);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -241,10 +231,17 @@
   background: linear-gradient(150deg, var(--room-frame-1), var(--room-frame-2));
   border: 1px solid var(--room-frame-border);
   box-shadow: 0 22px 45px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
 
-  &:hover {
-    transform: translateY(-4px);
+  /* 裁切框剛好貼齊畫作本身（inline-block 自動縮到 img 的實際尺寸），
+     跟外面畫框的 10px 內襯（matting）分開：不管畫作放大多少都只會往
+     自己的裁切框裡面擠，絕對碰不到、蓋不住外圍的內襯跟畫框邊框。 */
+  .imageClip {
+    display: inline-block;
+    /* inline-block 預設 vertical-align: baseline 會依字型基線在下方
+       多留一截空白（descender 空間），這裡下緣的內襯才會比其他三邊粗；
+       改成 top 讓裁切框緊貼在 padding 內，四邊留白才會等寬。 */
+    vertical-align: top;
+    overflow: hidden;
   }
 
   img {
@@ -256,7 +253,13 @@
     max-width: min(620px, 82vw);
     background: var(--room-frame-img-bg);
     filter: brightness(calc(0.3 + 0.7 * var(--lit)));
-    transition: filter 0.6s ease;
+    transition:
+      filter 0.6s ease,
+      transform 0.3s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.08);
   }
 }
 

@@ -8,7 +8,7 @@ import Chip from "../../components/Chip";
 import Reveal from "../../components/Reveal";
 import TextLink from "../../components/TextLink";
 import type { Article } from "../../types/content";
-import { useArticles } from "../../lib/articles";
+import { usePublishedArticles } from "../../lib/articles";
 import { useTranslation } from "../../i18n/useTranslation";
 import type { Strings } from "../../i18n/strings";
 
@@ -74,7 +74,7 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
 
 export default function Articles() {
   const { t } = useTranslation();
-  const articles = useArticles();
+  const articles = usePublishedArticles();
   const allCategories = Array.from(
     new Set(articles.flatMap((article) => article.categories)),
   );

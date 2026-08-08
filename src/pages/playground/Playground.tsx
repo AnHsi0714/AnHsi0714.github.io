@@ -23,6 +23,11 @@ export default function Playground() {
       label: t.nav.devCreatureBuilder,
       desc: t.playground.devCreatureBuilderDesc,
     },
+    {
+      to: "/playground/mini-works",
+      label: t.playground.miniWorksLabel,
+      desc: t.playground.miniWorksDesc,
+    },
   ];
 
   return (

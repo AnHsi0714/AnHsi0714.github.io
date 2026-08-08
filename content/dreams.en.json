@@ -13,14 +13,14 @@
     }
   },
   {
-    "title": "Finish a small tactics game",
+    "title": "Finish a small game",
     "desc": "Fulfilling a childhood dream of making something of my own."
   },
   {
     "title": "Publish an article before the end of July",
     "desc": "Pick a few topics from my own archive and share my take on them.",
     "progress": {
-      "current": 0,
+      "current": 1,
       "target": 1,
       "unit": "piece"
     }

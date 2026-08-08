@@ -6,7 +6,7 @@ import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
 import { useKnowledgeNode, useKnowledgeMap } from "../../lib/knowledge";
 import TextLink from "../../components/TextLink";
-import { useArticles } from "../../lib/articles";
+import { usePublishedArticles } from "../../lib/articles";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
 import type { KnowledgeRelationType, Project } from "../../types/content";
@@ -24,7 +24,7 @@ export default function KnowledgeDetail() {
   const node = useKnowledgeNode(slug);
   const knowledgeMap = useKnowledgeMap();
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
-  const articles = useArticles();
+  const articles = usePublishedArticles();
 
   if (!node || node.status !== "published") {
     return (

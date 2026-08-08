@@ -70,6 +70,11 @@ export default function Home() {
       label: t.home.quickLinkProjects,
       desc: t.home.quickLinkProjectsDesc,
     },
+    {
+      to: "/playground/mini-works",
+      label: t.home.quickLinkMiniWorks,
+      desc: t.home.quickLinkMiniWorksDesc,
+    },
   ];
 
   return (
@@ -145,7 +150,11 @@ export default function Home() {
         </p>
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {quickLinks.map((link, index) => (
-            <Reveal key={link.to} delay={index * 80} className="h-full">
+            <Reveal
+              key={link.to}
+              delay={index * 80}
+              className={`h-full ${index === quickLinks.length - 1 && quickLinks.length % 2 === 1 ? "sm:col-span-2" : ""}`}
+            >
               <Link to={link.to} className="block h-full">
                 <Card hoverable className="h-full">
                   <p className="font-semibold">{link.label}</p>

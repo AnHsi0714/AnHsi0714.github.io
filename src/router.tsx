@@ -15,6 +15,8 @@ import Dreams from './pages/dreams/Dreams'
 import Friends from './pages/friends/Friends'
 import Creator from './pages/friends/Creator'
 import Playground from './pages/playground/Playground'
+import MiniWorks from './pages/playground/MiniWorks'
+import MiniWorkDetail from './pages/playground/MiniWorkDetail'
 import ComponentsPreview from './pages/dev/ComponentsPreview'
 import CreatureDemo from './pages/dev/CreatureDemo'
 import CreatureBuilder from './pages/dev/CreatureBuilder'
@@ -36,6 +38,8 @@ export const router = createBrowserRouter([
       { path: 'knowledge/:slug', element: <KnowledgeDetail /> },
       { path: 'experience', element: <Experience /> },
       { path: 'playground', element: <Playground /> },
+      { path: 'playground/mini-works', element: <MiniWorks /> },
+      { path: 'playground/mini-works/:slug', element: <MiniWorkDetail /> },
       { path: 'dreams', element: <Dreams /> },
       { path: 'friends', element: <Friends /> },
       { path: 'friends/create', element: <Creator /> },

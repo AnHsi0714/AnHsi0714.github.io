@@ -21,6 +21,23 @@ export interface Strings {
     devComponentsDesc: string;
     devCreatureDesc: string;
     devCreatureBuilderDesc: string;
+    miniWorksLabel: string;
+    miniWorksDesc: string;
+    miniWorks: {
+      title: string;
+      subtitle: string;
+      backToPlayground: string;
+      nameCardLabel: string;
+      nameCardDesc: string;
+      brandGuideLabel: string;
+      brandGuideDesc: string;
+      weatherBoxLabel: string;
+      weatherBoxDesc: string;
+      weatherBoxCaption: string;
+      notFoundTitle: string;
+      notFoundDesc: string;
+      backToList: string;
+    };
   };
   languageToggle: {
     switchToEnglish: string;
@@ -43,6 +60,7 @@ export interface Strings {
     filterFeatured: string;
     filterNotFeatured: string;
     featuredFilterLabel: string;
+    backToHome: string;
   };
   home: {
     titleZh: string;
@@ -62,6 +80,8 @@ export interface Strings {
     quickLinkGalleryDesc: string;
     quickLinkProjects: string;
     quickLinkProjectsDesc: string;
+    quickLinkMiniWorks: string;
+    quickLinkMiniWorksDesc: string;
     email: string;
   };
   about: {
@@ -75,7 +95,6 @@ export interface Strings {
     interests: string;
     downloadResume: string;
     resumePending: string;
-    bookroll: string;
     professionalDirection: string;
   };
   experience: {
@@ -112,6 +131,9 @@ export interface Strings {
     featuredSectionTitle: string;
     allSectionTitle: string;
     ratingLabel: (rating: number) => string;
+    draftBadge: string;
+    tableOfContents: string;
+    nextArticle: string;
   };
   gallery: {
     title: string;
@@ -259,6 +281,23 @@ export const strings: Record<"zh" | "en", Strings> = {
       devComponentsDesc: "UI 組件庫預覽（開發用）",
       devCreatureDesc: "3D 怪獸走路動畫驗證（開發用）",
       devCreatureBuilderDesc: "堆積木雕刻 3D 怪獸形狀（開發用）",
+      miniWorksLabel: "小作品 Mini Works",
+      miniWorksDesc: "課堂作業、Codepen 練習等小型互動作品",
+      miniWorks: {
+        title: "小作品",
+        subtitle: "課堂作業、Codepen 練習等小型互動作品。",
+        backToPlayground: "← 回 Playground",
+        nameCardLabel: "名片 Name Card",
+        nameCardDesc: "動畫網頁課程作業：互動名片",
+        brandGuideLabel: "品牌視覺 Brand Style Guide",
+        brandGuideDesc: "動畫網頁課程作業：品牌網頁視覺引導",
+        weatherBoxLabel: "動態互動天氣盒子 Weather Box",
+        weatherBoxDesc: "動畫網頁課程作業：純 CSS 動態互動天氣盒子",
+        weatherBoxCaption: "點一下動態互動天氣盒子，切換日／夜模式",
+        notFoundTitle: "找不到這個小作品",
+        notFoundDesc: "可能已經被移除或網址有誤。",
+        backToList: "← 回小作品列表",
+      },
     },
     languageToggle: {
       switchToEnglish: "切換成英文",
@@ -281,11 +320,12 @@ export const strings: Record<"zh" | "en", Strings> = {
       filterFeatured: "精選",
       filterNotFeatured: "非精選",
       featuredFilterLabel: "精選狀態",
+      backToHome: "← 回首頁",
     },
     home: {
       titleZh: "鄭安琋",
       titleEn: "Cheng An Hsi",
-      tagline: "視覺化研究 × 人機互動 × 前端實作",
+      tagline: "人機互動 × 視覺化研究 × 前端實作",
       bio: "國立臺北科技大學資工系，研究方向聚焦於 Visual Analytics 與 Human-Computer Interaction，並具備前端工程實務經驗（Angular / React）。畢業專題為資料結構與演算法視覺化學習平台 CodePulse，同時參與使用者回饋語意分析的 NLP 研究專題。",
       aboutMe: "關於我",
       viewProjects: "查看專案",
@@ -300,6 +340,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       quickLinkGalleryDesc: "p5.js 互動式創作",
       quickLinkProjects: "全部專案 Projects",
       quickLinkProjectsDesc: "完整專案列表",
+      quickLinkMiniWorks: "小作品 Mini Works",
+      quickLinkMiniWorksDesc: "名片、Codepen 練習等課堂與課外小品",
       email: "zhenganxi8@gmail.com",
     },
     about: {
@@ -313,7 +355,6 @@ export const strings: Record<"zh" | "en", Strings> = {
       interests: "休閒興趣 Interests",
       downloadResume: "下載履歷 Download Resume",
       resumePending: "（履歷檔案連結待補上）",
-      bookroll: "書卷",
       professionalDirection: "專業方向",
     },
     experience: {
@@ -354,6 +395,9 @@ export const strings: Record<"zh" | "en", Strings> = {
       featuredSectionTitle: "精選",
       allSectionTitle: "全部",
       ratingLabel: (rating: number) => `評分 ${rating} / 5`,
+      draftBadge: "草稿",
+      tableOfContents: "文章目錄",
+      nextArticle: "下一篇文章",
     },
     gallery: {
       title: "生成視覺",
@@ -509,6 +553,26 @@ export const strings: Record<"zh" | "en", Strings> = {
       devCreatureDesc: "3D creature walk-animation testbed (dev tool)",
       devCreatureBuilderDesc:
         "Block-by-block 3D creature shape sculptor (dev tool)",
+      miniWorksLabel: "Mini Works",
+      miniWorksDesc:
+        "Small interactive pieces from coursework and Codepen experiments",
+      miniWorks: {
+        title: "Mini Works",
+        subtitle:
+          "Small interactive pieces from coursework and Codepen experiments.",
+        backToPlayground: "← Back to Playground",
+        nameCardLabel: "Name Card",
+        nameCardDesc: "Web animation coursework: interactive name card",
+        brandGuideLabel: "Brand Style Guide",
+        brandGuideDesc: "Web animation coursework: brand style guideline page",
+        weatherBoxLabel: "Dynamic Interactive Weather Box",
+        weatherBoxDesc:
+          "Web animation coursework: CSS-only day/night interactive weather box",
+        weatherBoxCaption: "Click the weather box to toggle day/night mode",
+        notFoundTitle: "Mini work not found",
+        notFoundDesc: "It may have been removed, or the link is incorrect.",
+        backToList: "← Back to Mini Works",
+      },
     },
     languageToggle: {
       switchToEnglish: "Switch to English",
@@ -531,12 +595,13 @@ export const strings: Record<"zh" | "en", Strings> = {
       filterFeatured: "Featured",
       filterNotFeatured: "Not featured",
       featuredFilterLabel: "Featured status",
+      backToHome: "← Back to Home",
     },
     home: {
       titleZh: "Cheng An Hsi",
       titleEn: "鄭安琋",
       tagline:
-        "Visualization Research × Human-Computer Interaction × Frontend Implementation",
+        "Human-Computer Interaction × Visualization Research × Frontend Implementation",
       bio: "Computer Science undergraduate at National Taipei University of Technology, focused on Visual Analytics and Human-Computer Interaction, with hands-on frontend engineering experience (Angular / React). Capstone project: CodePulse, a data-structures-and-algorithms visualization learning platform. Also worked on an NLP research project analyzing user-feedback sentiment.",
       aboutMe: "About Me",
       viewProjects: "View Projects",
@@ -551,6 +616,9 @@ export const strings: Record<"zh" | "en", Strings> = {
       quickLinkGalleryDesc: "Interactive p5.js creations",
       quickLinkProjects: "All Projects",
       quickLinkProjectsDesc: "Full project list",
+      quickLinkMiniWorks: "Mini Works",
+      quickLinkMiniWorksDesc:
+        "Name card, Codepen experiments, and other small pieces",
       email: "zhenganxi8@gmail.com",
     },
     about: {
@@ -564,7 +632,6 @@ export const strings: Record<"zh" | "en", Strings> = {
       interests: "Interests",
       downloadResume: "Download Resume",
       resumePending: "(Resume link coming soon)",
-      bookroll: "Honor Roll",
       professionalDirection: "Focus Areas",
     },
     experience: {
@@ -605,6 +672,9 @@ export const strings: Record<"zh" | "en", Strings> = {
       featuredSectionTitle: "Featured",
       allSectionTitle: "All",
       ratingLabel: (rating: number) => `Rating ${rating} / 5`,
+      draftBadge: "Draft",
+      tableOfContents: "Table of Contents",
+      nextArticle: "Next Article",
     },
     gallery: {
       title: "Generative Visuals",
@@ -685,7 +755,8 @@ export const strings: Record<"zh" | "en", Strings> = {
         applies_to: "Applies to",
         contrasts_with: "Contrasts with",
       },
-      entryPointHint: "Want to dig into the concepts behind this? Browse Knowledge →",
+      entryPointHint:
+        "Want to dig into the concepts behind this? Browse Knowledge →",
       relatedKnowledge: "Related Knowledge",
     },
     creator: {

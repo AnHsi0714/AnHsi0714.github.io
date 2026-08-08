@@ -1,0 +1,34 @@
+@use '../../../styles/mixins' as *;
+
+// 還原原稿 CodePen 整頁的樣子（深色底置中卡片），寫法跟 NameCardPage 一樣，
+// 見 mixins.scss 的 full-bleed-under-nav。
+.page {
+  position: relative;
+  box-sizing: border-box;
+  @include full-bleed-under-nav();
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background-color: #222;
+}
+
+.back {
+  position: absolute;
+  top: 32px;
+  left: 24px;
+  font-size: 14px;
+  color: #f3f3f3;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.caption {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #f3f3f3;
+  text-align: center;
+}

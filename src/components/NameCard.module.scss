@@ -1,0 +1,217 @@
+// 從 CodePen 名片作業移植而來，維持原稿的固定配色（不跟站台的 light/dark
+// theme token 走），因為這張卡本身就是一個獨立的視覺作品。
+$namecard-color1: #c597bf;
+$namecard-color2: #ec9929;
+$namecard-background: #402838;
+$namecard-hover-background: #333;
+$namecard-border: #705667;
+$namecard-hover-border: #444;
+$namecard-text: #fff;
+$job-color: #ffecdb;
+$circle1-color: #00c8a1;
+$circle2-color: #c5fcee;
+$circle3-color: #00c8a1;
+
+.nameCard {
+  // 原稿沒設 box-sizing（瀏覽器預設 content-box），400x250 是純內容區，
+  // padding/border 另外往外撐出（實際渲染 454x304）。三顆菱形色塊
+  // （.circle）就是靠這段多撐出來的空間被 overflow:hidden 切成一角，
+  // 才會變成三角形／雙箭頭的裝飾效果——改成 border-box 會把這段空間吃掉，
+  // 色塊整個被切到框外、完全消失，所以這裡要明著蓋掉站台全域的
+  // box-sizing: border-box 預設（Tailwind preflight）。
+  position: relative;
+  box-sizing: content-box;
+  width: 400px;
+  max-width: 100%;
+  height: 250px;
+  padding: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: $namecard-text;
+  background-color: $namecard-background;
+  border: solid 7px $namecard-border;
+  border-radius: 6px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  transition:
+    background-color 0.4s,
+    border-color 0.4s;
+
+  &.isHovered {
+    background-color: $namecard-hover-background;
+    border-color: $namecard-hover-border;
+
+    .name,
+    .nameEnglish,
+    .aboutMe,
+    .job,
+    .hr,
+    .circle {
+      opacity: 1;
+    }
+  }
+}
+
+.name {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  opacity: 0;
+  font-size: 30px;
+  font-weight: 700;
+  transition: opacity 2s 1s;
+}
+
+.nameEnglish {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  opacity: 0;
+  font-size: 15px;
+  font-weight: 500;
+  transition: opacity 2s 1s;
+}
+
+.job {
+  position: relative;
+  z-index: 1;
+  margin: 4px 0 0;
+  opacity: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: $job-color;
+  transition: opacity 2s 1s;
+}
+
+.hr {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  border-color: rgba(255, 255, 255, 0.3);
+  transition: opacity 1s 1s;
+}
+
+.aboutMe {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  opacity: 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+  transition: opacity 2s 1s;
+}
+
+.circle {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  opacity: 0;
+  border-radius: 5%;
+  transform: rotate(45deg);
+  transition:
+    opacity 1s 0.5s,
+    border-radius 0.6s,
+    width 0.6s,
+    height 0.6s,
+    top 0.6s;
+}
+
+.circle1 {
+  top: 260px;
+  left: 100px;
+  background-color: $circle1-color;
+}
+
+.circle2 {
+  top: -40px;
+  left: 345px;
+  width: 50px;
+  height: 50px;
+  border: solid 4px $circle2-color;
+}
+
+.circle3 {
+  top: -45px;
+  left: 330px;
+  width: 80px;
+  height: 80px;
+  border: solid 4px $circle3-color;
+}
+
+.isClicked {
+  .circle {
+    border-radius: 100%;
+  }
+
+  .circle2 {
+    top: 30px;
+  }
+
+  .circle3 {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.mark,
+.mark2 {
+  position: absolute;
+  z-index: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 2px;
+  font-size: 100px;
+  font-weight: 700;
+  color: transparent;
+  background: linear-gradient(to bottom, $namecard-color1, $namecard-color2);
+  background-clip: text;
+  -webkit-background-clip: text;
+  // 原稿用 @keyframes（進場 1s／退場 3.5s 含 80% 停格）驅動位移，但滑鼠快速
+  // 滑過又離開時，class 從 hovered 切到 unhovered 會讓退場動畫從自己的 0%
+  // （寫死的畫面外位置）重新開始，而不是接著目前位置繼續——變成整個名條
+  // 卡在畫面外「消失」長達 2.8s（80% 停格那段）才滑回來。改用 transition
+  // 移動 left，瀏覽器會從中斷當下的實際位置接續動畫，快速劃過也不會卡住。
+  //
+  // 但原稿那個 80% 停格不是沒有用意：資訊（姓名／職稱／自介）用
+  // opacity 2s 1s 淡出，總共要 3s 才會完全消失，比水印文字滑回來的時間
+  // 還慢。如果劃過的時間夠長、資訊真的有淡入顯示過，離開時就得讓水印晚一
+  // 點才開始滑回來，等資訊淡出得差不多了再出現，兩者才不會疊在一起；但
+  // 如果只是滑過去又馬上離開、資訊根本沒顯示，就不需要這個等待，直接滑
+  // 回來即可（見 NameCard.tsx 用 1s 計時器判斷是否「有顯示到資訊階段」）。
+  // 未顯示過資訊：離開就直接滑回來，不用等。
+  transition: left 3.5s ease;
+}
+
+.mark {
+  top: 10px;
+  left: 30px;
+}
+
+.mark2 {
+  top: 130px;
+  left: 100px;
+}
+
+.nameCard.isHovered .mark {
+  left: -320px;
+  transition-duration: 1s;
+}
+
+.nameCard.isHovered .mark2 {
+  left: 450px;
+  transition-duration: 1s;
+}
+
+// 有顯示過資訊：等資訊淡出得差不多了（2.8s）才開始滑回來，滑回來本身只
+// 花 0.7s，加總跟原稿的 3.5s 退場時間一致。
+.mark.returnSlow {
+  transition: left 0.7s ease 2.8s;
+}
+
+.mark2.returnSlow {
+  transition: left 0.7s ease 2.8s;
+}

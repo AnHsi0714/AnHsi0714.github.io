@@ -13,6 +13,14 @@ html {
   font-size: 18px;
 }
 
+/* NavBar 是 sticky top-0，捲到有 id 的錨點(標題、remark-gfm 腳註的引用/定義)時
+   scrollIntoView({block:'start'}) 或原生 #fragment 導覽都會把目標頂到畫面最上緣，
+   被蓋在 NavBar 底下。--nav-h 是 NavBar.tsx 用 ResizeObserver 量出的即時高度，
+   拿來當 scroll-margin-top 讓目標永遠落在 NavBar 下方，不用另外猜一個高度。 */
+[id] {
+  scroll-margin-top: calc(var(--nav-h, 0px) + 1rem);
+}
+
 /* Tailwind Typography 的 prose-neutral 預設用固定灰階色，不會跟著 .dark 切換。
    這裡把 --tw-prose-* 接到 theme.css 的 --color-* 變數，讓 markdown 內容也能跟著日／夜模式變色。 */
 .prose {
