@@ -42,7 +42,11 @@ const content = {
       "新北市樟樹實中 JICTS 資訊科",
       "國立臺北科技大學 NTUT 資工系 大三",
     ],
-    academicSummary: { rank: "Rank: 3/62", percentile: "4.8%", gpa: "3.99" },
+    academicSummary: {
+      rank: "Rank: 3/63",
+      percentile: "4.8%",
+      gpa: "3.98/4.00",
+    },
     researchInterests: [
       {
         layer: "核心 Core",
@@ -124,7 +128,11 @@ const content = {
       "New Taipei Municipal Zhangshu Experimental High School, JICTS Information Technology Program",
       "National Taipei University of Technology (NTUT), Dept. of Computer Science & Information Engineering — Junior (3rd year)",
     ],
-    academicSummary: { rank: "3/62", percentile: "4.8%", gpa: "3.99" },
+    academicSummary: {
+      rank: "3/63",
+      percentile: "4.8%",
+      gpa: "3.98/4.00",
+    },
     researchInterests: [
       {
         layer: "Core",
