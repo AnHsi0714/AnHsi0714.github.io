@@ -71,6 +71,8 @@ export interface Strings {
     viewProjects: string;
     featuredProjects: string;
     featuredProjectsGoto: (group: number) => string;
+    featuredArticles: string;
+    featuredArticlesGoto: (group: number) => string;
     explore: string;
     advisor: string;
     quickLinkExperience: string;
@@ -332,6 +334,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       viewProjects: "查看專案",
       featuredProjects: "精選專案",
       featuredProjectsGoto: (group: number) => `切換至第 ${group} 組精選專案`,
+      featuredArticles: "精選文章",
+      featuredArticlesGoto: (group: number) => `切換至第 ${group} 組精選文章`,
       explore: "更多內容",
       advisor: "指導教授：",
       quickLinkExperience: "經歷 Experience",
@@ -609,6 +613,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       viewProjects: "View Projects",
       featuredProjects: "Featured Projects",
       featuredProjectsGoto: (group: number) => `Go to featured group ${group}`,
+      featuredArticles: "Featured Articles",
+      featuredArticlesGoto: (group: number) => `Go to featured article group ${group}`,
       explore: "Explore",
       advisor: "Advisor: ",
       quickLinkExperience: "Experience",

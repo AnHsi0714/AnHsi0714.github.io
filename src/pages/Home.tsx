@@ -10,8 +10,10 @@ import Button from "../components/Button";
 import TextLink from "../components/TextLink";
 import Reveal from "../components/Reveal";
 import FeaturedProjectsCarousel from "../components/FeaturedProjectsCarousel";
+import FeaturedArticlesCarousel from "../components/FeaturedArticlesCarousel";
 import type { Project } from "../types/content";
 import { useLocalized } from "../lib/localized";
+import { usePublishedArticles } from "../lib/articles";
 import { useTranslation } from "../i18n/useTranslation";
 
 const researchInterestTags = [
@@ -27,6 +29,8 @@ export default function Home() {
   const { t } = useTranslation();
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
   const featuredProjects = projects.filter((project) => project.featured);
+  const articles = usePublishedArticles();
+  const featuredArticles = articles.filter((article) => article.featured);
 
   const socialLinks = [
     {
@@ -115,6 +119,17 @@ export default function Home() {
           </p>
           <div className="mt-4">
             <FeaturedProjectsCarousel projects={featuredProjects} />
+          </div>
+        </section>
+      )}
+
+      {featuredArticles.length > 0 && (
+        <section>
+          <p className="font-semibold text-[var(--color-primary)]">
+            {t.home.featuredArticles}
+          </p>
+          <div className="mt-4">
+            <FeaturedArticlesCarousel articles={featuredArticles} />
           </div>
         </section>
       )}
