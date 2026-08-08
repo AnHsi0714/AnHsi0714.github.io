@@ -131,6 +131,9 @@ export interface Strings {
     featuredSectionTitle: string;
     allSectionTitle: string;
     ratingLabel: (rating: number) => string;
+    draftBadge: string;
+    tableOfContents: string;
+    nextArticle: string;
   };
   gallery: {
     title: string;
@@ -392,6 +395,9 @@ export const strings: Record<"zh" | "en", Strings> = {
       featuredSectionTitle: "精選",
       allSectionTitle: "全部",
       ratingLabel: (rating: number) => `評分 ${rating} / 5`,
+      draftBadge: "草稿",
+      tableOfContents: "文章目錄",
+      nextArticle: "下一篇文章",
     },
     gallery: {
       title: "生成視覺",
@@ -666,6 +672,9 @@ export const strings: Record<"zh" | "en", Strings> = {
       featuredSectionTitle: "Featured",
       allSectionTitle: "All",
       ratingLabel: (rating: number) => `Rating ${rating} / 5`,
+      draftBadge: "Draft",
+      tableOfContents: "Table of Contents",
+      nextArticle: "Next Article",
     },
     gallery: {
       title: "Generative Visuals",

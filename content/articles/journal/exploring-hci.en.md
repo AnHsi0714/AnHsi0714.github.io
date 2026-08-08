@@ -1,6 +1,6 @@
 ---
 type: journal
-title: "Discovering HCI: The Problem I Cared About Already Had a Name"
+title: "Exploring HCI: From Usability to Understanding Why"
 date: 2026-07-26
 categories: [Reflection, HCI]
 excerpt: How I went from feeling out of place in CS to stumbling into HCI.

@@ -107,6 +107,9 @@ export interface NameCardContent {
 
 export type ArticleType = "book" | "paper" | "tech" | "journal";
 
+// draft 文章不會出現在 /articles 列表、「下一篇文章」或知識點反查，但仍可透過直接網址預覽
+export type ArticleStatus = "draft" | "published";
+
 export interface Article {
   slug: string;
   type: ArticleType;
@@ -121,4 +124,8 @@ export interface Article {
   rating?: number;
   // 站長手動置頂／精選，會排在列表最前面並顯示圖釘圖示
   featured?: boolean;
+  status: ArticleStatus;
+  // 手動指定「下一篇文章」的 slug，蓋過預設的依日期排序取下一篇；
+  // 沒填或指向的文章不存在／未上架時，一律 fallback 回預設排序邏輯
+  nextSlug?: string;
 }
