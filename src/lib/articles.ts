@@ -9,7 +9,11 @@ const modules = import.meta.glob("../../content/articles/**/*.md", {
 }) as Record<string, string>;
 
 function baseSlug(path: string): string {
-  return path.split("/").pop()!.replace(/\.en\.md$/, "").replace(/\.md$/, "");
+  return path.split("/").pop()!.replace(/\.md$/, "");
+}
+
+function isEnglish(path: string): boolean {
+  return path.includes("/articles/en/");
 }
 
 function parseArticle(slug: string, raw: string): Article {
@@ -38,7 +42,7 @@ const enArticles = new Map<string, Article>();
 for (const [path, raw] of Object.entries(modules)) {
   const slug = baseSlug(path);
   const article = parseArticle(slug, raw);
-  if (path.endsWith(".en.md")) {
+  if (isEnglish(path)) {
     enArticles.set(slug, article);
   } else {
     zhArticles.set(slug, article);

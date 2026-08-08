@@ -1,14 +1,18 @@
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { parseFrontmatter } from "./markdown";
 
-const modules = import.meta.glob("../../content/projects/*.md", {
+const modules = import.meta.glob("../../content/projects/**/*.md", {
   eager: true,
   query: "?raw",
   import: "default",
 }) as Record<string, string>;
 
 function baseSlug(path: string): string {
-  return path.split("/").pop()!.replace(/\.en\.md$/, "").replace(/\.md$/, "");
+  return path.split("/").pop()!.replace(/\.md$/, "");
+}
+
+function isEnglish(path: string): boolean {
+  return path.includes("/projects/en/");
 }
 
 const zhBodies: Record<string, string> = {};
@@ -17,7 +21,7 @@ const enBodies: Record<string, string> = {};
 for (const [path, raw] of Object.entries(modules)) {
   const slug = baseSlug(path);
   const body = parseFrontmatter(raw).body;
-  if (path.endsWith(".en.md")) {
+  if (isEnglish(path)) {
     enBodies[slug] = body;
   } else {
     zhBodies[slug] = body;
