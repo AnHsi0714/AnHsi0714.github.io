@@ -17,14 +17,23 @@ type FeaturedFilter = "all" | "featured" | "not-featured";
 
 export function Stars({ rating, t }: { rating: number; t: Strings }) {
   return (
-    <span
-      aria-label={t.articles.ratingLabel(rating)}
-      className="text-amber-500"
-    >
-      {"★".repeat(rating)}
-      <span className="text-[var(--color-border)]">
-        {"★".repeat(5 - rating)}
-      </span>
+    <span aria-label={t.articles.ratingLabel(rating)} className="inline-flex">
+      {Array.from({ length: 5 }, (_, i) => {
+        const fill = Math.min(1, Math.max(0, rating - i));
+        return (
+          <span key={i} className="relative inline-block text-[var(--color-border)]">
+            ★
+            {fill > 0 && (
+              <span
+                className="absolute inset-0 overflow-hidden text-amber-500"
+                style={{ width: `${fill * 100}%` }}
+              >
+                ★
+              </span>
+            )}
+          </span>
+        );
+      })}
     </span>
   );
 }
