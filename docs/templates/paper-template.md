@@ -3,6 +3,7 @@ type: paper
 title: YYYY 文獻筆記《論文標題》——一句話重點提問
 date: YYYY-MM-DD
 categories: [論文, 心得, ...]
+status: draft
 ---
 
 > 撰寫期間：YYYY-MM-DD – YYYY-MM-DD（若一天內完成可刪除此行）

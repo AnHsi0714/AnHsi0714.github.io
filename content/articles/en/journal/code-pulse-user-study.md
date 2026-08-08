@@ -7,7 +7,7 @@ excerpt: Breaking down a user study from my capstone project CodePulse — the r
 status: draft
 ---
 
-> Written on 2026-08-08
+> Written on 2026-08-08 – 2026-08-08
 
 This piece is about a user study I designed and ran on CodePulse, my capstone project — it's a companion piece to [Discovering HCI: The Problem I Cared About Already Had a Name](/articles/exploring-hci).
 

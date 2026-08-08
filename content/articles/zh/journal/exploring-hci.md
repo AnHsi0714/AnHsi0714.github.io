@@ -1,13 +1,13 @@
 ---
 type: journal
 title: 探索 HCI：從「好不好用」到「為什麼」
-date: 2026-07-26
+date: 2026-08-08
 categories: [心得, HCI]
 excerpt: 記錄我從資工系的格格不入到意外接觸 HCI 領域的心得。
 nextSlug: code-pulse-good-design
 ---
 
-> 撰寫期間：2026-07-25 – 2026-07-26
+> 撰寫期間：2026-07-25 – 2026-08-08
 
 這是一篇記錄我接觸 HCI 的過程與心得。
 

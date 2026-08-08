@@ -17,12 +17,11 @@ import { usePublishedArticles } from "../lib/articles";
 import { useTranslation } from "../i18n/useTranslation";
 
 const researchInterestTags = [
+  "Human-Computer Interaction",
+  "Social Computing",
+  "Information Visualization",
   "Visual Analytics",
   "Interactive Data Exploration",
-  "Information Visualization",
-  "Human-Computer Interaction",
-  "Natural Language Processing",
-  "Knowledge Graph",
 ];
 
 export default function Home() {
@@ -170,7 +169,11 @@ export default function Home() {
             rel={href.startsWith("mailto:") ? undefined : "noreferrer"}
             className="inline-flex items-center gap-2 text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-primary)]"
           >
-            <FontAwesomeIcon icon={icon} className="text-base" aria-hidden="true" />
+            <FontAwesomeIcon
+              icon={icon}
+              className="text-base"
+              aria-hidden="true"
+            />
             {label}
           </a>
         ))}
