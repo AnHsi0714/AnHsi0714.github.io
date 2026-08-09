@@ -7,7 +7,7 @@
     "status": "in-progress",
     "tags": ["WEB"],
     "period": "2026/06 ~",
-    "screenshotUrl": "",
+    "screenshotUrl": "/images/projects/personal-website/home.png",
     "githubUrl": "https://github.com/AnHsi0714/AnHsi0714.github.io",
     "featured": true
   },
@@ -57,7 +57,7 @@
     "status": "done",
     "tags": ["AI", "WEB", "EDU", "VIZ"],
     "collaborators": ["鄭安琋", "葉凱成", "鄭錦鑫"],
-    "advisor": "陳香君",
+    "advisor": "Annette Chen",
     "period": "2025/06 ~ 2026/06",
     "screenshotUrl": "/images/projects/code-pulse/home-page.png",
     "githubUrl": "https://github.com/Jx-study/CodePulse",
