@@ -307,7 +307,31 @@
     "relatedArticles": [],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
-      { "slug": "normalized-gain", "type": "applies_to" }
+      { "slug": "normalized-gain", "type": "applies_to" },
+      { "slug": "reflexive-thematic-analysis", "type": "related" }
+    ]
+  },
+  "thematic-coding": {
+    "term": "Coding & Theme",
+    "definition": "In qualitative research, a code is a label a researcher attaches to a segment of data (an interview transcript, a screenshot) to capture something noteworthy about it; codes that share similar meaning are then grouped and abstracted into a higher-level, more abstract theme. \"Tagging\" and \"coding\" are the same act, not two sequential steps where tags get sorted into codes afterward.",
+    "application": "In the SnapPI study, the first author coded 21 participants' interview transcripts and returned Snap screenshots, tagging meaning units such as \"quantifying feelings that are hard to put into words\" or \"sharing different stickers depending on friend type\"; the team then met regularly to group related codes, converging on 9 codes and 3 core themes.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["snappi-personal-data-stickers"],
+    "relatedNodes": [{ "slug": "reflexive-thematic-analysis", "type": "related" }]
+  },
+  "reflexive-thematic-analysis": {
+    "term": "Reflexive Thematic Analysis",
+    "definition": "A qualitative analysis approach from Braun & Clarke: codes and themes are meaning the researcher subjectively constructs through interpretation, so a different team analyzing the same data may reach different results — a natural expression of subjectivity, not an error. Team discussion aims to deepen interpretation, not to compute inter-rater reliability across independent coders the way some other approaches do.",
+    "application": "The SnapPI study used reflexive thematic analysis: the first author did the initial coding, and the research team met regularly to revise and consolidate themes — a discussion aimed at deepening interpretation, not at verifying agreement between multiple coders.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["snappi-personal-data-stickers"],
+    "relatedNodes": [
+      { "slug": "thematic-coding", "type": "prerequisite" },
+      { "slug": "human-computer-interaction", "type": "applies_to" }
     ]
   },
   "natural-language-processing": {

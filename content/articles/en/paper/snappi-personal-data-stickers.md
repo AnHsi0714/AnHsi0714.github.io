@@ -41,7 +41,7 @@ The study recruited 21 participants (frequent Snapchat users who send at least t
 - Technical issues were resolved through online meetings, participants were reminded to keep up their sending frequency, and everyone was compensated $10 for their time.
 - 24 people were originally recruited; one had technical issues and two didn't respond. The overall pool skewed young — everyone was under 30, and 15 were between 18–22.
 
-The team used reflexive thematic analysis: the first author coded interview transcripts and the Snap screenshots participants sent back, and the team refined and consolidated themes through ongoing discussion, eventually arriving at 9 codes and 3 core themes.
+The team used <span data-term="reflexive-thematic-analysis">reflexive thematic analysis</span>: the first author coded interview transcripts and the Snap screenshots participants sent back, and the team refined and consolidated themes through ongoing discussion, eventually arriving at <span data-term="thematic-coding">9 codes and 3 core themes</span>.
 
 ## Findings
 

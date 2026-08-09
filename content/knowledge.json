@@ -307,7 +307,31 @@
     "relatedArticles": [],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
-      { "slug": "normalized-gain", "type": "applies_to" }
+      { "slug": "normalized-gain", "type": "applies_to" },
+      { "slug": "reflexive-thematic-analysis", "type": "related" }
+    ]
+  },
+  "thematic-coding": {
+    "term": "編碼與主題（Coding & Theme）",
+    "definition": "質性研究中，編碼（code）是研究者針對一段資料（訪談逐字稿、截圖等）標記出的意義單位，用來捕捉該片段中值得注意的重點；再把意義相近、可歸為同一類的多個編碼歸納整合，形成更高層次、更抽象的主題（theme）。「貼標籤」與「編碼」其實是同一個動作，不是先貼標籤、再整理出編碼這兩個先後步驟。",
+    "application": "SnapPI 研究由第一作者針對 21 位受試者的訪談逐字稿與回傳的 Snap 截圖進行編碼，標記出諸如「用數字量化難以言語的感受」「依朋友類型分享不同貼圖」等意義單位，團隊再透過定期討論把相近的編碼歸納，最終整合成 9 個編碼、3 個核心主題。",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["snappi-personal-data-stickers"],
+    "relatedNodes": [{ "slug": "reflexive-thematic-analysis", "type": "related" }]
+  },
+  "reflexive-thematic-analysis": {
+    "term": "反思式主題分析（Reflexive Thematic Analysis）",
+    "definition": "Braun & Clarke 提出的質性分析取向：編碼與主題是研究者主觀詮釋資料後建構出的意義，換一組研究者分析同一份資料也可能得出不同結果，這是主觀性的自然展現而非誤差。團隊討論的目的是深化詮釋，而不是像部分取向那樣用多位編碼者計算一致性來驗證「正確答案」。",
+    "application": "SnapPI 研究採用反思式主題分析：由第一作者先進行編碼，研究團隊再透過定期討論持續修正與整合主題——這個討論的角色是深化詮釋，而不是驗證多位編碼者之間的一致性。",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["snappi-personal-data-stickers"],
+    "relatedNodes": [
+      { "slug": "thematic-coding", "type": "prerequisite" },
+      { "slug": "human-computer-interaction", "type": "applies_to" }
     ]
   },
   "natural-language-processing": {

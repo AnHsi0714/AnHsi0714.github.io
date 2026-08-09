@@ -41,7 +41,7 @@ excerpt: 人們在日常社交情境中，會如何使用個人數據貼圖？�
 - 透過線上會議解決技術問題，並提醒發送頻率，也獲得 10 美金來補償時間。
 - 原先招募 24 名，一名有技術問題，兩名未回應，參與人員總體很年輕，皆未滿 30 歲，且 15 名為 18-22 歲。
 
-研究團隊採用 reflexive thematic analysis（反思式主題分析），由第一作者針對訪談逐字稿與參與者回傳的 Snap 截圖進行編碼，研究團隊再透過定期討論持續修正與整合主題，最後形成 9 個編碼與 3 個核心主題。
+研究團隊採用 <span data-term="reflexive-thematic-analysis">reflexive thematic analysis（反思式主題分析）</span>，由第一作者針對訪談逐字稿與參與者回傳的 Snap 截圖進行編碼，研究團隊再透過定期討論持續修正與整合主題，最後形成 <span data-term="thematic-coding">9 個編碼與 3 個核心主題</span>。
 
 ## 研究發現
 
