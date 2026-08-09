@@ -49,7 +49,7 @@
 3. **Opinion Term** 意見詞：帶有主觀評價的形容詞/動詞短語（如很清晰）
 4. **Sentiment Polarity** 情感極性：該屬性的正負向判斷
 
-## 實驗 A — Rule-Based ABSA Quadruplet Pipeline
+## 實驗 A：Rule-Based ABSA Quadruplet Pipeline
 
 用五個階段的規則式流程，從零組裝出完整的 ABSA Quadruplet：
 
@@ -72,7 +72,7 @@
 
 ### 從 ACSA 到 ABSA Quadruplet
 
-初版只做到 (category, sentiment) 的 ACSA，缺少 span 定位，無法回答「是哪個詞讓使用者不滿意」。升級為 (aspect_term, aspect_category, opinion_term, polarity) 後，才能提供可操作的細粒度改善建議——從「動畫情感正面」變成「動畫（ANIMATION）因為流暢（pos）」。
+初版只做到 (category, sentiment) 的 ACSA，缺少 span 定位，無法回答「是哪個詞讓使用者不滿意」。升級為 (aspect_term, aspect_category, opinion_term, polarity) 後，才能提供可操作的細粒度改善建議，從「動畫情感正面」變成「動畫（ANIMATION）因為流暢（pos）」。
 
 ### 各 Stage 最終結果
 
@@ -85,9 +85,9 @@
 | 5     | Sentiment Classification | F3                               | 0.9000（accuracy） |
 | E2E   | True Quardruplet         | 全流程                           | Quad F1=0.3459     |
 
-Stage 3（Opinion）最容易優化；Stage 4（Pairing）天花板最低，主要卡在 implicit aspect/opinion 與跨子句語意——這些是規則式方法的結構性上限，也是後面接上 Track B 的動機。
+Stage 3（Opinion）最容易優化；Stage 4（Pairing）天花板最低，主要卡在 implicit aspect/opinion 與跨子句語意，這些是規則式方法的結構性上限，也是後面接上 Track B 的動機。
 
-## 實驗 B — LLM Zero-Shot（Gemini）
+## 實驗 B：LLM Zero-Shot（Gemini）
 
 Track A 的天花板：implicit aspect/opinion 約佔 GT 25%、規則無法理解跨子句語意、情感分類缺乏上下文。Track B 改用 Gemini 3.1 Flash Lite，讓 LLM 一次讀懂全句，直接輸出與 Track A 完全相同格式的四元組，做同任務的橫向對比。
 
@@ -115,7 +115,7 @@ Prompt 設計把六大面向定義、polarity 規則（優點 = pos；缺點/建
 | 可解釋性      | 高（可逐步追蹤） | 低（黑盒）                          |
 | Implicit 處理 | 規則無法補全     | LLM 語意推論可補全                  |
 
-Gemini 在同一任務上全面勝出，主要差距來自 implicit aspect 的補全能力與更高的 aspect recall——LLM 讀的是整段語意，不會被斷詞或 POS 規則卡住。但 Track A 仍有其價值：完全白箱、零 API 成本、可在隱私敏感場景本地執行，而且五個 Stage 逐步優化的過程本身就是一次完整的 NLP pipeline 設計練習。
+Gemini 在同一任務上全面勝出，主要差距來自 implicit aspect 的補全能力與更高的 aspect recall，因為 LLM 讀的是整段語意，不會被斷詞或 POS 規則卡住。但 Track A 仍有其價值：完全白箱、零 API 成本、可在隱私敏感場景本地執行，而且五個 Stage 逐步優化的過程本身就是一次完整的 NLP pipeline 設計練習。
 
 ## 互動視覺化
 

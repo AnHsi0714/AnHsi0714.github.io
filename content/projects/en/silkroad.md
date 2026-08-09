@@ -1,4 +1,4 @@
-# SilkRoad — Beverage E-Commerce Platform
+# SilkRoad: Beverage E-Commerce Platform
 
 ## Related Links
 
@@ -7,7 +7,7 @@ Demo: https://youtu.be/oEN80YCLeAc
 
 ## Project Overview
 
-This was the final project for a database systems course, aimed at applying database design and requirements-documentation skills to a complete system. We chose "SilkRoad," a <span data-term="b2c">B2C</span> online beverage trading platform that lets shops list, sell, take payment for, and arrange delivery of drinks entirely online — saving customers time, giving shops an extra sales channel, and leaving admins responsible for keeping the platform fair and secure.
+This was the final project for a database systems course, aimed at applying database design and requirements-documentation skills to a complete system. We chose "SilkRoad," a <span data-term="b2c">B2C</span> online beverage trading platform that lets shops list, sell, take payment for, and arrange delivery of drinks entirely online, saving customers time, giving shops an extra sales channel, and leaving admins responsible for keeping the platform fair and secure.
 
 Broken down by role into three usage scenarios:
 
@@ -44,14 +44,14 @@ Constraints established during system design to keep data integrity and business
 - Transaction records cannot be deleted, only marked as "refunded," and a refund amount can never exceed the original payment amount
 - Inventory for a given product cannot go below 0; order totals must be greater than 0
 - User accounts must be unique, and passwords are stored encrypted
-- Vendors can only manage their own products, cannot delete products that already have transaction records — those can only be delisted
+- Vendors can only manage their own products, cannot delete products that already have transaction records; those can only be delisted
 - Admins can review/freeze vendor accounts that violate rules, but cannot directly modify transaction amounts
 
 ## Database Design
 
 The biggest design challenge was beverages' "multi-dimensional customization": the same drink has sweetness, ice level, and size options, and size also affects the price. To balance <span data-term="normalization">Normalization</span> against query performance, we ended up splitting these options into independent `SUGAR_OPTIONS`, `ICE_OPTIONS`, and `SIZES_OPTIONS` sub-tables (all keyed to `product_id` as an <span data-term="pk-fk">FK</span>), so each product can have its own set of option combinations; `SIZES_OPTIONS` additionally carries a `price_step` field to handle size-based price increases.
 
-At checkout, `CART_ITEM` / `ORDER_ITEM` store a snapshot of the `selected_sugar` / `selected_ice` / `selected_size` chosen at that moment along with the final `price`, rather than referencing `PRODUCT`'s current settings live — so if a vendor later changes a product's options or price, existing historical orders aren't retroactively affected.
+At checkout, `CART_ITEM` / `ORDER_ITEM` store a snapshot of the `selected_sugar` / `selected_ice` / `selected_size` chosen at that moment along with the final `price`, rather than referencing `PRODUCT`'s current settings live, so if a vendor later changes a product's options or price, existing historical orders aren't retroactively affected.
 
 For roles, `USER` is a shared base table, with `ADMIN` / `CUSTOMER` / `VENDOR` simulating inheritance through a 1:1 <span data-term="pk-fk">PK-FK</span> relationship. `VENDOR` also has a separate `VENDOR_MANAGER` entity, since a single vendor manager may run multiple branches (e.g. "50 Lan – Da'an Branch" and "KeBuKe – Xinyi Branch" might both report to the same regional manager).
 
@@ -120,4 +120,4 @@ We also implemented a homepage for browsing vendors, an About Us page, login/reg
 
 ## Reflections
 
-From the initial <span data-term="er-model">ER Model</span> design through splitting out the customization-attribute relation tables, this project gave us a firsthand feel for how schema design shapes backend API complexity and the frontend user experience. It also gave us early exposure to collaborating under a decoupled frontend/backend workflow — API integration frequently got stuck on data-format mismatches or guest-vs-member cart state falling out of sync, and we worked through each of those issues via close team communication and debugging.
+From the initial <span data-term="er-model">ER Model</span> design through splitting out the customization-attribute relation tables, this project gave us a firsthand feel for how schema design shapes backend API complexity and the frontend user experience. It also gave us early exposure to collaborating under a decoupled frontend/backend workflow: API integration frequently got stuck on data-format mismatches or guest-vs-member cart state falling out of sync, and we worked through each of those issues via close team communication and debugging.

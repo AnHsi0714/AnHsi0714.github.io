@@ -6,29 +6,29 @@ categories: [Science, Health, Sleep]
 excerpt: Understanding why sleep matters, and exploring how sleep duration and other factors shape its quality.
 ---
 
-We spend about a third of our lives asleep. Sleep is deeply intertwined with our well-being — a good night's rest leaves us feeling recharged and ready to take on a new day. But how exactly does sleep affect us? And whether you sleep more or less, what does it actually take to get good-quality sleep? Let's dig in.
+We spend about a third of our lives asleep. Sleep is deeply intertwined with our well-being: a good night's rest leaves us feeling recharged and ready to take on a new day. But how exactly does sleep affect us? And whether you sleep more or less, what does it actually take to get good-quality sleep? Let's dig in.
 
 ## How Sleep Affects Us
 
-Ever wonder why some people prefer to tackle complex, demanding tasks in the morning and save trivial, less important work for the afternoon? It's because our brains spend sleep time organizing the information we've absorbed throughout the day — which is also why we tend to feel sharper and think more clearly right after waking up. Poor sleep disrupts this cleanup and organizing process, which in turn raises the risk of anxiety and depression.
+Ever wonder why some people prefer to tackle complex, demanding tasks in the morning and save trivial, less important work for the afternoon? It's because our brains spend sleep time organizing the information we've absorbed throughout the day, which is also why we tend to feel sharper and think more clearly right after waking up. Poor sleep disrupts this cleanup and organizing process, which in turn raises the risk of anxiety and depression.
 
-Some people are also more prone to snapping at the slightest provocation right after waking — what's commonly known as "morning crankiness" — and this, too, is tied to sleep. Insufficient sleep raises levels of stress hormones like adrenaline and cortisol in the body, leading to bigger mood swings. On top of that, chronic sleep deprivation increases the risk of diseases such as heart disease and stroke.
+Some people are also more prone to snapping at the slightest provocation right after waking (what's commonly known as "morning crankiness"), and this, too, is tied to sleep. Insufficient sleep raises levels of stress hormones like adrenaline and cortisol in the body, leading to bigger mood swings. On top of that, chronic sleep deprivation increases the risk of diseases such as heart disease and stroke.
 
 ## Sleep Duration
 
-According to relevant research, 7 to 8 hours of sleep is the sweet spot — more than 9 hours or less than 6 hours isn't ideal. Additionally, people who keep a regular sleep schedule tend to have a lower risk of premature death.
+According to relevant research, 7 to 8 hours of sleep is the sweet spot: more than 9 hours or less than 6 hours isn't ideal. Additionally, people who keep a regular sleep schedule tend to have a lower risk of premature death.
 
 What we commonly call a "regular sleep schedule" is really our circadian rhythm, governed primarily by the suprachiasmatic nucleus (SCN) in the brain. At night, incoming light cues prompt the pineal gland to release melatonin, which helps induce sleep.
 
-If you're trying to adjust to a new time zone, exercise can help by increasing physical fatigue, and spending more time outdoors can help too — roughly every two hours outdoors can shift your sleep schedule by about one hour. This is largely because outdoor light intensity is around 15,000 lux, compared to only about 200 lux indoors. That difference in light intensity helps the SCN know when it's time to signal melatonin release as darkness falls, increasing drowsiness — this is the circadian rhythm mechanism mentioned above in action.
+If you're trying to adjust to a new time zone, exercise can help by increasing physical fatigue, and spending more time outdoors can help too: roughly every two hours outdoors can shift your sleep schedule by about one hour. This is largely because outdoor light intensity is around 15,000 lux, compared to only about 200 lux indoors. That difference in light intensity helps the SCN know when it's time to signal melatonin release as darkness falls, increasing drowsiness, which is the circadian rhythm mechanism mentioned above in action.
 
 Melatonin is responsible for triggering the onset of sleep, signaling that night has arrived. Once sleep begins, melatonin levels gradually decline from night through early morning, bottoming out by morning before the cycle repeats.
 
 ## Sleep Pressure
 
-The moment we wake up, a chemical called adenosine starts accumulating in the brain — it's a key driver that pushes us toward sleep. Typically, after 12 to 16 hours of being awake, the buildup becomes strong enough that we can no longer resist the urge to sleep, so we fall asleep, and adenosine levels start dropping again, repeating the cycle.
+The moment we wake up, a chemical called adenosine starts accumulating in the brain, a key driver that pushes us toward sleep. Typically, after 12 to 16 hours of being awake, the buildup becomes strong enough that we can no longer resist the urge to sleep, so we fall asleep, and adenosine levels start dropping again, repeating the cycle.
 
-One chemical that interferes with adenosine's effect is caffeine — and it's not just in coffee; it's also present in most teas and energy drinks. The reason coffee keeps you alert is that caffeine occupies the very receptors meant to receive adenosine, blocking the "sleepy" signal adenosine would otherwise send to the brain. Caffeine takes roughly 4 to 6 hours for half of it to be metabolized, which means a cup of coffee you have with dinner will still be about half present in your system by the time you go to bed.
+One chemical that interferes with adenosine's effect is caffeine, and it's not just in coffee; it's also present in most teas and energy drinks. The reason coffee keeps you alert is that caffeine occupies the very receptors meant to receive adenosine, blocking the "sleepy" signal adenosine would otherwise send to the brain. Caffeine takes roughly 4 to 6 hours for half of it to be metabolized, which means a cup of coffee you have with dinner will still be about half present in your system by the time you go to bed.
 
 ## Conclusion
 

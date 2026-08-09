@@ -6,7 +6,7 @@ Our final project for Object-Oriented Programming Lab (OOPL).
 
 ### Game Overview
 
-A recreation of the original 1985 *Super Mario Bros.* — a super Italian plumber working his way through a series of levels.
+A recreation of the original 1985 *Super Mario Bros.*, a super Italian plumber working his way through a series of levels.
 
 The player controls Mario as he runs and jumps through the game world toward the goal (the green flagpole) at the end of each level, dodging enemy attacks along the way. Items and game mechanics let the player defeat enemies and collect coins, with the goal of reaching the end of each level.
 
@@ -71,7 +71,7 @@ Levels also contain items that help the player, such as mushrooms, fire flowers,
   - Base class: Enemy
     - Goomba: A basic enemy with no special abilities
     - Flower (Piranha Plant): Spawns on pipes; moves up and down
-    - Koopa: Has walking and shell states — Mario stomping it triggers the shell state; stomping the shell again sends it sliding to collide with other creatures (including Mario); left un-stomped for long enough, it reverts back to walking
+    - Koopa: Has walking and shell states: Mario stomping it triggers the shell state; stomping the shell again sends it sliding to collide with other creatures (including Mario); left un-stomped for long enough, it reverts back to walking
     - FlyKoopa (Flying Koopa): A Koopa that flies through the air; degrades into a regular Koopa when stomped, sharing the same behavior as a regular Koopa, and moves up and down
 - Block Manager: Manages block spawning and state updates
   - Base class: Block
@@ -120,6 +120,6 @@ Encapsulation, inheritance,<br>
 
 ### Reflections
 
-For our OOPL final project, we chose to recreate the classic *Super Mario Bros. 1985* as our challenge. It wasn't just a piece of our childhood — it was also a great vehicle for practicing object-oriented design techniques like encapsulation, inheritance, polymorphism, and class modularization.
+For our OOPL final project, we chose to recreate the classic *Super Mario Bros. 1985* as our challenge. It wasn't just a piece of our childhood; it was also a great vehicle for practicing object-oriented design techniques like encapsulation, inheritance, polymorphism, and class modularization.
 
-Throughout development, we dug deep into building a complete 2D side-scrolling game in C++. We modeled characters, blocks, enemies, items, and the map as classes, and used Manager classes to centralize logic and resource control, which kept the project structure clearer and easier to debug and maintain. Along the way we ran into plenty of strange bugs, which taught us how to patiently track down the root cause of a problem — and drove home just how much clean code matters.
+Throughout development, we dug deep into building a complete 2D side-scrolling game in C++. We modeled characters, blocks, enemies, items, and the map as classes, and used Manager classes to centralize logic and resource control, which kept the project structure clearer and easier to debug and maintain. Along the way we ran into plenty of strange bugs, which taught us how to patiently track down the root cause of a problem, and drove home just how much clean code matters.

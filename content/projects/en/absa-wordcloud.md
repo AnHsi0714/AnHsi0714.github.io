@@ -1,8 +1,8 @@
-# ABSA Pipeline — CodePulse User Feedback Sentiment Analysis
+# ABSA Pipeline: CodePulse User Feedback Sentiment Analysis
 
 ## Background and Motivation
 
-This research applies two parallel approaches — a rule-based NLP pipeline and Gemini zero-shot prompting — to Aspect-Based Sentiment Analysis (ABSA) on user feedback surveys for the [CodePulse](https://code-pulse.cc/) platform, breaking free-text feedback like "the animation is smooth, but submitting a quiz lags" down into actionable quadruplets such as (animation, ANIMATION, smooth, positive) and (submitting a quiz, QUIZ, lags, negative). Unlike traditional sentiment analysis, which can only judge a whole sentence as good or bad, ABSA pinpoints exactly which feature is being evaluated and how, letting the development team map feedback directly onto concrete things to fix. On the same hand-annotated ground truth, Gemini's zero-shot pipeline outperforms the rule-based pipeline across the board on full-quadruplet extraction (Partial F1, +0.207), with the gap driven mainly by Gemini's ability to recover implicit attributes. Even so, the rule-based pipeline retains real advantages — zero API cost, high interpretability, and the ability to run entirely locally in privacy-sensitive settings — so the two approaches complement rather than simply replace each other.
+This research applies two parallel approaches (a rule-based NLP pipeline and Gemini zero-shot prompting) to Aspect-Based Sentiment Analysis (ABSA) on user feedback surveys for the [CodePulse](https://code-pulse.cc/) platform, breaking free-text feedback like "the animation is smooth, but submitting a quiz lags" down into actionable quadruplets such as (animation, ANIMATION, smooth, positive) and (submitting a quiz, QUIZ, lags, negative). Unlike traditional sentiment analysis, which can only judge a whole sentence as good or bad, ABSA pinpoints exactly which feature is being evaluated and how, letting the development team map feedback directly onto concrete things to fix. On the same hand-annotated ground truth, Gemini's zero-shot pipeline outperforms the rule-based pipeline across the board on full-quadruplet extraction (Partial F1, +0.207), with the gap driven mainly by Gemini's ability to recover implicit attributes. Even so, the rule-based pipeline retains real advantages: zero API cost, high interpretability, and the ability to run entirely locally in privacy-sensitive settings, so the two approaches complement rather than simply replace each other.
 
 Survey feedback is free text, which makes it hard to analyze systematically: which feature most needs improvement? What do users actually care about? Which aspect has a concrete problem?
 
@@ -35,7 +35,7 @@ Six aspect categories (defined by the platform's feature modules, not derived fr
 
 ## What Is ABSA
 
-Traditional sentiment analysis stops at the sentence level, only able to judge a comment as good or bad overall — which easily loses the details. Aspect-Based Sentiment Analysis (ABSA) is fine-grained analysis that can pin down exactly which specific attribute a user is praising or complaining about.
+Traditional sentiment analysis stops at the sentence level, only able to judge a comment as good or bad overall, which easily loses the details. Aspect-Based Sentiment Analysis (ABSA) is fine-grained analysis that can pin down exactly which specific attribute a user is praising or complaining about.
 
 For example, "The food tasted great, but service was really slow":
 
@@ -49,7 +49,7 @@ A complete ABSA quadruplet has four elements:
 3. **Opinion Term**: the adjective/verb phrase carrying the subjective evaluation (e.g. "very clear")
 4. **Sentiment Polarity**: whether that aspect is judged positive or negative
 
-## Experiment A — Rule-Based ABSA Quadruplet Pipeline
+## Experiment A: Rule-Based ABSA Quadruplet Pipeline
 
 A five-stage rule-based pipeline that assembles a complete ABSA quadruplet from scratch:
 
@@ -68,11 +68,11 @@ A five-stage rule-based pipeline that assembles a complete ABSA quadruplet from 
 
 ### Why Pure Clustering Was Abandoned
 
-We initially tried <span data-term="agglomerative-clustering">Agglomerative Clustering</span> to group feedback into categories automatically, but traditional clustering only looks at raw geometric distance and ignores business logic, which easily blurs semantic boundaries (for instance, UI and Animation differed in similarity by only 0.007). Switching to an anchor-guided classification approach — using hand-defined seed words to plant clear semantic landmarks in the vector space — kept high interpretability and removed the need to guess an "optimal number of clusters" via a silhouette score.
+We initially tried <span data-term="agglomerative-clustering">Agglomerative Clustering</span> to group feedback into categories automatically, but traditional clustering only looks at raw geometric distance and ignores business logic, which easily blurs semantic boundaries (for instance, UI and Animation differed in similarity by only 0.007). Switching to an anchor-guided classification approach (using hand-defined seed words to plant clear semantic landmarks in the vector space) kept high interpretability and removed the need to guess an "optimal number of clusters" via a silhouette score.
 
 ### From ACSA to ABSA Quadruplets
 
-The first version only produced (category, sentiment) pairs — ACSA — with no span localization, so it couldn't answer "which word made the user unhappy?" Upgrading to (aspect_term, aspect_category, opinion_term, polarity) made it possible to give actionable, fine-grained improvement suggestions — moving from "animation sentiment is positive" to "animation (ANIMATION) is positive because it's smooth."
+The first version only produced (category, sentiment) pairs (ACSA) with no span localization, so it couldn't answer "which word made the user unhappy?" Upgrading to (aspect_term, aspect_category, opinion_term, polarity) made it possible to give actionable, fine-grained improvement suggestions, moving from "animation sentiment is positive" to "animation (ANIMATION) is positive because it's smooth."
 
 ### Final Results by Stage
 
@@ -85,9 +85,9 @@ The first version only produced (category, sentiment) pairs — ACSA — with no
 | 5 | Sentiment Classification | F3 | 0.9000 (accuracy) |
 | E2E | True Quadruplet | Full pipeline | Quad F1 = 0.3459 |
 
-Stage 3 (Opinion) was the easiest to optimize; Stage 4 (Pairing) had the lowest ceiling, mostly bottlenecked on implicit aspects/opinions and cross-clause semantics — a structural limit of rule-based methods, and the main motivation for building Track B.
+Stage 3 (Opinion) was the easiest to optimize; Stage 4 (Pairing) had the lowest ceiling, mostly bottlenecked on implicit aspects/opinions and cross-clause semantics, a structural limit of rule-based methods, and the main motivation for building Track B.
 
-## Experiment B — LLM Zero-Shot (Gemini)
+## Experiment B: LLM Zero-Shot (Gemini)
 
 Track A's ceiling: implicit aspects/opinions make up roughly 25% of the ground truth, rules can't parse cross-clause semantics, and sentiment classification lacks context. Track B switches to Gemini 3.1 Flash Lite, letting the LLM read the entire sentence at once and directly output quadruplets in the exact same format as Track A, for a head-to-head comparison on the same task.
 
@@ -115,7 +115,7 @@ Evaluated on the same 101-tuple hand-labeled ground truth, using the same Quadru
 | Interpretability | High (step-by-step traceable) | Low (black box) |
 | Handling implicit terms | Rules can't recover them | LLM semantic reasoning can recover them |
 
-Gemini wins across the board on this task, with the gap driven mostly by its ability to recover implicit aspects and its higher aspect recall — the LLM reads whole passages of meaning and isn't constrained by word-segmentation or POS rules the way Track A is. Still, Track A retains real value: it's fully white-box, has zero API cost, can run entirely locally in privacy-sensitive settings, and the process of iteratively optimizing five stages was itself a complete exercise in NLP pipeline design.
+Gemini wins across the board on this task, with the gap driven mostly by its ability to recover implicit aspects and its higher aspect recall: the LLM reads whole passages of meaning and isn't constrained by word-segmentation or POS rules the way Track A is. Still, Track A retains real value: it's fully white-box, has zero API cost, can run entirely locally in privacy-sensitive settings, and the process of iteratively optimizing five stages was itself a complete exercise in NLP pipeline design.
 
 ## Interactive Visualization
 
@@ -135,7 +135,7 @@ Demo: [sengq1011.github.io/absa-wordcloud](https://sengq1011.github.io/absa-word
 
 ## Conclusion and Contributions
 
-1. Term-level ABSA quadruplets give developers far more precise, actionable insight than category-level ACSA alone — they show exactly which word was evaluated and how.
+1. Term-level ABSA quadruplets give developers far more precise, actionable insight than category-level ACSA alone: they show exactly which word was evaluated and how.
 2. We used systematic per-stage iteration: each stage changed exactly one variable at a time, so every improvement could be explained.
 3. Gemini's <span data-term="zero-shot">Zero-Shot Learning</span> approach outperforms the rule-based pipeline on the same quadruplet task (+0.2070 Quad F1), with its main advantages being implicit-aspect recovery and higher aspect recall.
 4. We built and open-sourced the full stack: a 5-stage rule-based ABSA pipeline, a Gemini zero-shot pipeline, a 101-tuple hand-labeled ground truth, a per-stage quantitative evaluation framework, and a D3 interactive visualization.

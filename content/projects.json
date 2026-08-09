@@ -38,7 +38,7 @@
   },
   {
     "slug": "absa-wordcloud",
-    "name": "ABSA Pipeline — CodePulse 使用者回饋情感分析",
+    "name": "ABSA Pipeline：CodePulse 使用者回饋情感分析",
     "desc": "針對使用者回饋，分別以 Aspect-Based Sentiment Analysis 和 LLM 方式抽取四元組比較成效，並將結果以 WordCloud 方式呈現。",
     "date": "2026-06",
     "status": "done",
