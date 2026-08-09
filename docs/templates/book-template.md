@@ -1,6 +1,6 @@
 ---
 type: book
-title: 書名
+title: 《書名》讀後心得：一句話重點
 author: 作者
 rating: 1-5
 date: YYYY-MM-DD

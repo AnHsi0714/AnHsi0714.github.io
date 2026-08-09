@@ -1,6 +1,6 @@
 ---
 type: book
-title: 原子習慣
+title: 《原子習慣》讀後心得：微小習慣的複利效應
 author: James Clear
 rating: 5
 date: 2026-03-12

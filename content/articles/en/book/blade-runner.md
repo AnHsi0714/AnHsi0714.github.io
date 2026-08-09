@@ -1,6 +1,6 @@
 ---
 type: book
-title: "Blade Runner: When Empathy Becomes the Last Line Between Human and Android"
+title: '"Blade Runner" Reading Notes: When Empathy Becomes the Last Line Between Human and Android'
 author: Philip K. Dick
 rating: 4.5
 date: 2023-08-30

@@ -1,6 +1,6 @@
 ---
 type: book
-title: Atomic Habits
+title: '"Atomic Habits" Reading Notes: The Compounding Effect of Tiny Habits'
 author: James Clear
 rating: 5
 date: 2026-03-12

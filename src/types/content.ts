@@ -105,7 +105,7 @@ export interface NameCardContent {
   caption: string;
 }
 
-export type ArticleType = "book" | "paper" | "tech" | "journal";
+export type ArticleType = "book" | "essay" | "paper" | "tech" | "journal";
 
 // draft 文章不會出現在 /articles 列表、「下一篇文章」或知識點反查，但仍可透過直接網址預覽
 export type ArticleStatus = "draft" | "published";
@@ -119,7 +119,7 @@ export interface Article {
   body: string;
   categories: string[];
   coverUrl?: string;
-  // 僅 type: 'book' 會用到
+  // 僅 type: 'book' / 'essay' 會用到
   author?: string;
   rating?: number;
   // 站長手動置頂／精選，會排在列表最前面並顯示圖釘圖示
