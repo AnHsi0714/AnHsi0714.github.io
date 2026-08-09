@@ -4,6 +4,7 @@ title: 2020 Paper Notes on 《Exposure to Social Engagement Metrics Increases Vu
 date: 2026-07-25
 categories: [Paper, Notes, HCI, Social Media]
 featured: true
+excerpt: Through an analysis of social engagement metrics on social platforms, examining how they affect people's trust in a piece of content, their motivation to fact-check, and their willingness to share low-credibility content.
 ---
 
 **Original paper**: [Exposure to Social Engagement Metrics Increases Vulnerability to Misinformation](https://arxiv.org/pdf/2005.04682)
@@ -37,7 +38,7 @@ Another thing worth discussing is that users were overwhelmingly concentrated in
 
 Through a simple design, this paper studies how the level of engagement metrics actually shapes people's cognitive judgment. In a place like ours, where we're constantly on guard against misinformation from every direction, the question worth asking is: is it bot accounts flooding the feed with information faster, or is it us — real people — hitting "share" with our own hands that's driving this phenomenon?
 
-## Reflections
+## Reading Notes
 
 This was the first time I actually sat down and read a paper, and the first time I turned that into a note like this. The paper is fairly short (9 pages), which made it a good first one to read. I liked that the researchers used a game instead of a real social platform — besides recruiting a large user base for free, it also sidesteps the risk of having to deal directly with social media companies. This got me thinking further: beyond content and source affecting how people judge and verify information, when even a purely statistical number like an engagement count can shape cognition, what should we choose to keep on an interface, and how do we strike a balance between fighting cognitive warfare and commercial incentives?
 
