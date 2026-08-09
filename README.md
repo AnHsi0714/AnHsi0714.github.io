@@ -1,6 +1,8 @@
 # AnHsi0714.github.io
 
-個人網站。整體架構、各區塊規劃與資料庫設計見 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)；每日進度記錄在 `docs/progress/<年-月>/<當週週一日期>.md`（每月一個資料夾，每週一個檔案）。
+個人網站：<a href="https://anhsi0714.github.io/" target="_blank" rel="noopener noreferrer">https://anhsi0714.github.io/</a>
+
+整體架構、各區塊規劃與資料庫設計見 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)；每日進度記錄在 `docs/progress/<年-月>/<當週週一日期>.md`（每月一個資料夾，每週一個檔案）。
 
 ## 技術棧
 

@@ -85,7 +85,7 @@ const content = {
     ],
     experienceHighlights: [
       { year: "2022", text: "全國工科技藝競賽 金手獎第七名" },
-      { year: "2023 / 5", text: "赴美見學交流（亞特蘭大 & 舊金山）" },
+      { year: "2023 / 05", text: "赴美見學交流（亞特蘭大 & 舊金山）" },
       { year: "2023~2025", text: "母校技藝競賽選手培訓教師" },
       { year: "2025 / 12", text: "教育大數據微學程 成果發表 佳作" },
       {
@@ -163,7 +163,7 @@ const content = {
       {
         title:
           "CodePulse — Data Structures & Algorithms Visualization Teaching Platform",
-        desc: "2025 Academic Year Capstone Project, Dept. of CSIE ｜ Advisor: 陳香君",
+        desc: "2025 Academic Year Capstone Project, Dept. of CSIE ｜ Advisor: Annette Chen",
       },
       {
         title:
@@ -176,7 +176,10 @@ const content = {
         year: "2022",
         text: "National Skills Competition — 7th Place, Golden Hand Award",
       },
-      { year: "2023 / 5", text: "US Study Exchange (Atlanta & San Francisco)" },
+      {
+        year: "2023 / 05",
+        text: "US Study Exchange (Atlanta & San Francisco)",
+      },
       { year: "2023~2025", text: "Skills Competition Coach at Alma Mater" },
       {
         year: "2025 / 12",
@@ -367,10 +370,9 @@ export default function About() {
 
         <Reveal>
           <div id="resume" className="flex flex-col items-start gap-2 pt-6">
-            <Button type="button">{t.about.downloadResume}</Button>
-            <span className="text-xs text-[var(--color-text-muted)]">
-              {t.about.resumePending}
-            </span>
+            <a href="/resume.pdf" download>
+              <Button type="button">{t.about.downloadResume}</Button>
+            </a>
           </div>
         </Reveal>
       </div>

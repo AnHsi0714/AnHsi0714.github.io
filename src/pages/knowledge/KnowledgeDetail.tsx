@@ -61,12 +61,12 @@ export default function KnowledgeDetail() {
     ...relatedProjects.map((p) => ({
       date: p.date,
       label: p.name,
-      to: `/projects/${p.slug}`,
+      to: `/projects/${p.slug}#${node.slug}`,
     })),
     ...relatedArticles.map((a) => ({
       date: a.date,
       label: a.title,
-      to: `/articles/${a.slug}`,
+      to: `/articles/${a.slug}#${node.slug}`,
     })),
   ].sort((a, b) => a.date.localeCompare(b.date));
 
@@ -97,7 +97,7 @@ export default function KnowledgeDetail() {
           <h2 className="text-lg font-semibold">{t.knowledge.relatedProjects}</h2>
           <div className="mt-2 flex flex-wrap gap-2">
             {relatedProjects.map((p) => (
-              <Link key={p.slug} to={`/projects/${p.slug}`}>
+              <Link key={p.slug} to={`/projects/${p.slug}#${node.slug}`}>
                 <Chip>{p.name}</Chip>
               </Link>
             ))}
@@ -110,7 +110,7 @@ export default function KnowledgeDetail() {
           <h2 className="text-lg font-semibold">{t.knowledge.relatedArticles}</h2>
           <div className="mt-2 flex flex-wrap gap-2">
             {relatedArticles.map((a) => (
-              <Link key={a.slug} to={`/articles/${a.slug}`}>
+              <Link key={a.slug} to={`/articles/${a.slug}#${node.slug}`}>
                 <Chip>{a.title}</Chip>
               </Link>
             ))}

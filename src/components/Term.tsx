@@ -88,11 +88,12 @@ export default function Term({ id, children }: TermProps) {
     <>
       <button
         ref={triggerRef}
+        id={id}
         type="button"
         onClick={() => setIsOpen((open) => !open)}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        className="cursor-help border-0 border-b border-dotted border-[var(--color-text-muted)] bg-transparent p-0 align-baseline font-[inherit] text-[inherit] leading-[inherit]"
+        className="cursor-help scroll-mt-20 border-0 border-b border-dotted border-[var(--color-text-muted)] bg-transparent p-0 align-baseline font-[inherit] text-[inherit] leading-[inherit]"
       >
         {children}
       </button>

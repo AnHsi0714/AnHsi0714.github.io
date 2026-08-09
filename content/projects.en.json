@@ -7,8 +7,9 @@
     "status": "in-progress",
     "tags": ["WEB"],
     "period": "2026/06 ~",
-    "screenshotUrl": "",
-    "githubUrl": "https://github.com/AnHsi0714/AnHsi0714.github.io"
+    "screenshotUrl": "/images/projects/personal-website/home.png",
+    "githubUrl": "https://github.com/AnHsi0714/AnHsi0714.github.io",
+    "featured": true
   },
   {
     "slug": "super-mario",
@@ -25,7 +26,7 @@
   },
   {
     "slug": "silkroad",
-    "name": "SilkRoad — Beverage E-Commerce Platform",
+    "name": "SilkRoad: Beverage E-Commerce Platform",
     "desc": "A full-stack CRUD database project.",
     "date": "2026-01",
     "status": "done",
@@ -37,7 +38,7 @@
   },
   {
     "slug": "absa-wordcloud",
-    "name": "ABSA Pipeline — CodePulse User Feedback Sentiment Analysis",
+    "name": "ABSA Pipeline: CodePulse User Feedback Sentiment Analysis",
     "desc": "Extracts sentiment quadruplets from user feedback using both an Aspect-Based Sentiment Analysis pipeline and an LLM, compares their performance, and visualizes the results as word clouds.",
     "date": "2026-06",
     "status": "done",
@@ -50,13 +51,13 @@
   },
   {
     "slug": "code-pulse",
-    "name": "CodePulse — Data Structures & Algorithms Visualization Learning Platform",
+    "name": "CodePulse: Data Structures & Algorithms Visualization Learning Platform",
     "desc": "An algorithm teaching platform combining interactive visualization and code execution tracing. Pre/post-test research showed it significantly boosted learners' confidence, while also revealing a gap between interface effectiveness and measurable learning outcomes.",
     "date": "2026-06",
     "status": "done",
     "tags": ["AI", "WEB", "EDU", "VIZ"],
     "collaborators": ["鄭安琋", "葉凱成", "鄭錦鑫"],
-    "advisor": "陳香君",
+    "advisor": "Annette Chen",
     "period": "2025/06 ~ 2026/06",
     "screenshotUrl": "/images/projects/code-pulse/home-page.png",
     "githubUrl": "https://github.com/Jx-study/CodePulse",

@@ -215,7 +215,7 @@ export default function ComponentsPreview() {
           >
             <p className="mt-3 font-semibold">Perlin 山水</p>
             <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
-              這段介紹被截斷了，點擊卡片會在暗色遮罩上展開完整的作品說明牌，
+              點擊卡片會在暗色遮罩上展開完整的作品說明牌，
               對應之後生成視覺的作品介紹用法。
             </p>
           </ExpandableCard>

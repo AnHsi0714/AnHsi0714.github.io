@@ -3,6 +3,7 @@ type: journal
 title: 雜記標題
 date: YYYY-MM-DD
 categories: [雜記, ...]
+status: draft
 ---
 
 > 撰寫期間：YYYY-MM-DD – YYYY-MM-DD（若一天內完成可刪除此行）

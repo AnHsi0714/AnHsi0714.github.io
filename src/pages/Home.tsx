@@ -9,27 +9,27 @@ import Chip from "../components/Chip";
 import Button from "../components/Button";
 import TextLink from "../components/TextLink";
 import Reveal from "../components/Reveal";
+import FeaturedProjectsCarousel from "../components/FeaturedProjectsCarousel";
+import FeaturedArticlesCarousel from "../components/FeaturedArticlesCarousel";
 import type { Project } from "../types/content";
 import { useLocalized } from "../lib/localized";
+import { usePublishedArticles } from "../lib/articles";
 import { useTranslation } from "../i18n/useTranslation";
 
 const researchInterestTags = [
+  "Human-Computer Interaction",
+  "Social Computing",
+  "Information Visualization",
   "Visual Analytics",
   "Interactive Data Exploration",
-  "Information Visualization",
-  "Human-Computer Interaction",
-  "Natural Language Processing",
-  "Knowledge Graph",
 ];
-
-const featuredSlugs = ["code-pulse", "absa-wordcloud"];
 
 export default function Home() {
   const { t } = useTranslation();
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
-  const featuredProjects = featuredSlugs
-    .map((slug) => projects.find((p) => p.slug === slug))
-    .filter((p): p is Project => Boolean(p));
+  const featuredProjects = projects.filter((project) => project.featured);
+  const articles = usePublishedArticles();
+  const featuredArticles = articles.filter((article) => article.featured);
 
   const socialLinks = [
     {
@@ -111,38 +111,27 @@ export default function Home() {
         </div>
       </Reveal>
 
-      <section>
-        <p className="font-semibold text-[var(--color-primary)]">
-          {t.home.featuredProjects}
-        </p>
-        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {featuredProjects.map((project, index) => (
-            <Reveal key={project.slug} delay={index * 80} className="h-full">
-              <Card hoverable className="h-full">
-                <Link to={`/projects/${project.slug}`} className="block">
-                  <p className="font-semibold">{project.name}</p>
-                  {project.advisor && (
-                    <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">
-                      {t.home.advisor}
-                      {project.advisor}
-                    </p>
-                  )}
-                  <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-3">
-                    {project.desc}
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {project.tags.map((tag) => (
-                      <Chip key={tag} size="sm">
-                        {tag}
-                      </Chip>
-                    ))}
-                  </div>
-                </Link>
-              </Card>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+      {featuredProjects.length > 0 && (
+        <section>
+          <p className="font-semibold text-[var(--color-primary)]">
+            {t.home.featuredProjects}
+          </p>
+          <div className="mt-4">
+            <FeaturedProjectsCarousel projects={featuredProjects} />
+          </div>
+        </section>
+      )}
+
+      {featuredArticles.length > 0 && (
+        <section>
+          <p className="font-semibold text-[var(--color-primary)]">
+            {t.home.featuredArticles}
+          </p>
+          <div className="mt-4">
+            <FeaturedArticlesCarousel articles={featuredArticles} />
+          </div>
+        </section>
+      )}
 
       <section>
         <p className="font-semibold text-[var(--color-primary)]">
@@ -180,7 +169,11 @@ export default function Home() {
             rel={href.startsWith("mailto:") ? undefined : "noreferrer"}
             className="inline-flex items-center gap-2 text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-primary)]"
           >
-            <FontAwesomeIcon icon={icon} className="text-base" aria-hidden="true" />
+            <FontAwesomeIcon
+              icon={icon}
+              className="text-base"
+              aria-hidden="true"
+            />
             {label}
           </a>
         ))}
