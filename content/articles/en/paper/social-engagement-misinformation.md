@@ -2,8 +2,9 @@
 type: paper
 title: 2020 Paper Notes on 《Exposure to Social Engagement Metrics Increases Vulnerability to Misinformation》 — Do More Likes and Shares Make a Post More Credible?
 date: 2026-07-25
-categories: [Paper, Notes, HCI, Social Media]
+categories: [Paper, HCI, Social Media]
 featured: true
+coverUrl: /images/articles/social-engagement-misinformation/fakey-interface.png
 excerpt: Through an analysis of social engagement metrics on social platforms, examining how they affect people's trust in a piece of content, their motivation to fact-check, and their willingness to share low-credibility content.
 ---
 

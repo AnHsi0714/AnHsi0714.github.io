@@ -2,7 +2,7 @@
 type: book
 title: '"Blade Runner" Reading Notes: When Empathy Becomes the Last Line Between Human and Android'
 author: Philip K. Dick
-rating: 4.5
+rating: 5
 date: 2023-08-30
 categories: [Science Fiction, Philosophy]
 excerpt: In a world choked with radioactive dust, the line between human and android, animal and electric animal keeps blurring — what's left to call human emotion and faith?

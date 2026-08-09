@@ -19,7 +19,11 @@ Beyond building out the platform's core functionality, what I really wanted to k
 
 ## A/B Test Design
 
-So I designed a pre/post-test using similar-but-different problem sets swapped across an A/B design.
+If the pre-test and post-test used the exact same questions, participants might do better simply from remembering the questions or answers — a practice effect. So I designed two versions, A and B, of the quiz: both measured the same concepts, but expressed the questions differently.
+
+For example, the same algorithm concept might be presented by changing the numeric values, swapping between a DFS and a BFS scenario, or switching the question format between reading code and reading its execution result. Participants took one version as the pre-test, then used CodePulse before taking the other version as the post-test.
+
+What I wanted to observe wasn't just whether they got the same question right, but whether they could transfer the concepts they picked up while using the tool to a similar but different new problem.
 
 ## Pre/Post-Test
 
@@ -27,7 +31,11 @@ The goal was to see whether, after using CodePulse, users could transfer what th
 
 ## User Feedback
 
-Alongside that, I ran a user feedback survey to understand their subjective experience of the learning process and how information was presented in the interface.
+Quiz scores trended upward but didn't reach statistical significance. Looking back at participants' performance, I started to think this might not simply mean CodePulse had no learning effect — it could also have to do with question difficulty and participants' prior knowledge.
+
+Some higher-performing participants could already answer the easier questions correctly on the pre-test, so even if their understanding shifted after using CodePulse, that change was hard to show up as a clear score improvement. On the other end, some questions may have been beyond what participants with weaker prior knowledge could grasp to begin with, so a single short session wasn't enough to translate into better quiz performance.
+
+This was the first time it really hit me that an experiment's result isn't just about whether it's statistically significant or not. Participants' prior knowledge, question difficulty, test duration, and question design can all shape the effect you end up observing.
 
 ## Results
 

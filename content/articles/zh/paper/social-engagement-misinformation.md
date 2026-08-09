@@ -2,8 +2,9 @@
 type: paper
 title: 2020 文獻筆記《Exposure to Social Engagement Metrics Increases Vulnerability to Misinformation》——互動讚數越多，一篇文章就越可信嗎？
 date: 2026-07-25
-categories: [論文, 心得, HCI, 社群媒體]
+categories: [論文, HCI, 社群媒體]
 featured: true
+coverUrl: /images/articles/social-engagement-misinformation/fakey-interface.png
 excerpt: 透過分析社群平台的互動指標，探討人們對一篇文章的信任程度影響、是否降低查證意願，以及是否更願意分享低信任度內容。
 ---
 
