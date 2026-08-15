@@ -118,6 +118,7 @@ export interface Strings {
     advisor: string;
     featuredSectionTitle: string;
     allSectionTitle: string;
+    tableOfContents: string;
   };
   articles: {
     title: string;
@@ -385,6 +386,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       advisor: "指導教授：",
       featuredSectionTitle: "精選",
       allSectionTitle: "全部",
+      tableOfContents: "專案目錄",
     },
     articles: {
       title: "文章",
@@ -666,6 +668,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       advisor: "Advisor: ",
       featuredSectionTitle: "Featured",
       allSectionTitle: "All",
+      tableOfContents: "Table of Contents",
     },
     articles: {
       title: "Articles",

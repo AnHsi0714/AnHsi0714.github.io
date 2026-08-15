@@ -50,7 +50,7 @@ export default function Trail() {
       {items.map((item, index) => {
         const isLast = index === items.length - 1;
         return (
-          <span key={item.path} className="flex items-center gap-1">
+          <span key={item.trailIndex} className="flex items-center gap-1">
             {index > 0 && <span aria-hidden="true">›</span>}
             {isLast ? (
               <span className="text-[var(--color-text)]">{item.label}</span>

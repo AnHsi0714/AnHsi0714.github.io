@@ -10,6 +10,7 @@ import { useKnowledgeNode, useKnowledgeMap } from "../../lib/knowledge";
 import TextLink from "../../components/TextLink";
 import { usePublishedArticles } from "../../lib/articles";
 import { useLocalized } from "../../lib/localized";
+import { useNeedsScroll } from "../../lib/useNeedsScroll";
 import { useTranslation } from "../../i18n/useTranslation";
 import { useTrail } from "../../context/TrailContext";
 import type { KnowledgeRelationType, Project } from "../../types/content";
@@ -30,6 +31,7 @@ export default function KnowledgeDetail() {
   const articles = usePublishedArticles();
   const { pushTrailEntry } = useTrail();
   const isPublished = node?.status === "published";
+  const needsScroll = useNeedsScroll();
 
   useEffect(() => {
     if (isPublished && slug) {
@@ -167,13 +169,15 @@ export default function KnowledgeDetail() {
         </div>
       )}
 
-      <TextLink
-        to="/knowledge"
-        restoreScroll
-        className="mt-8 inline-block text-sm font-medium"
-      >
-        {t.knowledge.backToList}
-      </TextLink>
+      {needsScroll && (
+        <TextLink
+          to="/knowledge"
+          restoreScroll
+          className="mt-8 inline-block text-sm font-medium"
+        >
+          {t.knowledge.backToList}
+        </TextLink>
+      )}
     </section>
   );
 }
