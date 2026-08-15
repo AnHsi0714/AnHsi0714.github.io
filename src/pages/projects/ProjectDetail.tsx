@@ -12,6 +12,7 @@ import type { Project } from "../../types/content";
 import { statusBadgeVariant } from "./Projects";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -20,6 +21,10 @@ export default function ProjectDetail() {
   const project = projects.find((item) => item.slug === slug);
   const projectBodies = useProjectBodies();
   const relatedKnowledge = useKnowledgeNodesLinkedTo("project", slug ?? "");
+  useDocumentTitle(
+    project ? `${project.name} · AnHsi0714` : `${t.projects.notFoundTitle} · AnHsi0714`,
+    project?.desc,
+  );
 
   if (!project) {
     return (

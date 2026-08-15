@@ -7,9 +7,11 @@ import EmptyState from "../../components/EmptyState";
 import Reveal from "../../components/Reveal";
 import { usePublishedKnowledgeNodes } from "../../lib/knowledge";
 import { useTranslation } from "../../i18n/useTranslation";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 
 export default function Knowledge() {
   const { t } = useTranslation();
+  useDocumentTitle(`${t.knowledge.title} · AnHsi0714`, t.knowledge.subtitle);
   const nodes = usePublishedKnowledgeNodes();
   const [searchParams, setSearchParams] = useSearchParams();
 

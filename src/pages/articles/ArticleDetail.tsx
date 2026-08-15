@@ -11,6 +11,7 @@ import { extractHeadings } from "../../lib/markdown";
 import TextLink from "../../components/TextLink";
 import { Stars } from "./Articles";
 import { useTranslation } from "../../i18n/useTranslation";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 
 export default function ArticleDetail() {
   const { slug } = useParams();
@@ -22,6 +23,10 @@ export default function ArticleDetail() {
   const headings = useMemo(
     () => extractHeadings(article?.body ?? ""),
     [article],
+  );
+  useDocumentTitle(
+    article ? `${article.title} · AnHsi0714` : `${t.articles.notFoundTitle} · AnHsi0714`,
+    article?.excerpt,
   );
 
   if (!article) {

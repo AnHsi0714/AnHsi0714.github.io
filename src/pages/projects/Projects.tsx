@@ -14,6 +14,7 @@ import type { Project, ProjectStatus, ProjectTag } from "../../types/content";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
 import type { Strings } from "../../i18n/strings";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 
 const allStatuses: ProjectStatus[] = ["todo", "in-progress", "done"];
 
@@ -80,6 +81,7 @@ function ProjectCard({ project, t }: { project: Project; t: Strings }) {
 
 export default function Projects() {
   const { t } = useTranslation();
+  useDocumentTitle(`${t.projects.title} · AnHsi0714`, t.projects.subtitle);
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
   const allTags = Array.from(
     new Set(projects.flatMap((p) => p.tags ?? [])),

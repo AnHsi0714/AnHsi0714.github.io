@@ -9,6 +9,8 @@ import TextLink from "../../components/TextLink";
 import { usePublishedArticles } from "../../lib/articles";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
+import { deriveExcerpt } from "../../lib/markdown";
 import type { KnowledgeRelationType, Project } from "../../types/content";
 
 const relationOrder: KnowledgeRelationType[] = [
@@ -25,6 +27,10 @@ export default function KnowledgeDetail() {
   const knowledgeMap = useKnowledgeMap();
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
   const articles = usePublishedArticles();
+  useDocumentTitle(
+    node ? `${node.term} · AnHsi0714` : `${t.knowledge.notFoundTitle} · AnHsi0714`,
+    node ? deriveExcerpt(node.definition, 150) : undefined,
+  );
 
   if (!node || node.status !== "published") {
     return (
