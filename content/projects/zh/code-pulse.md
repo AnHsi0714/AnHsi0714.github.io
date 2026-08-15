@@ -28,30 +28,24 @@ CodePulse 是一套整合互動式視覺化、程式執行追蹤與 AI 演算法
 以「步驟導向」呈現演算法執行流程：選定主題後同步顯示程式碼、動畫與步驟說明，並依資料結構類型切換對應的視覺化方式（陣列排序看索引交換數值，鏈結串列看指標變化）。動畫同步高亮對應的 Pseudo Code 行數，搭配「知識補充站」整合概念說明、複雜度分析、經典題型與真實世界應用。
 
 <figure>
-  <img src="/images/projects/code-pulse/linked-list-operation.png" alt="鏈結串列教學模式：插入節點逐步動畫" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">鏈結串列教學模式：插入節點逐步動畫</figcaption>
-</figure>
-
-<figure>
   <img src="/images/projects/code-pulse/bubble-sort-operation.png" alt="Bubble Sort 教學模式視覺化" style="display: block; margin: 0 auto; max-width: 100%;" />
   <figcaption style="text-align: center;">Bubble Sort 教學模式視覺化</figcaption>
 </figure>
 
 <figure>
-  <img src="/images/projects/code-pulse/array-introduction.png" alt="知識補充站：陣列複雜度分析" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">知識補充站：陣列複雜度分析</figcaption>
+  <video controls preload="metadata" width="1920" height="1200" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+    <source src="/videos/projects/code-pulse/tutorial.mp4" type="video/mp4" />
+  </video>
+  <figcaption style="text-align: center;">知識補充站：陣列複雜度分析（操作示範）</figcaption>
 </figure>
 
 學完教學模式後接練習模式：單選、多選、程式填空與程式追蹤等題型(包含題組形式)，並採用基於 <span data-term="elo-rating">ELO Rating</span> 的能力評估機制動態調整題目難度，並加入 <span data-term="k-factor">K-factor</span> 衰減與首次作答（First Blood）策略，讓重複作答不會持續拉高評分，同時保留 XP 獎勵提升學習動機。
 
 <figure>
-  <img src="/images/projects/code-pulse/practice-page.png" alt="練習模式：題目作答" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">練習模式：題目作答</figcaption>
-</figure>
-
-<figure>
-  <img src="/images/projects/code-pulse/practice-result.png" alt="測驗結果與段位評分" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">測驗結果與段位評分</figcaption>
+  <video controls preload="metadata" width="1728" height="1080" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+    <source src="/videos/projects/code-pulse/practice.mp4" type="video/mp4" />
+  </video>
+  <figcaption style="text-align: center;">練習模式：題目作答（操作示範）</figcaption>
 </figure>
 
 ## 探索式學習模式：Lab 與 Playground
@@ -59,8 +53,10 @@ CodePulse 是一套整合互動式視覺化、程式執行追蹤與 AI 演算法
 **Lab** 提供多個排序演算法的並排比較（Bubble / Selection / Insertion / Merge / Quick Sort），同步顯示執行時間、比較次數、移動次數等指標，讓學習者直接看出演算法之間的行為差異，而不只是背時間複雜度。
 
 <figure>
-  <img src="/images/projects/code-pulse/lab-page.png" alt="Lab 模式：多演算法並排比較" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">Lab 模式：多演算法並排比較</figcaption>
+  <video controls preload="metadata" width="1728" height="1080" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+    <source src="/videos/projects/code-pulse/lab.mp4" type="video/mp4" />
+  </video>
+  <figcaption style="text-align: center;">Lab 模式：多演算法並排比較（操作示範）</figcaption>
 </figure>
 
 **Playground** 則是這個專題的核心難點：允許使用者提交任意 Python 程式碼，系統透過 <span data-term="ast">AST</span> 靜態分析建立<span data-term="cfg">控制流程圖（CFG）</span>，並用 `sys.settrace` 在 Docker sandbox 中動態追蹤執行事件，取得變數狀態與函式呼叫關係。
@@ -73,8 +69,10 @@ CodePulse 是一套整合互動式視覺化、程式執行追蹤與 AI 演算法
 - **Level 2（通用型流程視覺化）**：辨識信心不足或非標準實作時，退回顯示 CFG / Call Graph，保留執行細節但抽象程度較低
 
 <figure>
-  <img src="/images/projects/code-pulse/playground-page.png" alt="Playground：CFG / Call Graph 視覺化" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">Playground：CFG / Call Graph 視覺化</figcaption>
+  <video controls preload="metadata" width="1728" height="1080" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+    <source src="/videos/projects/code-pulse/playground.mp4" type="video/mp4" />
+  </video>
+  <figcaption style="text-align: center;">Playground：CFG / Call Graph 視覺化（操作示範）</figcaption>
 </figure>
 
 ### 演算法辨識：語意嵌入模型比較
