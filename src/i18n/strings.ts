@@ -118,6 +118,7 @@ export interface Strings {
     advisor: string;
     featuredSectionTitle: string;
     allSectionTitle: string;
+    tableOfContents: string;
   };
   articles: {
     title: string;
@@ -135,6 +136,7 @@ export interface Strings {
     ratingLabel: (rating: number) => string;
     draftBadge: string;
     tableOfContents: string;
+    previousArticle: string;
     nextArticle: string;
   };
   gallery: {
@@ -278,7 +280,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       title: "Playground",
       subtitle:
         "比較個人、還在玩的東西——夢想清單、朋友的創作、開發用的小工具。",
-      dreamsDesc: "想做的事，以及為什麼想做",
+      dreamsDesc: "想做的事",
       friendsDesc: "朋友們用邀請碼創作的 2D 像素畫與 3D 怪獸",
       devComponentsDesc: "UI 組件庫預覽（開發用）",
       devCreatureDesc: "3D 怪獸走路動畫驗證（開發用）",
@@ -384,6 +386,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       advisor: "指導教授：",
       featuredSectionTitle: "精選",
       allSectionTitle: "全部",
+      tableOfContents: "專案目錄",
     },
     articles: {
       title: "文章",
@@ -401,6 +404,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       ratingLabel: (rating: number) => `評分 ${rating} / 5`,
       draftBadge: "草稿",
       tableOfContents: "文章目錄",
+      previousArticle: "上一篇文章",
       nextArticle: "下一篇文章",
     },
     gallery: {
@@ -550,7 +554,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       title: "Playground",
       subtitle:
         "More personal, still-in-progress things — a dream list, creations by friends, and dev tools.",
-      dreamsDesc: "Things I want to do, and why",
+      dreamsDesc: "Things I want to do",
       friendsDesc:
         "2D pixel art and 3D creatures made by friends using invite codes",
       devComponentsDesc: "UI component library preview (dev tool)",
@@ -664,6 +668,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       advisor: "Advisor: ",
       featuredSectionTitle: "Featured",
       allSectionTitle: "All",
+      tableOfContents: "Table of Contents",
     },
     articles: {
       title: "Articles",
@@ -681,6 +686,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       ratingLabel: (rating: number) => `Rating ${rating} / 5`,
       draftBadge: "Draft",
       tableOfContents: "Table of Contents",
+      previousArticle: "Previous Article",
       nextArticle: "Next Article",
     },
     gallery: {

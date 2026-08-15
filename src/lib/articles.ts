@@ -71,20 +71,35 @@ export function usePublishedArticles(): Article[] {
   return useArticles().filter((article) => article.status === "published");
 }
 
-// 預設依目前列表排序（新到舊）找下一篇；文章 frontmatter 若手動指定 nextSlug
-// 且該文章存在又已上架，則優先採用，讓像 exploring-hci 這種系列文章可以照寫作
-// 順序串接，而不是被日期排序打散
+// 算出某篇文章實際指向的下一篇 slug：優先採用 frontmatter 手動指定的 nextSlug
+// （該文章需存在又已上架，讓像 exploring-hci 這種系列文章可以照寫作順序串接），
+// 否則 fallback 回列表排序（新到舊）的下一筆。previous 也依此反查，兩個方向才不會對不起來
+function effectiveNextSlug(
+  article: Article,
+  index: number,
+  published: Article[],
+): string | undefined {
+  if (article.nextSlug && published.some((a) => a.slug === article.nextSlug)) {
+    return article.nextSlug;
+  }
+  return published[index + 1]?.slug;
+}
+
 export function useNextArticle(slug: string | undefined): Article | undefined {
   if (!slug) return undefined;
   const published = usePublishedArticles();
-
-  const current = published.find((article) => article.slug === slug);
-  if (current?.nextSlug) {
-    const manual = published.find((article) => article.slug === current.nextSlug);
-    if (manual) return manual;
-  }
-
   const index = published.findIndex((article) => article.slug === slug);
   if (index === -1) return undefined;
-  return published[index + 1];
+  const nextSlug = effectiveNextSlug(published[index], index, published);
+  return published.find((article) => article.slug === nextSlug);
+}
+
+// 反查誰的「下一篇」指向目前這篇，確保跟 useNextArticle 完全對稱
+// （包含手動 nextSlug 的系列文章），而不是單純用日期序 index-1
+export function usePreviousArticle(slug: string | undefined): Article | undefined {
+  if (!slug) return undefined;
+  const published = usePublishedArticles();
+  return published.find(
+    (article, index) => effectiveNextSlug(article, index, published) === slug,
+  );
 }

@@ -28,30 +28,24 @@ The production deployment runs the frontend on Cloudflare Pages, with an Nginx r
 Presents algorithm execution "step by step": once a topic is selected, code, animation, and step explanations are shown in sync, with the visualization style adapted to the data structure (array sorting shows index swaps and value changes; linked lists show pointer changes). The animation highlights the corresponding pseudocode line as it plays, paired with a "knowledge corner" that covers concept explanations, complexity analysis, classic problem patterns, and real-world applications.
 
 <figure>
-  <img src="/images/projects/code-pulse/linked-list-operation.png" alt="Linked-list guided mode: step-by-step node insertion animation" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">Linked-list guided mode: step-by-step node insertion animation</figcaption>
-</figure>
-
-<figure>
   <img src="/images/projects/code-pulse/bubble-sort-operation.png" alt="Bubble Sort guided-mode visualization" style="display: block; margin: 0 auto; max-width: 100%;" />
   <figcaption style="text-align: center;">Bubble Sort guided-mode visualization</figcaption>
 </figure>
 
 <figure>
-  <img src="/images/projects/code-pulse/array-introduction.png" alt="Knowledge corner: array complexity analysis" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">Knowledge corner: array complexity analysis</figcaption>
+  <video controls preload="metadata" width="1920" height="1200" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+    <source src="/videos/projects/code-pulse/tutorial.mp4" type="video/mp4" />
+  </video>
+  <figcaption style="text-align: center;">Knowledge corner: array complexity analysis (demo)</figcaption>
 </figure>
 
 After finishing guided lessons, learners move to practice mode: single-choice, multiple-choice, fill-in-the-code, and code-tracing questions (including question sets), with difficulty dynamically adjusted via an <span data-term="elo-rating">ELO Rating</span>-based skill-assessment mechanism. A <span data-term="k-factor">K-factor</span> decay and a "first blood" (first-attempt) rule keep repeated attempts from continually inflating a user's rating, while still preserving XP rewards to keep motivation high.
 
 <figure>
-  <img src="/images/projects/code-pulse/practice-page.png" alt="Practice mode: answering a question" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">Practice mode: answering a question</figcaption>
-</figure>
-
-<figure>
-  <img src="/images/projects/code-pulse/practice-result.png" alt="Quiz results and rank rating" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">Quiz results and rank rating</figcaption>
+  <video controls preload="metadata" width="1728" height="1080" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+    <source src="/videos/projects/code-pulse/practice.mp4" type="video/mp4" />
+  </video>
+  <figcaption style="text-align: center;">Practice mode: answering a question (demo)</figcaption>
 </figure>
 
 ## Exploratory Learning Mode: Lab and Playground
@@ -59,8 +53,10 @@ After finishing guided lessons, learners move to practice mode: single-choice, m
 **Lab** provides side-by-side comparisons of multiple sorting algorithms (Bubble / Selection / Insertion / Merge / Quick Sort), showing execution time, comparison count, and move count simultaneously, so learners can directly see behavioral differences between algorithms rather than just memorizing time complexities.
 
 <figure>
-  <img src="/images/projects/code-pulse/lab-page.png" alt="Lab mode: side-by-side comparison of multiple algorithms" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">Lab mode: side-by-side comparison of multiple algorithms</figcaption>
+  <video controls preload="metadata" width="1728" height="1080" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+    <source src="/videos/projects/code-pulse/lab.mp4" type="video/mp4" />
+  </video>
+  <figcaption style="text-align: center;">Lab mode: side-by-side comparison of multiple algorithms (demo)</figcaption>
 </figure>
 
 **Playground** is the core technical challenge of this project: it lets users submit arbitrary Python code. The system statically builds a <span data-term="cfg">Control Flow Graph (CFG)</span> via <span data-term="ast">AST</span> analysis, then dynamically traces execution events inside a Docker sandbox using `sys.settrace` to capture variable state and function-call relationships.
@@ -73,8 +69,10 @@ To balance "recognized standard algorithms" against "arbitrary user code," the s
 - **Level 2 (generic flow visualization)**: When recognition confidence is low or the code isn't a standard implementation, falls back to a CFG / call graph, retaining execution detail at a lower level of abstraction
 
 <figure>
-  <img src="/images/projects/code-pulse/playground-page.png" alt="Playground: CFG / call graph visualization" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">Playground: CFG / call graph visualization</figcaption>
+  <video controls preload="metadata" width="1728" height="1080" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+    <source src="/videos/projects/code-pulse/playground.mp4" type="video/mp4" />
+  </video>
+  <figcaption style="text-align: center;">Playground: CFG / call graph visualization (demo)</figcaption>
 </figure>
 
 ### Algorithm Recognition: Comparing Semantic Embedding Models

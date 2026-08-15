@@ -1,6 +1,10 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigationType } from 'react-router-dom'
 import NavBar from './components/NavBar'
+import { useTrail } from './context/TrailContext'
+
+// 文章／專案／知識點的詳情頁路徑，「軌跡」只在這三種頁面之間累積
+const DETAIL_PATH_PATTERN = /^\/(articles|projects|knowledge)\/[^/]+$/
 
 // history entry 的 key → 離開該頁時的捲動位置，讓瀏覽器「上一頁」返回（POP）時能還原。
 // 路徑（pathname+search）→ 離開該頁時的捲動位置，讓「回列表」這類語意上等同上一頁、
@@ -13,6 +17,15 @@ export default function App() {
   const { hash, pathname, search, key, state } = useLocation()
   const navigationType = useNavigationType()
   const restoreScroll = Boolean((state as { restoreScroll?: boolean } | null)?.restoreScroll)
+  const { clearTrail } = useTrail()
+
+  // 離開詳情頁（回列表、去別的分類、回首頁……）代表這次瀏覽流程結束，
+  // 軌跡要歸零；停留在詳情頁之間串連時則不動它，讓 Trail 元件自己去 push
+  useEffect(() => {
+    if (!DETAIL_PATH_PATTERN.test(pathname)) {
+      clearTrail()
+    }
+  }, [pathname, clearTrail])
 
   // React Router 不會自動捲到 hash 對應的元素、也不會在切換路由時重置捲動位置
   // （只有整頁重新載入時瀏覽器原生行為才會），SPA 內導覽（如 NavBar 的 CV、首頁的
