@@ -280,7 +280,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       title: "Playground",
       subtitle:
         "比較個人、還在玩的東西——夢想清單、朋友的創作、開發用的小工具。",
-      dreamsDesc: "想做的事，以及為什麼想做",
+      dreamsDesc: "想做的事",
       friendsDesc: "朋友們用邀請碼創作的 2D 像素畫與 3D 怪獸",
       devComponentsDesc: "UI 組件庫預覽（開發用）",
       devCreatureDesc: "3D 怪獸走路動畫驗證（開發用）",
@@ -554,7 +554,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       title: "Playground",
       subtitle:
         "More personal, still-in-progress things — a dream list, creations by friends, and dev tools.",
-      dreamsDesc: "Things I want to do, and why",
+      dreamsDesc: "Things I want to do",
       friendsDesc:
         "2D pixel art and 3D creatures made by friends using invite codes",
       devComponentsDesc: "UI component library preview (dev tool)",

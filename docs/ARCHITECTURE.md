@@ -9,14 +9,14 @@
 
 ## 0. 核心決策摘要
 
-| 問題                 | 決定                                                                                                                                     |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| 後台/登入系統        | 不做。網站對外永遠是「唯讀」的，你自己的資料透過 Supabase Studio 的 Table Editor 增刪改                                                  |
-| 朋友 2D/3D 創作身份  | 邀請碼機制，不建帳號系統，只需暱稱                                                                                                       |
-| 內容區塊範圍         | 不做獨立任務區；書籍區擴展為文章區（`type: book\|note`），可容納雜記／影評／技術筆記；夢想區只存「想做的事＋為什麼」靜態清單，無狀態欄位 |
-| 朋友創作風格         | 2D 像素風（存座標 + 顏色）與 3D 怪獸塗色（固定形狀、只塗色）**並存**，朋友建立作品時二選一（`kind` 判別，選定即鎖，見 §7）               |
-| 畫廊視覺氛圍         | 寧靜展覽感＋單一聚光燈；與其他區塊風格分開處理而非統一視覺語言（見 §6.1）                                                                |
-| 訪客統計／第三方追蹤 | 不做，不導入任何分析工具                                                                                                                 |
+| 問題                 | 決定                                                                                                                             |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| 後台/登入系統        | 不做。網站對外永遠是「唯讀」的，你自己的資料透過 Supabase Studio 的 Table Editor 增刪改                                          |
+| 朋友 2D/3D 創作身份  | 邀請碼機制，不建帳號系統，只需暱稱                                                                                               |
+| 內容區塊範圍         | 不做獨立任務區；書籍區擴展為文章區（`type: book\|note`），可容納雜記／影評／技術筆記；夢想區只存「想做的事」靜態清單，無狀態欄位 |
+| 朋友創作風格         | 2D 像素風（存座標 + 顏色）與 3D 怪獸塗色（固定形狀、只塗色）**並存**，朋友建立作品時二選一（`kind` 判別，選定即鎖，見 §7）       |
+| 畫廊視覺氛圍         | 寧靜展覽感＋單一聚光燈；與其他區塊風格分開處理而非統一視覺語言（見 §6.1）                                                        |
+| 訪客統計／第三方追蹤 | 不做，不導入任何分析工具                                                                                                         |
 
 這三個決定的共同結果：**整個網站只有一種寫入路徑需要對外開放**——朋友創作功能（透過邀請碼），其餘所有資料的寫入都只發生在 Supabase Studio（用你自己的帳號登入 Supabase 後台，跟網站本身的訪客是兩個世界），網站前端對 Supabase 只做 `select`。
 
@@ -24,18 +24,18 @@
 
 ## 1. 技術棧總覽
 
-| 分類       | 選擇                                                  | 理由                                                             |
-| ---------- | ----------------------------------------------------- | ---------------------------------------------------------------- |
-| 前端框架   | React + Vite + TypeScript                             | 輕量、無需 SSR，適合純前端打包後丟 GitHub Pages                  |
-| 路由       | React Router（純前端路由）                            | user page 部署在根網域，不需要 basename                          |
-| 樣式       | Tailwind CSS                                          | 大量卡片/網格版面（畫廊、專案、夢想清單）用 utility class 開發快 |
-| 資料抓取   | `@tanstack/react-query` + `@supabase/supabase-js`     | 統一處理 loading/error/cache，避免每頁手刻 fetch 邏輯            |
-| 2D 繪製    | Canvas（像素網格編輯器，網格尺寸可選，存座標 + 顏色） | 資料即視覺，縮圖可直接從資料重繪，不用額外存圖（見 §7）          |
+| 分類       | 選擇                                                                        | 理由                                                                    |
+| ---------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| 前端框架   | React + Vite + TypeScript                                                   | 輕量、無需 SSR，適合純前端打包後丟 GitHub Pages                         |
+| 路由       | React Router（純前端路由）                                                  | user page 部署在根網域，不需要 basename                                 |
+| 樣式       | Tailwind CSS                                                                | 大量卡片/網格版面（畫廊、專案、夢想清單）用 utility class 開發快        |
+| 資料抓取   | `@tanstack/react-query` + `@supabase/supabase-js`                           | 統一處理 loading/error/cache，避免每頁手刻 fetch 邏輯                   |
+| 2D 繪製    | Canvas（像素網格編輯器，網格尺寸可選，存座標 + 顏色）                       | 資料即視覺，縮圖可直接從資料重繪，不用額外存圖（見 §7）                 |
 | 3D 製作    | React Three Fiber（`@react-three/fiber` + drei），固定體素怪獸塗色（見 §7） | 形狀是共用資產、朋友只塗色，`data` 跟 2D 一樣是稀疏座標陣列，不需模型檔 |
-| p5.js 畫廊 | p5.js instance mode                                   | 多個 sketch 共存不衝突、可隨路由掛載/卸載                        |
-| 2D 物理    | matter-js                                             | 「金屬碰撞」單件作品的剛體模擬，只有該 sketch 模組引用           |
-| 後端       | Supabase（Postgres + Storage + RPC function）         | 你已指定；只在「朋友創作」這個真正需要動態寫入的功能上發揮價值   |
-| 部署       | GitHub Actions → GitHub Pages                         | repo 本身就是 `*.github.io`，免額外網域設定                      |
+| p5.js 畫廊 | p5.js instance mode                                                         | 多個 sketch 共存不衝突、可隨路由掛載/卸載                               |
+| 2D 物理    | matter-js                                                                   | 「金屬碰撞」單件作品的剛體模擬，只有該 sketch 模組引用                  |
+| 後端       | Supabase（Postgres + Storage + RPC function）                               | 你已指定；只在「朋友創作」這個真正需要動態寫入的功能上發揮價值          |
+| 部署       | GitHub Actions → GitHub Pages                                               | repo 本身就是 `*.github.io`，免額外網域設定                             |
 
 ---
 
@@ -83,13 +83,13 @@
 
 適合：你自己慢慢寫、不常變動、寫起來像「文章」的內容。
 
-| 區塊               | 格式建議                                                                                                                                                                                                                                                                                                                                                                     |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 文章（含讀書心得） | 每篇一個 `.md`，放在 `content/articles/<zh\|en>/<book\|essay\|journal\|paper>/<slug>.md`（先分語言再分類別，中英同 slug 各自成檔，不再用 `.en.md` 副檔名）；frontmatter：`type: book\|essay\|paper\|tech\|journal`、標題/日期；`author`/`rating` 只有 book、essay 才填；`excerpt` 可選，沒填就自動從正文萃取前 100 字；渲染為詳細頁 `/articles/:slug`，支援篩選器（標題、分類、評分、日期）              |
-| 夢想清單           | 一個 `dreams.json`（陣列，每項含 title/desc，無狀態欄位）                                                                                                                                                                                                                                                                                                                    |
-| 專案區             | 一個 `projects.json`（`slug/name/desc/date/status: todo\|in-progress\|done/tags/collaborators/period/advisor/screenshotUrl/githubUrl`）；長文寫法另外放 `content/projects/<zh\|en>/<slug>.md`（選填，渲染為詳細頁 `/projects/:slug`）；MD H2 標題統一為：專案簡介、相關連結、系統架構、核心功能、心得                                                                          |
-| 經歷               | 硬寫在 `src/pages/experience/Experience.tsx`（條目不多、不需動態資料），渲染為 `/experience` 時間軸頁                                                                                                                                                                                                                                                                        |
-| 藝術畫廊 metadata  | 一個 `artworks.json`（slug/title/date/縮圖路徑陣列/`openProcessingUrl` 原稿連結），sketch 程式碼本來就要進 repo；沒有另外的 sketch slug 欄位，`sketches/index.ts` 直接拿 artwork 的 `slug` 當 key 對應到 sketch factory，兩者共用同一個 slug。列表頁支援篩選器（標題、日期、互動類型、最新/最久排序），互動類型取自 `SketchEntry.interactions`，未移植的作品歸為「靜態展示」 |
+| 區塊               | 格式建議                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 文章（含讀書心得） | 每篇一個 `.md`，放在 `content/articles/<zh\|en>/<book\|essay\|journal\|paper>/<slug>.md`（先分語言再分類別，中英同 slug 各自成檔，不再用 `.en.md` 副檔名）；frontmatter：`type: book\|essay\|paper\|tech\|journal`、標題/日期；`author`/`rating` 只有 book、essay 才填；`excerpt` 可選，沒填就自動從正文萃取前 100 字；渲染為詳細頁 `/articles/:slug`，支援篩選器（標題、分類、評分、日期）                                                                                                                                                                                                                                                                   |
+| 夢想清單           | 一個 `dreams.json`（陣列，每項含 title/desc，無狀態欄位）                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| 專案區             | 一個 `projects.json`（`slug/name/desc/date/status: todo\|in-progress\|done/tags/collaborators/period/advisor/screenshotUrl/githubUrl`）；長文寫法另外放 `content/projects/<zh\|en>/<slug>.md`（選填，渲染為詳細頁 `/projects/:slug`）；MD H2 標題統一為：專案簡介、相關連結、系統架構、核心功能、心得                                                                                                                                                                                                                                                                                                                                                         |
+| 經歷               | 硬寫在 `src/pages/experience/Experience.tsx`（條目不多、不需動態資料），渲染為 `/experience` 時間軸頁                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| 藝術畫廊 metadata  | 一個 `artworks.json`（slug/title/date/縮圖路徑陣列/`openProcessingUrl` 原稿連結），sketch 程式碼本來就要進 repo；沒有另外的 sketch slug 欄位，`sketches/index.ts` 直接拿 artwork 的 `slug` 當 key 對應到 sketch factory，兩者共用同一個 slug。列表頁支援篩選器（標題、日期、互動類型、最新/最久排序），互動類型取自 `SketchEntry.interactions`，未移植的作品歸為「靜態展示」                                                                                                                                                                                                                                                                                  |
 | 名詞解釋 Glossary  | 一個 `glossary.json`（`Record<id, { term, definition, application }>`）；文章／專案長文（`content/articles`、`content/projects/<slug>.md`）裡技術名詞用 `<span data-term="id">名詞</span>` 標記——`MarkdownContent.tsx` 靠 `rehype-raw` 允許內嵌 HTML，再攔截渲染出來的 `<span>`，若 `data-term` 對應到 glossary 有該 id 就換成 `Term.tsx`（可點擊、彈出定義＋「在此專案中如何被應用」兩段說明，定位邏輯會依觸發點在畫面上下的剩餘空間決定彈出方向）；查無對應 id 就原樣輸出 `<span>`，不會噴錯。`application` 欄位刻意寫「這個專案怎麼用這個名詞」而非教科書通用解釋，讓讀者（含審查委員）不必離開頁面查維基就能懂 CodePulse／ABSA 這類研究向專案裡的專有名詞 |
 
 優點：零後端延遲、版本控制、改完 `git push` 自動觸發部署，不用碰 Supabase。

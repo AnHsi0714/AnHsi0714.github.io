@@ -27,10 +27,10 @@
 
 網站的內容分成「自己慢慢寫、不常變動」與「執行期、由第三方寫入」兩類，各自對應不同的儲存與更新方式：
 
-| 分類 | 儲存方式 | 更新方式 |
-| --- | --- | --- |
-| 文章、專案、夢想、畫廊 metadata、名詞解釋 | Git 內容檔（`content/*.json`、`content/**/*.md`） | 跟程式碼一起 commit，push 後由 CI 自動 build 部署 |
-| 朋友的 2D／3D 創作 | Supabase（Postgres + RLS） | 朋友透過邀請碼即時寫入；審核（`is_visible`）走 Supabase Studio |
+| 分類                                      | 儲存方式                                          | 更新方式                                                       |
+| ----------------------------------------- | ------------------------------------------------- | -------------------------------------------------------------- |
+| 文章、專案、夢想、畫廊 metadata、名詞解釋 | Git 內容檔（`content/*.json`、`content/**/*.md`） | 跟程式碼一起 commit，push 後由 CI 自動 build 部署              |
+| 朋友的 2D／3D 創作                        | Supabase（Postgres + RLS）                        | 朋友透過邀請碼即時寫入；審核（`is_visible`）走 Supabase Studio |
 
 這個切分的好處是零後端延遲（大部分內容都是打包進 bundle 的靜態資料，不用等 API）、天生有版本控制（誰在什麼時候寫了什麼一目了然），而且切換成本低：之後若想把某個區塊從 Git 檔改成 Supabase 或反過來，前端只是換一個 data-fetching hook，不是不可逆的架構決定。
 
@@ -58,7 +58,7 @@ GitHub Actions（`.github/workflows/deploy.yml`）在 push 到 `main` 時自動�
 - **名詞解釋 Glossary**：文章／專案長文裡的專有名詞（ELO Rating、AST、Cosine Similarity、CKIP、Zero-Shot、RLS 等）標記成可點擊的詞彙，點開彈出卡片顯示「通用定義」＋「在這個專案裡實際怎麼被用」兩段說明。不是把讀者導去外部維基，而是把名詞收斂回「這個專案為什麼需要它」，方便不熟悉背景的讀者在不離開頁面的情況下看懂研究向專案的技術內容。另外也有獨立的 `/knowledge` 列表頁，可用關鍵字與分類篩選所有詞條，點進 `/knowledge/:slug` 看單一詞條的完整說明與關聯專案／文章。
 - **藝術畫廊 `/gallery`**：21 件從 OpenProcessing 搬遷、重寫成 p5.js instance mode 的生成藝術與互動作品，列表頁做成「橫向展場房間」：每件作品掛在畫框裡、滾輪垂直捲動轉橫向捲動、置中作品被聚光燈點亮；支援標題、日期、互動類型（點擊重繪／拖曳作畫／鍵盤操作／按鈕回合制／拖曳物理）篩選與最新／最久排序。點進單一作品的詳細頁才真正動態載入該 sketch 模組並掛載 canvas，背景轉為深色展覽氛圍（CSS `radial-gradient` 疊出聚光燈效果），離開頁面立即卸載，確保同時最多只有一個活著的 p5 canvas。
 - **Playground `/playground`**：收攏「比較個人、還在玩的東西」的入口頁，連到夢想、朋友創作、小作品，以及開發用工具 `/dev/components`（UI 組件庫預覽）、`/dev/creature`（3D 怪獸走路動畫驗證）、`/dev/creature-builder`（堆積木雕刻 3D 怪獸形狀、輸出座標貼回程式碼）。這幾個 `/dev` 工具不接 Supabase、不寫檔案系統，純粹是開發過程中用完即丟的輔具；它們不在主導覽列，但透過 Playground 頁仍是公開可達的路由。
-- **夢想 `/dreams`**：想做的事＋為什麼想做的靜態清單，部分項目附進度條（如果有可量化的目標）。
+- **夢想 `/dreams`**：想做的事的靜態清單，部分項目附進度條（如果有可量化的目標）。
 - **小作品 `/playground/mini-works`**：課堂作業、CodePen 練習等小型互動作品的清單頁，點進 `/playground/mini-works/:slug` 看單一作品。
 - **朋友創作 `/friends`**：創作牆用 carousel 呈現朋友的 2D 像素畫與 3D 怪獸塗色作品，3D 卡片只在捲進可視範圍時才即時掛載 Three.js 場景（IntersectionObserver 控制掛載／卸載，避免同時存在的 WebGL context 超過瀏覽器上限）；點擊置中且附有敘述的作品會開啟整頁遮罩放大檢視。`/friends/create` 是完整的創作流程：輸入邀請碼與暱稱 → 驗證（`unused`／`used`＋原作品／`invalid` 三種狀態）→ 選 2D 或 3D（選定即鎖，二次編輯不能換類型）→ 對應編輯器作畫（自由選色、油漆桶、undo/redo 以「一次拖曳」為單位、200 字以內的選填作品敘述）→ 送出寫入 Supabase。
 
