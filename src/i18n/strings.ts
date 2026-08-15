@@ -148,12 +148,13 @@ export interface Strings {
     notFound: string;
     viewOnOpenProcessing: string;
     saveHint: (key: string) => string;
+    // 篩選標籤跟 hints 分開：篩選只需要「有沒有拖曳互動」這麼粗的分類，
+    // drag-draw／drag-physics 兩種 interaction 在這裡合併成同一個 drag。
     tags: Record<
       | "click-regenerate"
-      | "drag-draw"
+      | "drag"
       | "keyboard-game"
       | "button-game"
-      | "drag-physics"
       | "static",
       string
     >;
@@ -418,10 +419,9 @@ export const strings: Record<"zh" | "en", Strings> = {
       saveHint: (key: string) => `按下 ${key} 儲存目前畫面`,
       tags: {
         "click-regenerate": "點擊重製",
-        "drag-draw": "拖曳作畫",
+        drag: "拖曳",
         "keyboard-game": "鍵盤遊戲",
         "button-game": "按鈕遊戲",
-        "drag-physics": "物理拖曳",
         static: "靜態展示",
       },
       hints: {
@@ -701,10 +701,9 @@ export const strings: Record<"zh" | "en", Strings> = {
       saveHint: (key: string) => `Press ${key} to save the current frame`,
       tags: {
         "click-regenerate": "Click to regenerate",
-        "drag-draw": "Drag to draw",
+        drag: "Drag",
         "keyboard-game": "Keyboard game",
         "button-game": "Button game",
-        "drag-physics": "Drag physics",
         static: "Static",
       },
       hints: {

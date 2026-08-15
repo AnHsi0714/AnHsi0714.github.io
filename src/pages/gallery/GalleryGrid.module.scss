@@ -11,16 +11,12 @@
   --room-bg-3: #e6dcc2;
   --room-header-title: #2b2620;
   --room-header-sub: #75705f;
-  --room-scrollbar: #a3906a;
-  --room-scrollbar-track: rgba(0, 0, 0, 0.08);
-  --room-cord: #55503f;
-  --room-shade-1: #cfc4a4;
-  --room-shade-2: #857d63;
-  --room-bulb-core: #fc8f00;
-  --room-bulb-mid: rgba(218, 139, 37, 0.5);
-  --room-beam-core: rgba(214, 168, 86, 0.5);
-  --room-beam-mid: rgba(214, 168, 86, 0.14);
-  --room-beam-blend: multiply;
+  /* hover 到某件作品時打在那件上的光，強度比原本吊燈光束弱很多——原本的光束
+     是打在一大片牆面上、範圍大所以可以濃；這裡是貼著畫作本身的一小塊疊色，
+     太濃會蓋掉畫面內容，所以 core/mid 的透明度都調低。 */
+  --room-hover-core: rgba(214, 168, 86, 0.28);
+  --room-hover-mid: rgba(214, 168, 86, 0.1);
+  --room-hover-blend: multiply;
   --room-frame-1: #efe4c9;
   --room-frame-2: #ddcea6;
   --room-frame-border: #b7a375;
@@ -37,16 +33,9 @@
     --room-bg-3: #0d0d0f;
     --room-header-title: #e8e6df;
     --room-header-sub: #8b8b90;
-    --room-scrollbar: #6b6b74;
-    --room-scrollbar-track: rgba(255, 255, 255, 0.08);
-    --room-cord: #0a0a0b;
-    --room-shade-1: #46464e;
-    --room-shade-2: #141417;
-    --room-bulb-core: #fff8e0;
-    --room-bulb-mid: rgba(230, 197, 114, 0.6);
-    --room-beam-core: rgba(253, 242, 212, 0.55);
-    --room-beam-mid: rgba(255, 233, 175, 0.14);
-    --room-beam-blend: screen;
+    --room-hover-core: rgba(253, 242, 212, 0.3);
+    --room-hover-mid: rgba(255, 233, 175, 0.09);
+    --room-hover-blend: screen;
     --room-frame-1: #332a1d;
     --room-frame-2: #191410;
     --room-frame-border: #46381f;
@@ -57,12 +46,9 @@
     --room-placard-meta: #8f8f95;
   }
 
-  /* height（而非 min-height）鎖死視窗高度：header 改成絕對定位浮在展牆上
-     （見 .header），scroller 因此能撐滿整個房間，畫作垂直置中的基準就是
-     整個視窗，橫向捲軸也剛好落在視窗底邊。padding-top: 7rem 是留給 .header
-     的浮動空間（見 mixins.scss 的 full-bleed-under-nav）。 */
-  @include full-bleed-under-nav($height-property: height, $top-padding: 7rem);
-  position: relative;
+  /* min-height 而非 height：展牆是直向排列，內容長度看作品數量跟排版而定，
+     頁面本身自然向下捲動就好，不用把房間鎖死在單一視窗高度內。 */
+  @include full-bleed-under-nav($height-property: min-height, $top-padding: 2rem);
   display: flex;
   flex-direction: column;
   background:
@@ -79,22 +65,7 @@
 }
 
 .header {
-  /* 浮在展牆上層而不佔版面高度，scroller 才能吃滿整個房間來做視窗置中；
-     top: 2rem 是跟 NavBar 底部的視覺留白（NavBar 本身的淨空已經是 sticky
-     真實佔位，這裡只是額外的呼吸空間）。
-     自己不吃滑鼠事件、只讓子元素吃：不然這條橫跨全寬的隱形帶會擋住
-     底下展牆的滾輪跟點擊。 */
-  position: absolute;
-  top: 2rem;
-  left: 0;
-  right: 0;
-  z-index: 3;
-  pointer-events: none;
-  padding: 2.5rem clamp(1rem, 8vw, 5rem) 0;
-
-  > * {
-    pointer-events: auto;
-  }
+  padding: 0 clamp(1rem, 8vw, 5rem);
 
   h1 {
     font-size: 1.5rem;
@@ -109,149 +80,97 @@
   }
 }
 
-.scroller {
-  flex: 1;
+/* 展牆本體：直式 masonry。原本試過 CSS columns（瀏覽器自動分欄），但畫作圖
+   是 loading="lazy" 非同步載入，載入前後的高度落差（骨架佔位尺寸 vs. 圖片
+   實際比例）會讓 multicol 的欄位重新分頁時互相撞在一起，而且第一批進場的
+   作品高度都還沒分化開來，看起來也不像交錯。改成 JS 自己算好每件作品要進
+   哪一欄（依 sketches 宣告的寬高比估高度，貪心塞進目前最短的那欄，見
+   GalleryGrid.tsx 的 distributeColumns），每欄各自是一個普通直向 flex，
+   完全在正常文件流裡，圖片非同步載入時只會把同一欄底下的內容往下推，
+   不會有 fragmentation 造成的重疊或跳動。 */
+.wall {
   display: flex;
-  align-items: center;
-  gap: clamp(3.5rem, 9vw, 7rem);
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  /* 左右各留半個 scroller 寬度的空白，讓第一件/最後一件作品都有足夠的
-     捲動空間可以被置中（scroll-snap-align: center 的理想捲動位置若落在
-     0 以前，瀏覽器只能夾在 0，永遠置中不了——這裡保證該位置一定 >= 0）。
-     下緣 116px 是把「畫框中心」對到視窗正中的修正量：align-items: center
-     置中的是整組展位，但展位內畫框上方（燈 92 + 畫框 margin-top 108 =
-     200px）比下方（銘牌 margin 22 + 銘牌本體約 62 ≈ 84px）多出約 116px，
-     墊高下緣同樣的量，畫框中心就會剛好落在視窗垂直中線，且跟畫作高矮無關
-     （上下固定量不變，變的只有畫框自己的高度）。 */
-  padding: 0 50% 116px;
-  /* 只允許橫向捲動：視窗太矮塞不下整組展位時寧可上下稍微裁切，也不要在
-     scroller 右緣冒出一條垂直捲軸（overflow-x: auto 會讓 overflow-y 的
-     visible 被升級成 auto，得明確蓋掉） */
-  overflow-y: hidden;
-  scroll-snap-type: x proximity;
-  scrollbar-width: auto;
-  scrollbar-color: var(--room-scrollbar) var(--room-scrollbar-track);
-
-  &::-webkit-scrollbar {
-    height: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--room-scrollbar-track);
-    border-radius: 5px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--room-scrollbar);
-    border-radius: 5px;
-  }
+  align-items: flex-start;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding: 2.5rem clamp(1rem, 8vw, 5rem) 4rem;
 }
 
-/* --lit 是每個展位的「燈亮程度」，active 時全亮，其餘微亮；
-   燈泡、光束、畫作亮度、銘牌都吃這個變數，走到哪燈亮到哪 */
+.column {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
 .exhibit {
-  --lit: 0.22;
-  position: relative;
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  scroll-snap-align: center;
-
-  &.active {
-    --lit: 1;
-  }
-}
-
-.lamp {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 92px;
-}
-
-.cord {
-  width: 2px;
-  flex: 1;
-  background: var(--room-cord);
-}
-
-.shade {
-  width: 30px;
-  height: 20px;
-  background: linear-gradient(var(--room-shade-1), var(--room-shade-2));
-}
-
-.bulb {
-  width: 40px;
-  height: 12px;
-  margin-top: -7px;
-  border-radius: 50%;
-  background: radial-gradient(
-    closest-side,
-    var(--room-bulb-core),
-    var(--room-bulb-mid) 60%,
-    transparent
-  );
-  filter: blur(1px);
-  opacity: var(--lit);
-  transition: opacity 0.6s ease;
-}
-
-.beam {
-  position: absolute;
-  top: 88px;
-  left: 50%;
-  width: 120%;
-  height: min(360px, 82vw);
-  transform: translateX(-50%);
-  clip-path: polygon(45.5% 0, 54.5% 0, 100% 100%, 0 100%);
-  background: linear-gradient(
-    var(--room-beam-core),
-    var(--room-beam-mid) 55%,
-    transparent 88%
-  );
-  filter: blur(5px);
-  mix-blend-mode: var(--room-beam-blend);
-  pointer-events: none;
-  opacity: var(--lit);
-  transition: opacity 0.6s ease;
-  z-index: 1;
+  width: 100%;
 }
 
 .frame {
   position: relative;
   z-index: 0;
   display: block;
-  margin-top: 108px;
+  width: 100%;
   padding: 10px;
   background: linear-gradient(150deg, var(--room-frame-1), var(--room-frame-2));
   border: 1px solid var(--room-frame-border);
-  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 
-  /* 裁切框剛好貼齊畫作本身（inline-block 自動縮到 img 的實際尺寸），
-     跟外面畫框的 10px 內襯（matting）分開：不管畫作放大多少都只會往
-     自己的裁切框裡面擠，絕對碰不到、蓋不住外圍的內襯跟畫框邊框。 */
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 38px rgba(0, 0, 0, 0.34);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--room-frame-border);
+    outline-offset: 3px;
+  }
+
+  /* 裁切框吃滿畫框的寬度（畫框吃滿欄寬，見 .column），高度用畫作自己的
+     寬高比換算（GalleryGrid.tsx 傳進來的 --clip-aspect，來自 sketches 宣告
+     的 aspect，沒有互動版本的退回正方形猜測）。改成「欄寬固定、高度依比例
+     變化」而不是原本橫向展牆那種「高度固定、寬度依比例變化」——寬幅作品在
+     固定寬度下會變矮、方形/直式作品會變高，高矮不一才是交錯感真正的來源；
+     也因為寬度永遠鎖在欄寬內，不會有寬幅作品把版面撐到隔壁欄去。
+     aspect-ratio 在圖片還沒載完時也生效，骨架佔位跟圖片載完的尺寸完全
+     一致，不會有載入前後的跳動。 */
   .imageClip {
-    display: inline-block;
-    /* inline-block 預設 vertical-align: baseline 會依字型基線在下方
-       多留一截空白（descender 空間），這裡下緣的內襯才會比其他三邊粗；
-       改成 top 讓裁切框緊貼在 padding 內，四邊留白才會等寬。 */
-    vertical-align: top;
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--clip-aspect, 1);
     overflow: hidden;
     position: relative;
 
-    /* img 還沒載完時沒有自己的內在尺寸，inline-block 會直接縮成 0，骨架也就
-       沒有版面可以佔。載入中先給一個近似正方形的暫定尺寸撐開裁切框（多數作品
-       是 1:1，見 sketches/index.ts），圖片真正載完後移除這個 class，讓裁切框
-       改回貼齊圖片實際比例（寬幅作品載完會變寬，屬預期內的一次性版面調整）。 */
-    &.loading {
-      width: min(220px, 38vh);
-      height: min(220px, 38vh);
+    /* hover／focus 到這件時打光，打在畫作正中央，範圍鎖在裁切框內、不會
+       溢出去影響旁邊的作品。沿用展場原本的疊色手法（淺色 multiply 疊暖色、
+       深色 screen 加亮），但強度（見上面 --room-hover-*）跟時間都調得比較
+       柔和，不是瞬間一閃。 */
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        ellipse 70% 65% at 50% 50%,
+        var(--room-hover-core) 0%,
+        var(--room-hover-mid) 45%,
+        transparent 75%
+      );
+      mix-blend-mode: var(--room-hover-blend);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
     }
+  }
+
+  &:hover .imageClip::after,
+  &:focus-visible .imageClip::after {
+    opacity: 1;
   }
 
   .skeleton {
@@ -261,17 +180,19 @@
 
   img {
     display: block;
-    /* 不強制比例：作品有 1:1 也有寬幅，各自保持原比例、統一以高度為基準 */
-    width: auto;
-    height: auto;
-    max-height: min(320px, 45vh);
-    max-width: min(620px, 82vw);
+    width: 100%;
+    height: 100%;
+    /* 圖片載完後 aspect-ratio 已經改用它自己的實際比例（見 GalleryGrid.tsx
+       的 naturalAspect），理論上跟裁切框完全貼合；contain 只是保險——loading
+       中骨架用的是猜測比例，這段空檔萬一跟最終比例有落差，也只會留一點畫框
+       底色的邊，不會裁切掉畫面內容。 */
+    object-fit: contain;
     background: var(--room-frame-img-bg);
-    filter: brightness(calc(0.3 + 0.7 * var(--lit)));
+    filter: brightness(0.98);
     opacity: 1;
     transition:
-      filter 0.6s ease,
-      transform 0.3s ease,
+      filter 0.5s ease,
+      transform 0.35s ease,
       opacity 0.3s ease;
 
     &.loading {
@@ -279,24 +200,25 @@
     }
   }
 
-  &:hover img {
-    transform: scale(1.08);
+  &:hover img,
+  &:focus-visible img {
+    filter: brightness(1.02);
+    transform: scale(1.03);
   }
 }
 
 .placard {
   position: relative;
   z-index: 1;
-  margin-top: 22px;
-  min-width: 120px;
+  display: block;
+  width: 100%;
+  margin-top: 14px;
   padding: 0.5rem 1rem;
   text-align: center;
   background: var(--room-placard-bg);
   border: 1px solid var(--room-placard-border);
   border-radius: 2px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-  opacity: calc(0.4 + 0.6 * var(--lit));
-  transition: opacity 0.6s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .placardTitle {
@@ -316,14 +238,11 @@
 }
 
 /* 有作品介紹時，名牌本身是 <button>：標題帶細虛線底線（網頁「可點名詞」
-   的慣例語感）提示可以點開說明牌彈窗；hover 虛線轉實線、名牌完全點亮
-   並微微浮起 */
+   的慣例語感）提示可以點開說明牌彈窗；hover 虛線轉實線、名牌微微浮起 */
 .placardClickable {
   cursor: pointer;
   font: inherit;
-  transition:
-    opacity 0.6s ease,
-    transform 0.15s ease;
+  transition: transform 0.15s ease;
 
   .placardTitle {
     text-decoration: underline dotted;
@@ -333,7 +252,6 @@
   }
 
   &:hover {
-    opacity: 1;
     transform: translateY(-2px);
 
     .placardTitle {
@@ -343,59 +261,11 @@
   }
 }
 
-/* 手機版：橫向展牆＋吊燈聚光在觸控裝置上不好操作（橫向捲動跟頁面手勢衝突），
-   改成直向捲動的清單；聚光燈效果也從「由上而下的光束」改成「畫作四周擴散
-   的光暈」，不再需要吊燈本體。 */
-@media (max-width: 640px) {
-  .room {
-    /* 標題改回正常版面流（見下面 .header），不再需要幫「浮在展牆上層的
-       標題」預留版面；margin-top 已經精確抵銷 main 的 pt-8，這裡只是
-       NavBar 下面的呼吸空間。 */
-    padding-top: 2rem;
-  }
-
-  .header {
-    /* 桌機版浮在展牆上層是因為橫向捲動不會把畫作捲到標題底下；手機版改直向
-       捲動後，浮動標題會被捲上來的畫作蓋住／蓋住畫作，改回正常版面流，
-       讓 scroller 接在標題下面。 */
-    position: static;
-    padding: 0 1.25rem;
-    pointer-events: auto;
-  }
-
-  .scroller {
-    flex-direction: column;
-    gap: 3.5rem;
-    padding: 2.5rem 1.5rem 3rem;
-    overflow-x: hidden;
-    overflow-y: auto;
-    scroll-snap-type: y proximity;
-  }
-
-  .lamp,
-  .beam {
-    display: none;
-  }
-
-  .frame {
-    margin-top: 0;
-
-    &::before {
-      content: "";
-      position: absolute;
-      inset: -1.5rem;
-      z-index: -1;
-      border-radius: 50%;
-      background: radial-gradient(
-        closest-side,
-        var(--room-beam-core),
-        var(--room-beam-mid) 55%,
-        transparent 78%
-      );
-      filter: blur(20px);
-      mix-blend-mode: var(--room-beam-blend);
-      opacity: var(--lit);
-      transition: opacity 0.6s ease;
-    }
+@media (prefers-reduced-motion: reduce) {
+  .frame,
+  .frame img,
+  .frame .imageClip::after,
+  .placardClickable {
+    transition: none;
   }
 }
