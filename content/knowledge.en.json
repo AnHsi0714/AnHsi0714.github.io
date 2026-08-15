@@ -308,7 +308,8 @@
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
       { "slug": "normalized-gain", "type": "applies_to" },
-      { "slug": "reflexive-thematic-analysis", "type": "related" }
+      { "slug": "reflexive-thematic-analysis", "type": "related" },
+      { "slug": "social-computing", "type": "related" }
     ]
   },
   "thematic-coding": {
@@ -338,7 +339,7 @@
     "term": "Natural Language Processing (NLP)",
     "definition": "The research field concerned with having computers understand, analyze, and generate human language (common tasks include word segmentation, part-of-speech tagging, dependency parsing, and sentiment analysis), essentially turning unstructured text into structured information a program can process.",
     "application": "The ABSA Pipeline compared a rule-based approach (CKIP segmentation + Stanza dependency parsing + DistilBERT sentiment classification) against Gemini Zero-Shot, extracting sentiment quadruplets from user feedback and comparing their Partial F1 scores. It was my first time designing and evaluating a full NLP pipeline end to end.",
-    "category": "RESEARCH",
+    "category": "NLP",
     "status": "published",
     "relatedProjects": ["absa-wordcloud"],
     "relatedArticles": [],
@@ -353,10 +354,23 @@
     "term": "Knowledge Graph",
     "definition": "Organizing concepts as nodes and the relationships between them as edges into an interconnected, queryable network of knowledge, so that knowledge isn't just a set of isolated records but something that can cross-reference itself and support reasoning and exploration.",
     "application": "This website's Knowledge section is itself a small hands-on attempt at this: each technical concept is a node, nodes are connected by prerequisite/related/applies_to/contrasts_with relationships, and each node links back to the projects and articles that reference it. It's still small in scale and manually curated (there's no automated entity/relation extraction or graph visualization yet), but it's my first hands-on implementation of this specific interest.",
-    "category": "RESEARCH",
+    "category": "WEB",
     "status": "published",
     "relatedProjects": ["personal-website"],
     "relatedArticles": [],
     "relatedNodes": [{ "slug": "natural-language-processing", "type": "related" }]
+  },
+  "social-computing": {
+    "term": "Social Computing",
+    "definition": "The study of how people interact, share, and present themselves through computer systems and social platforms; the focus isn't just whether a system is usable, but how it shapes — and is shaped by — interpersonal interaction, social norms, and context.",
+    "application": "In my SnapPI paper notes, personal data stickers on Snapchat's ephemeral stories lowered the social burden of sharing data and sparked deeper conversations — which showed me that information visualization doesn't only serve understanding data, it can also serve communication and self-presentation between people. That's a direction I want to pursue further in graduate research: designing interactive visualization not just as a teaching or analysis tool, but as a medium for communication within social contexts.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["snappi-personal-data-stickers"],
+    "relatedNodes": [
+      { "slug": "human-computer-interaction", "type": "related" },
+      { "slug": "reflexive-thematic-analysis", "type": "applies_to" }
+    ]
   }
 }

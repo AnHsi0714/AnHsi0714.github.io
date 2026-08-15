@@ -1,14 +1,18 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import projectsDataZh from "../../../content/projects.json";
 import projectsDataEn from "../../../content/projects.en.json";
 import Chip from "../../components/Chip";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
+import Trail from "../../components/Trail";
 import { useKnowledgeNode, useKnowledgeMap } from "../../lib/knowledge";
 import TextLink from "../../components/TextLink";
 import { usePublishedArticles } from "../../lib/articles";
 import { useLocalized } from "../../lib/localized";
+import { useNeedsScroll } from "../../lib/useNeedsScroll";
 import { useTranslation } from "../../i18n/useTranslation";
+import { useTrail } from "../../context/TrailContext";
 import type { KnowledgeRelationType, Project } from "../../types/content";
 
 const relationOrder: KnowledgeRelationType[] = [
@@ -25,6 +29,15 @@ export default function KnowledgeDetail() {
   const knowledgeMap = useKnowledgeMap();
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
   const articles = usePublishedArticles();
+  const { pushTrailEntry } = useTrail();
+  const isPublished = node?.status === "published";
+  const needsScroll = useNeedsScroll();
+
+  useEffect(() => {
+    if (isPublished && slug) {
+      pushTrailEntry({ type: "knowledge", slug });
+    }
+  }, [isPublished, slug, pushTrailEntry]);
 
   if (!node || node.status !== "published") {
     return (
@@ -75,6 +88,7 @@ export default function KnowledgeDetail() {
       <TextLink to="/knowledge" restoreScroll className="text-sm font-medium">
         {t.knowledge.backToList}
       </TextLink>
+      <Trail />
 
       <div className="mt-4 flex items-start justify-between gap-2">
         <h1 className="text-2xl font-bold">{node.term}</h1>
@@ -153,6 +167,16 @@ export default function KnowledgeDetail() {
             ))}
           </ul>
         </div>
+      )}
+
+      {needsScroll && (
+        <TextLink
+          to="/knowledge"
+          restoreScroll
+          className="mt-8 inline-block text-sm font-medium"
+        >
+          {t.knowledge.backToList}
+        </TextLink>
       )}
     </section>
   );
