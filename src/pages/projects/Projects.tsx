@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import projectsDataZh from "../../../content/projects.json";
 import projectsDataEn from "../../../content/projects.en.json";
 import Card from "../../components/Card";
+import ImageWithSkeleton from "../../components/ImageWithSkeleton";
 import Badge from "../../components/Badge";
 import Chip from "../../components/Chip";
 import Button from "../../components/Button";
@@ -32,10 +33,11 @@ function ProjectCard({ project, t }: { project: Project; t: Strings }) {
     <Card hoverable className="h-full">
       <Link to={`/projects/${project.slug}`} className="block">
         {project.screenshotUrl ? (
-          <img
+          <ImageWithSkeleton
             src={project.screenshotUrl}
             alt={project.name}
-            className="aspect-video w-full rounded-md object-cover"
+            wrapperClassName="aspect-video w-full rounded-md"
+            className="object-cover"
             style={{
               objectPosition: project.screenshotPosition
                 ? `${project.screenshotPosition.w}% ${project.screenshotPosition.h}%`

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../../components/Card";
+import ImageWithSkeleton from "../../components/ImageWithSkeleton";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
@@ -48,10 +49,11 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
     <Link to={`/articles/${article.slug}`} className="block">
       <Card className="flex items-start gap-4" hoverable>
         {article.coverUrl ? (
-          <img
+          <ImageWithSkeleton
             src={article.coverUrl}
             alt={article.title}
-            className="h-20 w-20 shrink-0 rounded-md object-cover sm:h-24 sm:w-24"
+            wrapperClassName="h-20 w-20 shrink-0 rounded-md sm:h-24 sm:w-24"
+            className="object-cover"
           />
         ) : (
           <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-[var(--color-surface)] text-2xl font-semibold text-[var(--color-border)] sm:h-24 sm:w-24">

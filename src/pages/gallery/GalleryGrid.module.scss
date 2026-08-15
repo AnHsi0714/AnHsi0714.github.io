@@ -242,6 +242,21 @@
        改成 top 讓裁切框緊貼在 padding 內，四邊留白才會等寬。 */
     vertical-align: top;
     overflow: hidden;
+    position: relative;
+
+    /* img 還沒載完時沒有自己的內在尺寸，inline-block 會直接縮成 0，骨架也就
+       沒有版面可以佔。載入中先給一個近似正方形的暫定尺寸撐開裁切框（多數作品
+       是 1:1，見 sketches/index.ts），圖片真正載完後移除這個 class，讓裁切框
+       改回貼齊圖片實際比例（寬幅作品載完會變寬，屬預期內的一次性版面調整）。 */
+    &.loading {
+      width: min(220px, 38vh);
+      height: min(220px, 38vh);
+    }
+  }
+
+  .skeleton {
+    position: absolute;
+    inset: 0;
   }
 
   img {
@@ -253,9 +268,15 @@
     max-width: min(620px, 82vw);
     background: var(--room-frame-img-bg);
     filter: brightness(calc(0.3 + 0.7 * var(--lit)));
+    opacity: 1;
     transition:
       filter 0.6s ease,
-      transform 0.3s ease;
+      transform 0.3s ease,
+      opacity 0.3s ease;
+
+    &.loading {
+      opacity: 0;
+    }
   }
 
   &:hover img {

@@ -9,6 +9,7 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
 import Modal from "../../components/Modal";
+import Skeleton from "../../components/Skeleton";
 import styles from "./GalleryGrid.module.scss";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
@@ -25,6 +26,29 @@ const toISODate = (d: string) =>
   `20${d.slice(0, 2)}-${d.slice(2, 4)}-${d.slice(4, 6)}`;
 
 type SortOrder = "newest" | "oldest";
+
+// 抽成獨立元件才能讓每張縮圖各自有一份 loaded state：GalleryGrid 本體是把
+// visibleArtworks 直接 map 成 JSX、不是逐一掛載的元件實例，state 沒地方掛。
+function PosterImage({ src, alt }: { src: string; alt: string }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <span
+      className={[styles.imageClip, !loaded && styles.loading]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      {!loaded && <Skeleton className={styles.skeleton} />}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        className={!loaded ? styles.loading : undefined}
+        onLoad={() => setLoaded(true)}
+      />
+    </span>
+  );
+}
 
 export default function GalleryGrid() {
   const { t } = useTranslation();
@@ -334,13 +358,7 @@ export default function GalleryGrid() {
               </div>
               <div className={styles.beam} />
               <Link to={`/gallery/${artwork.slug}`} className={styles.frame}>
-                <span className={styles.imageClip}>
-                  <img
-                    src={posters[artwork.slug]}
-                    alt={artwork.title}
-                    loading="lazy"
-                  />
-                </span>
+                <PosterImage src={posters[artwork.slug]} alt={artwork.title} />
               </Link>
               {artwork.description ? (
                 // 有寫介紹的作品，名牌本身變成按鈕，點開「美術館說明牌」彈窗
