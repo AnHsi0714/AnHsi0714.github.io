@@ -170,7 +170,7 @@
     "relatedNodes": []
   },
   "normalization": {
-    "term": "正規化（Normalization）",
+    "term": "Normalization（正規化）",
     "definition": "資料庫設計手法，把資料拆成多張關聯表以減少重複儲存與維護異常；拆得越細，查詢時通常需要越多次表格合併（JOIN），會換來一些效能成本。",
     "application": "SilkRoad 把飲料的甜度、冰塊、容量選項拆成獨立子表，而不是把所有組合都塞進同一張商品表，避免同樣的選項組合被重複儲存，也讓店家調整選項時不用大量更新既有資料。",
     "category": "DB",
@@ -308,11 +308,12 @@
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
       { "slug": "normalized-gain", "type": "applies_to" },
-      { "slug": "reflexive-thematic-analysis", "type": "related" }
+      { "slug": "reflexive-thematic-analysis", "type": "related" },
+      { "slug": "social-computing", "type": "related" }
     ]
   },
   "thematic-coding": {
-    "term": "編碼與主題（Coding & Theme）",
+    "term": "Coding & Theme（編碼與主題）",
     "definition": "質性研究中，編碼（code）是研究者針對一段資料（訪談逐字稿、截圖等）標記出的意義單位，用來捕捉該片段中值得注意的重點；再把意義相近、可歸為同一類的多個編碼歸納整合，形成更高層次、更抽象的主題（theme）。「貼標籤」與「編碼」其實是同一個動作，不是先貼標籤、再整理出編碼這兩個先後步驟。",
     "application": "SnapPI 研究由第一作者針對 21 位受試者的訪談逐字稿與回傳的 Snap 截圖進行編碼，標記出諸如「用數字量化難以言語的感受」「依朋友類型分享不同貼圖」等意義單位，團隊再透過定期討論把相近的編碼歸納，最終整合成 9 個編碼、3 個核心主題。",
     "category": "RESEARCH",
@@ -322,7 +323,7 @@
     "relatedNodes": [{ "slug": "reflexive-thematic-analysis", "type": "related" }]
   },
   "reflexive-thematic-analysis": {
-    "term": "反思式主題分析（Reflexive Thematic Analysis）",
+    "term": "Reflexive Thematic Analysis（反思式主題分析）",
     "definition": "Braun & Clarke 提出的質性分析取向：編碼與主題是研究者主觀詮釋資料後建構出的意義，換一組研究者分析同一份資料也可能得出不同結果，這是主觀性的自然展現而非誤差。團隊討論的目的是深化詮釋，而不是像部分取向那樣用多位編碼者計算一致性來驗證「正確答案」。",
     "application": "SnapPI 研究採用反思式主題分析：由第一作者先進行編碼，研究團隊再透過定期討論持續修正與整合主題——這個討論的角色是深化詮釋，而不是驗證多位編碼者之間的一致性。",
     "category": "RESEARCH",
@@ -338,7 +339,7 @@
     "term": "Natural Language Processing（自然語言處理，NLP）",
     "definition": "讓電腦理解、分析、產生人類語言的研究領域，常見任務包含斷詞、詞性標注、句法分析、情感分析等，是把非結構化文字轉成可被程式處理的結構化資訊的過程。",
     "application": "ABSA Pipeline 比較了規則式流程（CKIP 斷詞＋Stanza 依存句法＋DistilBERT 情感分類）與 Gemini Zero-Shot 兩種做法，從使用者回饋中抽取情感四元組並比較兩者的 Partial F1 表現，是我第一次完整跑過一次 NLP pipeline 的設計與評估。",
-    "category": "RESEARCH",
+    "category": "NLP",
     "status": "published",
     "relatedProjects": ["absa-wordcloud"],
     "relatedArticles": [],
@@ -353,10 +354,23 @@
     "term": "Knowledge Graph（知識圖譜）",
     "definition": "把概念當作節點、概念之間的關係當作邊，組織成一張可以互相連結、查詢的知識網路，讓知識不只是一條條獨立的紀錄，而是能彼此參照、支援推理與探索。",
     "application": "這個網站的 Knowledge 頁面本身就是一次小規模的實作嘗試：每個技術概念是一個節點，節點之間有 prerequisite／related／applies_to／contrasts_with 等關係，並反查連結回引用它的專案與文章。目前規模還小、以人工維護為主，還沒有自動化的實體關係抽取或圖形視覺化，但已經是我對「知識圖譜」這個興趣的第一次動手實作。",
-    "category": "RESEARCH",
+    "category": "WEB",
     "status": "published",
     "relatedProjects": ["personal-website"],
     "relatedArticles": [],
     "relatedNodes": [{ "slug": "natural-language-processing", "type": "related" }]
+  },
+  "social-computing": {
+    "term": "Social Computing（社會運算）",
+    "definition": "研究人與人之間如何透過電腦系統、社群平台進行社交互動、分享與自我呈現的領域；關心的不只是「系統好不好用」，而是系統如何形塑、也被形塑於人際互動、社交規範與情境脈絡之中。",
+    "application": "在 SnapPI 這篇文獻筆記中，個人數據貼圖在 Snapchat 限時動態上被用來降低分享數據的社交負擔、促進更深入的話題，也讓我看到「資料視覺化」除了服務於理解資料本身，也能服務於人與人之間的溝通與自我呈現——這正是我想在研究所深入探索的方向：把互動視覺化不只當成教學或分析工具，也當成社交情境中的溝通媒介來設計。",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["snappi-personal-data-stickers"],
+    "relatedNodes": [
+      { "slug": "human-computer-interaction", "type": "related" },
+      { "slug": "reflexive-thematic-analysis", "type": "applies_to" }
+    ]
   }
 }
