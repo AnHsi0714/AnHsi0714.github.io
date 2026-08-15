@@ -1,16 +1,18 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
 import Chip from "../../components/Chip";
 import Badge from "../../components/Badge";
 import TableOfContents from "../../components/TableOfContents";
+import Trail from "../../components/Trail";
 import { useArticles, useNextArticle, usePreviousArticle } from "../../lib/articles";
 import { useKnowledgeNodesLinkedTo } from "../../lib/knowledge";
 import { extractHeadings } from "../../lib/markdown";
 import TextLink from "../../components/TextLink";
 import { Stars } from "./Articles";
 import { useTranslation } from "../../i18n/useTranslation";
+import { useTrail } from "../../context/TrailContext";
 
 export default function ArticleDetail() {
   const { slug } = useParams();
@@ -20,10 +22,15 @@ export default function ArticleDetail() {
   const relatedKnowledge = useKnowledgeNodesLinkedTo("article", slug ?? "");
   const previousArticle = usePreviousArticle(slug);
   const nextArticle = useNextArticle(slug);
+  const { pushTrailEntry } = useTrail();
   const headings = useMemo(
     () => extractHeadings(article?.body ?? ""),
     [article],
   );
+
+  useEffect(() => {
+    if (article) pushTrailEntry({ type: "article", slug: article.slug });
+  }, [article, pushTrailEntry]);
 
   if (!article) {
     return (
@@ -52,6 +59,7 @@ export default function ArticleDetail() {
         <TextLink to="/articles" restoreScroll className="text-sm font-medium">
           {t.articles.backToList}
         </TextLink>
+        <Trail />
 
         {article.coverUrl && (
           <img
@@ -99,7 +107,7 @@ export default function ArticleDetail() {
         <MarkdownContent className="mt-6">{article.body}</MarkdownContent>
 
         {(previousArticle || nextArticle) && (
-          <div className="mt-8 flex flex-col gap-6 border-t border-[var(--color-border)] pt-6 sm:flex-row sm:justify-between">
+          <div className="mt-8 flex flex-col gap-6 border-t border-[var(--color-border)] pt-6 sm:flex-row">
             {previousArticle && (
               <div className="min-w-0 sm:w-1/2">
                 <p className="text-sm text-[var(--color-text-muted)]">
@@ -114,7 +122,7 @@ export default function ArticleDetail() {
               </div>
             )}
             {nextArticle && (
-              <div className="min-w-0 sm:w-1/2 sm:text-right">
+              <div className="min-w-0 sm:ml-auto sm:w-1/2 sm:text-right">
                 <p className="text-sm text-[var(--color-text-muted)]">
                   {t.articles.nextArticle}
                 </p>
@@ -128,6 +136,14 @@ export default function ArticleDetail() {
             )}
           </div>
         )}
+
+        <TextLink
+          to="/articles"
+          restoreScroll
+          className="mt-8 inline-block text-sm font-medium"
+        >
+          {t.articles.backToList}
+        </TextLink>
       </section>
     </>
   );

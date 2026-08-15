@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import projectsDataZh from "../../../content/projects.json";
 import projectsDataEn from "../../../content/projects.en.json";
@@ -5,6 +6,7 @@ import Badge from "../../components/Badge";
 import Chip from "../../components/Chip";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
+import Trail from "../../components/Trail";
 import { useProjectBodies } from "../../lib/projects";
 import { useKnowledgeNodesLinkedTo } from "../../lib/knowledge";
 import TextLink from "../../components/TextLink";
@@ -12,6 +14,7 @@ import type { Project } from "../../types/content";
 import { statusBadgeVariant } from "./Projects";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
+import { useTrail } from "../../context/TrailContext";
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -20,6 +23,11 @@ export default function ProjectDetail() {
   const project = projects.find((item) => item.slug === slug);
   const projectBodies = useProjectBodies();
   const relatedKnowledge = useKnowledgeNodesLinkedTo("project", slug ?? "");
+  const { pushTrailEntry } = useTrail();
+
+  useEffect(() => {
+    if (project) pushTrailEntry({ type: "project", slug: project.slug });
+  }, [project, pushTrailEntry]);
 
   if (!project) {
     return (
@@ -42,6 +50,7 @@ export default function ProjectDetail() {
       <TextLink to="/projects" restoreScroll className="text-sm font-medium">
         {t.projects.backToList}
       </TextLink>
+      <Trail />
 
       {project.screenshotUrl && (
         <img
@@ -102,6 +111,14 @@ export default function ProjectDetail() {
       )}
 
       {body && <MarkdownContent className="mt-6">{body}</MarkdownContent>}
+
+      <TextLink
+        to="/projects"
+        restoreScroll
+        className="mt-8 inline-block text-sm font-medium"
+      >
+        {t.projects.backToList}
+      </TextLink>
     </section>
   );
 }
