@@ -135,6 +135,7 @@ export interface Strings {
     ratingLabel: (rating: number) => string;
     draftBadge: string;
     tableOfContents: string;
+    previousArticle: string;
     nextArticle: string;
   };
   gallery: {
@@ -401,6 +402,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       ratingLabel: (rating: number) => `評分 ${rating} / 5`,
       draftBadge: "草稿",
       tableOfContents: "文章目錄",
+      previousArticle: "上一篇文章",
       nextArticle: "下一篇文章",
     },
     gallery: {
@@ -681,6 +683,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       ratingLabel: (rating: number) => `Rating ${rating} / 5`,
       draftBadge: "Draft",
       tableOfContents: "Table of Contents",
+      previousArticle: "Previous Article",
       nextArticle: "Next Article",
     },
     gallery: {

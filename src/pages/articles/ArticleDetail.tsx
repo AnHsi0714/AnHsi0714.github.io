@@ -5,7 +5,7 @@ import MarkdownContent from "../../components/MarkdownContent";
 import Chip from "../../components/Chip";
 import Badge from "../../components/Badge";
 import TableOfContents from "../../components/TableOfContents";
-import { useArticles, useNextArticle } from "../../lib/articles";
+import { useArticles, useNextArticle, usePreviousArticle } from "../../lib/articles";
 import { useKnowledgeNodesLinkedTo } from "../../lib/knowledge";
 import { extractHeadings } from "../../lib/markdown";
 import TextLink from "../../components/TextLink";
@@ -18,6 +18,7 @@ export default function ArticleDetail() {
   const articles = useArticles();
   const article = articles.find((item) => item.slug === slug);
   const relatedKnowledge = useKnowledgeNodesLinkedTo("article", slug ?? "");
+  const previousArticle = usePreviousArticle(slug);
   const nextArticle = useNextArticle(slug);
   const headings = useMemo(
     () => extractHeadings(article?.body ?? ""),
@@ -97,17 +98,34 @@ export default function ArticleDetail() {
 
         <MarkdownContent className="mt-6">{article.body}</MarkdownContent>
 
-        {nextArticle && (
-          <div className="mt-8 border-t border-[var(--color-border)] pt-6">
-            <p className="text-sm text-[var(--color-text-muted)]">
-              {t.articles.nextArticle}
-            </p>
-            <TextLink
-              to={`/articles/${nextArticle.slug}`}
-              className="mt-1 block font-semibold"
-            >
-              {nextArticle.title}
-            </TextLink>
+        {(previousArticle || nextArticle) && (
+          <div className="mt-8 flex flex-col gap-6 border-t border-[var(--color-border)] pt-6 sm:flex-row sm:justify-between">
+            {previousArticle && (
+              <div className="min-w-0 sm:w-1/2">
+                <p className="text-sm text-[var(--color-text-muted)]">
+                  {t.articles.previousArticle}
+                </p>
+                <TextLink
+                  to={`/articles/${previousArticle.slug}`}
+                  className="mt-1 block truncate font-semibold"
+                >
+                  {previousArticle.title}
+                </TextLink>
+              </div>
+            )}
+            {nextArticle && (
+              <div className="min-w-0 sm:w-1/2 sm:text-right">
+                <p className="text-sm text-[var(--color-text-muted)]">
+                  {t.articles.nextArticle}
+                </p>
+                <TextLink
+                  to={`/articles/${nextArticle.slug}`}
+                  className="mt-1 block truncate font-semibold"
+                >
+                  {nextArticle.title}
+                </TextLink>
+              </div>
+            )}
           </div>
         )}
       </section>
