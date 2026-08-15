@@ -16,6 +16,8 @@ import Chip from "../../components/Chip";
 import Reveal from "../../components/Reveal";
 import TextLink from "../../components/TextLink";
 import { useTranslation } from "../../i18n/useTranslation";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
+import { deriveExcerpt } from "../../lib/markdown";
 
 const content = {
   zh: {
@@ -207,6 +209,10 @@ export default function About() {
   const [showGrades, setShowGrades] = useState(false);
   const { t, language } = useTranslation();
   const data = content[language];
+  useDocumentTitle(
+    `${t.nav.about} · AnHsi0714`,
+    deriveExcerpt(data.researchStatement, 150),
+  );
 
   return (
     <section className="flex flex-col gap-8 lg:relative lg:left-1/2 lg:grid lg:w-screen lg:-translate-x-1/2 lg:grid-cols-[10%_30%_5%_45%_10%]">

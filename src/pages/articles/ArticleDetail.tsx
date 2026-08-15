@@ -13,6 +13,7 @@ import { useNeedsScroll } from "../../lib/useNeedsScroll";
 import TextLink from "../../components/TextLink";
 import { Stars } from "./Articles";
 import { useTranslation } from "../../i18n/useTranslation";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useTrail } from "../../context/TrailContext";
 
 export default function ArticleDetail() {
@@ -27,6 +28,10 @@ export default function ArticleDetail() {
   const headings = useMemo(
     () => extractHeadings(article?.body ?? ""),
     [article],
+  );
+  useDocumentTitle(
+    article ? `${article.title} · AnHsi0714` : `${t.articles.notFoundTitle} · AnHsi0714`,
+    article?.excerpt,
   );
   const hasToc = headings.length > 1;
   const needsScroll = useNeedsScroll();

@@ -12,6 +12,8 @@ import { usePublishedArticles } from "../../lib/articles";
 import { useLocalized } from "../../lib/localized";
 import { useNeedsScroll } from "../../lib/useNeedsScroll";
 import { useTranslation } from "../../i18n/useTranslation";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
+import { deriveExcerpt } from "../../lib/markdown";
 import { useTrail } from "../../context/TrailContext";
 import type { KnowledgeRelationType, Project } from "../../types/content";
 
@@ -29,6 +31,10 @@ export default function KnowledgeDetail() {
   const knowledgeMap = useKnowledgeMap();
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
   const articles = usePublishedArticles();
+  useDocumentTitle(
+    node ? `${node.term} · AnHsi0714` : `${t.knowledge.notFoundTitle} · AnHsi0714`,
+    node ? deriveExcerpt(node.definition, 150) : undefined,
+  );
   const { pushTrailEntry } = useTrail();
   const isPublished = node?.status === "published";
   const needsScroll = useNeedsScroll();

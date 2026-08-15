@@ -17,6 +17,7 @@ import type { Project } from "../../types/content";
 import { statusBadgeVariant } from "./Projects";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useTrail } from "../../context/TrailContext";
 
 export default function ProjectDetail() {
@@ -27,6 +28,10 @@ export default function ProjectDetail() {
   const projectBodies = useProjectBodies();
   const body = project ? projectBodies[project.slug] : undefined;
   const relatedKnowledge = useKnowledgeNodesLinkedTo("project", slug ?? "");
+  useDocumentTitle(
+    project ? `${project.name} · AnHsi0714` : `${t.projects.notFoundTitle} · AnHsi0714`,
+    project?.desc,
+  );
   const { pushTrailEntry } = useTrail();
   const headings = useMemo(() => extractHeadings(body ?? ""), [body]);
   const hasToc = headings.length > 1;

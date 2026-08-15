@@ -11,6 +11,7 @@ import type { Article } from "../../types/content";
 import { usePublishedArticles } from "../../lib/articles";
 import { useTranslation } from "../../i18n/useTranslation";
 import type { Strings } from "../../i18n/strings";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 
 type SortOrder = "newest" | "oldest";
 type FeaturedFilter = "all" | "featured" | "not-featured";
@@ -83,6 +84,7 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
 
 export default function Articles() {
   const { t } = useTranslation();
+  useDocumentTitle(`${t.articles.title} · AnHsi0714`, t.articles.subtitle);
   const articles = usePublishedArticles();
   const allCategories = Array.from(
     new Set(articles.flatMap((article) => article.categories)),
