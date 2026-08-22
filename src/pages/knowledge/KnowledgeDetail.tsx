@@ -118,7 +118,7 @@ export default function KnowledgeDetail() {
           <div className="mt-2 flex flex-wrap gap-2">
             {relatedProjects.map((p) => (
               <Link key={p.slug} to={`/projects/${p.slug}#${node.slug}`}>
-                <Chip>{p.name}</Chip>
+                <Chip clickable>{p.name}</Chip>
               </Link>
             ))}
           </div>
@@ -131,7 +131,7 @@ export default function KnowledgeDetail() {
           <div className="mt-2 flex flex-wrap gap-2">
             {relatedArticles.map((a) => (
               <Link key={a.slug} to={`/articles/${a.slug}#${node.slug}`}>
-                <Chip>{a.title}</Chip>
+                <Chip clickable>{a.title}</Chip>
               </Link>
             ))}
           </div>
@@ -150,7 +150,7 @@ export default function KnowledgeDetail() {
                 <div className="mt-1 flex flex-wrap gap-2">
                   {group.nodes.map((n) => (
                     <Link key={n.slug} to={`/knowledge/${n.slug}`}>
-                      <Chip>{n.term}</Chip>
+                      <Chip clickable>{n.term}</Chip>
                     </Link>
                   ))}
                 </div>

@@ -269,7 +269,7 @@ export default function ComponentsPreview() {
             info sm
           </Chip>
           <Chip variant="warn" size="sm">
-            書卷
+            warn sm
           </Chip>
           <Chip variant="danger" size="sm">
             danger sm
@@ -288,6 +288,23 @@ export default function ComponentsPreview() {
           </Chip>
           <Chip tone="filled" variant="danger">
             danger filled
+          </Chip>
+        </div>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <Chip clickable onClick={() => {}}>
+            clickable
+          </Chip>
+          <Chip clickable variant="success" onClick={() => {}}>
+            clickable success
+          </Chip>
+          <Chip clickable variant="info" onClick={() => {}}>
+            clickable info
+          </Chip>
+          <Chip clickable variant="warn" onClick={() => {}}>
+            clickable warn
+          </Chip>
+          <Chip clickable variant="danger" onClick={() => {}}>
+            clickable danger
           </Chip>
         </div>
       </section>

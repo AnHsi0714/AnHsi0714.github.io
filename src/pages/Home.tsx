@@ -94,7 +94,7 @@ export default function Home() {
               key={tag.label}
               to={tag.slug ? `/knowledge/${tag.slug}` : "/knowledge?category=RESEARCH"}
             >
-              <Chip size="md">{tag.label}</Chip>
+              <Chip clickable size="md">{tag.label}</Chip>
             </Link>
           ))}
         </div>
