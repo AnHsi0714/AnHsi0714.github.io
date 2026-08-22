@@ -126,7 +126,7 @@ export default function ArticleDetail() {
             <div className="mt-2 flex flex-wrap gap-2">
               {relatedKnowledge.map((node) => (
                 <Link key={node.slug} to={`/knowledge/${node.slug}`}>
-                  <Chip>{node.term}</Chip>
+                  <Chip clickable>{node.term}</Chip>
                 </Link>
               ))}
             </div>

@@ -9,6 +9,83 @@
   line-height: 1.4;
 }
 
+// clickable：外框上同一瞬間就有好幾個顏色並存（例如 doing 同時看得到
+// 淺藍／深藍／紫），並讓這排顏色沿著邊框橫向跑動，是顏色本身在移動，
+// 不是整個外框圖形被 transform 轉動。
+// 作法：linear-gradient 排出一輪顏色序列（頭尾同色，銜接處無縫），
+// background-size 拉成 3 倍寬，animation 只動 background-position，
+// 讓這條顏色帶持續向右捲動、無限循環。
+// 用 mask-composite: exclude 把 ::after 挖成環狀，漸層只會出現在外框，
+// 不會蓋掉 chip 本身的底色／文字；漸層內容由各 variant 自己的 --chip-gradient 決定，
+// 顏色都落在該狀態色系附近，不會跳去無關的顏色。
+.clickable {
+  position: relative;
+  cursor: pointer;
+  border-color: transparent;
+  transition: transform $transition-fast;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    padding: 2px;
+    border-radius: inherit;
+    background: var(
+      --chip-gradient,
+      linear-gradient(
+        90deg,
+        $color-primary,
+        $color-primary-hover,
+        $color-primary
+      )
+    );
+    background-size: 300% 100%;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: chip-gradient-flow 3s linear infinite alternate;
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      animation: none;
+    }
+  }
+}
+
+@keyframes chip-gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
 // outline：透明底、大寫字、字距加寬，對應描邊藥丸樣式
 .outline {
   background-color: transparent;
@@ -23,35 +100,59 @@
 .outlineDefault {
   border-color: $color-border;
   color: $color-text-muted;
+  --chip-gradient: linear-gradient(90deg, #cecece, #9ca3af, #6b7280, #cecece);
+
+  :global(.dark) & {
+    --chip-gradient: linear-gradient(90deg, #505046, #737369, #9a9a8c, #505046);
+  }
 }
 
 // success / info / danger 直接沿用 Badge 的顏色 token（tokens.scss），
 // 跟著 .dark class 自動切換，不用另外寫 dark 覆寫。
 // success / info 的「色相」放在 -bg 這個 token，base token 是給實心底配的淺色文字；
 // danger 相反，base token 本身就是色相，-text token 才是給實心底配的淺色文字。
+// --chip-gradient 是給 .clickable 邊框動畫用的同色系漸層，因為漸層裡的
+// 相鄰色需要硬寫實際色碼（不是單一 token 能表示），所以 light/dark 分開寫。
 .outlineSuccess {
   border-color: $color-success-bg;
   color: $color-success-bg;
+  --chip-gradient: linear-gradient(90deg, #93da22, #22c55e, #06b6d4, #93da22);
+
+  :global(.dark) & {
+    --chip-gradient: linear-gradient(90deg, #88ca1e, #4ade80, #22d3ee, #88ca1e);
+  }
 }
 
 .outlineInfo {
   border-color: $color-info-bg;
   color: $color-info-bg;
+  --chip-gradient: linear-gradient(90deg, #5fc4f3, #3b82f6, #6366f1, #5fc4f3);
+
+  :global(.dark) & {
+    --chip-gradient: linear-gradient(90deg, #337ca0, #60a5fa, #818cf8, #337ca0);
+  }
 }
 
 .outlineDanger {
   border-color: $color-danger;
   color: $color-danger;
+  --chip-gradient: linear-gradient(90deg, #f34848, #f97316, #ec4899, #f34848);
+
+  :global(.dark) & {
+    --chip-gradient: linear-gradient(90deg, #f87171, #fb923c, #f472b6, #f87171);
+  }
 }
 
 // warn 在 Badge 裡沒有對應色，暫時維持獨立的琥珀色
 .outlineWarn {
   border-color: rgba(217, 119, 6, 0.4);
   color: #b45309;
+  --chip-gradient: linear-gradient(90deg, #d97706, #f97316, #facc15, #d97706);
 
   :global(.dark) & {
     border-color: rgba(251, 191, 36, 0.4);
     color: #fbbf24;
+    --chip-gradient: linear-gradient(90deg, #fbbf24, #fdba74, #fde047, #fbbf24);
   }
 }
 
@@ -59,31 +160,53 @@
 .filledDefault {
   background-color: $color-surface;
   color: $color-text-muted;
+  --chip-gradient: linear-gradient(90deg, #cecece, #9ca3af, #6b7280, #cecece);
+
+  :global(.dark) & {
+    --chip-gradient: linear-gradient(90deg, #505046, #737369, #9a9a8c, #505046);
+  }
 }
 
 .filledSuccess {
   background-color: $color-success-bg;
   color: $color-success;
+  --chip-gradient: linear-gradient(90deg, #93da22, #22c55e, #06b6d4, #93da22);
+
+  :global(.dark) & {
+    --chip-gradient: linear-gradient(90deg, #88ca1e, #4ade80, #22d3ee, #88ca1e);
+  }
 }
 
 .filledInfo {
   background-color: $color-info-bg;
   color: $color-info;
+  --chip-gradient: linear-gradient(90deg, #5fc4f3, #3b82f6, #6366f1, #5fc4f3);
+
+  :global(.dark) & {
+    --chip-gradient: linear-gradient(90deg, #337ca0, #60a5fa, #818cf8, #337ca0);
+  }
 }
 
 .filledDanger {
   background-color: $color-danger;
   color: $color-danger-text;
+  --chip-gradient: linear-gradient(90deg, #f34848, #f97316, #ec4899, #f34848);
+
+  :global(.dark) & {
+    --chip-gradient: linear-gradient(90deg, #f87171, #fb923c, #f472b6, #f87171);
+  }
 }
 
 // warn 在 Badge 裡沒有對應色，暫時維持獨立的琥珀色
 .filledWarn {
   background-color: rgba(245, 158, 11, 0.15);
   color: #b45309;
+  --chip-gradient: linear-gradient(90deg, #d97706, #f97316, #facc15, #d97706);
 
   :global(.dark) & {
     background-color: rgba(251, 191, 36, 0.15);
     color: #fbbf24;
+    --chip-gradient: linear-gradient(90deg, #fbbf24, #fdba74, #fde047, #fbbf24);
   }
 }
 
