@@ -6,6 +6,7 @@ import Badge from "../../components/Badge";
 import Chip from "../../components/Chip";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
+import ImageWithSkeleton from "../../components/ImageWithSkeleton";
 import TableOfContents from "../../components/TableOfContents";
 import Trail from "../../components/Trail";
 import { useProjectBodies } from "../../lib/projects";
@@ -73,10 +74,11 @@ export default function ProjectDetail() {
         <Trail />
 
         {project.screenshotUrl && (
-          <img
+          <ImageWithSkeleton
             src={project.screenshotUrl}
             alt={project.name}
-            className="mt-4 aspect-video w-full rounded-md object-cover"
+            wrapperClassName="mt-4 aspect-video w-full rounded-md"
+            className="object-cover"
             style={{
               objectPosition: project.screenshotPosition
                 ? `${project.screenshotPosition.w}% ${project.screenshotPosition.h}%`

@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
+import ImageWithSkeleton from "../../components/ImageWithSkeleton";
 import Chip from "../../components/Chip";
 import Badge from "../../components/Badge";
 import TableOfContents from "../../components/TableOfContents";
@@ -89,10 +90,11 @@ export default function ArticleDetail() {
         <Trail />
 
         {article.coverUrl && (
-          <img
+          <ImageWithSkeleton
             src={article.coverUrl}
             alt={article.title}
-            className="mt-4 aspect-video w-full rounded-md object-cover"
+            wrapperClassName="mt-4 aspect-video w-full rounded-md"
+            className="object-cover"
           />
         )}
 

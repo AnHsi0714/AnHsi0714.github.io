@@ -1,30 +1,86 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Link, useLocation } from "react-router-dom";
 import artworksDataZh from "../../../content/artworks.json";
 import artworksDataEn from "../../../content/artworks.en.json";
 import type { Artwork } from "../../types/content";
 import sketches, { type SketchInteraction } from "./sketches";
+import { useWallAutoScroll } from "./useWallAutoScroll";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
 import Modal from "../../components/Modal";
+import Skeleton from "../../components/Skeleton";
 import styles from "./GalleryGrid.module.scss";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
 
-// 篩選用的作品標籤：有互動 sketch 的吃它在 sketches/index.ts 宣告的互動類型，
-// 還沒移植的作品歸為「靜態展示」。
-type ArtworkTag = SketchInteraction | "static";
+// 展牆列數固定，不隨裝置寬度減少：手機上靠 CSS 把列高（連帶每格寬度）縮小
+// 來適應版面，而不是少排幾列，維持「同樣塞滿畫面」的密度感。
+const ROW_COUNT = 3;
 
-const artworkTags = (artwork: Artwork): ArtworkTag[] =>
-  sketches[artwork.slug]?.interactions ?? ["static"];
+// 畫框裁切區的寬高比：吃 sketches 宣告的 aspect（跟 GalleryDetail 的聚光燈
+// 畫布同一個資料來源），沒有互動版本的作品沒有這個資訊，退回正方形猜測。
+const getAspect = (artwork: Artwork) => sketches[artwork.slug]?.aspect ?? 1;
+
+// 篩選用的作品標籤：有互動 sketch 的吃它在 sketches/index.ts 宣告的互動類型，
+// 還沒移植的作品歸為「靜態展示」。drag-draw（拖曳作畫）跟 drag-physics（物理
+// 拖曳）在篩選這裡合併成同一個 drag 標籤——篩選只需要「有沒有拖曳互動」這麼
+// 粗的分類；GalleryDetail.tsx 的操作提示繼續讀 sketches 原始的 interactions
+// 陣列，不經過這層合併，兩種拖曳的說明文字不受影響。
+type ArtworkTag = Exclude<SketchInteraction, "drag-draw" | "drag-physics"> | "drag" | "static";
+
+const toFilterTag = (interaction: SketchInteraction): ArtworkTag =>
+  interaction === "drag-draw" || interaction === "drag-physics" ? "drag" : interaction;
+
+const artworkTags = (artwork: Artwork): ArtworkTag[] => {
+  const interactions = sketches[artwork.slug]?.interactions;
+  if (!interactions) return ["static"];
+  return Array.from(new Set(interactions.map(toFilterTag)));
+};
 
 // artworks.json 的日期是 YYMMDD 六碼，轉成 ISO 才能跟 <input type="date"> 的值比較。
 const toISODate = (d: string) =>
   `20${d.slice(0, 2)}-${d.slice(2, 4)}-${d.slice(4, 6)}`;
 
 type SortOrder = "newest" | "oldest";
+
+// 抽成獨立元件才能讓每張縮圖各自有一份 loaded state：GalleryGrid 本體是把
+// visibleArtworks 直接 map 成 JSX、不是逐一掛載的元件實例，state 沒地方掛。
+function PosterImage({
+  src,
+  alt,
+  aspect,
+}: {
+  src: string;
+  alt: string;
+  // 骨架佔位用的猜測值（sketch 宣告的畫布比例）。有些作品（例如稜鏡）同時
+  // 混了寬螢幕跟正方形兩種截圖，單一猜測值不可能兩種都準，圖片真正載完後
+  // 會用 naturalWidth/naturalHeight 算出來的實際比例覆蓋掉這個猜測。
+  aspect: number;
+}) {
+  const [loaded, setLoaded] = useState(false);
+  const [naturalAspect, setNaturalAspect] = useState<number | null>(null);
+
+  return (
+    <span
+      className={styles.imageClip}
+      style={{ "--clip-aspect": naturalAspect ?? aspect } as CSSProperties}
+    >
+      {!loaded && <Skeleton className={styles.skeleton} />}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        className={!loaded ? styles.loading : undefined}
+        onLoad={(event) => {
+          const img = event.currentTarget;
+          setNaturalAspect(img.naturalWidth / img.naturalHeight);
+          setLoaded(true);
+        }}
+      />
+    </span>
+  );
+}
 
 export default function GalleryGrid() {
   const { t } = useTranslation();
@@ -37,19 +93,13 @@ export default function GalleryGrid() {
   );
 
   // 從作品詳細頁按「回畫廊」回來時，GalleryDetail.tsx 會透過 Link state 帶上
-  // 剛剛看的那件作品 slug，讓展場捲回原本的位置，而不是每次都回到第一件。
+  // 剛剛看的那件作品 slug，讓展牆回到原本的位置，而不是每次都從頭開始。
   const location = useLocation();
   const focusSlug = (location.state as { focusSlug?: string } | null)
     ?.focusSlug;
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const [activeSlug, setActiveSlug] = useState<string | undefined>(
-    focusSlug ?? artworks[0]?.slug,
-  );
-  // 手機版展牆改直向捲動（見 GalleryGrid.module.scss 的手機 media query），
-  // 這裡的閾值要跟 SCSS 那邊的 640px 對齊，捲動軸向的 JS 邏輯才會一致。
-  const isMobile = useMediaQuery("(max-width: 640px)");
 
-  // 展牆名牌點開的「美術館說明牌」：記住目前打開哪件作品的介紹
+  // 縮圖直接連到互動作品（見下方 tile 的 <Link>）；作品名稱另外開說明卡片，
+  // 只有寫了介紹的作品名稱才可以點。
   const [introSlug, setIntroSlug] = useState<string | null>(null);
   const introArtwork = artworks.find((a) => a.slug === introSlug);
 
@@ -115,114 +165,30 @@ export default function GalleryGrid() {
       );
   }, [artworks, titleQuery, selectedTags, dateFrom, dateTo, sortOrder]);
 
-  // 每次進場隨機挑一張截圖，呼應生成式作品「每次執行都長得不一樣」
-  const posters = useMemo(
-    () =>
-      Object.fromEntries(
-        artworks.map((a) => [
-          a.slug,
-          a.images[Math.floor(Math.random() * a.images.length)],
-        ]),
-      ),
-    [artworks],
-  );
+  const { wallRef, setRowRef, rows, scrollToSlug, wallHandlers, wasDragged } =
+    useWallAutoScroll(visibleArtworks, ROW_COUNT);
 
-  // 掛載時如果帶了 focusSlug，直接跳（不要動畫捲動）到那件作品置中，
-  // immediately 而非 smooth：這是「回到剛剛看的位置」，不是使用者主動捲動，
-  // 不需要看到捲動過程。
+  // 掛載時如果帶了 focusSlug，直接跳（不做動畫）到那件作品置中：這是「回到
+  // 剛剛看的位置」，不是使用者主動捲動，不需要看到移動過程。用 ref 擋著只
+  // 執行一次，避免之後篩選/排序造成的重新渲染又把畫面拉走。
+  const didFocusRef = useRef(false);
   useEffect(() => {
-    if (!focusSlug) return;
-    const el = scrollerRef.current;
-    if (!el) return;
-    const item = el.querySelector<HTMLElement>(`[data-slug="${focusSlug}"]`);
-    item?.scrollIntoView(
-      isMobile
-        ? { behavior: "instant", block: "center", inline: "nearest" }
-        : { behavior: "instant", inline: "center", block: "nearest" },
-    );
-  }, [focusSlug, isMobile]);
+    if (didFocusRef.current) return;
+    didFocusRef.current = true;
+    if (focusSlug) scrollToSlug(focusSlug);
+  }, [focusSlug, scrollToSlug]);
 
-  // 切換排序時把展牆直接拉回新順序的第一件作品：如果留在原本的捲動位置，
-  // 牆面在腳下重新洗牌、置中的卻常常還是同一件（最舊↔最新切換時尤其明顯，
-  // 停在中段的作品換個方向排還是在中段），看起來像按了沒反應。用 ref 記住
-  // 上一次的排序值、只在「真的切換」時捲動，首次進場才不會蓋掉 focusSlug
-  // 「回到剛剛看的那件」的定位。
+  // 切換排序時把展牆拉回新順序的第一件作品：如果留在原本的位置，牆面在
+  // 腳下重新洗牌、看到的卻常常還是同一件（最舊↔最新切換時尤其明顯），看
+  // 起來像按了沒反應。用 ref 記住上一次的排序值、只在「真的切換」時捲動，
+  // 首次進場才不會蓋掉 focusSlug「回到剛剛看的那件」的定位。
   const prevSortOrder = useRef(sortOrder);
   useEffect(() => {
     if (prevSortOrder.current === sortOrder) return;
     prevSortOrder.current = sortOrder;
-    const el = scrollerRef.current;
-    if (!el) return;
-    const first = el.querySelector<HTMLElement>("[data-slug]");
-    first?.scrollIntoView(
-      isMobile
-        ? { behavior: "instant", block: "center", inline: "nearest" }
-        : { behavior: "instant", inline: "center", block: "nearest" },
-    );
-  }, [sortOrder, isMobile]);
-
-  // 滾輪垂直捲動轉成展牆的橫向移動（React 的 onWheel 是 passive，擋不了預設捲動，
-  // 所以自己掛非 passive listener）。邊界不用手動判斷，scrollLeft 賦值超出範圍時
-  // 瀏覽器會自動夾在 [0, scrollWidth - clientWidth] 之間。手機版展牆改直向捲動，
-  // 滾輪本來就該正常捲動，不用轉軸。
-  // 依賴 visibleArtworks：篩到空集合時 scroller 會整個卸載、再出現時是新的
-  // DOM 節點，listener 要重新掛。
-  useEffect(() => {
-    const el = scrollerRef.current;
-    if (!el || isMobile) return;
-    const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return;
-      el.scrollLeft += e.deltaY;
-      e.preventDefault();
-    };
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
-  }, [visibleArtworks, isMobile]);
-
-  // 偵測誰在展牆中央：每次捲動都算出「哪一件作品的中心點離展牆中心最近」，
-  // 直接點亮那件——用重疊區間判斷（IntersectionObserver + threshold）在捲動
-  // 途中一有重疊就會提早點亮下一件，還沒真正置中（甚至還會被 scroll-snap
-  // 拉回去）就先亮了，感覺判斷太快；改成距離最近者才是正解，且只反映當下
-  // 最接近中心的那件，不會提早跳。
-  // 依賴 visibleArtworks：篩選、排序後展位增減，得重新抓一次 [data-slug] 清單。
-  useEffect(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    const items = Array.from(el.querySelectorAll<HTMLElement>("[data-slug]"));
-    let raf = 0;
-    const updateActive = () => {
-      const rootRect = el.getBoundingClientRect();
-      const rootCenter = isMobile
-        ? rootRect.top + rootRect.height / 2
-        : rootRect.left + rootRect.width / 2;
-      let closest: HTMLElement | undefined;
-      let minDist = Infinity;
-      for (const item of items) {
-        const rect = item.getBoundingClientRect();
-        const itemCenter = isMobile
-          ? rect.top + rect.height / 2
-          : rect.left + rect.width / 2;
-        const dist = Math.abs(itemCenter - rootCenter);
-        if (dist < minDist) {
-          minDist = dist;
-          closest = item;
-        }
-      }
-      if (closest) setActiveSlug(closest.dataset.slug);
-    };
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(updateActive);
-    };
-    updateActive();
-    el.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      cancelAnimationFrame(raf);
-      el.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, [visibleArtworks, isMobile]);
+    const firstSlug = rows[0]?.[0]?.artwork.slug;
+    if (firstSlug) scrollToSlug(firstSlug);
+  }, [sortOrder, rows, scrollToSlug]);
 
   return (
     <section className={styles.room}>
@@ -320,44 +286,48 @@ export default function GalleryGrid() {
           />
         </div>
       ) : (
-        <div ref={scrollerRef} className={styles.scroller}>
-          {visibleArtworks.map((artwork) => (
+        <div ref={wallRef} className={styles.wall} {...wallHandlers}>
+          {rows.map((rowSlots, rowIndex) => (
             <div
-              key={artwork.slug}
-              data-slug={artwork.slug}
-              className={`${styles.exhibit} ${activeSlug === artwork.slug ? styles.active : ""}`}
+              key={rowIndex}
+              ref={setRowRef(rowIndex)}
+              className={styles.wallRow}
+              data-row={rowIndex}
             >
-              <div className={styles.lamp}>
-                <div className={styles.cord} />
-                <div className={styles.shade} />
-                <div className={styles.bulb} />
-              </div>
-              <div className={styles.beam} />
-              <Link to={`/gallery/${artwork.slug}`} className={styles.frame}>
-                <span className={styles.imageClip}>
-                  <img
-                    src={posters[artwork.slug]}
-                    alt={artwork.title}
-                    loading="lazy"
-                  />
-                </span>
-              </Link>
-              {artwork.description ? (
-                // 有寫介紹的作品，名牌本身變成按鈕，點開「美術館說明牌」彈窗
-                <button
-                  type="button"
-                  onClick={() => setIntroSlug(artwork.slug)}
-                  className={`${styles.placard} ${styles.placardClickable}`}
+              {rowSlots.map((slot) => (
+                <div
+                  key={slot.artwork.slug}
+                  data-slug={slot.artwork.slug}
+                  className={styles.tileGroup}
                 >
-                  <span className={styles.placardTitle}>{artwork.title}</span>
-                  <span className={styles.placardMeta}>{artwork.date}</span>
-                </button>
-              ) : (
-                <div className={styles.placard}>
-                  <span className={styles.placardTitle}>{artwork.title}</span>
-                  <span className={styles.placardMeta}>{artwork.date}</span>
+                  <Link
+                    to={`/gallery/${slot.artwork.slug}`}
+                    className={styles.tile}
+                    onClick={(event) => {
+                      // 拖曳結束時放開的那一下也會觸發 click，這裡擋掉，
+                      // 避免拖著展牆卻誤跳轉。
+                      if (wasDragged()) event.preventDefault();
+                    }}
+                  >
+                    <PosterImage
+                      src={slot.imageSrc}
+                      alt={slot.artwork.title}
+                      aspect={getAspect(slot.artwork)}
+                    />
+                  </Link>
+                  {slot.artwork.description ? (
+                    <button
+                      type="button"
+                      className={`${styles.tileName} ${styles.tileNameClickable}`}
+                      onClick={() => setIntroSlug(slot.artwork.slug)}
+                    >
+                      {slot.artwork.title}
+                    </button>
+                  ) : (
+                    <span className={styles.tileName}>{slot.artwork.title}</span>
+                  )}
                 </div>
-              )}
+              ))}
             </div>
           ))}
         </div>
