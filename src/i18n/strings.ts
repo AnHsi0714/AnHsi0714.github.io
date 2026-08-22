@@ -151,11 +151,7 @@ export interface Strings {
     // 篩選標籤跟 hints 分開：篩選只需要「有沒有拖曳互動」這麼粗的分類，
     // drag-draw／drag-physics 兩種 interaction 在這裡合併成同一個 drag。
     tags: Record<
-      | "click-regenerate"
-      | "drag"
-      | "keyboard-game"
-      | "button-game"
-      | "static",
+      "click-regenerate" | "drag" | "keyboard-game" | "button-game" | "static",
       string
     >;
     hints: Record<
@@ -410,7 +406,8 @@ export const strings: Record<"zh" | "en", Strings> = {
     },
     gallery: {
       title: "生成視覺",
-      subtitle: "捲動瀏覽畫廊，點擊作品進入互動版本。",
+      subtitle:
+        "展覽牆的畫作會自動橫移，點縮圖直接進入互動版本，點作品名稱看介紹。",
       noMatch: "沒有符合條件的作品",
       tryAdjustFilter: "試試調整篩選條件。",
       back: "← 回畫廊",
@@ -692,7 +689,7 @@ export const strings: Record<"zh" | "en", Strings> = {
     gallery: {
       title: "Generative Visuals",
       subtitle:
-        "Scroll to browse, click a piece to open its interactive version.",
+        "The wall auto-scrolls; click a thumbnail to open its interactive version, or its name for details.",
       noMatch: "No pieces match these filters",
       tryAdjustFilter: "Try adjusting the filters.",
       back: "← Back to gallery",

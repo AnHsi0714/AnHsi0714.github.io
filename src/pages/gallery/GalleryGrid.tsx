@@ -4,6 +4,7 @@ import artworksDataZh from "../../../content/artworks.json";
 import artworksDataEn from "../../../content/artworks.en.json";
 import type { Artwork } from "../../types/content";
 import sketches, { type SketchInteraction } from "./sketches";
+import { useWallAutoScroll } from "./useWallAutoScroll";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
@@ -12,30 +13,14 @@ import Skeleton from "../../components/Skeleton";
 import styles from "./GalleryGrid.module.scss";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
-import { useMediaQuery } from "../../hooks/useMediaQuery";
+
+// 展牆列數固定，不隨裝置寬度減少：手機上靠 CSS 把列高（連帶每格寬度）縮小
+// 來適應版面，而不是少排幾列，維持「同樣塞滿畫面」的密度感。
+const ROW_COUNT = 3;
 
 // 畫框裁切區的寬高比：吃 sketches 宣告的 aspect（跟 GalleryDetail 的聚光燈
 // 畫布同一個資料來源），沒有互動版本的作品沒有這個資訊，退回正方形猜測。
 const getAspect = (artwork: Artwork) => sketches[artwork.slug]?.aspect ?? 1;
-
-// 每件作品要排進哪一欄：貪心地塞進目前「估計高度」最短的那一欄，用同一個
-// aspect 換算「欄寬固定時這張圖大概多高」——寬幅作品估出來矮、方形/直式
-// 估出來高，藉此讓各欄高度盡量平均，天然長出交錯感。
-function distributeColumns(items: Artwork[], columnCount: number): Artwork[][] {
-  const columns: Artwork[][] = Array.from({ length: columnCount }, () => []);
-  const heights = new Array(columnCount).fill(0);
-
-  for (const artwork of items) {
-    let shortest = 0;
-    for (let i = 1; i < columnCount; i++) {
-      if (heights[i] < heights[shortest]) shortest = i;
-    }
-    columns[shortest].push(artwork);
-    heights[shortest] += 1 / getAspect(artwork);
-  }
-
-  return columns;
-}
 
 // 篩選用的作品標籤：有互動 sketch 的吃它在 sketches/index.ts 宣告的互動類型，
 // 還沒移植的作品歸為「靜態展示」。drag-draw（拖曳作畫）跟 drag-physics（物理
@@ -108,13 +93,13 @@ export default function GalleryGrid() {
   );
 
   // 從作品詳細頁按「回畫廊」回來時，GalleryDetail.tsx 會透過 Link state 帶上
-  // 剛剛看的那件作品 slug，讓展場捲回原本的位置，而不是每次都回到第一件。
+  // 剛剛看的那件作品 slug，讓展牆回到原本的位置，而不是每次都從頭開始。
   const location = useLocation();
   const focusSlug = (location.state as { focusSlug?: string } | null)
     ?.focusSlug;
-  const wallRef = useRef<HTMLDivElement>(null);
 
-  // 展牆名牌點開的「美術館說明牌」：記住目前打開哪件作品的介紹
+  // 縮圖直接連到互動作品（見下方 tile 的 <Link>）；作品名稱另外開說明卡片，
+  // 只有寫了介紹的作品名稱才可以點。
   const [introSlug, setIntroSlug] = useState<string | null>(null);
   const introArtwork = artworks.find((a) => a.slug === introSlug);
 
@@ -180,55 +165,30 @@ export default function GalleryGrid() {
       );
   }, [artworks, titleQuery, selectedTags, dateFrom, dateTo, sortOrder]);
 
-  // 每次進場隨機挑一張截圖，呼應生成式作品「每次執行都長得不一樣」。用
-  // useState 的 lazy initializer 只算一次，不能用 useMemo(deps: [artworks])——
-  // useLocalized 切語言時回傳的是 zh/en 兩個不同陣列參照，即使 images 內容
-  // 相同，參照一變 useMemo 就會重算、重新抽一張圖，等於「切語言＝換圖」。
-  // 直接吃 artworksDataZh 當來源（images 欄位本來就不分語言），跟 language
-  // 完全脫鉤。
-  const [posters] = useState(() =>
-    Object.fromEntries(
-      (artworksDataZh as Artwork[]).map((a) => [
-        a.slug,
-        a.images[Math.floor(Math.random() * a.images.length)],
-      ]),
-    ),
-  );
+  const { wallRef, setRowRef, rows, scrollToSlug, wallHandlers, wasDragged } =
+    useWallAutoScroll(visibleArtworks, ROW_COUNT);
 
-  // 欄數跟著版面寬度切換，門檻要跟 GalleryGrid.module.scss 的 .wall 斷點對齊。
-  const isMedium = useMediaQuery("(max-width: 900px)");
-  const isNarrow = useMediaQuery("(max-width: 560px)");
-  const columnCount = isNarrow ? 1 : isMedium ? 2 : 3;
-
-  const columns = useMemo(
-    () => distributeColumns(visibleArtworks, columnCount),
-    [visibleArtworks, columnCount],
-  );
-
-  // 掛載時如果帶了 focusSlug，直接跳（不要動畫捲動）到那件作品置中，
-  // immediately 而非 smooth：這是「回到剛剛看的位置」，不是使用者主動捲動，
-  // 不需要看到捲動過程。
+  // 掛載時如果帶了 focusSlug，直接跳（不做動畫）到那件作品置中：這是「回到
+  // 剛剛看的位置」，不是使用者主動捲動，不需要看到移動過程。用 ref 擋著只
+  // 執行一次，避免之後篩選/排序造成的重新渲染又把畫面拉走。
+  const didFocusRef = useRef(false);
   useEffect(() => {
-    if (!focusSlug) return;
-    const el = wallRef.current;
-    if (!el) return;
-    const item = el.querySelector<HTMLElement>(`[data-slug="${focusSlug}"]`);
-    item?.scrollIntoView({ behavior: "instant", block: "center" });
-  }, [focusSlug]);
+    if (didFocusRef.current) return;
+    didFocusRef.current = true;
+    if (focusSlug) scrollToSlug(focusSlug);
+  }, [focusSlug, scrollToSlug]);
 
-  // 切換排序時把展牆直接拉回新順序的第一件作品：如果留在原本的捲動位置，
-  // 牆面在腳下重新洗牌、看到的卻常常還是同一件（最舊↔最新切換時尤其明顯），
-  // 看起來像按了沒反應。用 ref 記住上一次的排序值、只在「真的切換」時捲動，
+  // 切換排序時把展牆拉回新順序的第一件作品：如果留在原本的位置，牆面在
+  // 腳下重新洗牌、看到的卻常常還是同一件（最舊↔最新切換時尤其明顯），看
+  // 起來像按了沒反應。用 ref 記住上一次的排序值、只在「真的切換」時捲動，
   // 首次進場才不會蓋掉 focusSlug「回到剛剛看的那件」的定位。
   const prevSortOrder = useRef(sortOrder);
   useEffect(() => {
     if (prevSortOrder.current === sortOrder) return;
     prevSortOrder.current = sortOrder;
-    const el = wallRef.current;
-    if (!el) return;
-    const first = el.querySelector<HTMLElement>("[data-slug]");
-    first?.scrollIntoView({ behavior: "instant", block: "start" });
-  }, [sortOrder]);
+    const firstSlug = rows[0]?.[0]?.artwork.slug;
+    if (firstSlug) scrollToSlug(firstSlug);
+  }, [sortOrder, rows, scrollToSlug]);
 
   return (
     <section className={styles.room}>
@@ -326,37 +286,45 @@ export default function GalleryGrid() {
           />
         </div>
       ) : (
-        <div ref={wallRef} className={styles.wall}>
-          {columns.map((column, columnIndex) => (
-            <div className={styles.column} key={columnIndex}>
-              {column.map((artwork) => (
+        <div ref={wallRef} className={styles.wall} {...wallHandlers}>
+          {rows.map((rowSlots, rowIndex) => (
+            <div
+              key={rowIndex}
+              ref={setRowRef(rowIndex)}
+              className={styles.wallRow}
+              data-row={rowIndex}
+            >
+              {rowSlots.map((slot) => (
                 <div
-                  key={artwork.slug}
-                  data-slug={artwork.slug}
-                  className={styles.exhibit}
+                  key={slot.artwork.slug}
+                  data-slug={slot.artwork.slug}
+                  className={styles.tileGroup}
                 >
-                  <Link to={`/gallery/${artwork.slug}`} className={styles.frame}>
+                  <Link
+                    to={`/gallery/${slot.artwork.slug}`}
+                    className={styles.tile}
+                    onClick={(event) => {
+                      // 拖曳結束時放開的那一下也會觸發 click，這裡擋掉，
+                      // 避免拖著展牆卻誤跳轉。
+                      if (wasDragged()) event.preventDefault();
+                    }}
+                  >
                     <PosterImage
-                      src={posters[artwork.slug]}
-                      alt={artwork.title}
-                      aspect={getAspect(artwork)}
+                      src={slot.imageSrc}
+                      alt={slot.artwork.title}
+                      aspect={getAspect(slot.artwork)}
                     />
                   </Link>
-                  {artwork.description ? (
-                    // 有寫介紹的作品，名牌本身變成按鈕，點開「美術館說明牌」彈窗
+                  {slot.artwork.description ? (
                     <button
                       type="button"
-                      onClick={() => setIntroSlug(artwork.slug)}
-                      className={`${styles.placard} ${styles.placardClickable}`}
+                      className={`${styles.tileName} ${styles.tileNameClickable}`}
+                      onClick={() => setIntroSlug(slot.artwork.slug)}
                     >
-                      <span className={styles.placardTitle}>{artwork.title}</span>
-                      <span className={styles.placardMeta}>{artwork.date}</span>
+                      {slot.artwork.title}
                     </button>
                   ) : (
-                    <div className={styles.placard}>
-                      <span className={styles.placardTitle}>{artwork.title}</span>
-                      <span className={styles.placardMeta}>{artwork.date}</span>
-                    </div>
+                    <span className={styles.tileName}>{slot.artwork.title}</span>
                   )}
                 </div>
               ))}
