@@ -47,17 +47,6 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
   return (
     <Link to={`/articles/${article.slug}`} className="block">
       <Card className="flex items-start gap-4" hoverable>
-        {article.coverUrl ? (
-          <img
-            src={article.coverUrl}
-            alt={article.title}
-            className="h-20 w-20 shrink-0 rounded-md object-cover sm:h-24 sm:w-24"
-          />
-        ) : (
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-[var(--color-surface)] text-2xl font-semibold text-[var(--color-border)] sm:h-24 sm:w-24">
-            {article.title.slice(0, 1)}
-          </div>
-        )}
         <div className="min-w-0 flex-1">
           <p className="font-semibold">{article.title}</p>
           <p className="text-sm text-[var(--color-text-muted)]">{subtitle}</p>

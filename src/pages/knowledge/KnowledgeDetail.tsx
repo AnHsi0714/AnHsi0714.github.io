@@ -167,7 +167,7 @@ export default function KnowledgeDetail() {
             {timeline.map((entry) => (
               <li key={entry.to}>
                 <TextLink to={entry.to}>
-                  {entry.date} — {entry.label}
+                  {entry.date} · {entry.label}
                 </TextLink>
               </li>
             ))}

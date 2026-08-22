@@ -329,8 +329,8 @@ export const strings: Record<"zh" | "en", Strings> = {
     home: {
       titleZh: "鄭安琋",
       titleEn: "Cheng An Hsi",
-      tagline: "人機互動 × 視覺化研究 × 前端實作",
-      bio: "就讀於國立臺北科技大學資訊工程系，研究興趣為 Human-Computer Interaction 與 Visual Analytics，專注於互動式學習系統、資訊視覺化與使用者研究。具備前端開發及資料分析能力，畢業專題為 DSA 視覺化學習平台，負責互動介面設計、User Study 與研究分析，期望持續投入人機互動與視覺分析相關研究。",
+      tagline: "人機互動 × 社群運算 × 資訊視覺化",
+      bio: "研究人機互動、社群運算與資訊視覺化，結合互動系統實作與使用者研究，探索人與資訊及社群之間的互動方式。",
       aboutMe: "關於我",
       viewProjects: "查看專案",
       featuredProjects: "精選專案",
@@ -609,8 +609,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       titleZh: "Cheng An Hsi",
       titleEn: "鄭安琋",
       tagline:
-        "Human-Computer Interaction × Visualization Research × Frontend Implementation",
-      bio: "Computer Science and Information Engineering undergraduate at National Taipei University of Technology, researching Human-Computer Interaction and Visual Analytics with a focus on interactive learning systems, information visualization, and user research. Combines frontend development with data analysis skills; capstone project is CodePulse, a data-structures-and-algorithms visualization learning platform, where I led interactive interface design, user studies, and research analysis — and hope to keep pursuing research in HCI and visual analytics.",
+        "Human-Computer Interaction × Social Computing × Information Visualization",
+      bio: "Researching Human-Computer Interaction, Social Computing, and Information Visualization, combining interactive systems implementation with user research to explore how people interact with information and communities.",
       aboutMe: "About Me",
       viewProjects: "View Projects",
       featuredProjects: "Featured Projects",

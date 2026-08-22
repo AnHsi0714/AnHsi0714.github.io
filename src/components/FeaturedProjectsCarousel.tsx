@@ -22,7 +22,23 @@ export default function FeaturedProjectsCarousel({
       renderItem={(project) => (
         <Card hoverable className="h-full">
           <Link to={`/projects/${project.slug}`} className="block">
-            <p className="font-semibold">{project.name}</p>
+            {project.screenshotUrl ? (
+              <img
+                src={project.screenshotUrl}
+                alt={project.name}
+                className="aspect-video w-full rounded-md object-cover"
+                style={{
+                  objectPosition: project.screenshotPosition
+                    ? `${project.screenshotPosition.w}% ${project.screenshotPosition.h}%`
+                    : undefined,
+                }}
+              />
+            ) : (
+              <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
+                {t.common.noPreviewImage}
+              </div>
+            )}
+            <p className="mt-3 font-semibold">{project.name}</p>
             {project.advisor && (
               <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">
                 {t.home.advisor}

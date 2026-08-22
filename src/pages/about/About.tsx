@@ -34,9 +34,7 @@ const content = {
         items: [
           "互動式資料視覺化",
           "資料分析與探索",
-          "NLP Pipeline 設計與評估",
           "互動式演算法／資料結構視覺化",
-          "Creative Coding / 藝術程式創作",
         ],
       },
     ],
@@ -51,34 +49,51 @@ const content = {
     },
     researchInterests: [
       {
-        layer: "核心 Core",
-        items: ["Visual Analytics", "Interactive Data Exploration"],
+        layer: "核心研究方向 Core",
+        items: [
+          "Human-Centered Computing",
+          "Human-Computer Interaction",
+          "Interactive Systems",
+        ],
       },
       {
-        layer: "支撐方法 Methods",
+        layer: "互動與資訊 Interaction & Info",
         items: [
           "Information Visualization",
-          "Human-Computer Interaction",
-          "Natural Language Processing",
-          "Knowledge Graph",
+          "Interactive Data Exploration",
+          "UI/UX",
         ],
       },
       {
-        layer: "應用領域 Applied",
+        layer: "社會與智慧系統 Social & Intelligent Systems",
+        items: ["Social Computing", "Human-AI Collaboration", "Human Behavior"],
+      },
+      {
+        layer: "學習與教育 Learning & Education",
         items: [
           "Programming Education",
+          "Interactive Learning Systems",
           "Developer Tools",
-          "Human-AI Collaboration",
-          "Software Engineering",
         ],
       },
+      {
+        layer: "研究方法 Methods",
+        items: ["User Research", "Data Analysis", "Empirical Evaluation"],
+      },
+      {
+        layer: "創意與計算 Creative & Computational",
+        items: ["Creative Coding", "Creative Technology"],
+      },
     ],
-    researchStatement:
-      "CodePulse 讓我發現「介面做得好」跟「使用者真的學得更好」是兩件需要分開驗證的事——前後測顯示學習信心顯著提升，但測驗分數只是正向趨勢、未達統計顯著，這個落差比拿到漂亮的準確率數字更讓我想深入理解，也是我想申請 Visual Analytics／HCI 方向研究所的原因：想學習更嚴謹的使用者研究方法，把「工具好不好用」的直覺判斷換成能被驗證、能被反駁的研究問題。ABSA Pipeline 則讓我對方法取捨產生興趣——規則式流程可解釋、零成本，但天花板受限於隱含語意；LLM 覆蓋率高，卻是黑盒且有 API 成本，兩者沒有絕對優劣，端看場景需求。研究所階段希望把這兩個興趣收斂在一起：研究人機協作的介面設計與評估方法，讓開發者工具、程式教育這類系統不只是功能堆得多，而是有實證支持它真的有幫助。",
+    researchStatement: [
+      "CodePulse 是我和團隊打造的 DSA 視覺化學習平台，整合互動式視覺化與程式執行追蹤；我主要負責前端互動與動畫設計，以及使用者研究的前後測設計、執行與分析。功能做完後，我更想知道：這樣的介面設計，真的能讓使用者學得更好嗎？",
+      "我設計了 A/B 版本交換的前後測研究，觀察使用者能否把學習內容遷移到新題目。結果顯示使用者對繼續學習演算法的信心顯著提升（p < 0.001），但測驗成績只是正向趨勢、未達統計顯著。這讓我意識到主觀信心與客觀學習成效得分開驗證，也讓我發現自己過去對互動設計是否有效的判斷，多半仍停留在直覺層次。",
+      "這是我想投入 CSCW / Social Computing-oriented HCI 研究所方向的原因：學習更嚴謹的使用者研究方法，把「好不好用」的直覺換成能被驗證的研究問題。同時我也保留兩個延伸興趣：Information Visualization 與 Technology-Supported Learning，作為實踐 CSCW 想法時常用的工具與應用場域。",
+    ],
     achievements: [
       {
         title: "資料結構與演算法視覺化教學平台 CodePulse",
-        desc: "114 學年度 資工系實務專題｜指導教授 陳香君",
+        desc: "114 學年度 資工系實務專題｜指導教授 陳香君｜曾投件國科會大專生研究計畫",
       },
       {
         title: "基於雙軌 NLP 技術之使用者回饋自動化分析語義模型",
@@ -120,15 +135,13 @@ const content = {
         items: [
           "Interactive Data Visualization",
           "Data Analysis & Exploration",
-          "NLP Pipeline Design & Evaluation",
           "Interactive Algorithm / Data Structure Visualization",
-          "Creative Coding / Generative Art",
         ],
       },
     ],
     education: [
       "New Taipei Municipal Zhangshu Experimental High School, JICTS Information Technology Program",
-      "National Taipei University of Technology (NTUT), Dept. of Computer Science & Information Engineering — Junior (3rd year)",
+      "National Taipei University of Technology (NTUT), Dept. of Computer Science & Information Engineering, Junior (3rd year)",
     ],
     academicSummary: {
       rank: "3/63",
@@ -138,34 +151,51 @@ const content = {
     researchInterests: [
       {
         layer: "Core",
-        items: ["Visual Analytics", "Interactive Data Exploration"],
+        items: [
+          "Human-Centered Computing",
+          "Human-Computer Interaction",
+          "Interactive Systems",
+        ],
+      },
+      {
+        layer: "Interaction & Info",
+        items: [
+          "Information Visualization",
+          "Interactive Data Exploration",
+          "UI/UX",
+        ],
+      },
+      {
+        layer: "Social & Intelligent Systems",
+        items: ["Social Computing", "Human-AI Collaboration", "Human Behavior"],
+      },
+      {
+        layer: "Learning & Education",
+        items: [
+          "Programming Education",
+          "Interactive Learning Systems",
+          "Developer Tools",
+        ],
       },
       {
         layer: "Methods",
-        items: [
-          "Information Visualization",
-          "Human-Computer Interaction",
-          "Natural Language Processing",
-          "Knowledge Graph",
-        ],
+        items: ["User Research", "Data Analysis", "Empirical Evaluation"],
       },
       {
-        layer: "Applied",
-        items: [
-          "Programming Education",
-          "Developer Tools",
-          "Human-AI Collaboration",
-          "Software Engineering",
-        ],
+        layer: "Creative & Computational",
+        items: ["Creative Coding", "Creative Technology"],
       },
     ],
-    researchStatement:
-      "Working on CodePulse taught me that a well-designed interface and measurably better learning outcomes are two separate claims that need to be verified independently — our pre/post study showed a significant gain in learners' confidence, yet test scores only trended positive without reaching statistical significance. That gap is what actually pulled me toward Visual Analytics / HCI as a graduate research direction: I want to learn more rigorous user-research methods so that intuitions about whether a tool \"feels usable\" become falsifiable research questions instead. The ABSA pipeline project sharpened a related interest in method trade-offs — a rule-based pipeline is interpretable and free to run but capped by implicit semantics it can't resolve, while an LLM covers more cases but is a costlier black box; neither is strictly better, it depends on the context. Going forward, I hope to bring these two interests together: studying interface design and evaluation methods for human-AI collaboration, so that developer tools and programming-education systems are judged not by how many features they ship, but by evidence that they actually help.",
+    researchStatement: [
+      "CodePulse is a DSA visualization learning platform I built with my team, combining interactive visualization with program execution tracing; I led the frontend interaction and animation design, plus the pre/post user study's design, execution, and analysis. Once the features worked, what I really wanted to know was: does this interface design actually help people learn better?",
+      "I designed a pre/post study with A/B version swaps to see whether users could transfer what they'd learned to new problems. Confidence in continuing to learn algorithms rose significantly (p < 0.001), but test scores only trended positive without reaching significance. That taught me subjective confidence and objective learning gains need to be validated separately, and that my own judgments about whether interaction design \"works\" had mostly stayed at the level of intuition.",
+      "That's why I want to pursue graduate research in CSCW / Social Computing-oriented HCI, learning rigorous user-research methods to turn intuitions about usability into falsifiable research questions. I carry two secondary interests alongside it: Information Visualization and Technology-Supported Learning, the tools and domains I keep returning to when putting CSCW ideas into practice.",
+    ],
     achievements: [
       {
         title:
-          "CodePulse — Data Structures & Algorithms Visualization Teaching Platform",
-        desc: "2025 Academic Year Capstone Project, Dept. of CSIE ｜ Advisor: Annette Chen",
+          "CodePulse: Data Structures & Algorithms Visualization Teaching Platform",
+        desc: "2025 Academic Year Capstone Project, Dept. of CSIE ｜ Advisor: Annette Chen ｜ Submitted to the NSTC Undergraduate Research Program",
       },
       {
         title:
@@ -176,7 +206,7 @@ const content = {
     experienceHighlights: [
       {
         year: "2022",
-        text: "National Skills Competition — 7th Place, Golden Hand Award",
+        text: "National Skills Competition, 7th Place, Golden Hand Award",
       },
       {
         year: "2023 / 05",
@@ -185,11 +215,11 @@ const content = {
       { year: "2023~2025", text: "Skills Competition Coach at Alma Mater" },
       {
         year: "2025 / 12",
-        text: "Educational Big Data Micro-Program — Honorable Mention",
+        text: "Educational Big Data Micro-Program, Honorable Mention",
       },
       {
         year: "2025~2027",
-        text: "Sun Bird Software — Frontend Development Intern (Scrum / Sprint Review / Design Docs)",
+        text: "Sun Bird Software, Frontend Development Intern (Scrum / Sprint Review / Design Docs)",
       },
     ],
     interests: [
@@ -211,7 +241,7 @@ export default function About() {
   const data = content[language];
   useDocumentTitle(
     `${t.nav.about} · AnHsi0714`,
-    deriveExcerpt(data.researchStatement, 150),
+    deriveExcerpt(data.researchStatement.join(" "), 150),
   );
 
   return (
@@ -231,15 +261,15 @@ export default function About() {
             <p className="font-semibold text-[var(--color-primary)]">
               {t.about.researchInterests}
             </p>
-            <div className="mt-3 flex flex-col gap-2">
+            <div className="mt-3 flex flex-col gap-3">
               {data.researchInterests.map(({ layer, items }) => (
-                <div key={layer} className="flex items-baseline gap-3 text-sm">
-                  <span className="w-32 shrink-0 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)] opacity-80">
+                <div key={layer}>
+                  <p className="text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)] opacity-80">
                     {layer}
-                  </span>
-                  <span className="text-[var(--color-text-muted)]">
+                  </p>
+                  <p className="mt-1 text-sm text-[var(--color-text-muted)]">
                     {items.join(" · ")}
-                  </span>
+                  </p>
                 </div>
               ))}
             </div>
@@ -251,9 +281,11 @@ export default function About() {
             <p className="font-semibold text-[var(--color-primary)]">
               {t.about.researchStatement}
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
-              {data.researchStatement}
-            </p>
+            <div className="mt-3 flex flex-col gap-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
+              {data.researchStatement.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
           </div>
         </Reveal>
 
