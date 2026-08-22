@@ -258,7 +258,7 @@
   "visual-analytics": {
     "term": "Visual Analytics",
     "definition": "A research field combining interactive visualization with analytical reasoning: letting users manipulate a visual representation of data while reasoning about it, rather than just reading a pre-computed static report; the core concern is whether a visualization actually helps users make better judgments, not just whether it looks good.",
-    "application": "CodePulse turns algorithm execution into an interactive animation rather than a plain-text explanation, but the pre/post-test study revealed that \"a well-designed interface\" and \"users genuinely learning more\" are two things that need to be verified separately. That gap is exactly why I want to pursue graduate study in Visual Analytics, to learn more rigorous user-research methods.",
+    "application": "CodePulse turns algorithm execution into an interactive animation rather than a plain-text explanation, but the pre/post-test study revealed that \"a well-designed interface\" and \"users genuinely learning more\" are two things that need to be verified separately. That gap is exactly why I want to pursue graduate study in Information Visualization / Human-Computer Interaction, to learn more rigorous user-research methods.",
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse"],
@@ -268,7 +268,8 @@
       { "slug": "human-computer-interaction", "type": "related" },
       { "slug": "interactive-data-exploration", "type": "related" },
       { "slug": "cosine-similarity", "type": "applies_to" },
-      { "slug": "normalized-gain", "type": "applies_to" }
+      { "slug": "normalized-gain", "type": "applies_to" },
+      { "slug": "interactive-systems", "type": "related" }
     ]
   },
   "interactive-data-exploration": {
@@ -309,7 +310,9 @@
       { "slug": "visual-analytics", "type": "related" },
       { "slug": "normalized-gain", "type": "applies_to" },
       { "slug": "reflexive-thematic-analysis", "type": "related" },
-      { "slug": "social-computing", "type": "related" }
+      { "slug": "social-computing", "type": "related" },
+      { "slug": "interactive-systems", "type": "related" },
+      { "slug": "human-centered-computing", "type": "related" }
     ]
   },
   "thematic-coding": {
@@ -320,12 +323,14 @@
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["snappi-personal-data-stickers"],
-    "relatedNodes": [{ "slug": "reflexive-thematic-analysis", "type": "related" }]
+    "relatedNodes": [
+      { "slug": "reflexive-thematic-analysis", "type": "related" }
+    ]
   },
   "reflexive-thematic-analysis": {
     "term": "Reflexive Thematic Analysis",
-    "definition": "A qualitative analysis approach from Braun & Clarke: codes and themes are meaning the researcher subjectively constructs through interpretation, so a different team analyzing the same data may reach different results — a natural expression of subjectivity, not an error. Team discussion aims to deepen interpretation, not to compute inter-rater reliability across independent coders the way some other approaches do.",
-    "application": "The SnapPI study used reflexive thematic analysis: the first author did the initial coding, and the research team met regularly to revise and consolidate themes — a discussion aimed at deepening interpretation, not at verifying agreement between multiple coders.",
+    "definition": "A qualitative analysis approach from Braun & Clarke: codes and themes are meaning the researcher subjectively constructs through interpretation, so a different team analyzing the same data may reach different results. That's a natural expression of subjectivity, not an error. Team discussion aims to deepen interpretation, not to compute inter-rater reliability across independent coders the way some other approaches do.",
+    "application": "The SnapPI study used reflexive thematic analysis: the first author did the initial coding, and the research team met regularly to revise and consolidate themes, a discussion aimed at deepening interpretation, not at verifying agreement between multiple coders.",
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": [],
@@ -358,19 +363,49 @@
     "status": "published",
     "relatedProjects": ["personal-website"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "natural-language-processing", "type": "related" }]
+    "relatedNodes": [
+      { "slug": "natural-language-processing", "type": "related" }
+    ]
   },
   "social-computing": {
     "term": "Social Computing",
-    "definition": "The study of how people interact, share, and present themselves through computer systems and social platforms; the focus isn't just whether a system is usable, but how it shapes — and is shaped by — interpersonal interaction, social norms, and context.",
-    "application": "In my SnapPI paper notes, personal data stickers on Snapchat's ephemeral stories lowered the social burden of sharing data and sparked deeper conversations — which showed me that information visualization doesn't only serve understanding data, it can also serve communication and self-presentation between people. That's a direction I want to pursue further in graduate research: designing interactive visualization not just as a teaching or analysis tool, but as a medium for communication within social contexts.",
+    "definition": "The study of how people interact, share, and present themselves through computer systems and social platforms; the focus isn't just whether a system is usable, but how it both shapes and is shaped by interpersonal interaction, social norms, and context.",
+    "application": "In my SnapPI paper notes, personal data stickers on Snapchat's ephemeral stories lowered the social burden of sharing data and sparked deeper conversations. That showed me information visualization doesn't only serve understanding data, it can also serve communication and self-presentation between people. That's a direction I want to pursue further in graduate research: designing interactive visualization not just as a teaching or analysis tool, but as a medium for communication within social contexts.",
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["snappi-personal-data-stickers"],
     "relatedNodes": [
       { "slug": "human-computer-interaction", "type": "related" },
-      { "slug": "reflexive-thematic-analysis", "type": "applies_to" }
+      { "slug": "reflexive-thematic-analysis", "type": "applies_to" },
+      { "slug": "human-centered-computing", "type": "related" }
+    ]
+  },
+  "interactive-systems": {
+    "term": "Interactive Systems",
+    "definition": "Systems built around a continuous feedback loop between user and system: the user acts, the system responds in real time, and the user adjusts the next action accordingly, rather than the system batch-processing data once and handing back a final result. The design question is whether that loop is fast and legible enough that the user feels like they're operating the system, not waiting on it.",
+    "application": "CodePulse's algorithm playground is itself an interactive system: a user submits code, the system renders its execution as a step-by-step animation in real time, and the user adjusts the code and resubmits based on what they see. The platform's value rests on how tight and legible that action-and-feedback loop is, not just on how polished the animation looks.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "visual-analytics", "type": "related" },
+      { "slug": "interactive-data-exploration", "type": "related" },
+      { "slug": "human-computer-interaction", "type": "related" }
+    ]
+  },
+  "human-centered-computing": {
+    "term": "Human-Centered Computing",
+    "definition": "A research approach that starts system design from human needs, capabilities, and values. It's a superordinate concept shared by HCI, social computing, and user-centered design, not a separate research direction alongside them, but the common stance underneath those sub-fields: ask what a technology means for people first, then decide what to build.",
+    "application": "| CodePulse | HCC Connection |\n| --- | --- |\n| Frontend interaction design | Designing the system around human needs and usage patterns |\n| User research | Directly studying human-system interaction |\n| A/B crossover study | Evaluating system design with user data |\n| Pre/post testing | Observing the system's effect on learners |\n| Surveys, self-reported confidence | Studying users' subjective experience |\n| Discovering information overload | Adjusting the system based on human cognition and behavior |\n| Data structures visualization | Fitting the system to how people understand and learn |\n\nEach of these already sits inside HCI or information-visualization methods; HCC, for me, is more the umbrella concept behind their shared stance.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "human-computer-interaction", "type": "related" },
+      { "slug": "social-computing", "type": "related" }
     ]
   }
 }

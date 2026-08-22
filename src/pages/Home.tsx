@@ -17,11 +17,10 @@ import { usePublishedArticles } from "../lib/articles";
 import { useTranslation } from "../i18n/useTranslation";
 
 const researchInterestTags = [
-  "Human-Computer Interaction",
-  "Social Computing",
-  "Information Visualization",
-  "Visual Analytics",
-  "Interactive Data Exploration",
+  { label: "Human-Computer Interaction", slug: "human-computer-interaction" },
+  { label: "Social Computing", slug: "social-computing" },
+  { label: "Information Visualization", slug: "information-visualization" },
+  { label: "Interactive Systems", slug: "interactive-systems" },
 ];
 
 export default function Home() {
@@ -86,19 +85,19 @@ export default function Home() {
         <TextLink to="/about#research-interests" className="mt-3 block text-lg">
           {t.home.tagline}
         </TextLink>
-        <p className="mt-5 max-w-2xl text-sm leading-relaxed text-[var(--color-text-muted)]">
+        <p className="mt-5 max-w-2xl text-pretty text-sm leading-relaxed text-[var(--color-text-muted)]">
           {t.home.bio}
         </p>
-        <Link
-          to="/knowledge?category=RESEARCH"
-          className="mt-6 flex flex-wrap gap-2"
-        >
+        <div className="mt-6 flex flex-wrap gap-2">
           {researchInterestTags.map((tag) => (
-            <Chip key={tag} size="md">
-              {tag}
-            </Chip>
+            <Link
+              key={tag.label}
+              to={tag.slug ? `/knowledge/${tag.slug}` : "/knowledge?category=RESEARCH"}
+            >
+              <Chip size="md">{tag.label}</Chip>
+            </Link>
           ))}
-        </Link>
+        </div>
         <div className="mt-8 flex gap-3">
           <Link to="/about">
             <Button type="button">{t.home.aboutMe}</Button>
