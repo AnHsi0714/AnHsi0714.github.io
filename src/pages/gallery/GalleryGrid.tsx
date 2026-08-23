@@ -6,6 +6,7 @@ import type { Artwork } from "../../types/content";
 import sketches, { type SketchInteraction } from "./sketches";
 import { useWallAutoScroll } from "./useWallAutoScroll";
 import Button from "../../components/Button";
+import Chip from "../../components/Chip";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
 import Modal from "../../components/Modal";
@@ -231,25 +232,16 @@ export default function GalleryGrid() {
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
-                {allTags.map((tag) => {
-                  const isSelected = selectedTags.includes(tag);
-                  return (
-                    <button
-                      key={tag}
-                      type="button"
-                      aria-pressed={isSelected}
-                      onClick={() => toggleTag(tag)}
-                      className={[
-                        "rounded-full border px-3 py-1 text-sm transition-colors",
-                        isSelected
-                          ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
-                          : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
-                      ].join(" ")}
-                    >
-                      {TAG_LABELS[tag]}
-                    </button>
-                  );
-                })}
+                {allTags.map((tag) => (
+                  <Chip
+                    key={tag}
+                    clickable
+                    selected={selectedTags.includes(tag)}
+                    onClick={() => toggleTag(tag)}
+                  >
+                    {TAG_LABELS[tag]}
+                  </Chip>
+                ))}
               </div>
 
               <div className="mt-4 flex items-center gap-2">
