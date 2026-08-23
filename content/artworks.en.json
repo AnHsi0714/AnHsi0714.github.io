@@ -324,5 +324,17 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2993599",
     "description": "Six colors keep infecting each other across a circular grid: each cell randomly picks one neighboring cell every round and gets infected if that neighbor's color beats its own. With no mutation and no fixed endpoint, the six colors keep attacking and spreading, forming an ever-changing organic pattern."
+  },
+  {
+    "slug": "Celestial_Fragments",
+    "title": "Celestial Fragments",
+    "date": "260823",
+    "images": [
+      "/images/gallery/Celestial_Fragments.png",
+      "/images/gallery/Celestial_Fragments1.png",
+      "/images/gallery/Celestial_Fragments2.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2993604",
+    "description": "Unknown celestial bodies drift in darkness, slowly deforming and pulsing between light and dark, while broken gold outlines and vertices link them like lines on a star chart, turning otherwise separate geometric fragments into something resembling a constellation."
   }
 ]

@@ -25,6 +25,7 @@ import { createPlaidSketch } from "./plaid";
 import { createChromaticCycleSketch } from "./chromaticcycle";
 import { createChromaticCycleV2Sketch } from "./chromaticcyclev2";
 import { createChromaticCycleV3Sketch } from "./chromaticcyclev3";
+import { createCelestialFragmentsSketch } from "./celestialfragments";
 
 export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 
@@ -66,6 +67,10 @@ const POLLUTE_ASPECT = 1440 / 648;
 
 // 迷宮競速跟 RPS 的原稿都吃固定 1800x900 的畫布（見 mazeracing.ts、rps.ts）。
 const MAZE_ASPECT = 1800 / 900;
+
+// 天體碎片的原稿也是滿版視窗，但截圖是在 1912x897 下拍的（見
+// public/images/gallery/），跟 WIDESCREEN_ASPECT 不同，另外訂一個比例常數。
+const CELESTIAL_FRAGMENTS_ASPECT = 1912 / 897;
 
 // slug -> instance-mode sketch factory + 容器寬高比。之後每移植一件作品，就在
 // 這裡加一筆映射；沒有對應項目的作品維持原本的靜態截圖展示（見 GalleryDetail.tsx）。
@@ -199,6 +204,11 @@ const sketches: Record<string, SketchEntry> = {
   Chromatic_Cycle_v3: {
     factory: (width) => createChromaticCycleV3Sketch(width),
     aspect: 1,
+    interactions: ["click-regenerate"],
+  },
+  Celestial_Fragments: {
+    factory: createCelestialFragmentsSketch,
+    aspect: CELESTIAL_FRAGMENTS_ASPECT,
     interactions: ["click-regenerate"],
   },
 };
