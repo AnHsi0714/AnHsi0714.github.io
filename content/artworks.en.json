@@ -274,5 +274,20 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2987668",
     "description": "A generative face built from dense hand-sketched lines: the eyes, nose, and mouth are completely redrawn every tenth of a second, so no single frame repeats. The features stay perpetually unsettled, like an expression that never quite comes into focus."
+  },
+  {
+    "slug": "Plaid",
+    "title": "Interwoven Plaid",
+    "date": "260823",
+    "images": [
+      "/images/gallery/Plaid0.png",
+      "/images/gallery/Plaid1.png",
+      "/images/gallery/Plaid2.png",
+      "/images/gallery/Plaid3.png",
+      "/images/gallery/Plaid4.png",
+      "/images/gallery/Plaid5.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2993528",
+    "description": "Randomly generated color palettes interwoven with horizontal and vertical lines into plaid, so every generation carries a different visual rhythm. The chance arrangement of color and line finds its own balance between order and randomness."
   }
 ]

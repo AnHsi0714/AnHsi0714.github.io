@@ -274,5 +274,20 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2987668",
     "description": "以密集手繪線條堆疊出的生成臉孔，沒有一幀是完全相同的構圖，因此始終帶著游移不定的神情，像是怎麼看都對不準焦。"
+  },
+  {
+    "slug": "Plaid",
+    "title": "交錯格紋",
+    "date": "260823",
+    "images": [
+      "/images/gallery/Plaid0.png",
+      "/images/gallery/Plaid1.png",
+      "/images/gallery/Plaid2.png",
+      "/images/gallery/Plaid3.png",
+      "/images/gallery/Plaid4.png",
+      "/images/gallery/Plaid5.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2993528",
+    "description": "以隨機生成的色彩組合與水平、垂直線條交織成格紋，讓每次生成都呈現不同的視覺節奏。色彩與線條的偶然排列，在規律與隨機之間形成獨特的畫面。"
   }
 ]

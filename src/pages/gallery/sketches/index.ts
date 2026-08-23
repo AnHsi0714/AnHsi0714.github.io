@@ -21,6 +21,7 @@ import { createRPSSketch } from "./rps";
 import { createBoxingMeleeSketch } from "./boxingmelee";
 import { createMetalCollisionSketch } from "./metalcollision";
 import { createALostFaceSketch } from "./alostface";
+import { createPlaidSketch } from "./plaid";
 
 export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 
@@ -176,6 +177,11 @@ const sketches: Record<string, SketchEntry> = {
     factory: createALostFaceSketch,
     aspect: WIDESCREEN_ASPECT,
     interactions: [],
+  },
+  Plaid: {
+    factory: (width) => createPlaidSketch(width),
+    aspect: 1,
+    interactions: ["click-regenerate"],
   },
 };
 
