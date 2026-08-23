@@ -289,5 +289,29 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2993528",
     "description": "Randomly generated color palettes interwoven with horizontal and vertical lines into plaid, so every generation carries a different visual rhythm. The chance arrangement of color and line finds its own balance between order and randomness."
+  },
+  {
+    "slug": "Chromatic_Cycle",
+    "title": "Chromatic Cycle",
+    "date": "260823",
+    "images": [
+      "/images/gallery/Chromatic_Cycle0.png",
+      "/images/gallery/Chromatic_Cycle1.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2993581",
+    "description": "Three colors compete within their local neighborhoods, cycling through a rock-paper-scissors-style hierarchy. Every generation reshuffles the color boundaries into an ever-shifting organic pattern."
+  },
+  {
+    "slug": "Chromatic_Cycle_v2",
+    "title": "Chromatic Cycle v2",
+    "date": "260823",
+    "images": [
+      "/images/gallery/Chromatic_Clash_v20.png",
+      "/images/gallery/Chromatic_Clash_v21.png",
+      "/images/gallery/Chromatic_Clash_v22.png",
+      "/images/gallery/Chromatic_Clash_v23.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2993591",
+    "description": "Six colors form a cyclical rivalry across the grid, expanding, consuming, and retreating based on neighboring cell counts and mutual counters. Random mutations let vanished colors reappear, keeping the whole system evolving between order and chaos with no fixed endpoint."
   }
 ]

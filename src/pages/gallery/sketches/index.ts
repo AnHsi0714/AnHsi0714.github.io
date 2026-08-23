@@ -22,6 +22,8 @@ import { createBoxingMeleeSketch } from "./boxingmelee";
 import { createMetalCollisionSketch } from "./metalcollision";
 import { createALostFaceSketch } from "./alostface";
 import { createPlaidSketch } from "./plaid";
+import { createChromaticCycleSketch } from "./chromaticcycle";
+import { createChromaticCycleV2Sketch } from "./chromaticcyclev2";
 
 export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 
@@ -180,6 +182,16 @@ const sketches: Record<string, SketchEntry> = {
   },
   Plaid: {
     factory: (width) => createPlaidSketch(width),
+    aspect: 1,
+    interactions: ["click-regenerate"],
+  },
+  Chromatic_Cycle: {
+    factory: (width) => createChromaticCycleSketch(width),
+    aspect: 1,
+    interactions: ["click-regenerate"],
+  },
+  Chromatic_Cycle_v2: {
+    factory: (width) => createChromaticCycleV2Sketch(width),
     aspect: 1,
     interactions: ["click-regenerate"],
   },

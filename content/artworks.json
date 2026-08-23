@@ -289,5 +289,29 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2993528",
     "description": "以隨機生成的色彩組合與水平、垂直線條交織成格紋，讓每次生成都呈現不同的視覺節奏。色彩與線條的偶然排列，在規律與隨機之間形成獨特的畫面。"
+  },
+  {
+    "slug": "Chromatic_Cycle",
+    "title": "色彩循環",
+    "date": "260823",
+    "images": [
+      "/images/gallery/Chromatic_Cycle0.png",
+      "/images/gallery/Chromatic_Cycle1.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2993581",
+    "description": "三種色彩在局部鄰域中彼此競爭，依循循環的勝負關係不斷轉換。每一次演化都讓色彩邊界重新組合，形成持續變動的有機圖樣。"
+  },
+  {
+    "slug": "Chromatic_Cycle_v2",
+    "title": "色彩循環v2",
+    "date": "260823",
+    "images": [
+      "/images/gallery/Chromatic_Clash_v20.png",
+      "/images/gallery/Chromatic_Clash_v21.png",
+      "/images/gallery/Chromatic_Clash_v22.png",
+      "/images/gallery/Chromatic_Clash_v23.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2993591",
+    "description": "六種色彩在網格中形成循環的競爭關係，透過鄰近細胞的數量與相互剋制持續擴張、吞噬與退讓。隨機突變讓消失的色彩得以重新出現，使整個系統在秩序與混沌之間持續演化，沒有固定的終點。"
   }
 ]
