@@ -147,6 +147,13 @@ function ModalDemo() {
 }
 
 export default function ComponentsPreview() {
+  const [chipSelectedDemo, setChipSelectedDemo] = useState<string[]>(["all"]);
+  const toggleChipDemo = (key: string) => {
+    setChipSelectedDemo((prev) =>
+      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
+    );
+  };
+
   return (
     <div className="flex flex-col gap-10">
       <TableOfContents />
@@ -306,6 +313,19 @@ export default function ComponentsPreview() {
           <Chip clickable variant="danger" onClick={() => {}}>
             clickable danger
           </Chip>
+        </div>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <Chip selected>selected（靜態）</Chip>
+          {["all", "web", "ai", "viz"].map((key) => (
+            <Chip
+              key={key}
+              clickable
+              selected={chipSelectedDemo.includes(key)}
+              onClick={() => toggleChipDemo(key)}
+            >
+              {key}
+            </Chip>
+          ))}
         </div>
       </section>
 
