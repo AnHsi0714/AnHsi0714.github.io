@@ -8,7 +8,7 @@
       "/images/gallery/Entanglement1.png"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2323357",
-    "description": "以彼此追逐的曲線構成的生成繪畫：每條線都在尋找下一個落點，途中不斷與其他線交錯、打結，最後纏成一團看似混亂卻自有秩序的絲球。每次執行都會長出不同的纏繞方式，這兩張截圖也只是其中兩種可能。"
+    "description": "像一隻獵物一點一滴被蛛絲纏住的生成繪畫。畫面平時緩慢累積線條與色塊，一旦滑鼠壓著拖曳，就像獵物開始掙扎，絲線反而增生得更快、更密集，加速把整個畫面收束成一張更為密集的蜘蛛網。"
   },
   {
     "slug": "moontain",
@@ -57,7 +57,8 @@
       "/images/gallery/audio2.jpg",
       "/images/gallery/audio3.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2324728"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2324728",
+    "description": "創作靈感取自聲波：一條垂直的中線把畫布分成兩半，色塊從中線往左右兩側生長，各自帶著不同的起伏節奏往外擴散，像是同一段聲音被拆成左右兩軌各自跳動的音頻波形。"
   },
   {
     "slug": "bat",
@@ -69,7 +70,8 @@
       "/images/gallery/bat2.jpg",
       "/images/gallery/bat3.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2325134"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2325134",
+    "description": "蝙蝠們彼此把翅膀搭在一起，倒掛成一整片，只探出頭來互相打招呼：方格沿著網格反覆錯位翻轉、剪切，堆疊出一片密集交疊的蝙蝠翅膀，深沉的萬聖節色調讓每一格翅膀既像獨立的個體，又彼此黏連成群。"
   },
   {
     "slug": "prism",
@@ -132,7 +134,8 @@
       "/images/gallery/pollute6.jpg",
       "/images/gallery/pollute7.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2336165"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2336165",
+    "description": "海洋遭到污染侵蝕的即景：一張海景照片被逐格重新上色、疊上雜訊，色調隨機偏移成病態的螢光色，原本平靜的海面與天空因此化作一片煉獄般的景象，每次都是不同程度的沉淪。"
   },
   {
     "slug": "Eruption",
@@ -260,5 +263,16 @@
       "/images/gallery/Maze_Racing_v24.png"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2716270"
+  },
+  {
+    "slug": "A_Lost_Face",
+    "title": "迷茫的臉",
+    "date": "260806",
+    "images": [
+      "/images/gallery/ALostFace0.png",
+      "/images/gallery/ALostFace1.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2987668",
+    "description": "以密集手繪線條堆疊出的生成臉孔，沒有一幀是完全相同的構圖，因此始終帶著游移不定的神情，像是怎麼看都對不準焦。"
   }
 ]

@@ -8,7 +8,7 @@
       "/images/gallery/Entanglement1.png"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2323357",
-    "description": "A generative drawing built from curves chasing one another: each line keeps searching for its next anchor, crossing and knotting with its neighbours along the way, until they tangle into a ball of seemingly chaotic yet self-ordered thread. Every run grows a different entanglement; these two captures are just two of the possibilities."
+    "description": "A generative drawing of prey slowly bound in silk. Left alone, threads and shapes accumulate at a quiet pace; but press and drag the mouse, and it's as if the prey starts struggling, the threads spin faster and thicker, pulling the whole composition into an ever denser web."
   },
   {
     "slug": "moontain",
@@ -57,7 +57,8 @@
       "/images/gallery/audio2.jpg",
       "/images/gallery/audio3.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2324728"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2324728",
+    "description": "Inspired by sound waves: a vertical centerline splits the canvas in two, and blocks of color grow outward from it on either side, each following its own rhythm of rise and fall, like a single sound split into two independently pulsing audio waveforms."
   },
   {
     "slug": "bat",
@@ -69,7 +70,8 @@
       "/images/gallery/bat2.jpg",
       "/images/gallery/bat3.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2325134"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2325134",
+    "description": "Bats hanging in a huddle, wings draped over one another, only their heads poking out to greet each other: tiles flip and shear across the grid, layering into a dense mass of overlapping bat wings, its deep Halloween palette making each wing read as both its own creature and part of the huddle."
   },
   {
     "slug": "prism",
@@ -132,7 +134,8 @@
       "/images/gallery/pollute6.jpg",
       "/images/gallery/pollute7.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2336165"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2336165",
+    "description": "A snapshot of an ocean swallowed by pollution: a seascape photo is recolored tile by tile and layered with noise, its hues randomly skewed into sickly, fluorescent tones, turning what was once a calm sea and sky into something closer to an inferno. Every regeneration finds a different degree of ruin."
   },
   {
     "slug": "Eruption",
@@ -260,5 +263,16 @@
       "/images/gallery/Maze_Racing_v24.png"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2716270"
+  },
+  {
+    "slug": "A_Lost_Face",
+    "title": "A Lost Face",
+    "date": "260806",
+    "images": [
+      "/images/gallery/ALostFace0.png",
+      "/images/gallery/ALostFace1.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2987668",
+    "description": "A generative face built from dense hand-sketched lines: the eyes, nose, and mouth are completely redrawn every tenth of a second, so no single frame repeats. The features stay perpetually unsettled, like an expression that never quite comes into focus."
   }
 ]
