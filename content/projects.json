@@ -62,5 +62,16 @@
     "screenshotUrl": "/images/projects/code-pulse/home-page.png",
     "githubUrl": "https://github.com/Jx-study/CodePulse",
     "featured": true
+  },
+  {
+    "slug": "cpbl-steal-decision",
+    "name": "兩出局該不該跑：中職教練的跑壘決策指南",
+    "desc": "分析 CPBL 兩出局、僅一壘有人情境下的盜壘損益兩平門檻，並考慮盜壘失敗會保留打者到下一局的效應。",
+    "date": "2026-07",
+    "status": "in-progress",
+    "tags": ["DATA", "VIZ"],
+    "collaborators": ["鄭安琋", "楊O力", "詹O儒", "劉O凱"],
+    "period": "2026/07 ~ 2026/12",
+    "githubUrl": "https://github.com/AnHsi0714/CPBL2outStealDecision"
   }
 ]

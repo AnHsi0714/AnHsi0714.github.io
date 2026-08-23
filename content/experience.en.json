@@ -44,6 +44,18 @@
       ]
     },
     {
+      "period": "2026 / 07 – 2026 / 12",
+      "title": "2026 Taiwan Baseball Data Analysis Competition",
+      "subtitle": "On-Field Tactical Analysis Group (in preparation)",
+      "tags": [{ "label": "Competition", "variant": "info" }],
+      "highlights": [
+        "Studying the break-even success-rate threshold for stealing in CPBL games with two outs and a runner on first only, in innings 1-8, and how that threshold shifts with batting-order position and batter type",
+        "Introduces a \"retention effect\": a failed steal keeps that batter's at-bat held over to start the next inning, correcting a blind spot in traditional RE24 analysis that only looks at the current half-inning",
+        "Data drawn from a custom scraper of the CPBL website covering the 2025 season, with a self-built batter decision simulation model",
+        "Written materials due 2026/10/31; teams that advance present live on 12/19"
+      ]
+    },
+    {
       "period": "2025 / 07 – 2027 / 01",
       "title": "Sun Bird Software Co., Ltd. (Taiwan Branch)",
       "subtitle": "Frontend Development Team: Intern",
@@ -71,7 +83,7 @@
       "tags": [{ "label": "Competition", "variant": "success" }]
     },
     {
-      "period": "High School",
+      "period": "2020 / 09 – 2023 / 06",
       "title": "PVQC English Vocabulary Proficiency International Certification",
       "result": "Level 5 Specialist: ICT / AI Literacy / eSports / Electrical",
       "tags": [{ "label": "Certification", "variant": "default" }]

@@ -62,5 +62,16 @@
     "screenshotUrl": "/images/projects/code-pulse/home-page.png",
     "githubUrl": "https://github.com/Jx-study/CodePulse",
     "featured": true
+  },
+  {
+    "slug": "cpbl-steal-decision",
+    "name": "Should You Steal on Two Outs? A Base-Running Decision Guide for CPBL Coaches",
+    "desc": "Analyzes the break-even steal threshold in CPBL games with two outs and a runner on first only, accounting for the fact that a failed steal holds the batter over to the next inning.",
+    "date": "2026-07",
+    "status": "in-progress",
+    "tags": ["DATA", "VIZ"],
+    "collaborators": ["鄭安琋", "楊O力", "詹O儒", "劉O凱"],
+    "period": "2026/07 ~ 2026/12",
+    "githubUrl": "https://github.com/AnHsi0714/CPBL2outStealDecision"
   }
 ]
