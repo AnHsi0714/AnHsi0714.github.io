@@ -230,3 +230,11 @@
   padding: 2px 10px;
   font-size: $font-size-sm;
 }
+
+// 篩選器等 toggle 情境的「已選中」樣式：不分 variant/tone，統一套主色實心底，
+// 蓋過前面 variantClassKey 給的顏色。放在檔案最後，靠 source order 贏過同權重的規則。
+.selected {
+  border-color: $color-primary;
+  background-color: $color-primary;
+  color: $color-primary-text;
+}

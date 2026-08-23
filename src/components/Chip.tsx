@@ -11,6 +11,8 @@ interface ChipProps extends HTMLAttributes<HTMLSpanElement> {
   tone?: ChipTone;
   /** 標示此 chip 可點擊：外框會加上流動漸層動畫；有傳 onClick 時才會補上鍵盤操作與 a11y 屬性 */
   clickable?: boolean;
+  /** 篩選器等 toggle 情境的「已選中」樣式：套用主色實心底，蓋過 variant/tone 本身的顏色 */
+  selected?: boolean;
 }
 
 const variantClassKey: Record<ChipTone, Record<ChipVariant, string>> = {
@@ -40,9 +42,11 @@ export default function Chip({
   size = "md",
   tone = "outline",
   clickable = false,
+  selected,
   className,
   onClick,
   onKeyDown,
+  "aria-pressed": ariaPressedProp,
   ...rest
 }: ChipProps) {
   const classNames = [
@@ -51,12 +55,17 @@ export default function Chip({
     styles[variantClassKey[tone][variant]],
     styles[sizeClassKey[tone][size]],
     clickable && styles.clickable,
+    selected && styles.selected,
     className,
   ]
     .filter(Boolean)
     .join(" ");
 
   const isInteractive = clickable && Boolean(onClick);
+
+  // 有明確傳 aria-pressed 就尊重呼叫端；沒傳但有 selected 時，interactive chip 預設帶上 toggle 語意
+  const ariaPressed =
+    ariaPressedProp ?? (isInteractive && selected !== undefined ? selected : undefined);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLSpanElement>) => {
     onKeyDown?.(event);
@@ -73,6 +82,7 @@ export default function Chip({
       onKeyDown={isInteractive ? handleKeyDown : onKeyDown}
       role={isInteractive ? "button" : undefined}
       tabIndex={isInteractive ? 0 : undefined}
+      aria-pressed={ariaPressed}
       {...rest}
     />
   );
