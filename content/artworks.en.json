@@ -313,5 +313,16 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2993591",
     "description": "Six colors form a cyclical rivalry across the grid, expanding, consuming, and retreating based on neighboring cell counts and mutual counters. Random mutations let vanished colors reappear, keeping the whole system evolving between order and chaos with no fixed endpoint."
+  },
+  {
+    "slug": "Chromatic_Cycle_v3",
+    "title": "Chromatic Cycle v3",
+    "date": "260823",
+    "images": [
+      "/images/gallery/Chromatic_Infection_v30.png",
+      "/images/gallery/Chromatic_Infection_v31.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2993599",
+    "description": "Six colors keep infecting each other across a circular grid: each cell randomly picks one neighboring cell every round and gets infected if that neighbor's color beats its own. With no mutation and no fixed endpoint, the six colors keep attacking and spreading, forming an ever-changing organic pattern."
   }
 ]

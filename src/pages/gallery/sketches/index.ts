@@ -24,6 +24,7 @@ import { createALostFaceSketch } from "./alostface";
 import { createPlaidSketch } from "./plaid";
 import { createChromaticCycleSketch } from "./chromaticcycle";
 import { createChromaticCycleV2Sketch } from "./chromaticcyclev2";
+import { createChromaticCycleV3Sketch } from "./chromaticcyclev3";
 
 export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 
@@ -192,6 +193,11 @@ const sketches: Record<string, SketchEntry> = {
   },
   Chromatic_Cycle_v2: {
     factory: (width) => createChromaticCycleV2Sketch(width),
+    aspect: 1,
+    interactions: ["click-regenerate"],
+  },
+  Chromatic_Cycle_v3: {
+    factory: (width) => createChromaticCycleV3Sketch(width),
     aspect: 1,
     interactions: ["click-regenerate"],
   },

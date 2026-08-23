@@ -313,5 +313,16 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2993591",
     "description": "六種色彩在網格中形成循環的競爭關係，透過鄰近細胞的數量與相互剋制持續擴張、吞噬與退讓。隨機突變讓消失的色彩得以重新出現，使整個系統在秩序與混沌之間持續演化，沒有固定的終點。"
+  },
+  {
+    "slug": "Chromatic_Cycle_v3",
+    "title": "色彩循環v3",
+    "date": "260823",
+    "images": [
+      "/images/gallery/Chromatic_Infection_v30.png",
+      "/images/gallery/Chromatic_Infection_v31.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2993599",
+    "description": "六種色彩在圓形網格中持續進行循環感染，每個細胞每次隨機選擇一個鄰近細胞，當對方具有剋制自己的色彩時便被感染。沒有突變，也沒有預設終點，六種色彩在不斷的攻防與擴散中形成持續變化的有機圖樣。"
   }
 ]
