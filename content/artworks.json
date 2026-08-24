@@ -336,5 +336,25 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2993604",
     "description": "漂浮於黑暗中的未知星體持續緩慢變形與明暗起伏，金色的斷續邊線與頂點則如同星圖中的連結，讓原本獨立的幾何碎片產生類似星座的關係。"
+  },
+  {
+    "slug": "Corner_Convergence",
+    "title": "四角交織",
+    "date": "260824",
+    "images": [
+      "/images/gallery/Corner_Convergence0.png",
+      "/images/gallery/Corner_Convergence1.png",
+      "/images/gallery/Corner_Convergence2.png",
+      "/images/gallery/Corner_Convergence3.png",
+      "/images/gallery/Corner_Convergence4.png",
+      "/images/gallery/Corner_Convergence5.png",
+      "/images/gallery/Corner_Convergence6.png",
+      "/images/gallery/Corner_Convergence7.png",
+      "/images/gallery/Corner_Convergence8.png",
+      "/images/gallery/Corner_Convergence9.png",
+      "/images/gallery/Corner_Convergence10.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2994004",
+    "description": "從四個角落出發，依照固定的節點間距向相鄰邊延伸線條。四組線條在畫面中彼此交錯，形成具有方向性、節奏感與視覺張力的幾何結構。"
   }
 ]

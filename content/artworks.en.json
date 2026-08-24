@@ -336,5 +336,25 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2993604",
     "description": "Unknown celestial bodies drift in darkness, slowly deforming and pulsing between light and dark, while broken gold outlines and vertices link them like lines on a star chart, turning otherwise separate geometric fragments into something resembling a constellation."
+  },
+  {
+    "slug": "Corner_Convergence",
+    "title": "Corner Convergence",
+    "date": "260824",
+    "images": [
+      "/images/gallery/Corner_Convergence0.png",
+      "/images/gallery/Corner_Convergence1.png",
+      "/images/gallery/Corner_Convergence2.png",
+      "/images/gallery/Corner_Convergence3.png",
+      "/images/gallery/Corner_Convergence4.png",
+      "/images/gallery/Corner_Convergence5.png",
+      "/images/gallery/Corner_Convergence6.png",
+      "/images/gallery/Corner_Convergence7.png",
+      "/images/gallery/Corner_Convergence8.png",
+      "/images/gallery/Corner_Convergence9.png",
+      "/images/gallery/Corner_Convergence10.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2994004",
+    "description": "Starting from the four corners, lines extend toward the adjacent edges at fixed node intervals. The four sets of lines cross each other across the canvas, forming a geometric structure with directionality, rhythm, and visual tension."
   }
 ]

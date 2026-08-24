@@ -26,6 +26,7 @@ import { createChromaticCycleSketch } from "./chromaticcycle";
 import { createChromaticCycleV2Sketch } from "./chromaticcyclev2";
 import { createChromaticCycleV3Sketch } from "./chromaticcyclev3";
 import { createCelestialFragmentsSketch } from "./celestialfragments";
+import { createCornerConvergenceSketch } from "./cornerconvergence";
 
 export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 
@@ -224,6 +225,11 @@ const sketches: Record<string, SketchEntry> = {
     aspect: CELESTIAL_FRAGMENTS_ASPECT,
     interactions: ["click-regenerate"],
     animated: true,
+  },
+  Corner_Convergence: {
+    factory: (width) => createCornerConvergenceSketch(width),
+    aspect: 1,
+    interactions: ["click-regenerate"],
   },
 };
 
