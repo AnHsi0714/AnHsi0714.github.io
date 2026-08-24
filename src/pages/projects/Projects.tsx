@@ -228,47 +228,29 @@ export default function Projects() {
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {allStatuses.map((status) => {
-                const isSelected = selectedStatuses.includes(status);
-                return (
-                  <button
-                    key={status}
-                    type="button"
-                    aria-pressed={isSelected}
-                    onClick={() => toggleStatus(status)}
-                    className={[
-                      "rounded-full border px-3 py-1 text-sm transition-colors",
-                      isSelected
-                        ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
-                        : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
-                    ].join(" ")}
-                  >
-                    {t.projects.status[status]}
-                  </button>
-                );
-              })}
+              {allStatuses.map((status) => (
+                <Chip
+                  key={status}
+                  clickable
+                  selected={selectedStatuses.includes(status)}
+                  onClick={() => toggleStatus(status)}
+                >
+                  {t.projects.status[status]}
+                </Chip>
+              ))}
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {allTags.map((tag) => {
-                const isSelected = selectedTags.includes(tag);
-                return (
-                  <button
-                    key={tag}
-                    type="button"
-                    aria-pressed={isSelected}
-                    onClick={() => toggleTag(tag)}
-                    className={[
-                      "rounded-full border px-3 py-1 text-sm transition-colors",
-                      isSelected
-                        ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
-                        : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
-                    ].join(" ")}
-                  >
-                    {tag}
-                  </button>
-                );
-              })}
+              {allTags.map((tag) => (
+                <Chip
+                  key={tag}
+                  clickable
+                  selected={selectedTags.includes(tag)}
+                  onClick={() => toggleTag(tag)}
+                >
+                  {tag}
+                </Chip>
+              ))}
             </div>
 
             <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -282,20 +264,14 @@ export default function Projects() {
                   ["not-featured", t.common.filterNotFeatured],
                 ] as [FeaturedFilter, string][]
               ).map(([value, label]) => (
-                <button
+                <Chip
                   key={value}
-                  type="button"
-                  aria-pressed={featuredFilter === value}
+                  clickable
+                  selected={featuredFilter === value}
                   onClick={() => setFeaturedFilter(value)}
-                  className={[
-                    "rounded-full border px-3 py-1 text-sm transition-colors",
-                    featuredFilter === value
-                      ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
-                      : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
-                  ].join(" ")}
                 >
                   {label}
-                </button>
+                </Chip>
               ))}
             </div>
 

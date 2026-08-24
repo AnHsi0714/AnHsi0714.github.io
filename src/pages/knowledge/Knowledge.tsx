@@ -70,34 +70,22 @@ export default function Knowledge() {
         />
 
         <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            aria-pressed={category === ""}
+          <Chip
+            clickable
+            selected={category === ""}
             onClick={() => updateParams({ category: "" })}
-            className={[
-              "rounded-full border px-3 py-1 text-sm transition-colors",
-              category === ""
-                ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
-                : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
-            ].join(" ")}
           >
             {t.knowledge.allCategories}
-          </button>
+          </Chip>
           {allCategories.map((cat) => (
-            <button
+            <Chip
               key={cat}
-              type="button"
-              aria-pressed={category === cat}
+              clickable
+              selected={category === cat}
               onClick={() => updateParams({ category: category === cat ? "" : cat })}
-              className={[
-                "rounded-full border px-3 py-1 text-sm transition-colors",
-                category === cat
-                  ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
-                  : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
-              ].join(" ")}
             >
               {cat}
-            </button>
+            </Chip>
           ))}
         </div>
       </div>

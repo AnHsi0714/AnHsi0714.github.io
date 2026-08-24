@@ -20,7 +20,8 @@ export type ProjectTag =
   | "WEB"
   | "DB"
   | "VIZ"
-  | "EDU";
+  | "EDU"
+  | "DATA";
 
 export interface Project {
   slug: string;

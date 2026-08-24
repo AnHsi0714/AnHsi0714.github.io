@@ -259,25 +259,16 @@ export default function Articles() {
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {allCategories.map((category) => {
-                const isSelected = selectedCategories.includes(category);
-                return (
-                  <button
-                    key={category}
-                    type="button"
-                    aria-pressed={isSelected}
-                    onClick={() => toggleCategory(category)}
-                    className={[
-                      "rounded-full border px-3 py-1 text-sm transition-colors",
-                      isSelected
-                        ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
-                        : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
-                    ].join(" ")}
-                  >
-                    {category}
-                  </button>
-                );
-              })}
+              {allCategories.map((category) => (
+                <Chip
+                  key={category}
+                  clickable
+                  selected={selectedCategories.includes(category)}
+                  onClick={() => toggleCategory(category)}
+                >
+                  {category}
+                </Chip>
+              ))}
             </div>
 
             <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -291,20 +282,14 @@ export default function Articles() {
                   ["not-featured", t.common.filterNotFeatured],
                 ] as [FeaturedFilter, string][]
               ).map(([value, label]) => (
-                <button
+                <Chip
                   key={value}
-                  type="button"
-                  aria-pressed={featuredFilter === value}
+                  clickable
+                  selected={featuredFilter === value}
                   onClick={() => setFeaturedFilter(value)}
-                  className={[
-                    "rounded-full border px-3 py-1 text-sm transition-colors",
-                    featuredFilter === value
-                      ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-text)]"
-                      : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]",
-                  ].join(" ")}
                 >
                   {label}
-                </button>
+                </Chip>
               ))}
             </div>
 

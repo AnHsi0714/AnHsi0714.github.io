@@ -20,6 +20,13 @@ import { createMazeRacingSketch } from "./mazeracing";
 import { createRPSSketch } from "./rps";
 import { createBoxingMeleeSketch } from "./boxingmelee";
 import { createMetalCollisionSketch } from "./metalcollision";
+import { createALostFaceSketch } from "./alostface";
+import { createPlaidSketch } from "./plaid";
+import { createChromaticCycleSketch } from "./chromaticcycle";
+import { createChromaticCycleV2Sketch } from "./chromaticcyclev2";
+import { createChromaticCycleV3Sketch } from "./chromaticcyclev3";
+import { createCelestialFragmentsSketch } from "./celestialfragments";
+import { createCornerConvergenceSketch } from "./cornerconvergence";
 
 export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 
@@ -45,6 +52,12 @@ export interface SketchEntry {
   // 「按下 S 儲存目前畫面」是大部分作品共通的操作，預設鍵是 S；迷宮競速的 S
   // 被 WASD 移動占用了，所以改用 H，這裡讓每件作品能覆寫自己實際綁定的鍵。
   saveKey?: string;
+  // 畫面會自己持續變化、不用任何操作就值得留著看的作品：draw() 每幀都在跑，
+  // 而且沒有明確的終止或收斂狀態（跟「畫一次就凍結、靠點擊重製才會變」的
+  // click-regenerate 作品不同）。GalleryGrid.tsx 依此額外疊加「持續變動」
+  // 篩選標籤，跟 interactions 描述的操作方式是兩件事，可以同時存在
+  // （例如色彩循環系列既能點擊重置，本身也會自己持續演化）。
+  animated?: boolean;
 }
 
 // 原稿拿 windowWidth/windowHeight 畫滿整個瀏覽器視窗，
@@ -61,6 +74,10 @@ const POLLUTE_ASPECT = 1440 / 648;
 
 // 迷宮競速跟 RPS 的原稿都吃固定 1800x900 的畫布（見 mazeracing.ts、rps.ts）。
 const MAZE_ASPECT = 1800 / 900;
+
+// 天體碎片的原稿也是滿版視窗，但截圖是在 1912x897 下拍的（見
+// public/images/gallery/），跟 WIDESCREEN_ASPECT 不同，另外訂一個比例常數。
+const CELESTIAL_FRAGMENTS_ASPECT = 1912 / 897;
 
 // slug -> instance-mode sketch factory + 容器寬高比。之後每移植一件作品，就在
 // 這裡加一筆映射；沒有對應項目的作品維持原本的靜態截圖展示（見 GalleryDetail.tsx）。
@@ -79,6 +96,7 @@ const sketches: Record<string, SketchEntry> = {
     factory: createPopSketch,
     aspect: WIDESCREEN_ASPECT,
     interactions: ["click-regenerate"],
+    animated: true,
   },
   tentacle: {
     factory: createTentacleSketch,
@@ -119,6 +137,7 @@ const sketches: Record<string, SketchEntry> = {
     factory: createEruptionSketch,
     aspect: WIDESCREEN_ASPECT,
     interactions: ["click-regenerate"],
+    animated: true,
   },
   Hsi_lantern: {
     factory: (width) => createHsiLanternSketch(width),
@@ -134,6 +153,7 @@ const sketches: Record<string, SketchEntry> = {
     factory: (width) => createFishLifeSketch(width),
     aspect: 1,
     interactions: ["click-regenerate"],
+    animated: true,
   },
   Chessboard_World: {
     factory: (width) => createChessboardWorldSketch(width),
@@ -170,6 +190,46 @@ const sketches: Record<string, SketchEntry> = {
     factory: createMetalCollisionSketch,
     aspect: WIDESCREEN_ASPECT,
     interactions: ["drag-physics"],
+  },
+  A_Lost_Face: {
+    factory: createALostFaceSketch,
+    aspect: WIDESCREEN_ASPECT,
+    interactions: [],
+    animated: true,
+  },
+  Plaid: {
+    factory: (width) => createPlaidSketch(width),
+    aspect: 1,
+    interactions: ["click-regenerate"],
+  },
+  Chromatic_Cycle: {
+    factory: (width) => createChromaticCycleSketch(width),
+    aspect: 1,
+    interactions: ["click-regenerate"],
+    animated: true,
+  },
+  Chromatic_Cycle_v2: {
+    factory: (width) => createChromaticCycleV2Sketch(width),
+    aspect: 1,
+    interactions: ["click-regenerate"],
+    animated: true,
+  },
+  Chromatic_Cycle_v3: {
+    factory: (width) => createChromaticCycleV3Sketch(width),
+    aspect: 1,
+    interactions: ["click-regenerate"],
+    animated: true,
+  },
+  Celestial_Fragments: {
+    factory: createCelestialFragmentsSketch,
+    aspect: CELESTIAL_FRAGMENTS_ASPECT,
+    interactions: ["click-regenerate"],
+    animated: true,
+  },
+  Corner_Convergence: {
+    factory: (width) => createCornerConvergenceSketch(width),
+    aspect: 1,
+    interactions: ["click-regenerate"],
   },
 };
 

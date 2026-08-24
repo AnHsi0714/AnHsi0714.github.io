@@ -12,6 +12,11 @@ import { useMediaQuery } from "../../hooks/useMediaQuery";
 const SPEED = 1; // px / frame
 const RESUME_DELAY = 400; // ms，拖曳／滾輪／hover 結束後多久恢復自動橫移
 
+// 對應 GalleryGrid.module.scss 的 .wallRow[data-row="1"/"2"] margin-left（磚牆式
+// 交錯排列）。單靠 CSS margin 會讓那幾列進場時露出一截空牆，這裡把初始位移
+// 直接推進到等同 margin 的距離，跳過「走過去」填滿的過程。
+const ROW_STAGGER_RATIOS = [0, 0.15, 0.07];
+
 export interface WallSlot {
   artwork: Artwork;
   imageSrc: string;
@@ -34,10 +39,25 @@ function distributeInitialRows(artworks: Artwork[], rowCount: number): WallSlot[
   return rows;
 }
 
+// slug 順序沒變、只是 artwork 物件換了新參照時用（例如切語言，中英文是兩份
+// 獨立 JSON，見 useLocalized）：只換每個 slot 的 artwork，版位跟目前截圖都
+// 不動，避免被誤判成「清單變了」而重新洗牌、重挑隨機圖。
+function remapArtworks(rows: WallSlot[][], artworks: Artwork[]): WallSlot[][] {
+  const bySlug = new Map(artworks.map((artwork) => [artwork.slug, artwork]));
+  return rows.map((row) =>
+    row.map((slot) => {
+      const updated = bySlug.get(slot.artwork.slug);
+      return updated ? { artwork: updated, imageSrc: slot.imageSrc } : slot;
+    }),
+  );
+}
+
 export function useWallAutoScroll(artworks: Artwork[], rowCount: number) {
   const wallRef = useRef<HTMLDivElement>(null);
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
   const distancesRef = useRef<number[]>([]);
+  // 每列錯位下限（px）：當 distancesRef 起始值，wheel 往回捲時也拿它夾值。
+  const staggerOffsetsRef = useRef<number[]>([]);
   const isDraggingRef = useRef(false);
   const isHoveringRef = useRef(false);
   const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -99,25 +119,54 @@ export function useWallAutoScroll(artworks: Artwork[], rowCount: number) {
     wall.dataset.sparse = isSparse ? "true" : "false";
   }, []);
 
-  // 作品清單或列數變動時整份重新分配、位移歸零。擋掉掛載後第一次執行——
-  // 初始值已經在 useState lazy initializer 挑過一次截圖，不擋會在進場瞬間
-  // 又重挑一次、閃一下換圖。
+  // 依展牆寬度算出各列錯位下限，寫進 staggerOffsetsRef 並回傳當起始位移。
+  const resetStagger = useCallback(() => {
+    const wall = wallRef.current;
+    const wallWidth = wall?.clientWidth ?? 0;
+    const offsets = Array.from(
+      { length: rowCount },
+      (_, i) => wallWidth * (ROW_STAGGER_RATIOS[i] ?? 0),
+    );
+    staggerOffsetsRef.current = offsets;
+    return offsets;
+  }, [rowCount]);
+
+  // slug 順序沒變（多半是切語言）只 remapArtworks；順序真的變了（篩選／
+  // 排序）才重新洗版位跟隨機截圖。擋掉掛載後第一次執行，避免蓋掉 useState
+  // 已經挑好的初始截圖。
   const didInitRef = useRef(false);
+  const slugKeyRef = useRef("");
   useEffect(() => {
+    const slugKey = artworks.map((artwork) => artwork.slug).join("|");
+
     if (!didInitRef.current) {
       didInitRef.current = true;
-      requestAnimationFrame(recalcSparse);
+      slugKeyRef.current = slugKey;
+      requestAnimationFrame(() => {
+        distancesRef.current = resetStagger();
+        applyTransforms();
+        recalcSparse();
+      });
       return;
     }
+
+    if (slugKey === slugKeyRef.current) {
+      const remapped = remapArtworks(rowsRef.current, artworks);
+      setRows(remapped);
+      rowsRef.current = remapped;
+      return;
+    }
+
+    slugKeyRef.current = slugKey;
     const next = distributeInitialRows(artworks, rowCount);
-    distancesRef.current = new Array(rowCount).fill(0);
+    distancesRef.current = resetStagger();
     setRows(next);
     rowsRef.current = next;
     requestAnimationFrame(() => {
       applyTransforms();
       recalcSparse();
     });
-  }, [artworks, rowCount, applyTransforms, recalcSparse]);
+  }, [artworks, rowCount, applyTransforms, recalcSparse, resetStagger]);
 
   // 視窗尺寸改變也可能讓 sparse 判斷結果變化，重新量一次。
   useEffect(() => {
@@ -244,8 +293,12 @@ export function useWallAutoScroll(artworks: Artwork[], rowCount: number) {
       event.preventDefault();
       pause();
       for (let i = 0; i < distancesRef.current.length; i++) {
-        // 往回捲夾到 0（初始起點），避免捲過頭露出還沒排到的空白牆面。
-        distancesRef.current[i] = Math.max(0, distancesRef.current[i] + event.deltaY);
+        // 夾到該列的錯位起點（非 0），避免捲回露出空白牆面。
+        const floor = staggerOffsetsRef.current[i] ?? 0;
+        distancesRef.current[i] = Math.max(
+          floor,
+          distancesRef.current[i] + event.deltaY,
+        );
       }
       applyTransforms();
       recycleIfNeeded();

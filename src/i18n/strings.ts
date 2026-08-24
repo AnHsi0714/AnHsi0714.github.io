@@ -150,8 +150,15 @@ export interface Strings {
     saveHint: (key: string) => string;
     // 篩選標籤跟 hints 分開：篩選只需要「有沒有拖曳互動」這麼粗的分類，
     // drag-draw／drag-physics 兩種 interaction 在這裡合併成同一個 drag。
+    // living 不是互動類型，是額外疊加的標籤：畫面會自己持續變化、不需要
+    // 任何操作就值得留著看的作品（見 sketches/index.ts 的 animated 欄位）。
     tags: Record<
-      "click-regenerate" | "drag" | "keyboard-game" | "button-game" | "static",
+      | "click-regenerate"
+      | "drag"
+      | "keyboard-game"
+      | "button-game"
+      | "static"
+      | "living",
       string
     >;
     hints: Record<
@@ -162,6 +169,9 @@ export interface Strings {
       | "drag-physics",
       string
     >;
+    // living 作品在作品詳細頁的操作提示裡額外加一句，跟 hints 分開放
+    // （不是互動說明，是告訴觀者不用做任何事，畫面自己會變）。
+    livingHint: string;
   };
   dreams: {
     title: string;
@@ -420,6 +430,7 @@ export const strings: Record<"zh" | "en", Strings> = {
         "keyboard-game": "鍵盤遊戲",
         "button-game": "按鈕遊戲",
         static: "靜態展示",
+        living: "持續變動",
       },
       hints: {
         "click-regenerate": "點擊畫布重新產生一次構圖",
@@ -428,6 +439,7 @@ export const strings: Record<"zh" | "en", Strings> = {
         "button-game": "點擊 START 按鈕開始，每輪結束後再按 START 進下一輪",
         "drag-physics": "按住滑鼠可以抓取、拖曳畫面上的物件",
       },
+      livingHint: "畫面會持續自行變化，靜靜看著就好",
     },
     dreams: {
       title: "夢想",
@@ -702,6 +714,7 @@ export const strings: Record<"zh" | "en", Strings> = {
         "keyboard-game": "Keyboard game",
         "button-game": "Button game",
         static: "Static",
+        living: "Ever-changing",
       },
       hints: {
         "click-regenerate": "Click the canvas to regenerate the composition",
@@ -712,6 +725,7 @@ export const strings: Record<"zh" | "en", Strings> = {
           "Click START to begin; click START again after each round",
         "drag-physics": "Hold the mouse to grab and drag objects on screen",
       },
+      livingHint: "The piece keeps changing on its own, just watch",
     },
     dreams: {
       title: "Dreams",
