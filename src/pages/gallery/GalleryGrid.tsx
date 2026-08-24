@@ -28,15 +28,24 @@ const getAspect = (artwork: Artwork) => sketches[artwork.slug]?.aspect ?? 1;
 // 拖曳）在篩選這裡合併成同一個 drag 標籤——篩選只需要「有沒有拖曳互動」這麼
 // 粗的分類；GalleryDetail.tsx 的操作提示繼續讀 sketches 原始的 interactions
 // 陣列，不經過這層合併，兩種拖曳的說明文字不受影響。
-type ArtworkTag = Exclude<SketchInteraction, "drag-draw" | "drag-physics"> | "drag" | "static";
+// living 不算互動類型，是額外疊加的標籤（sketches/index.ts 的 animated 欄位）：
+// 畫面自己會持續變化，不需要任何操作就值得留著看，可以跟其他互動標籤並存。
+type ArtworkTag =
+  | Exclude<SketchInteraction, "drag-draw" | "drag-physics">
+  | "drag"
+  | "static"
+  | "living";
 
 const toFilterTag = (interaction: SketchInteraction): ArtworkTag =>
   interaction === "drag-draw" || interaction === "drag-physics" ? "drag" : interaction;
 
 const artworkTags = (artwork: Artwork): ArtworkTag[] => {
-  const interactions = sketches[artwork.slug]?.interactions;
-  if (!interactions) return ["static"];
-  return Array.from(new Set(interactions.map(toFilterTag)));
+  const entry = sketches[artwork.slug];
+  const interactions = entry?.interactions;
+  const tags = !interactions
+    ? ["static" as const]
+    : Array.from(new Set(interactions.map(toFilterTag)));
+  return entry?.animated ? [...tags, "living"] : tags;
 };
 
 // artworks.json 的日期是 YYMMDD 六碼，轉成 ISO 才能跟 <input type="date"> 的值比較。

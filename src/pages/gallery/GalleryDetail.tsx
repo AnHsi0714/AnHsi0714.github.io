@@ -81,6 +81,7 @@ export default function GalleryDetail() {
         {sketchEntry && (
           <p className={styles.hint}>
             {[
+              ...(sketchEntry.animated ? [t.gallery.livingHint] : []),
               ...sketchEntry.interactions.map((i) => t.gallery.hints[i]),
               t.gallery.saveHint((sketchEntry.saveKey ?? "S").toUpperCase()),
             ].join(language === "en" ? "; " : "，")}
