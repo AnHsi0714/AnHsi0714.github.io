@@ -12,12 +12,9 @@ import { useMediaQuery } from "../../hooks/useMediaQuery";
 const SPEED = 1; // px / frame
 const RESUME_DELAY = 400; // ms，拖曳／滾輪／hover 結束後多久恢復自動橫移
 
-// 跟 GalleryGrid.module.scss 的 .wallRow[data-row="1"/"2"] margin-left 15%／7%
-// 對應：那組 margin 是磚牆式交錯排列的視覺效果（避免每列畫框對齊成直向格線），
-// 但單靠 CSS margin 會讓這幾列在剛進場時左側露出一截空牆，要等自動橫移把
-// margin 「走」完才會填滿，進場那幾秒會看到明顯的空白。這裡在初始化跟每次
-// 重新分配作品時，直接把該列的位移量預先推進到等同 margin 的距離，讓視覺上
-// 從第一幀就已經是填滿的錯位效果，不需要真的播放「走過去」的過程。
+// 對應 GalleryGrid.module.scss 的 .wallRow[data-row="1"/"2"] margin-left（磚牆式
+// 交錯排列）。單靠 CSS margin 會讓那幾列進場時露出一截空牆，這裡把初始位移
+// 直接推進到等同 margin 的距離，跳過「走過去」填滿的過程。
 const ROW_STAGGER_RATIOS = [0, 0.15, 0.07];
 
 export interface WallSlot {
@@ -42,13 +39,24 @@ function distributeInitialRows(artworks: Artwork[], rowCount: number): WallSlot[
   return rows;
 }
 
+// slug 順序沒變、只是 artwork 物件換了新參照時用（例如切語言，中英文是兩份
+// 獨立 JSON，見 useLocalized）：只換每個 slot 的 artwork，版位跟目前截圖都
+// 不動，避免被誤判成「清單變了」而重新洗牌、重挑隨機圖。
+function remapArtworks(rows: WallSlot[][], artworks: Artwork[]): WallSlot[][] {
+  const bySlug = new Map(artworks.map((artwork) => [artwork.slug, artwork]));
+  return rows.map((row) =>
+    row.map((slot) => {
+      const updated = bySlug.get(slot.artwork.slug);
+      return updated ? { artwork: updated, imageSrc: slot.imageSrc } : slot;
+    }),
+  );
+}
+
 export function useWallAutoScroll(artworks: Artwork[], rowCount: number) {
   const wallRef = useRef<HTMLDivElement>(null);
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
   const distancesRef = useRef<number[]>([]);
-  // 每列的錯位下限（等同該列的 CSS margin 換算成 px）：初始化時當作
-  // distancesRef 的起始值，往回捲（wheel）時也拿它當夾住的下限，避免捲回
-  // 超過起點、重新露出那截交錯用的空牆。
+  // 每列錯位下限（px）：當 distancesRef 起始值，wheel 往回捲時也拿它夾值。
   const staggerOffsetsRef = useRef<number[]>([]);
   const isDraggingRef = useRef(false);
   const isHoveringRef = useRef(false);
@@ -111,8 +119,7 @@ export function useWallAutoScroll(artworks: Artwork[], rowCount: number) {
     wall.dataset.sparse = isSparse ? "true" : "false";
   }, []);
 
-  // 依目前展牆寬度算出每列的錯位下限（px），寫進 staggerOffsetsRef 供 wheel
-  // 夾值使用，同時回傳一份給呼叫端當這次重置的起始位移。
+  // 依展牆寬度算出各列錯位下限，寫進 staggerOffsetsRef 並回傳當起始位移。
   const resetStagger = useCallback(() => {
     const wall = wallRef.current;
     const wallWidth = wall?.clientWidth ?? 0;
@@ -124,14 +131,17 @@ export function useWallAutoScroll(artworks: Artwork[], rowCount: number) {
     return offsets;
   }, [rowCount]);
 
-  // 作品清單或列數變動時整份重新分配、位移重置回各列的錯位起點（不是單純
-  // 歸零，見上方 ROW_STAGGER_RATIOS 說明）。擋掉掛載後第一次執行——初始值
-  // 已經在 useState lazy initializer 挑過一次截圖，不擋會在進場瞬間又重挑
-  // 一次、閃一下換圖。
+  // slug 順序沒變（多半是切語言）只 remapArtworks；順序真的變了（篩選／
+  // 排序）才重新洗版位跟隨機截圖。擋掉掛載後第一次執行，避免蓋掉 useState
+  // 已經挑好的初始截圖。
   const didInitRef = useRef(false);
+  const slugKeyRef = useRef("");
   useEffect(() => {
+    const slugKey = artworks.map((artwork) => artwork.slug).join("|");
+
     if (!didInitRef.current) {
       didInitRef.current = true;
+      slugKeyRef.current = slugKey;
       requestAnimationFrame(() => {
         distancesRef.current = resetStagger();
         applyTransforms();
@@ -139,6 +149,15 @@ export function useWallAutoScroll(artworks: Artwork[], rowCount: number) {
       });
       return;
     }
+
+    if (slugKey === slugKeyRef.current) {
+      const remapped = remapArtworks(rowsRef.current, artworks);
+      setRows(remapped);
+      rowsRef.current = remapped;
+      return;
+    }
+
+    slugKeyRef.current = slugKey;
     const next = distributeInitialRows(artworks, rowCount);
     distancesRef.current = resetStagger();
     setRows(next);
@@ -274,8 +293,7 @@ export function useWallAutoScroll(artworks: Artwork[], rowCount: number) {
       event.preventDefault();
       pause();
       for (let i = 0; i < distancesRef.current.length; i++) {
-        // 往回捲夾到該列的錯位起點（不是 0，見 ROW_STAGGER_RATIOS 說明），
-        // 避免捲過頭露出還沒排到、或是那截交錯用的空白牆面。
+        // 夾到該列的錯位起點（非 0），避免捲回露出空白牆面。
         const floor = staggerOffsetsRef.current[i] ?? 0;
         distancesRef.current[i] = Math.max(
           floor,
