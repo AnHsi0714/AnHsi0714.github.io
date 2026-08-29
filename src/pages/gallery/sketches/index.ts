@@ -12,6 +12,7 @@ import { createPolluteSketch } from "./pollute";
 import { createEruptionSketch } from "./eruption";
 import { createHsiLanternSketch } from "./hsilantern";
 import { createOceanCitySketch } from "./oceancity";
+import { createOceanCityV2Sketch } from "./oceancityv2";
 import { createFishLifeSketch } from "./fishlife";
 import { createChessboardWorldSketch } from "./chessboardworld";
 import { createBloomOfDeliriumSketch } from "./bloomofdelirium";
@@ -148,6 +149,12 @@ const sketches: Record<string, SketchEntry> = {
     factory: (width) => createOceanCitySketch(width),
     aspect: 1,
     interactions: ["click-regenerate"],
+  },
+  ocean_city_v2: {
+    factory: (width) => createOceanCityV2Sketch(width),
+    aspect: 1,
+    interactions: ["drag-draw"],
+    animated: true,
   },
   Fish_Life: {
     factory: (width) => createFishLifeSketch(width),
