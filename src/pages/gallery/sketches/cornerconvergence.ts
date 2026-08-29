@@ -1,16 +1,14 @@
 import type p5 from "p5";
 
-// 原稿吃固定 910x910 的正方形畫布，改寫成 instance mode，size 從外部傳入。
-// 原稿用 for(i=0; i<=size; i+=space) 配合 countNode 倒數計數，靠 910/70 剛好
-// 整除成 13 這個巧合讓每個角落畫滿 13 條線；size 換成外部傳入的容器寬度後
-// 不保證整除，浮點數累加也可能跟 size 對不上，這個巧合就會跑掉，導致四個
-// 角落線條數量不對稱（countNode 是跨角落共用的，一個角落跑掉全部跟著歪）。
-// 改成直接跑固定 13 次（ORIGINAL_NODE + 1）迴圈、用 index 算 i，不再讓
-// 「畫幾條線」取決於 size 能不能被 space 整除，不需要 countNode 那套權宜寫法。
+// 原稿吃固定 910x910 正方形畫布，改寫成 instance mode，size 從外部傳入。
+// 原稿靠 910/70 整除成 13 的巧合讓每個角落畫滿 13 條線（用 countNode 倒數
+// 計數）；size 換成外部傳入後不保證整除，會導致四角線條數量不對稱
+// （countNode 跨角落共用，一角跑掉全部跟著歪）。改成固定跑 13 次
+// （ORIGINAL_NODE + 1）、用 index 算 i，不再依賴整除巧合。
 //
-// space（節點間距）跟 lineWeight 都是針對「910px 見方」寫死的絕對像素值，
-// 統一乘上 k = size / REFERENCE_SIZE 等比例縮放。原稿只有 S 鍵存檔，這裡加上
-// 點擊畫布重製：換一組新的深淺色背景跟配色。
+// space（節點間距）、lineWeight 是針對「910px 見方」寫死的絕對像素值，乘上
+// k = size / REFERENCE_SIZE 等比例縮放。原稿只有 S 鍵存檔，這裡加上點擊
+// 畫布重製，換一組新配色。
 const REFERENCE_SIZE = 910;
 const SPACE = 70;
 const ORIGINAL_NODE = 12;

@@ -1,12 +1,12 @@
 import type p5 from "p5";
 
-// 原稿「海底城市」吃固定 900x900 的正方形畫布，改寫成 instance mode，size
-// 從外部傳入。原稿只在 setup() 生一次構圖（noLoop() + 沒有互動），這裡加上
-// 點擊重製：綁在 canvas 元素本身，點畫布內重新洗一次全新的色塊排列。
+// 原稿「海底城市」吃固定 900x900 畫布，改寫成 instance mode，size 從外部傳入。
+// 原稿只在 setup() 生一次構圖（noLoop() 無互動），這裡加上點擊重製：綁在
+// canvas 元素本身，重新洗一次全新的色塊排列。
 //
-// 原稿的格線邊長（area = width*2 / cellCount）本來就跟畫布寬度成比例，不需要
-// 額外縮放；只有 edgeToEdgeLines 的線條間距（5~20px）是針對「900px 見方」寫死
-// 的絕對像素值，統一乘上 k = size / REFERENCE_SIZE 等比例縮放。
+// 格線邊長（area = width*2 / cellCount）本來就跟畫布寬度成比例不需縮放；只有
+// edgeToEdgeLines 的線條間距（5~20px）是針對「900px 見方」寫死的像素值，
+// 乘上 k = size / REFERENCE_SIZE 縮放。
 const REFERENCE_SIZE = 900;
 
 const colors = ["#4DE2D4", "#4BEAFB", "#00A6A9"];
@@ -98,8 +98,7 @@ export function createOceanCitySketch(size: number) {
       // 未旋轉會像蜂窩格子
       p.rotate(30);
 
-      // 旋轉後的格子「壓斜」，形成類似菱形的格子。
-      // 從正方形轉換成「斜方形」的關鍵。
+      // 旋轉後的格子「壓斜」成菱形，是從正方形轉成斜方形的關鍵。
       p.shearX(-30);
       p.scale(Math.sqrt(2) / Math.sqrt(3), Math.sqrt(2) / 2);
       p.translate(-size / 2, -size / 2);
@@ -132,8 +131,7 @@ export function createOceanCitySketch(size: number) {
       p.rectMode(p.CENTER);
       drawOceanCity();
 
-      // 原稿只在 setup() 畫一次靜態構圖，這裡加上點擊重製：綁在 canvas 元素
-      // 本身（而非 p.mousePressed），這樣只有點在畫布內才會重新洗一次構圖。
+      // 點擊重製：綁在 canvas 元素本身，只有點在畫布內才會重新洗一次構圖。
       canvas.mousePressed(() => {
         drawOceanCity();
       });

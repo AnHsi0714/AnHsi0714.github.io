@@ -1,12 +1,10 @@
 import type p5 from "p5";
 
-// 原稿「蝙蝠」用 windowWidth/windowHeight 畫滿整個瀏覽器視窗、且沒有 draw()，
-// 只在 setup() 畫一次靜態構圖（見對話紀錄）；改寫成 instance mode，
-// width/height 從外部傳入。
+// 原稿「蝙蝠」用 windowWidth/windowHeight 畫滿視窗、無 draw()，setup() 只畫一次
+// 靜態構圖；改寫成 instance mode，width/height 從外部傳入。
 //
-// 原稿的方塊大小（130px）、格線間距（橫 90px、直 100px、起始位移 -50px）都是
-// 針對「視窗寬度 ~1872px」寫死的絕對像素值，統一乘上 k = width / REFERENCE_WIDTH
-// 等比例縮小，讓構圖不管畫布多大都保持原本的相對比例。
+// 方塊大小（130px）、格線間距（橫 90px、直 100px、起始位移 -50px）是原稿針對
+// 「視窗寬 ~1872px」寫死的像素值，統一乘上 k = width / REFERENCE_WIDTH 等比例縮放。
 const REFERENCE_WIDTH = 1872;
 
 export function createBatSketch(width: number, height: number) {
@@ -71,9 +69,8 @@ export function createBatSketch(width: number, height: number) {
 
       drawBat();
 
-      // 原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
-      // 綁在 canvas 元素本身（而非 p.mousePressed），這樣只有點在畫布內才會
-      // 重新跑一次 drawBat() 換一組新的色調與剪切排列，點畫布外的頁面不會誤觸。
+      // 加上點擊重製：綁在 canvas 元素上（而非 p.mousePressed）避免點畫布外誤觸，
+      // 重新跑 drawBat() 換一組新的色調與剪切排列。
       canvas.mousePressed(() => {
         drawBat();
       });

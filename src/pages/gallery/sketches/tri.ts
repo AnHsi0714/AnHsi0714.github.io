@@ -1,13 +1,11 @@
 import type p5 from "p5";
 
-// 原稿「TRI」用 windowWidth/windowHeight 畫滿整個瀏覽器視窗，且 draw() 在
-// frameRate(0.5) 下持續重跑，每隔約 2 秒就整批換一組新的三角形構圖（見對話
-// 紀錄）。這裡改寫成 instance mode 並抽出 drawTRI()：setup() 先畫一次，之後
-// 改由點擊觸發重製，而不是背景持續自動重繪，避免作品頁在使用者沒有互動時
-// 也一直耗用效能。
+// 原稿「TRI」用 windowWidth/windowHeight 畫滿視窗，draw() 在 frameRate(0.5) 下
+// 持續重跑，每隔約 2 秒整批換一組新三角形構圖。改寫成 instance mode 並抽出
+// drawTRI()：setup() 先畫一次，之後改由點擊觸發重製，避免無互動時持續耗效能。
 //
-// 原稿的位移量（±200px）、三角形大小（200~400px）都是針對「視窗寬度
-// ~1872px」寫死的絕對像素值，統一乘上 k = width / REFERENCE_WIDTH 等比例縮小。
+// 位移量（±200px）、三角形大小（200~400px）是原稿針對「視窗寬 ~1872px」寫死的
+// 像素值，統一乘上 k = width / REFERENCE_WIDTH 等比例縮小。
 const REFERENCE_WIDTH = 1872;
 
 export function createTRISketch(width: number, height: number) {
@@ -67,8 +65,7 @@ export function createTRISketch(width: number, height: number) {
       p.noLoop();
       drawTRI();
 
-      // 綁在 canvas 元素本身（而非 p.mousePressed），這樣只有點在畫布內才會
-      // 觸發重製，點畫布外的頁面不會誤觸。
+      // 綁在 canvas 元素上（而非 p.mousePressed），避免點畫布外誤觸重製。
       canvas.mousePressed(() => {
         drawTRI();
       });

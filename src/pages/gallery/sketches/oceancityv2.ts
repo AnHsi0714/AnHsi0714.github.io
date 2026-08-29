@@ -1,12 +1,11 @@
 import type p5 from "p5";
 
-// 原稿「海底城市v2」改寫成 instance mode，size 從外部傳入。城市背景只在
-// setup() 畫一次到離屏 cityLayer，draw() 每幀貼回畫布；魚群/飼料/氣泡是持續
-// 跑的動畫狀態，收在工廠函式的閉包裡避免多實例共用全域陣列。滑鼠拖曳灑飼
-// 料，魚會自動找最近的飼料游過去。
+// 原稿「海底城市v2」改寫成 instance mode，size 從外部傳入。城市背景 setup()
+// 時畫一次到離屏 cityLayer，draw() 每幀貼回；魚群/飼料/氣泡狀態收在工廠函式
+// 閉包裡避免多實例共用全域陣列。滑鼠拖曳灑飼料，魚會自動找最近的飼料游過去。
 //
-// 大部分尺寸常數都是針對「900px 見方」寫死的絕對像素值，統一乘上
-// k = size / REFERENCE_SIZE 等比例縮放，讓畫布不管多大都維持原本的相對比例。
+// 尺寸常數多是針對 900px 見方寫死的絕對值，統一乘上 k = size / REFERENCE_SIZE
+// 等比例縮放，讓畫布不管多大都維持原本比例。
 const REFERENCE_SIZE = 900;
 
 const colors = ["#4DE2D4", "#4BEAFB", "#00A6A9"];
@@ -136,9 +135,8 @@ export function createOceanCityV2Sketch(size: number) {
       }
     };
 
-    // 純函式手動算出等角地面座標（取代 pg.rotate/shearX/scale 整個斜切
-    // context 的做法），讓「高度」能單純是算完地面座標後再往螢幕 -y 平移的
-    // 量，不會連帶放大地面範圍，也不需要整張旋轉來喬哪個面該在上面。
+    // 手動算等角地面座標（取代整個斜切 context 的 rotate/shearX/scale），高度
+    // 只是算完地面座標後再往螢幕 -y 平移的量，不會連帶放大地面範圍。
     const ISO_SX = Math.sqrt(2) / Math.sqrt(3);
     const ISO_SY = Math.sqrt(2) / 2;
     const ISO_SHEAR_TAN = Math.tan((-30 * Math.PI) / 180);
@@ -154,8 +152,8 @@ export function createOceanCityV2Sketch(size: number) {
       return [rx + size / 2, ry + size / 2];
     };
 
-    // 把地面一條邊拉高成一片牆，再用 applyMatrix 把牆的邊向量設成 drawWindows
-    // 的局部座標系，不用改 drawWindows 就能畫在正確的斜面上
+    // 把地面一條邊拉高成一片牆，用 applyMatrix 把牆的邊向量設成 drawWindows
+    // 的局部座標系，不用改 drawWindows 就能畫在正確斜面上
     const drawWall = (
       pg: p5.Graphics,
       ax: number,
@@ -313,11 +311,9 @@ export function createOceanCityV2Sketch(size: number) {
         }
       }
 
-      // 畫布上「較高」代表較遠、「較低」代表離觀眾較近（isoTransform 底下 i、j
-      // 同時增加會讓螢幕 y 變大），所以照每棟樓地面中心轉換後的螢幕 y 由小到大
-      // 排序：遠的先畫、近的後畫蓋在上面，才是正確的疊放順序。這個 y 值本來就
-      // 是最終畫面上的實際位置，遠景建築（隨機座標，不在格子網格上）跟街區建
-      // 築用同一份清單、同一個規則排序，不需要分開處理。
+      // 畫面上「較低」代表離觀眾較近（isoTransform 下 i、j 同增會讓螢幕 y 變
+      // 大），依地面中心轉換後的螢幕 y 由小到大排序即為正確疊放順序（遠先畫、
+      // 近後蓋上）；遠景建築跟街區建築共用同一份清單、同一規則排序。
       specs.sort(
         (a, b) => isoTransform(a.gx, a.gy)[1] - isoTransform(b.gx, b.gy)[1],
       );
@@ -353,8 +349,8 @@ export function createOceanCityV2Sketch(size: number) {
           targetX = closestFood.x;
           targetY = closestFood.y;
         } else {
-          // 沒有飼料：自然游動，混入一點往中心飄的偏移，避免吃完牆角的飼料
-          // 後純靠亂走要繞很久才能飄回中間
+          // 沒有飼料時自然游動，混入往中心飄的偏移，避免吃完牆角飼料後亂走
+          // 很久才飄回中間
           const angle = p.noise(fish.wander, p.frameCount * 0.0015) * 360;
           const wanderX = fish.x + p.cos(angle) * 100 * k;
           const wanderY = fish.y + p.sin(angle) * 100 * k;

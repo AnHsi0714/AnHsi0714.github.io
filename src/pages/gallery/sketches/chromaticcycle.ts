@@ -1,13 +1,11 @@
 import type p5 from "p5";
 
 // 原稿「色彩循環」是三色版的「剪刀石頭布」元胞自動機：canvasSize 固定 900、
-// cellSize 固定 15（見對話紀錄），改寫成 instance mode 時把兩者都改成跟外部
-// 傳入的 size 等比例縮放（k = size / REFERENCE_SIZE），維持約 60x60 格的密度
-// 不隨展場容器大小改變。
+// cellSize 固定 15，改寫成 instance mode 時把兩者改成跟外部傳入的 size 等比例
+// 縮放（k = size / REFERENCE_SIZE），維持約 60x60 格密度不隨容器大小改變。
 //
-// 原稿只靠 draw() 持續演化、沒有任何互動，這裡仿照「爆發」的做法加上點擊
-// 重製：綁在 canvas 元素本身，點畫布內會重新灑一次隨機色彩，跳出目前的
-// 演化僵局。
+// 原稿只靠 draw() 持續演化、無任何互動，這裡仿照「爆發」加上點擊重製：
+// 綁在 canvas 元素上，點畫布內重灑隨機色彩，跳出演化僵局。
 const REFERENCE_SIZE = 900;
 
 const COLORS = ["#168CFF", "#FF304F", "#FFD51C"];

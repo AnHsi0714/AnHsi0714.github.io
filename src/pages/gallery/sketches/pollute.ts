@@ -1,10 +1,9 @@
 import type p5 from "p5";
 
-// 原稿「污染」載入一張海洋背景圖跟一張雜訊材質圖疊加做色偏效果，
-// 畫布大小直接吃圖片的原始寬高，不是滿版視窗。素材放在
-// public/images/gallery/pollute/ 下，用 same-origin 路徑載入——原稿另外兩個
-// 素材檔放在 OpenProcessing 的 CDN 上沒有 CORS header，直接跨網域載入的話
-// img.get() 讀像素會因為 canvas 被 taint 而丟例外，所以必須自己放一份。
+// 原稿載入海洋背景圖跟雜訊材質圖疊加做色偏，畫布吃圖片原始寬高，非滿版
+// 視窗。素材放在 public/images/gallery/pollute/ 用 same-origin 載入：原稿的
+// CDN 素材沒有 CORS header，跨網域載入會讓 canvas 被 taint，img.get() 讀
+// 像素會丟例外，所以自己放一份。
 const OCEAN_URL = "/images/gallery/pollute/ocean.png";
 const NOISE_URL = "/images/gallery/pollute/noise2.png";
 
@@ -13,9 +12,8 @@ export function createPolluteSketch(width: number, height: number) {
     let img: p5.Image;
     let noiseImg: p5.Image;
 
-    // 原稿的取樣格子大小（10px）是針對圖片原始寬度寫死的絕對像素值，這裡用
-    // k = 展場畫布寬 / 圖片原始寬度 等比例縮放，讓格子在縮小的展場畫布上仍保持
-    // 跟原稿一致的相對比例。
+    // 取樣格子大小（10px）是針對圖片原始寬度寫死的絕對像素值，用
+    // k = 展場畫布寬 / 圖片原始寬度 等比例縮放維持相對比例。
     const drawPollute = () => {
       const k = width / img.width;
       const rsize = 10 * k;
@@ -58,9 +56,8 @@ export function createPolluteSketch(width: number, height: number) {
       p.image(img, 0, 0, width, height);
       drawPollute();
 
-      // 原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
-      // 綁在 canvas 元素本身（而非 p.mousePressed），這樣只有點在畫布內才會
-      // 重新跑一次 drawPollute() 換一組新的色偏。
+      // 加上點擊重製：綁在 canvas 元素（而非 p.mousePressed）避免點畫布外
+      // 誤觸，重新跑 drawPollute() 換一組新色偏。
       canvas.mousePressed(() => {
         drawPollute();
       });

@@ -1,14 +1,12 @@
 import type p5 from "p5";
 
-// 原稿「迷幻綻放」吃固定 900x900 的正方形畫布，改寫成 instance mode，size 從
-// 外部傳入。原稿的 draw() 是「生長動畫」：petalCount 每幀 +1 直到隨機決定的
-// finalCount 就停止（畫面凍結在最後一幀），這裡保留同樣的行為，並加上點擊
-// 重製：綁在 canvas 元素本身，點畫布內重設 petalCount、重新抽一個 finalCount，
-// 讓生長動畫重新跑一次。
+// 原稿「迷幻綻放」吃固定 900x900 畫布，改寫成 instance mode，size 從外部傳入。
+// draw() 是生長動畫：petalCount 每幀 +1 到隨機的 finalCount 就凍結畫面，這裡
+// 保留此行為，並加上點擊重製（綁在 canvas 元素本身，重設 petalCount、重抽
+// finalCount）。
 //
-// 原稿的花朵大小（75px）、花瓣中心偏移量（20px）都是針對「900px 見方」寫死的
-// 絕對像素值，統一乘上 k = size / REFERENCE_SIZE 等比例縮放；cols/rows 固定
-// 10 格是格數不是像素值，不需要縮放。
+// 花朵大小（75px）、花瓣中心偏移量（20px）是針對「900px 見方」寫死的像素值，
+// 乘上 k = size / REFERENCE_SIZE 縮放；cols/rows 固定 10 格是格數不需縮放。
 const REFERENCE_SIZE = 900;
 
 export function createBloomOfDeliriumSketch(size: number) {
@@ -64,14 +62,12 @@ export function createBloomOfDeliriumSketch(size: number) {
       p.frameRate(5);
       finalCount = p.random(12, 17);
 
-      // 原稿沒有互動（生長到 finalCount 就凍結畫面），這裡加上點擊重製：
-      // 綁在 canvas 元素本身（而非 p.mousePressed），點畫布內重設生長進度，
-      // 讓動畫從頭重新綻放一次。
+      // 原稿沒有互動，這裡加上點擊重製：綁在 canvas 元素本身，重設生長進度
+      // 重新綻放。
       //
-      // generateScene() 裡的 background(0) 是在 DIFFERENCE blend mode 下執行
-      // 的，跟黑色相減等於沒清除（這正是生長過程中花瓣會疊色的關鍵），所以這裡
-      // 必須先切回 BLEND 模式真的清成黑底，再切回 DIFFERENCE，否則重製只會把
-      // 新的花疊在舊的最終畫面上，越點越花。
+      // generateScene() 的 background(0) 在 DIFFERENCE blend mode 下等於沒
+      // 清除（這正是花瓣疊色的關鍵），所以重製時要先切回 BLEND 真的清成黑底，
+      // 再切回 DIFFERENCE，否則新花會疊在舊的最終畫面上。
       canvas.mousePressed(() => {
         p.blendMode(p.BLEND);
         p.background(0);

@@ -1,18 +1,16 @@
 import type p5 from "p5";
 
-// 原稿「拳擊混戰」是 RPS 的 15 種族擴充版：15 種圖示（石頭、火、剪刀……槍）
-// 在固定 1800x900 的畫布裡彈跳混戰，相剋規則是環狀的——(type2 - type1) mod 15
-// 在 1~7 之間就是 type1 贏，輸家被同化。場上另有 15 顆藍色圓形障礙物，方塊撞到
-// 會反彈、障礙物閃黃光。每輪打到只剩一種存活後結算：依當輪分數發名次積分，
-// 總積分最低的玩家被淘汰，按 START 進下一輪，淘汰到剩一人就是總冠軍。
+// 原稿「拳擊混戰」是 RPS 的 15 種族擴充版：15 種圖示在固定 1800x900 畫布裡彈跳混戰，
+// 相剋規則是環狀的：(type2 - type1) mod 15 在 1~7 之間 type1 贏，輸家被同化。另有 15
+// 顆藍色圓形障礙物，方塊撞到會反彈、障礙物閃黃光。每輪打到只剩一種存活後結算：依當輪
+// 分數發名次積分，總積分最低者淘汰，按 START 進下一輪，剩一人即總冠軍。
 //
-// 方塊大小（40px）、障礙物半徑（40px）、速度（5px/frame）、文字與按鈕的尺寸
-// 位置都是針對 1800 寬寫死的絕對像素值，統一乘上 k = width / REFERENCE_WIDTH
-// 等比例縮放。
+// 方塊、障礙物、速度、文字與按鈕的尺寸位置都是針對 1800 寬寫死的絕對像素值，
+// 統一乘上 k = width / REFERENCE_WIDTH 等比例縮放。
 const REFERENCE_WIDTH = 1800;
 
-// 圖片放在 public/ 下用 same-origin 路徑載入，檔名去掉 .png 就是計分板上的
-// 玩家名稱（沿用原稿 imgs.map(name => name.replace(".png", "")) 的做法）。
+// 圖片放在 public/ 下用 same-origin 路徑載入，檔名去掉 .png 即計分板上的玩家名稱
+// （沿用原稿 imgs.map(name => name.replace(".png", "")) 的做法）。
 const NAMES = [
   "rock", "fire", "scissors", "snake", "human",
   "tree", "wolf", "sponge", "paper", "air",
@@ -72,8 +70,8 @@ export function createBoxingMeleeSketch(width: number, height: number) {
     let firstStart = true;
     let gameOver = false;
 
-    // 跟 mazeracing.ts 同一招：原稿用 position(width/2, height/2) 定位的是
-    // 按鈕左上角、其實沒有真的置中，改用 left:50% + translateX(-50%) 水平置中。
+    // 跟 mazeracing.ts 同一招：原稿用 position() 定位的是按鈕左上角，
+    // 改用 left:50% + translateX(-50%) 真正置中。
     const centerElementX = (el: p5.Element, y: number) => {
       el.position(0, y);
       el.style("left", "50%");
@@ -159,8 +157,8 @@ export function createBoxingMeleeSketch(width: number, height: number) {
               }
             }
           }
-          // 原稿用 p5.Vector.random2D().mult(BoxSpeed)，這裡的 p5 import 是
-          // type-only 拿不到靜態方法，改用等價的隨機角度單位向量。
+          // 原稿用 p5.Vector.random2D().mult(BoxSpeed)，type-only import 拿不到
+          // 靜態方法，改用等價的隨機角度單位向量。
           const angle = p.random(p.TWO_PI);
           shapes.push({
             size: boxSize,
@@ -245,8 +243,7 @@ export function createBoxingMeleeSketch(width: number, height: number) {
           const d = p.dist(shape.p.x, shape.p.y, obs.p.x, obs.p.y);
           if (d < shape.size / 2 + obs.r) {
             obs.blinkTimer = 20;
-            // 原稿的 p5.Vector.sub(shape.p, obs.p) 是靜態方法，同上改用
-            // copy().sub() 的等價寫法。
+            // 原稿的 p5.Vector.sub() 是靜態方法，同上改用 copy().sub() 等價寫法。
             const normal = shape.p.copy().sub(obs.p).normalize();
             shape.v.reflect(normal);
             shape.p.add(shape.v);
@@ -369,8 +366,7 @@ export function createBoxingMeleeSketch(width: number, height: number) {
       const lastIdx = stats[0].idx;
       activePlayers = activePlayers.filter((idx) => idx !== lastIdx);
 
-      // 原稿在這裡直接把淘汰名單畫上畫布——draw() 下一幀就會蓋掉，所以實際上
-      // 只閃一幀，照樣保留原稿行為。
+      // 原稿在這裡把淘汰名單畫上畫布，draw() 下一幀就蓋掉、只閃一幀，照樣保留原稿行為。
       const eliminatedPlayers: { idx: number; total: number }[] = [];
       for (let i = 0; i < NAMES.length; i++) {
         if (!activePlayers.includes(i)) {

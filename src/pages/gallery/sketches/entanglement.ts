@@ -1,8 +1,7 @@
 import type p5 from "p5";
 
-// 原稿是 global mode（見對話紀錄），這裡改寫成 instance mode 以便掛載/卸載時不
-// 互相污染全域命名空間。座標邏輯完全比照原稿，只把 size 從寫死的 800 改成外部
-// 傳入，讓畫布能配合展場的聚光燈容器縮放。
+// 原稿是 global mode，改寫成 instance mode 避免掛載/卸載時污染全域命名空間。
+// 座標邏輯照搬原稿，只把 size 從寫死的 800 改成外部傳入，配合展場容器縮放。
 export function createEntanglementSketch(size: number) {
   return (p: p5) => {
     p.setup = () => {
