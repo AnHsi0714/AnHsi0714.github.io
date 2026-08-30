@@ -328,7 +328,7 @@ export default function Articles() {
         </div>
       ) : (
         <>
-          {featuredArticles.length > 0 && (
+          {featuredArticles.length > 0 && featuredFilter !== "featured" && (
             <div className="mt-8">
               <p className="font-semibold text-[var(--color-primary)]">
                 {t.articles.featuredSectionTitle}

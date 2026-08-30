@@ -309,7 +309,7 @@ export default function Projects() {
         </div>
       ) : (
         <>
-          {featuredProjects.length > 0 && (
+          {featuredProjects.length > 0 && featuredFilter !== "featured" && (
             <div className="mt-8">
               <p className="font-semibold text-[var(--color-primary)]">
                 {t.projects.featuredSectionTitle}
