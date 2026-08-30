@@ -93,11 +93,11 @@ const content = {
     achievements: [
       {
         title: "資料結構與演算法視覺化教學平台 CodePulse",
-        desc: "114 學年度 資工系實務專題｜指導教授 陳香君｜曾投件國科會大專生研究計畫",
+        desc: "114 學年度 資工系實務專題｜指導教授 陳香君｜前後測使用者研究（n=56）發現學習信心顯著提升（p < 0.001）｜已投件國科會大專生研究計畫",
       },
       {
-        title: "基於雙軌 NLP 技術之使用者回饋自動化分析語義模型",
-        desc: "2026 年 6 月｜NLP 課程期末專題",
+        title: "2026 台灣棒球數據分析競賽　現場戰術分析組",
+        desc: "自行撰寫爬蟲取得 CPBL 逐球紀錄，建立打者決策模擬模型分析盜壘損益兩平門檻｜提出「保留效應」修正傳統 RE24 盲點｜書面資料籌備中，預計 12 月口頭簡報",
       },
     ],
     experienceHighlights: [
@@ -195,12 +195,11 @@ const content = {
       {
         title:
           "CodePulse: Data Structures & Algorithms Visualization Teaching Platform",
-        desc: "2025 Academic Year Capstone Project, Dept. of CSIE ｜ Advisor: Annette Chen ｜ Submitted to the NSTC Undergraduate Research Program",
+        desc: "2025 Academic Year Capstone Project, Dept. of CSIE ｜ Advisor: Annette Chen ｜ Pre/post user study (n=56) found a significant rise in learning confidence (p < 0.001) ｜ Submitted to the NSTC Undergraduate Research Program",
       },
       {
-        title:
-          "A Dual-Track NLP Approach to Automated Semantic Analysis of User Feedback",
-        desc: "June 2026 ｜ NLP Course Final Project",
+        title: "2026 Taiwan Baseball Analytics Competition, In-Game Tactics Track",
+        desc: 'Built a custom crawler for pitch-by-pitch CPBL data and a batter decision-simulation model to analyze stolen-base break-even thresholds ｜ Proposed a "retention effect" correcting a blind spot in traditional RE24 ｜ Write-up in progress, oral presentation expected in December',
       },
     ],
     experienceHighlights: [
