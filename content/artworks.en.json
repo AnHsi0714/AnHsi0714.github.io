@@ -367,5 +367,16 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2996802",
     "description": "A city swallowed by the sea, its windows still lit: the fish have become its new residents, drifting between the buildings and homing in on the nearest food, growing a little each time they eat enough. Drag the mouse to scatter food and feed them, while bubbles keep rising from below, giving the whole city a sense of breathing motion."
+  },
+  {
+    "slug": "lava_veins",
+    "title": "Lava Veins",
+    "date": "260830",
+    "images": [
+      "/images/gallery/Lava_Veins0.png",
+      "/images/gallery/Lava_Veins1.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2997742",
+    "description": "A cellular automaton grows a cave-like rock formation: randomly placed walls repeatedly check their neighbor counts and gradually settle into a natural cave outline. Once the terrain has formed, clicking drips a drop of lava that sinks slowly according to its viscosity, flowing diagonally when blocked and spilling sideways when that fails too, spreading through the rock like veins; dragging the mouse digs tunnels that reroute the flow."
   }
 ]

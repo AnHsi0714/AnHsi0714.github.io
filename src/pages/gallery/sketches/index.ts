@@ -28,6 +28,7 @@ import { createChromaticCycleV2Sketch } from "./chromaticcyclev2";
 import { createChromaticCycleV3Sketch } from "./chromaticcyclev3";
 import { createCelestialFragmentsSketch } from "./celestialfragments";
 import { createCornerConvergenceSketch } from "./cornerconvergence";
+import { createLavaVeinsSketch } from "./lavaveins";
 
 export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 
@@ -72,7 +73,7 @@ const POLLUTE_ASPECT = 1440 / 648;
 const MAZE_ASPECT = 1800 / 900;
 
 // 天體碎片原稿也是滿版視窗，但截圖是 1912x897，跟 WIDESCREEN_ASPECT 不同，
-// 另訂一個比例常數。
+// 另訂一個比例常數；熔岩地脈截圖同尺寸，一併沿用。
 const CELESTIAL_FRAGMENTS_ASPECT = 1912 / 897;
 
 // slug -> instance-mode sketch factory + 容器寬高比。之後移植新作品在這裡加一筆
@@ -232,6 +233,12 @@ const sketches: Record<string, SketchEntry> = {
     factory: (width) => createCornerConvergenceSketch(width),
     aspect: 1,
     interactions: ["click-regenerate"],
+  },
+  lava_veins: {
+    factory: createLavaVeinsSketch,
+    aspect: CELESTIAL_FRAGMENTS_ASPECT,
+    interactions: ["drag-draw"],
+    animated: true,
   },
 };
 
