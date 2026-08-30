@@ -1,13 +1,12 @@
 import type p5 from "p5";
 
-// 原稿「迷茫的臉」用 windowWidth/windowHeight 畫滿整個瀏覽器視窗，draw() 每幀
-// （10fps）完全重畫一次臉：清背景、重新亂數擺放眼睛、嘴巴、鼻子，本身就是持續
-// 在變動的生成動畫，不需要額外的點擊互動。改寫成 instance mode，width/height
-// 從外部傳入。原稿另外定義了 drawW()、addScratch() 兩個函式，但 draw() 裡從未
-// 呼叫，屬於沒用到的殘留程式碼，這裡沒有搬過來。
+// 原稿「迷茫的臉」用 windowWidth/windowHeight 畫滿視窗，draw() 每幀（10fps）
+// 完全重畫：清背景、重新亂數擺放眼睛嘴巴鼻子，本身就是持續變動的生成動畫，
+// 不需額外點擊互動。改寫成 instance mode，width/height 從外部傳入。原稿另定義
+// drawW()、addScratch() 但 draw() 從未呼叫，屬未用到的殘留程式碼，未搬過來。
 //
-// 原稿的圓圈直徑、眼球大小、嘴巴／鼻子尺寸與各處亂數位移量都是針對「視窗寬度
-// ~1872px」寫死的絕對像素值，統一乘上 k = width / REFERENCE_WIDTH 等比例縮小。
+// 圓圈直徑、眼球大小、嘴巴／鼻子尺寸與各處亂數位移量是原稿針對「視窗寬
+// ~1872px」寫死的像素值，統一乘上 k = width / REFERENCE_WIDTH 等比例縮小。
 const REFERENCE_WIDTH = 1872;
 
 export function createALostFaceSketch(width: number, height: number) {

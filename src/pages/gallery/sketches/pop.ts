@@ -1,11 +1,11 @@
 import type p5 from "p5";
 
-// 原稿「POP」用 windowWidth/windowHeight 畫滿整個瀏覽器視窗（見對話紀錄），
-// 這裡改成吃外部傳入的 width/height，讓畫布落在展場的聚光燈容器裡。
+// 原稿「POP」用 windowWidth/windowHeight 畫滿視窗，這裡改成吃外部傳入的
+// width/height，讓畫布落在展場容器裡。
 //
-// 泡泡大小（30~100px）、位移速度（±20px/frame）、文字大小（120px）都是針對
-// 「視窗寬度 ~1872px」寫死的絕對像素值，展場畫布通常小很多，直接照搬會讓泡泡
-// 相對畫布顯得過大過密。統一乘上 k = width / REFERENCE_WIDTH 等比例縮小。
+// 泡泡大小（30~100px）、位移速度（±20px/frame）、文字大小（120px）是原稿針對
+// 「視窗寬 ~1872px」寫死的像素值，展場畫布通常小很多，照搬會讓泡泡過大過密，
+// 統一乘上 k = width / REFERENCE_WIDTH 等比例縮小。
 const REFERENCE_WIDTH = 1872;
 
 export function createPopSketch(width: number, height: number) {
@@ -33,8 +33,7 @@ export function createPopSketch(width: number, height: number) {
       p.rectMode(p.CENTER);
       p.colorMode(p.HSB);
 
-      // 綁在 canvas 元素本身（而非 p.mousePressed），這樣只有點在畫布內才會
-      // 觸發重新洗牌，點畫布外的頁面不會誤觸。
+      // 綁在 canvas 元素上（而非 p.mousePressed），避免點畫布外誤觸重新洗牌。
       canvas.mousePressed(() => {
         switchNight *= -1;
         popCount = p.int(p.random(50, 80));

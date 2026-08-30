@@ -108,12 +108,17 @@ export interface NameCardContent {
 
 export type ArticleType = "book" | "essay" | "paper" | "tech" | "journal";
 
+// 文章列表的大分類；預設由 type 推導（見 lib/articles.ts 的 defaultSectionForType），
+// 只有 type 對不上單一大分類時才需要在 frontmatter 明確寫 section 覆蓋（例如 journal 底下的生活雜記）
+export type ArticleSection = "academic" | "technical" | "reading" | "notes";
+
 // draft 文章不會出現在 /articles 列表、「下一篇文章」或知識點反查，但仍可透過直接網址預覽
 export type ArticleStatus = "draft" | "published";
 
 export interface Article {
   slug: string;
   type: ArticleType;
+  section: ArticleSection;
   title: string;
   date: string;
   excerpt: string;

@@ -1,7 +1,7 @@
 import type p5 from "p5";
 
-// 原稿「山與月」是 global mode 且沒有 draw()，只在 setup() 畫一次靜態構圖
-// （見對話紀錄）；改寫成 instance mode 時保留同樣的行為，size 從外部傳入。
+// 原稿「山與月」是 global mode 且無 draw()，只在 setup() 畫一次靜態構圖；
+// 改寫成 instance mode 時保留同樣行為，size 從外部傳入。
 export function createMoontainSketch(width: number) {
   return (p: p5) => {
     const size = width;
@@ -114,10 +114,8 @@ export function createMoontainSketch(width: number) {
 
       drawMoontain();
 
-      // 原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
-      // 綁在 canvas 元素本身（而非 p.mousePressed），這樣只有點在畫布內才會
-      // 重新跑一次 drawMoontain() 換一組新的山型／月亮／裂紋，點畫布外的頁面
-      // 不會誤觸。
+      // 加上點擊重製：綁在 canvas 元素上（而非 p.mousePressed）避免點畫布外誤觸，
+      // 重新跑 drawMoontain() 換一組新的山型／月亮／裂紋。
       canvas.mousePressed(() => {
         drawMoontain();
       });

@@ -1,19 +1,17 @@
 import type p5 from "p5";
 
-// 原稿「RPS」是猜拳生態模擬：24 個方塊分成剪刀（0）、石頭（1）、布（2）三種，
-// 在固定 1800x900 的畫布裡彈跳，兩塊相撞時輸的一方被同化成贏家的種類；每一幀
-// 把三種數量累加進 scores，全場只剩一種時凍結比分、顯示贏家。
+// 原稿「RPS」是猜拳生態模擬：24 個方塊分剪刀（0）、石頭（1）、布（2）三種，在固定
+// 1800x900 畫布裡彈跳，相撞時輸家被同化成贏家種類；每幀累加數量進 scores，
+// 全場只剩一種時凍結比分、顯示贏家。
 //
-// 原稿的 Box class 放在 OpenProcessing 的另一個分頁沒有留存，這裡依截圖
-// （public/images/gallery/RPS0.jpg、RPS1.jpg）重建：40px 方塊、黑色粗框、
-// 依種類填色，中間畫黑色 SVG 圖示，碰到畫布邊界反彈。
+// 原稿 Box class 沒有留存，依截圖（public/images/gallery/RPS0.jpg、RPS1.jpg）
+// 重建：40px 方塊、黑色粗框、依種類填色，中間畫黑色 SVG 圖示，碰邊界反彈。
 //
-// 方塊大小（40px）、速度（5px/frame）、文字大小跟位置都是針對 1800 寬寫死的
-// 絕對像素值，統一乘上 k = width / REFERENCE_WIDTH 等比例縮放。
+// 方塊大小、速度、文字大小位置都是針對 1800 寬寫死的絕對像素值，統一乘上
+// k = width / REFERENCE_WIDTH 等比例縮放。
 const REFERENCE_WIDTH = 1800;
 
-// 圖示來源：https://www.svgrepo.com/（原稿註記），跟原稿一樣三個檔案，
-// 放在 public/ 下用 same-origin 路徑載入。
+// 圖示來源：https://www.svgrepo.com/（原稿註記），放在 public/ 下 same-origin 載入。
 const IMG_URLS = [
   "/images/gallery/RPS/scissors.svg",
   "/images/gallery/RPS/hand-rock-solid.svg",
@@ -43,8 +41,8 @@ export function createRPSSketch(width: number, height: number) {
       scores = [0, 0, 0];
       const size = 40 * k;
       for (let i = 0; i < 24; i++) {
-        // 原稿用 p5.Vector.random2D().mult(5)，這裡的 p5 import 是 type-only
-        // 拿不到靜態方法，改用等價的隨機角度單位向量。
+        // 原稿用 p5.Vector.random2D().mult(5)，type-only import 拿不到靜態方法，
+        // 改用等價的隨機角度單位向量。
         const angle = p.random(p.TWO_PI);
         shapes.push({
           size,
@@ -83,8 +81,8 @@ export function createRPSSketch(width: number, height: number) {
     const isBoxHitting = (a: Box, b: Box) =>
       Math.abs(a.p.x - b.p.x) < a.size && Math.abs(a.p.y - b.p.y) < a.size;
 
-    // 猜拳規則：type+1 克 type（石頭克剪刀、布克石頭），差 2 的組合是
-    // 剪刀（0）對布（2），剪刀贏——輸家被改成贏家的種類。
+    // 猜拳規則：type+1 克 type（石頭克剪刀、布克石頭），差 2 是剪刀（0）對布（2）
+    // 剪刀贏，輸家改成贏家種類。
     const resolveHit = (a: Box, b: Box) => {
       if (a.type === b.type) return;
       if (a.type === b.type + 1) {
@@ -110,8 +108,8 @@ export function createRPSSketch(width: number, height: number) {
       const canvas = p.createCanvas(width, height);
       spawnShapes();
 
-      // 原稿分出勝負後就停在贏家畫面（見上方說明），這裡加上點擊重製：
-      // 綁在 canvas 元素本身，點畫布內就重開一局、比分歸零。
+      // 原稿分出勝負後就停在贏家畫面，這裡加上點擊重製：綁在 canvas 元素，
+      // 點畫布內重開一局、比分歸零。
       canvas.mousePressed(() => {
         spawnShapes();
       });

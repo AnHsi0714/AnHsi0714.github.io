@@ -18,6 +18,20 @@ $max-content-width: 768px;
   font-family: "Wittgenstein", "微軟正黑體", sans-serif;
 }
 
+.back {
+  position: absolute;
+  top: 32px;
+  left: 24px;
+  z-index: 1;
+  font-size: 14px;
+}
+
+// 用 .page .back（雙層 class）拉高優先度，蓋過 TextLink 自己的 .link 顏色。
+.page .back {
+  color: $text-color;
+  text-decoration-color: $text-color;
+}
+
 .maxWidth {
   max-width: $max-content-width;
   margin-left: auto;

@@ -1,13 +1,11 @@
 import type p5 from "p5";
 
-// 原稿「魚生」吃固定 900x900 的正方形畫布，改寫成 instance mode，size 從外部
-// 傳入。原稿有 draw() 持續跑動畫（三角魚群隨 sin 波擺動），這裡保留同樣的
-// 連續動畫，並加上點擊重製：綁在 canvas 元素本身，點畫布內重新洗一次魚群
-// 排列（背景色、間距抖動、灰階配色）。
+// 原稿吃固定 900x900 正方形畫布，改寫成 instance mode，size 從外部傳入。
+// 原稿有 draw() 持續跑動畫（三角魚群隨 sin 波擺動），保留同樣動畫，並加上
+// 點擊重製：點畫布內重新洗一次魚群排列（背景色、間距抖動、灰階配色）。
 //
-// 原稿的魚身大小（30px）、格線間距（55px）、擺動振幅（10px）都是針對
-// 「900px 見方」寫死的絕對像素值，統一乘上 k = size / REFERENCE_SIZE 等比例
-// 縮放，讓構圖不管畫布多大都保持原本的相對比例。
+// 魚身大小（30px）、格線間距（55px）、擺動振幅（10px）是針對「900px 見方」
+// 寫死的絕對像素值，乘上 k = size / REFERENCE_SIZE 等比例縮放維持相對比例。
 const REFERENCE_SIZE = 900;
 
 interface Fish {
@@ -72,9 +70,8 @@ export function createFishLifeSketch(size: number) {
       bgcColor = p.random(170, 230);
       setFish();
 
-      // 原稿沒有互動（只有連續動畫），這裡加上點擊重製：綁在 canvas 元素本身
-      // （而非 p.mousePressed），點畫布內重新洗一次背景色跟魚群排列，動畫本身
-      // 持續跑不受影響。
+      // 原稿沒有互動，這裡加上點擊重製：綁在 canvas 元素（而非
+      // p.mousePressed），點畫布內重洗背景色跟魚群排列，動畫持續跑不受影響。
       canvas.mousePressed(() => {
         bgcColor = p.random(170, 230);
         setFish();

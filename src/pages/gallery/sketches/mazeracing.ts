@@ -1,16 +1,14 @@
 import type p5 from "p5";
 
-// 原稿「迷宮競速」吃固定 1800x900 的畫布，改寫成 instance mode，width/height
-// 從外部傳入。這是一個完整的雙人賽跑／協力迷宮遊戲：用 createButton/createRadio
-// 做選單，方向鍵操控 P1、WASD 操控 P2，比一般「生成藝術、點擊重製」複雜很多，
-// 所以在 sketches/index.ts 新增了 keyboard-game 這個互動類型，而非硬塞進
-// click-regenerate。存檔鍵也從其他作品慣用的 S 改成 H（S 被 P2 的「往下」占用了，
-// 見 index.ts 的 saveKey 覆寫）。
+// 原稿「迷宮競速」固定 1800x900 畫布，改寫成 instance mode，width/height 從外
+// 部傳入。這是雙人賽跑／協力迷宮遊戲：createButton/createRadio 做選單，方向鍵
+// 操控 P1、WASD 操控 P2，比一般「點擊重製」複雜，所以在 sketches/index.ts 新增
+// keyboard-game 互動類型，不硬塞進 click-regenerate。存檔鍵改用 H（S 被 P2「往
+// 下」占用，見 index.ts 的 saveKey 覆寫）。
 //
-// 原稿把方塊大小（nsize=50px）、選單元件的位置/尺寸/字級、格線位移（20px）都
-// 寫死在「1800px 寬」的假設上，統一乘上 k = width / REFERENCE_WIDTH 等比例縮放；
-// moveDelay（150ms）、fogVersion（可視格數倍率）這類跟時間或格數有關、不是像素
-// 距離的常數則不需要縮放。
+// 方塊大小（nsize=50px）、選單元件位置/尺寸/字級、格線位移（20px）等原本寫死
+// 在 1800px 寬假設上的常數，統一乘 k = width / REFERENCE_WIDTH 縮放；moveDelay、
+// fogVersion 等跟時間/格數而非像素相關的常數不縮放。
 const REFERENCE_WIDTH = 1800;
 
 interface MazeCell {
@@ -19,10 +17,9 @@ interface MazeCell {
   down1: number;
 }
 
-// createRadio() 回傳的 Element 在執行期有 .option()/.selected()/.changed()，
-// 但 @types/p5 目前沒有把這幾個方法宣告進 Element class（已知的型別缺口，
-// .changed() 甚至只掛在 MediaElement 上），這裡另外擴充一個型別描述實際會
-// 用到的方法。
+// createRadio() 回傳的 Element 執行期有 .option()/.selected()/.changed()，但
+// @types/p5 沒宣告進 Element class（型別缺口，.changed() 甚至只掛在
+// MediaElement 上），這裡另外擴充型別描述實際會用到的方法。
 type RadioElement = p5.Element & {
   option: (value: string, label?: string) => p5.Element;
   selected: (value?: string) => string;
@@ -149,28 +146,23 @@ export function createMazeRacingSketch(width: number, height: number) {
       resetGame();
     };
 
-    // p.position(x, y) 定位的是元素的左上角，不是中心點；原稿用固定的
-    // width/2、width/2-100 硬湊置中，三個 radio 群組的選項文字長度不一樣寬，
-    // 用同一個左邊界並不會讓三行看起來真的置中對齊。這裡改成 left:50% +
-    // transform:translateX(-50%)，不管元素實際寬度多少都能真正水平置中。
+    // p.position 定位的是元素左上角非中心點；原稿用固定 width/2 硬湊置中，
+    // 三個 radio 群組選項寬度不一，同一左邊界對不齊。改用 left:50% +
+    // transform:translateX(-50%) 真正水平置中，不受元素實際寬度影響。
     const centerElementX = (el: p5.Element, y: number) => {
       el.position(0, y);
       el.style("left", "50%");
       el.style("transform", "translateX(-50%)");
     };
 
-    // 三個 radio 群組（p2/mode/fog）各自的選項要對成同一個兩欄表格：第一欄
-    // （No Player 2／Race Mode／No Fog）跟第二欄（Add Player 2／Co-op Mode／
-    // Fog）分別在三行間垂直對齊。如果各群組各自獨立排版、自己置中，欄寬會因
-    // 文字長度不同而對不齊；改成把三個群組都塞進同一個 CSS Grid 容器（見
-    // setup() 裡的 menu），靠 grid-template-columns 自動抓「該欄所有列裡最寬
-    // 的內容」，三行就會自然對齊，也只需要置中這一個容器就好，不用逐一置中
-    // 每個群組。
+    // 三個 radio 群組（p2/mode/fog）的選項要對成兩欄表格。若各自獨立排版置
+    // 中，欄寬會因文字長度不同對不齊；改成把三個群組塞進同一個 CSS Grid 容器
+    // （見 setup() 的 menu），靠 grid-template-columns 自動抓每欄最寬內容，三
+    // 行自然對齊，只需置中這一個容器。
     //
-    // p5 createRadio 每個選項的 DOM 結構是 <label><input><span>文字</span></label>，
-    // 這裡把群組自己的 <div> 設成 display:contents，讓它的 box 從版面中消失，
-    // 底下的 <label> 直接變成外層 grid 的成員，同時 color/font-size 這類可繼承
-    // 屬性依然會往下傳。
+    // createRadio 每個選項是 <label><input><span></label>；把群組 <div> 設成
+    // display:contents 讓它的 box 從版面消失，底下 <label> 直接變成外層 grid
+    // 成員，color/font-size 等可繼承屬性仍會往下傳。
     const styleRadioButton = (rb: RadioElement) => {
       rb.style("display", "contents");
       rb.style("font-size", `${16 * k}px`);
@@ -403,8 +395,7 @@ export function createMazeRacingSketch(width: number, height: number) {
       r2.show();
       r3.show();
       // show() 會把 display 設回 "block"，蓋掉 styleRadioButton 設的
-      // "contents"（讓選項脫離群組自己的 box、直接變成 radioMenu 網格成員的
-      // 關鍵），所以這裡重新套一次是必要的，不只是保險。
+      // "contents"（讓選項直接變成 radioMenu 網格成員的關鍵），需要重新套用。
       styleRadioButton(r1);
       styleRadioButton(r2);
       styleRadioButton(r3);
@@ -547,8 +538,8 @@ export function createMazeRacingSketch(width: number, height: number) {
       startButton.style("color", "white");
       startButton.mousePressed(startGame);
 
-      // 三個 radio 群組都塞進同一個 grid 容器，兩欄（各群組的第一/第二個選項）
-      // 在三行間自動對齊，見 styleRadioButton 的說明。只要置中這個容器一次。
+      // 三個 radio 群組塞進同一個 grid 容器，兩欄在三行間自動對齊（見
+      // styleRadioButton），只需置中這個容器一次。
       radioMenu = p.createDiv();
       radioMenu.style("display", "grid");
       radioMenu.style("grid-template-columns", "max-content max-content");

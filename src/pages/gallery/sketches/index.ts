@@ -12,6 +12,7 @@ import { createPolluteSketch } from "./pollute";
 import { createEruptionSketch } from "./eruption";
 import { createHsiLanternSketch } from "./hsilantern";
 import { createOceanCitySketch } from "./oceancity";
+import { createOceanCityV2Sketch } from "./oceancityv2";
 import { createFishLifeSketch } from "./fishlife";
 import { createChessboardWorldSketch } from "./chessboardworld";
 import { createBloomOfDeliriumSketch } from "./bloomofdelirium";
@@ -27,16 +28,16 @@ import { createChromaticCycleV2Sketch } from "./chromaticcyclev2";
 import { createChromaticCycleV3Sketch } from "./chromaticcyclev3";
 import { createCelestialFragmentsSketch } from "./celestialfragments";
 import { createCornerConvergenceSketch } from "./cornerconvergence";
+import { createLavaVeinsSketch } from "./lavaveins";
 
 export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 
-// 每件作品支援的互動方式，GalleryDetail.tsx 依此組出對應的操作提示文字：
-// - click-regenerate：點一下畫布就重新產生一次構圖（靜態作品的「重製」，或動畫
-//   作品重新洗牌），例如山與月、觸手等等
-// - drag-draw：按住滑鼠拖曳會即時在畫布上畫出筆觸，例如纏繞
-// - keyboard-game：方向鍵／WASD 操控、點擊畫面上的按鈕跟選項開始遊戲，例如迷宮競速
-// - button-game：純滑鼠的回合制遊戲，點擊 START 按鈕開始／進下一輪，例如拳擊混戰
-// - drag-physics：滑鼠可以抓取、拖曳畫面上的物理物件，例如金屬碰撞
+// 每件作品支援的互動方式，GalleryDetail.tsx 依此組出操作提示文字：
+// - click-regenerate：點畫布重新產生構圖（重製或動畫洗牌），例如山與月、觸手
+// - drag-draw：拖曳即時畫出筆觸，例如纏繞
+// - keyboard-game：方向鍵／WASD 操控 + 按鈕開始遊戲，例如迷宮競速
+// - button-game：純滑鼠回合制，點 START 開始／進下一輪，例如拳擊混戰
+// - drag-physics：滑鼠抓取拖曳物理物件，例如金屬碰撞
 export type SketchInteraction =
   | "click-regenerate"
   | "drag-draw"
@@ -46,41 +47,37 @@ export type SketchInteraction =
 
 export interface SketchEntry {
   factory: SketchFactory;
-  // 容器寬高比（width / height），決定展場聚光燈容器要留多大的框給這件作品
+  // 容器寬高比（width / height），決定展場聚光燈容器留多大的框
   aspect: number;
   interactions: SketchInteraction[];
-  // 「按下 S 儲存目前畫面」是大部分作品共通的操作，預設鍵是 S；迷宮競速的 S
-  // 被 WASD 移動占用了，所以改用 H，這裡讓每件作品能覆寫自己實際綁定的鍵。
+  // 「按 S 儲存畫面」預設鍵是 S；迷宮競速的 S 被 WASD 占用，改用 H，
+  // 這裡讓每件作品能覆寫實際綁定的鍵。
   saveKey?: string;
-  // 畫面會自己持續變化、不用任何操作就值得留著看的作品：draw() 每幀都在跑，
-  // 而且沒有明確的終止或收斂狀態（跟「畫一次就凍結、靠點擊重製才會變」的
-  // click-regenerate 作品不同）。GalleryGrid.tsx 依此額外疊加「持續變動」
-  // 篩選標籤，跟 interactions 描述的操作方式是兩件事，可以同時存在
-  // （例如色彩循環系列既能點擊重置，本身也會自己持續演化）。
+  // 不用操作就持續變化的作品（draw() 每幀跑、無終止狀態，跟畫一次就凍結的
+  // click-regenerate 不同）。GalleryGrid.tsx 依此疊加「持續變動」篩選標籤，
+  // 跟 interactions 是兩件事，可同時存在（例如色彩循環系列）。
   animated?: boolean;
 }
 
-// 原稿拿 windowWidth/windowHeight 畫滿整個瀏覽器視窗，
-// 截圖是在 1872x906 的視窗下拍的（見 public/images/gallery/）
-// 這裡沿用同一個寬高比，讓構圖比例跟原始效果一致。
+// 原稿拿 windowWidth/windowHeight 畫滿視窗，截圖是在 1872x906 下拍的
+// （見 public/images/gallery/），沿用同一寬高比讓構圖跟原效果一致。
 const WIDESCREEN_ASPECT = 1872 / 906;
 
-// TRII 原稿吃 windowWidth/2 x windowHeight（見對話紀錄），畫面接近正方形。
+// TRII 原稿吃 windowWidth/2 x windowHeight，畫面接近正方形。
 const TRII_ASPECT = 1872 / 2 / 906;
 
-// 污染的畫布跟著素材圖 ocean.png 的原始尺寸（1440x648，見
-// public/images/gallery/pollute/），不是滿版視窗。
+// 污染的畫布跟著素材圖 ocean.png 原始尺寸（1440x648），不是滿版視窗。
 const POLLUTE_ASPECT = 1440 / 648;
 
-// 迷宮競速跟 RPS 的原稿都吃固定 1800x900 的畫布（見 mazeracing.ts、rps.ts）。
+// 迷宮競速跟 RPS 原稿都吃固定 1800x900 畫布。
 const MAZE_ASPECT = 1800 / 900;
 
-// 天體碎片的原稿也是滿版視窗，但截圖是在 1912x897 下拍的（見
-// public/images/gallery/），跟 WIDESCREEN_ASPECT 不同，另外訂一個比例常數。
+// 天體碎片原稿也是滿版視窗，但截圖是 1912x897，跟 WIDESCREEN_ASPECT 不同，
+// 另訂一個比例常數；熔岩地脈截圖同尺寸，一併沿用。
 const CELESTIAL_FRAGMENTS_ASPECT = 1912 / 897;
 
-// slug -> instance-mode sketch factory + 容器寬高比。之後每移植一件作品，就在
-// 這裡加一筆映射；沒有對應項目的作品維持原本的靜態截圖展示（見 GalleryDetail.tsx）。
+// slug -> instance-mode sketch factory + 容器寬高比。之後移植新作品在這裡加一筆
+// 映射，沒有對應項目的作品維持靜態截圖展示（見 GalleryDetail.tsx）。
 const sketches: Record<string, SketchEntry> = {
   entanglement: {
     factory: (width) => createEntanglementSketch(width),
@@ -148,6 +145,12 @@ const sketches: Record<string, SketchEntry> = {
     factory: (width) => createOceanCitySketch(width),
     aspect: 1,
     interactions: ["click-regenerate"],
+  },
+  ocean_city_v2: {
+    factory: (width) => createOceanCityV2Sketch(width),
+    aspect: 1,
+    interactions: ["drag-draw"],
+    animated: true,
   },
   Fish_Life: {
     factory: (width) => createFishLifeSketch(width),
@@ -230,6 +233,12 @@ const sketches: Record<string, SketchEntry> = {
     factory: (width) => createCornerConvergenceSketch(width),
     aspect: 1,
     interactions: ["click-regenerate"],
+  },
+  lava_veins: {
+    factory: createLavaVeinsSketch,
+    aspect: CELESTIAL_FRAGMENTS_ASPECT,
+    interactions: ["drag-draw"],
+    animated: true,
   },
 };
 

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import WeatherBox from "../../../components/WeatherBox";
+import TextLink from "../../../components/TextLink";
 import { useTranslation } from "../../../i18n/useTranslation";
 import styles from "./WeatherBoxPage.module.scss";
 
@@ -8,9 +8,9 @@ export default function WeatherBoxPage() {
 
   return (
     <div className={styles.page}>
-      <Link to="/playground/mini-works" className={styles.back}>
+      <TextLink to="/playground/mini-works" restoreScroll className={styles.back}>
         {t.playground.miniWorks.backToList}
-      </Link>
+      </TextLink>
       <WeatherBox />
       <p className={styles.caption}>
         {t.playground.miniWorks.weatherBoxCaption}

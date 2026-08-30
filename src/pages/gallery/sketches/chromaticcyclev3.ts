@@ -1,16 +1,14 @@
 import type p5 from "p5";
 
-// 原稿存檔檔名是 Chromatic_Infection_v3，是六色版感染型元胞
-// 自動機：格子只鋪在畫布中央的圓形範圍內（半徑 canvasSize*0.45），圓外的格
-// 子狀態固定為 -1、不參與演化也不繪製。canvasSize／cellSize 的縮放邏輯跟
-// v1、v2 一樣（k = size / REFERENCE_SIZE），圓形半徑跟著等比例縮放。
+// 原稿存檔檔名 Chromatic_Infection_v3，六色感染型元胞自動機：格子只鋪在
+// 畫布中央圓形範圍內（半徑 canvasSize*0.45），圓外狀態固定 -1 不演化。
+// 縮放邏輯同 v1/v2（k = size / REFERENCE_SIZE），圓形半徑等比例縮放。
 //
-// 跟 v1／v2 的鄰域計數投票不同，這版每格每輪只用 Perlin noise 選一個方向
-// （8 個方向對應 noise 值切成 8 段），去看該方向鄰居是否剋制自己
-// （(attacker+1) % 6 === defender），剋制就被感染。noise 的 z 軸用
-// frameCount * noiseSpeed 推進，維持原稿的參數。
+// 跟 v1/v2 的鄰域計數投票不同，這版用 Perlin noise 選方向（8 段對應 8 個
+// 方向），該方向鄰居剋制自己（(attacker+1) % 6 === defender）就被感染。
+// noise z 軸用 frameCount * noiseSpeed 推進，維持原稿參數。
 //
-// 原稿只有 R 鍵手動重灑，這裡比照其他 Chromatic 系列加上點擊畫布重置。
+// 原稿只有 R 鍵重灑，這裡加上點擊畫布重置。
 const REFERENCE_SIZE = 900;
 
 const COLORS = [

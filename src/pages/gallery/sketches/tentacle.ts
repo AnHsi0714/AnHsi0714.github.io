@@ -1,14 +1,11 @@
 import type p5 from "p5";
 
-// 原稿「觸手」用 windowWidth/windowHeight 畫滿整個瀏覽器視窗、且沒有 draw()，
-// 只在 setup() 畫一次靜態構圖（見對話紀錄）；改寫成 instance mode，
-// width/height 從外部傳入。
+// 原稿用 windowWidth/windowHeight 畫滿視窗、無 draw()，只在 setup() 畫一次
+// 靜態構圖；改寫成 instance mode，width/height 從外部傳入。
 //
-// 原稿的點位間距（100px 一格，最遠到 1700px）、半徑範圍（150~200px）等都是
-// 針對「視窗寬度 ~1872px」寫死的絕對像素值，不是 width 的比例。展場的畫布上限
-// 通常遠小於 1872px，直接照搬會讓大半構圖畫在看不到的畫布外（觸手看起來只剩
-// 一小角）。這裡統一乘上 k = width / REFERENCE_WIDTH，把所有「絕對像素」常數
-// 等比例縮小，讓構圖不管畫布多大都保持原本的相對比例。
+// 點位間距（100px 一格）、半徑範圍（150~200px）是針對「視窗寬度 ~1872px」
+// 寫死的絕對像素值，展場畫布通常小很多，直接照搬會讓構圖大半畫到看不見的
+// 畫布外。統一乘上 k = width / REFERENCE_WIDTH 等比例縮小維持相對比例。
 const REFERENCE_WIDTH = 1872;
 
 export function createTentacleSketch(width: number, height: number) {
@@ -63,9 +60,8 @@ export function createTentacleSketch(width: number, height: number) {
       p.blendMode(p.DIFFERENCE);
       drawTentacle();
 
-      // 原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
-      // 綁在 canvas 元素本身（而非 p.mousePressed），這樣只有點在畫布內才會
-      // 重新跑一次 drawTentacle() 換一組新的觸手構圖，點畫布外的頁面不會誤觸。
+      // 加上點擊重製：綁在 canvas 元素（而非 p.mousePressed）避免點畫布外
+      // 誤觸，重新跑 drawTentacle() 換一組新觸手構圖。
       canvas.mousePressed(() => {
         drawTentacle();
       });

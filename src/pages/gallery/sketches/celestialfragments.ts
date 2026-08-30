@@ -1,16 +1,13 @@
 import type p5 from "p5";
 
-// 原稿「天體碎片」用 windowWidth/windowHeight 畫滿整個瀏覽器視窗、靠
-// windowResized() 在視窗改變大小時重新 generate()（見對話紀錄，截圖是在
-// 1912x897 下拍的）；改寫成 instance mode，width/height 從外部傳入、容器大小
-// 固定，不需要監聽 resize。
+// 原稿用 windowWidth/windowHeight 畫滿視窗，靠 windowResized() 重新
+// generate()；改寫成 instance mode，width/height 固定傳入，不需監聽 resize。
 //
-// 多邊形的位置、半徑都已經是用 width/height 的比例算出來的，天生就會跟著
-// 容器等比例縮放；只有描邊粗細（2px）跟頂點圓點直徑（7px）、還有每個頂點的
-// 漂移速度（±0.5px/frame）是原稿針對「視窗寬度 ~1912px」寫死的絕對像素值，
-// 統一乘上 k = width / REFERENCE_WIDTH 等比例縮小。
+// 多邊形位置、半徑用比例計算會自動跟著縮放；只有描邊粗細（2px）、頂點圓點
+// 直徑（7px）、漂移速度（±0.5px/frame）是針對「視窗寬度 ~1912px」寫死的
+// 絕對像素值，乘上 k = width / REFERENCE_WIDTH 等比例縮小。
 //
-// 原稿只有 R 鍵手動重製，這裡比照專案其他作品加上點擊畫布重製。
+// 原稿只有 R 鍵重製，這裡加上點擊畫布重製。
 const REFERENCE_WIDTH = 1912;
 
 const POLYGON_COUNT = 12;

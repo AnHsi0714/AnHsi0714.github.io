@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCanadianMapleLeaf } from "@fortawesome/free-brands-svg-icons";
+import TextLink from "./TextLink";
+import { useTranslation } from "../i18n/useTranslation";
 import styles from "./BrandStyleGuide.module.scss";
 
 const COLOR_CHIPS = [
@@ -52,8 +54,13 @@ function GuideSection({ theme }: { theme: string }) {
 }
 
 export default function BrandStyleGuide() {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.page}>
+      <TextLink to="/playground/mini-works" restoreScroll className={styles.back}>
+        {t.playground.miniWorks.backToList}
+      </TextLink>
       <div className={styles.header}>
         <FontAwesomeIcon icon={faCanadianMapleLeaf} className={styles.icon} />
       </div>

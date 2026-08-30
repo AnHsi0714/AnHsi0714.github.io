@@ -208,7 +208,7 @@ export default function Projects() {
             <div className="flex flex-wrap items-end gap-4">
               <Input
                 label={t.common.searchTitle}
-                placeholder={t.common.titleKeywordPlaceholder}
+                placeholder={t.common.keywordPlaceholder}
                 value={titleQuery}
                 onChange={(event) => setTitleQuery(event.target.value)}
                 className="w-40"
@@ -309,7 +309,7 @@ export default function Projects() {
         </div>
       ) : (
         <>
-          {featuredProjects.length > 0 && (
+          {featuredProjects.length > 0 && featuredFilter !== "featured" && (
             <div className="mt-8">
               <p className="font-semibold text-[var(--color-primary)]">
                 {t.projects.featuredSectionTitle}

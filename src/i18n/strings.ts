@@ -46,7 +46,7 @@ export interface Strings {
   common: {
     filterSort: string;
     searchTitle: string;
-    titleKeywordPlaceholder: string;
+    keywordPlaceholder: string;
     startMonth: string;
     endMonth: string;
     startDate: string;
@@ -123,6 +123,12 @@ export interface Strings {
   articles: {
     title: string;
     subtitle: string;
+    sectionAll: string;
+    sectionAcademic: string;
+    sectionTechnical: string;
+    sectionReading: string;
+    sectionNotes: string;
+    searchLabel: string;
     minRating: string;
     unlimited: string;
     andAbove: string;
@@ -317,7 +323,7 @@ export const strings: Record<"zh" | "en", Strings> = {
     common: {
       filterSort: "篩選 / 排序",
       searchTitle: "搜尋標題",
-      titleKeywordPlaceholder: "輸入標題關鍵字",
+      keywordPlaceholder: "輸入關鍵字",
       startMonth: "起始月份",
       endMonth: "結束月份",
       startDate: "起始日期",
@@ -349,7 +355,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       quickLinkExperience: "經歷",
       quickLinkExperienceDesc: "競賽、實習與教學經歷",
       quickLinkArticles: "文章",
-      quickLinkArticlesDesc: "讀書筆記與心得整理",
+      quickLinkArticlesDesc: "學術筆記、技術文章與讀書心得",
       quickLinkGallery: "生成視覺",
       quickLinkGalleryDesc: "p5.js 互動式創作",
       quickLinkProjects: "全部專案",
@@ -397,7 +403,14 @@ export const strings: Record<"zh" | "en", Strings> = {
     },
     articles: {
       title: "文章",
-      subtitle: "讀過的書、寫下的筆記與心得。",
+      subtitle:
+        "學術筆記展現文獻評析能力，技術文章證明工程硬實力，讀書心得補上思考的人文向度。",
+      sectionAll: "全部",
+      sectionAcademic: "學術",
+      sectionTechnical: "技術",
+      sectionReading: "讀書心得",
+      sectionNotes: "雜記",
+      searchLabel: "搜尋標題或標籤",
       minRating: "最低評分",
       unlimited: "不限",
       andAbove: " 以上",
@@ -598,7 +611,7 @@ export const strings: Record<"zh" | "en", Strings> = {
     common: {
       filterSort: "Filter / Sort",
       searchTitle: "Search title",
-      titleKeywordPlaceholder: "Enter a keyword",
+      keywordPlaceholder: "Enter a keyword",
       startMonth: "From month",
       endMonth: "To month",
       startDate: "From date",
@@ -632,7 +645,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       quickLinkExperience: "Experience",
       quickLinkExperienceDesc: "Competitions, internships, and teaching",
       quickLinkArticles: "Articles",
-      quickLinkArticlesDesc: "Reading notes and reflections",
+      quickLinkArticlesDesc:
+        "Academic notes, technical writeups, and reading reflections",
       quickLinkGallery: "Generative Visuals",
       quickLinkGalleryDesc: "Interactive p5.js creations",
       quickLinkProjects: "All Projects",
@@ -681,7 +695,14 @@ export const strings: Record<"zh" | "en", Strings> = {
     },
     articles: {
       title: "Articles",
-      subtitle: "Books I have read, notes and reflections I have written.",
+      subtitle:
+        "Academic notes show how I read and evaluate research, technical writeups show engineering depth, and reading reflections add the humanities side a CS curriculum leaves out.",
+      sectionAll: "All",
+      sectionAcademic: "Academic",
+      sectionTechnical: "Technical",
+      sectionReading: "Reading Reflections",
+      sectionNotes: "Notes",
+      searchLabel: "Search title or tag",
       minRating: "Min. rating",
       unlimited: "Any",
       andAbove: "+ and above",

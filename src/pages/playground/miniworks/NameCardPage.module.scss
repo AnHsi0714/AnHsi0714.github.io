@@ -1,4 +1,4 @@
-@use '../../../styles/mixins' as *;
+@use "../../../styles/mixins" as *;
 
 // 還原原稿 CodePen 整頁的樣子（深藍底 + 上下橘色邊框），跳出 App.tsx 裡
 // <main class="max-w-5xl px-4 py-8"> 的容器限制做滿版效果。寫法跟 gallery
@@ -24,9 +24,12 @@
   top: 32px;
   left: 24px;
   font-size: 14px;
+}
+
+// 用 .page .back（雙層 class）拉高優先度，蓋過 TextLink 自己的 .link 顏色。
+.page .back {
   color: #ffecdb;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration-color: #ffecdb;
 }
 
 .caption {

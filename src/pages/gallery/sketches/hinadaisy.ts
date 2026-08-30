@@ -1,16 +1,15 @@
 import type p5 from "p5";
 
-// 原稿「雛」吃固定 900x900 的正方形畫布，改寫成 instance mode，size 從外部
-// 傳入。原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
-// 綁在 canvas 元素本身，點畫布內重新洗一次背景色跟花朵排列；雜訊材質圖
-// （noiseimg）跟 bat/moontain 一樣只在 setup() 建一次、重製時直接重複使用，
-// 不用每次點擊都重算。
+// 原稿「雛」吃固定 900x900 畫布，改寫成 instance mode，size 從外部傳入。原稿
+// 只在 setup() 畫一次靜態構圖，這裡加上點擊重製：綁在 canvas 元素本身，重新
+// 洗一次背景色跟花朵排列；雜訊材質圖（noiseimg）跟 bat/moontain 一樣只在
+// setup() 建一次，重製時直接重複使用不重算。
 //
-// 原稿的花朵大小（75px）、花瓣中心偏移量（20px）、格線位移（20px/25px）、
-// 花心圓點大小（20px）都是針對「900px 見方」寫死的絕對像素值，統一乘上
-// k = size / REFERENCE_SIZE 等比例縮放；雜訊材質的取樣步距（2px）、noise()
-// 頻率除數（10、100）沿用其他作品的既有慣例不額外縮放，因為那只影響取樣密度
-// 跟顆粒頻率的相對比例，不是實際畫面距離。
+// 花朵大小（75px）、花瓣中心偏移量（20px）、格線位移（20px/25px）、花心圓點
+// 大小（20px）是針對「900px 見方」寫死的像素值，乘上 k = size / REFERENCE_SIZE
+// 縮放；雜訊材質的取樣步距（2px）、noise() 頻率除數（10、100）沿用其他作品
+// 既有慣例不額外縮放，因為那只影響取樣密度與顆粒頻率的相對比例，不是實際
+// 畫面距離。
 const REFERENCE_SIZE = 900;
 
 export function createHinaDaisySketch(size: number) {
@@ -96,9 +95,8 @@ export function createHinaDaisySketch(size: number) {
       generateScene();
       p.image(noiseimg, 0, 0);
 
-      // 原稿只在 setup() 畫一次靜態構圖，這裡加上點擊重製：綁在 canvas 元素
-      // 本身（而非 p.mousePressed），這樣只有點在畫布內才會重新洗一次背景色
-      // 跟花朵構圖，雜訊材質圖沿用同一份不重算。
+      // 點擊重製：綁在 canvas 元素本身，重新洗一次背景色跟花朵構圖，雜訊
+      // 材質圖沿用同一份不重算。
       canvas.mousePressed(() => {
         drawBackground();
         generateScene();

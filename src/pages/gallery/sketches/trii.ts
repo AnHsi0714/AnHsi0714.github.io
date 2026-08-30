@@ -1,12 +1,10 @@
 import type p5 from "p5";
 
-// 原稿「TRII」用 windowWidth/2 x windowHeight 的畫布（見對話紀錄），且只在
-// setup() 畫一次靜態構圖，沒有 draw()；改寫成 instance mode，width/height
-// 從外部傳入。
+// 原稿「TRII」用 windowWidth/2 x windowHeight 的畫布，只在 setup() 畫一次靜態
+// 構圖、無 draw()；改寫成 instance mode，width/height 從外部傳入。
 //
-// 原稿的位移量（±200px）、三角形大小（10~250px）都是針對「畫布寬 ~936px
-// （視窗寬度 1872px 的一半）」寫死的絕對像素值，統一乘上
-// k = width / REFERENCE_WIDTH 等比例縮小。
+// 位移量（±200px）、三角形大小（10~250px）是原稿針對「畫布寬 ~936px（視窗寬
+// 1872px 的一半）」寫死的像素值，統一乘上 k = width / REFERENCE_WIDTH 等比例縮小。
 const REFERENCE_WIDTH = 1872 / 2;
 
 export function createTRIISketch(width: number, height: number) {
@@ -52,9 +50,8 @@ export function createTRIISketch(width: number, height: number) {
       p.background("#333");
       drawTRII();
 
-      // 原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
-      // 綁在 canvas 元素本身（而非 p.mousePressed），這樣只有點在畫布內才會
-      // 重新跑一次 drawTRII() 換一組新的三角形排列，點畫布外的頁面不會誤觸。
+      // 加上點擊重製：綁在 canvas 元素上（而非 p.mousePressed）避免點畫布外誤觸，
+      // 重新跑 drawTRII() 換一組新的三角形排列。
       canvas.mousePressed(() => {
         drawTRII();
       });

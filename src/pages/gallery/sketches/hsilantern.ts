@@ -1,15 +1,13 @@
 import type p5 from "p5";
 
-// 原稿「西瓜燈」原本吃固定 900x900 的正方形畫布（見對話紀錄，windowWidth/
-// windowHeight 那行是被註解掉的舊版殘留）；改寫成 instance mode，size 從外部
-// 傳入。原稿只在 setup() 生一次西瓜圖案跟畫一次場景（noLoop() + 沒有互動），
-// 這裡加上點擊重製：綁在 canvas 元素本身，點畫布內重新生一顆全新的西瓜燈
-// （新的條紋色、切口高度、牙齒數、背景色）。
+// 原稿「西瓜燈」吃固定 900x900 畫布（windowWidth/windowHeight 是舊版註解
+// 殘留），改寫成 instance mode，size 從外部傳入。原稿只在 setup() 生一次西瓜
+// 圖案（noLoop() 無互動），這裡加上點擊重製：綁在 canvas 元素本身，重新生一顆
+// 全新西瓜燈（新條紋色、切口高度、牙齒數、背景色）。
 //
-// 原稿的條紋間距（10~15px）、寬度（10~60px）、波浪取樣步距與振幅（10px/5px）、
-// 蒂頭線寬（8px）跟彎曲控制點偏移（20~40px）、發光模糊半徑（60px）都是針對
-// 「900px 見方」寫死的絕對像素值，統一乘上 k = size / REFERENCE_SIZE 等比例
-// 縮放；眼睛、鼻子、嘴巴則原稿就是用半徑 r 的比例算的，不需要額外縮放。
+// 條紋間距（10~15px）、寬度（10~60px）、波浪振幅、蒂頭線寬與彎曲偏移、發光
+// 模糊半徑都是針對「900px 見方」寫死的像素值，乘上 k = size / REFERENCE_SIZE
+// 縮放；眼睛、鼻子、嘴巴用半徑 r 的比例算，不需額外縮放。
 const REFERENCE_SIZE = 900;
 
 interface WatermelonMask extends p5.Graphics {
@@ -51,8 +49,7 @@ export function createHsiLanternSketch(size: number) {
       const startAngle = side === -1 ? p.QUARTER_PI : -p.QUARTER_PI;
       const endAngle = side === -1 ? p.PI + p.QUARTER_PI : p.PI - p.QUARTER_PI;
 
-      // 眼睛底色（黑）、放大一圈的黃色光暈、再蓋一次黑色縮回原本大小，
-      // 露出邊緣那圈黃光。
+      // 黑底、放大一圈黃色光暈、再蓋一次黑色縮回原尺寸，露出邊緣黃光。
       for (const [glow, sizeScale] of [
         [false, 1],
         [true, 1.2],

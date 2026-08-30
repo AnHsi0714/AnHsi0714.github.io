@@ -1,29 +1,26 @@
 import type p5 from "p5";
 import Matter from "matter-js";
 
-// 原稿「金屬碰撞」用 Matter.js 做 2D 物理：每 20 幀從畫面上方隨機位置掉下一個
-// 3~7 邊的多邊形（HSB 色相跟著出生的 x 位置走），落在地板跟左右牆圍成的池子裡
-// 互相碰撞堆疊；每個多邊形帶一顆跟著旋轉的半圓眼睛，滑鼠可以抓取拖曳，被抓住
-// 的方塊變灰色、眼睛瞪成全圓。
+// 原稿「金屬碰撞」用 Matter.js 做 2D 物理：每 20 幀從上方隨機位置掉下一個 3~7 邊
+// 多邊形（HSB 色相跟出生 x 位置走），落進地板跟左右牆圍成的池子裡堆疊碰撞；每個
+// 多邊形帶一顆跟著旋轉的半圓眼睛，滑鼠可抓取拖曳，被抓住的方塊變灰、眼睛瞪成全圓。
 //
-// 原稿是在 OpenProcessing 用 <script> 注入 CDN 的 matter-js 0.20.0，這裡改成
-// npm 套件正常 import。實際驅動物理的是 draw() 裡的 Engine.update()，移植時只保留後者。
-// 原稿吃 windowWidth/windowHeight 滿版視窗，多邊形尺寸（40/60/80）、牆厚
-// （60px）、眼睛（30/10px）都是絕對像素值，統一乘上 k = width / REFERENCE_WIDTH
-// 等比例縮放。
+// 原稿在 OpenProcessing 用 <script> 注入 CDN 版 matter-js，這裡改用 npm 套件
+// import，只保留實際驅動物理的 draw() 裡 Engine.update()。原稿吃 windowWidth/
+// windowHeight 滿版視窗，多邊形、牆厚、眼睛尺寸都是絕對像素值，統一乘上
+// k = width / REFERENCE_WIDTH 等比例縮放。
 const REFERENCE_WIDTH = 1872;
 
-// Matter.Body 上另外掛了顏色跟尺寸兩個自訂欄位（原稿直接往 body 塞屬性），
-// outFrames 是移植加的：這顆方塊連續待在畫布外的幀數。
+// Matter.Body 掛的自訂欄位：color/sz 沿用原稿直接塞屬性的做法，outFrames 是
+// 移植加的，記錄方塊連續待在畫布外的幀數。
 type EyeBody = Matter.Body & {
   color?: p5.Color;
   sz?: number;
   outFrames?: number;
 };
 
-// 被滑鼠甩出左右牆外的方塊會一路往下掉、永遠留在引擎裡白白吃效能，堆太高
-// 冒出畫面頂端的也一樣。連續出界超過這個幀數（60fps 下約 2 秒）就從物理世界
-// 跟繪製清單裡移除；正被滑鼠抓著的不算，拖出去再拖回來是正常操作。
+// 被甩出牆外或堆到冒出頂端的方塊會一路留在引擎裡白白吃效能。連續出界超過此幀數
+// （60fps 下約 2 秒）就從物理世界跟繪製清單移除；正被滑鼠抓著的不算。
 const OUT_OF_BOUNDS_LIMIT = 120;
 
 export function createMetalCollisionSketch(width: number, height: number) {
@@ -76,9 +73,8 @@ export function createMetalCollisionSketch(width: number, height: number) {
       );
       engine = Engine.create();
 
-      // p5 的 canvas 內部像素是 CSS 尺寸乘上 pixelDensity，Matter 的 Mouse 換算
-      // 座標時要知道這個比例（讀 data-pixel-ratio 屬性），不設的話在 hiDPI 螢幕
-      // 上抓取位置會整個偏掉。
+      // canvas 內部像素是 CSS 尺寸乘上 pixelDensity，Matter Mouse 換算座標要靠
+      // data-pixel-ratio 屬性讀這個比例，不設在 hiDPI 螢幕上抓取位置會偏掉。
       canvas.elt.setAttribute("data-pixel-ratio", String(p.pixelDensity()));
       const mouse = Mouse.create(canvas.elt);
       mouseConstraint = MouseConstraint.create(engine, { mouse });
@@ -98,8 +94,8 @@ export function createMetalCollisionSketch(width: number, height: number) {
       }
       Matter.Engine.update(engine);
 
-      // 出界過久的方塊移除（見 OUT_OF_BOUNDS_LIMIT 的說明）。出界的判斷放寬
-      // 一顆最大方塊的距離，讓在邊緣彈跳、探頭的不會被誤殺。
+      // 出界過久的方塊移除（見 OUT_OF_BOUNDS_LIMIT）。判斷放寬一顆最大方塊的
+      // 距離，避免邊緣彈跳、探頭的被誤殺。
       const outMargin = 80 * k;
       for (let i = boxes.length - 1; i >= 0; i--) {
         const box = boxes[i];

@@ -1,14 +1,13 @@
 import type p5 from "p5";
 
-// 原稿「色彩循環 v2」是六色版的「剪刀石頭布」元胞自動機（原稿存檔檔名是
-// Chromatic_Clash_v2，見對話紀錄），在 v1 的基礎上加了隨機突變
-// （mutationRate）、變色是否真的成立的機率（changeRate），並讓細胞自身在
-// 鄰域計數中權重加倍，畫面演化得比 v1 更緩慢、更抗噪。canvasSize／cellSize
-// 的縮放邏輯跟 v1 一樣（k = size / REFERENCE_SIZE）。原稿沒有呼叫
+// 原稿「色彩循環 v2」是六色版的「剪刀石頭布」元胞自動機（原稿存檔檔名
+// Chromatic_Clash_v2），在 v1 基礎上加了隨機突變（mutationRate）、變色機率
+// （changeRate），並讓細胞自身在鄰域計數中權重加倍，演化得比 v1 更緩慢抗噪。
+// canvasSize／cellSize 縮放邏輯同 v1（k = size / REFERENCE_SIZE）。原稿沒呼叫
 // frameRate()，維持 p5 預設值。
 //
-// 原稿用 R 鍵手動重灑隨機色彩、跳出目前的演化僵局，這裡額外把同一個重置
-// 動作也綁到點擊畫布上（比照「色彩循環」v1 與「爆發」的做法），R 鍵仍然保留。
+// 原稿用 R 鍵手動重灑色彩跳出演化僵局，這裡額外把同一動作綁到點擊畫布上
+// （比照 v1 與「爆發」），R 鍵仍保留。
 const REFERENCE_SIZE = 900;
 
 const COLORS = [

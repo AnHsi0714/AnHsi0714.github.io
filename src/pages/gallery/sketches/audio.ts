@@ -1,16 +1,12 @@
 import type p5 from "p5";
 
-// 原稿「音頻」用 windowWidth/windowHeight 畫滿整個瀏覽器視窗、且沒有 draw()，
-// 只在 setup() 畫一次靜態構圖（見對話紀錄）；改寫成 instance mode，
-// width/height 從外部傳入。
+// 原稿用 windowWidth/windowHeight 畫滿視窗、無 draw()，只在 setup() 畫一次
+// 靜態構圖；改寫成 instance mode，width/height 從外部傳入。
 //
-// 原稿的半徑成長範圍（10~140px）、水平偏移量（20~35px／次）都是針對「視窗寬度
-// ~1872px」寫死的絕對像素值。半徑成長很慢（rrate=1.005，要跑約 500 次迴圈才到
-// 140px），水平偏移累積下來達數千像素，遠超過展場畫布的寬度——在原尺寸視窗下
-// 這個形狀本來就會畫出視窗外，只有中段落在畫面內；但展場畫布比原視窗窄很多，
-// 同樣的絕對位移換算下來，畫面內能看到的比例就變得更小、更像「兩側被裁掉」。
-// 統一乘上 k = width / REFERENCE_WIDTH 把這些絕對像素常數等比例縮小，維持跟
-// 原稿相同的相對可見比例。
+// 半徑成長範圍（10~140px）、水平偏移量（20~35px／次）是針對「視窗寬度
+// ~1872px」寫死的絕對像素值，累積位移遠超展場畫布寬度，畫面內可見比例會
+// 變小、像兩側被裁掉。統一乘上 k = width / REFERENCE_WIDTH 等比例縮小維持
+// 原本可見比例。
 const REFERENCE_WIDTH = 1872;
 
 export function createAudioSketch(width: number, height: number) {
@@ -94,9 +90,8 @@ export function createAudioSketch(width: number, height: number) {
       p.textFont("Times New Roman", 500);
       audio1();
 
-      // 原稿只在 setup() 畫一次靜態構圖（見對話紀錄），這裡加上點擊重製：
-      // 綁在 canvas 元素本身（而非 p.mousePressed），這樣只有點在畫布內才會
-      // 重新跑一次 audio1() 換一組新的波形構圖，點畫布外的頁面不會誤觸。
+      // 加上點擊重製：綁在 canvas 元素（而非 p.mousePressed）避免點畫布外
+      // 誤觸，重新跑 audio1() 換一組新構圖。
       canvas.mousePressed(() => {
         audio1();
       });

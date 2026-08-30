@@ -356,5 +356,27 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2994004",
     "description": "從四個角落出發，依照固定的節點間距向相鄰邊延伸線條。四組線條在畫面中彼此交錯，形成具有方向性、節奏感與視覺張力的幾何結構。"
+  },
+  {
+    "slug": "ocean_city_v2",
+    "title": "海底城市v2",
+    "date": "260828",
+    "images": [
+      "/images/gallery/Ocean_City_v2.png",
+      "/images/gallery/Ocean_City_v21.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2996802",
+    "description": "被海洋淹沒的城市，窗戶卻依然亮著：魚群成了新住戶，在建築間漫游，自動辨認最近的飼料游過去進食，吃多了還會慢慢長大。按住滑鼠拖曳灑下飼料就能餵食，氣泡則從底部不斷浮起，讓整座城市多了呼吸感。"
+  },
+  {
+    "slug": "lava_veins",
+    "title": "熔岩地脈",
+    "date": "260830",
+    "images": [
+      "/images/gallery/Lava_Veins0.png",
+      "/images/gallery/Lava_Veins1.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2997742",
+    "description": "以細胞自動機演化出洞穴般的岩石地貌：隨機生成的牆壁反覆比對鄰居數量，逐漸凝聚出自然的洞穴輪廓。地貌成形後，點一下滑鼠可注入一滴岩漿，岩漿依黏度緩緩下墜，被擋住時改往左右斜下流動，再受阻就向兩側滿溢，像血管一樣在岩層間蔓延；按住滑鼠拖曳則能挖出地道，讓岩漿改道流動。"
   }
 ]

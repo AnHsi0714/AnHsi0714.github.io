@@ -1,8 +1,8 @@
 import type p5 from "p5";
 
-// 原稿「交錯格紋」是 global mode 且沒有 draw()，只在 setup() 畫一次靜態構圖；
-// 改寫成 instance mode，size 從外部傳入。背景色原本只在 setup() 選一次
-// 把它併進 drawPlaid()，讓點擊重製時背景色也會跟著格紋色組、線條排列一起換新。
+// 原稿「交錯格紋」是 global mode 且無 draw()，只在 setup() 畫一次靜態構圖；
+// 改寫成 instance mode，size 從外部傳入。背景色原本只在 setup() 選一次，
+// 併進 drawPlaid() 後點擊重製時會跟格紋色組、線條排列一起換新。
 
 export function createPlaidSketch(size: number) {
   return (p: p5) => {
@@ -49,9 +49,8 @@ export function createPlaidSketch(size: number) {
       const canvas = p.createCanvas(size, size);
       drawPlaid();
 
-      // 原稿只在 setup() 畫一次靜態構圖，這裡加上點擊重製：綁在 canvas 元素本身，
-      // 這樣只有點在畫布內才會重新跑一次 drawPlaid() 換一組新的背景色、格紋色組
-      // 與線條排列，點畫布外的頁面不會誤觸。
+      // 加上點擊重製：綁在 canvas 元素上避免點畫布外誤觸，重新跑 drawPlaid()
+      // 換一組新的背景色、格紋色組與線條排列。
       canvas.mousePressed(() => {
         drawPlaid();
       });
