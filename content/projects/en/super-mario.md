@@ -13,7 +13,7 @@ The player controls Mario as he runs and jumps through the game world toward the
 Genre: 2D side-scroller
 Content: The original game's levels 1-1, 1-2, and 1-3
 
-Controls: arrow keys to move, Shift to run/shoot fireballs, A for invincibility, Enter to skip levels/start, Up for a full jump, Space for a short jump.
+Controls: Left/Right arrows to move, Up for a full jump, Space for a short jump, Down to crouch (once grown), Shift to run/shoot fireballs, Enter to start the game or skip to the next level, A for invincibility, Esc to quit.
 
 ### Team Division of Labor
 
@@ -105,6 +105,10 @@ Levels also contain items that help the player, such as mushrooms, fire flowers,
 
 Encapsulation, inheritance,<br>
 <span data-term="function-overload">Function Overload</span>
+
+### Later Refactoring
+
+After the project was submitted, we kept refactoring the code, extracting shared logic for animation, collision detection, and platform movement into reusable functions, and unifying the base classes for enemies and items to keep the codebase leaner and easier to maintain.
 
 ## Conclusion
 
