@@ -208,7 +208,7 @@ export default function Projects() {
             <div className="flex flex-wrap items-end gap-4">
               <Input
                 label={t.common.searchTitle}
-                placeholder={t.common.titleKeywordPlaceholder}
+                placeholder={t.common.keywordPlaceholder}
                 value={titleQuery}
                 onChange={(event) => setTitleQuery(event.target.value)}
                 className="w-40"

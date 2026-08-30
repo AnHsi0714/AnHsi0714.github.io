@@ -1,6 +1,14 @@
-import type { Article, ArticleType } from "../types/content";
+import type { Article, ArticleSection, ArticleType } from "../types/content";
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { deriveExcerpt, parseFrontmatter, parseListField } from "./markdown";
+
+const defaultSectionByType: Record<ArticleType, ArticleSection> = {
+  paper: "academic",
+  journal: "academic",
+  tech: "technical",
+  book: "reading",
+  essay: "reading",
+};
 
 const modules = import.meta.glob("../../content/articles/**/*.md", {
   eager: true,
@@ -18,9 +26,11 @@ function isEnglish(path: string): boolean {
 
 function parseArticle(slug: string, raw: string): Article {
   const { data, body } = parseFrontmatter(raw);
+  const type = (data.type as ArticleType) || "journal";
   return {
     slug,
-    type: (data.type as ArticleType) || "journal",
+    type,
+    section: (data.section as ArticleSection) || defaultSectionByType[type],
     title: data.title ?? slug,
     date: data.date ?? "",
     categories: data.categories ? parseListField(data.categories) : [],

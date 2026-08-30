@@ -7,7 +7,7 @@ import EmptyState from "../../components/EmptyState";
 import Chip from "../../components/Chip";
 import Reveal from "../../components/Reveal";
 import TextLink from "../../components/TextLink";
-import type { Article } from "../../types/content";
+import type { Article, ArticleSection } from "../../types/content";
 import { usePublishedArticles } from "../../lib/articles";
 import { useTranslation } from "../../i18n/useTranslation";
 import type { Strings } from "../../i18n/strings";
@@ -15,6 +15,16 @@ import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 
 type SortOrder = "newest" | "oldest";
 type FeaturedFilter = "all" | "featured" | "not-featured";
+type SectionFilter = "all" | ArticleSection;
+
+const SECTION_FILTERS: { key: SectionFilter; label: (t: Strings) => string }[] =
+  [
+    { key: "all", label: (t) => t.articles.sectionAll },
+    { key: "academic", label: (t) => t.articles.sectionAcademic },
+    { key: "technical", label: (t) => t.articles.sectionTechnical },
+    { key: "reading", label: (t) => t.articles.sectionReading },
+    { key: "notes", label: (t) => t.articles.sectionNotes },
+  ];
 
 export function Stars({ rating, t }: { rating: number; t: Strings }) {
   return (
@@ -22,7 +32,10 @@ export function Stars({ rating, t }: { rating: number; t: Strings }) {
       {Array.from({ length: 5 }, (_, i) => {
         const fill = Math.min(1, Math.max(0, rating - i));
         return (
-          <span key={i} className="relative inline-block text-[var(--color-border)]">
+          <span
+            key={i}
+            className="relative inline-block text-[var(--color-border)]"
+          >
             ★
             {fill > 0 && (
               <span
@@ -75,14 +88,18 @@ export default function Articles() {
   const { t } = useTranslation();
   useDocumentTitle(`${t.articles.title} · AnHsi0714`, t.articles.subtitle);
   const articles = usePublishedArticles();
-  const allCategories = Array.from(
-    new Set(articles.flatMap((article) => article.categories)),
-  );
 
+  const [selectedSection, setSelectedSection] = useState<SectionFilter>("all");
+  const sectionArticles = useMemo(
+    () =>
+      selectedSection === "all"
+        ? articles
+        : articles.filter((article) => article.section === selectedSection),
+    [articles, selectedSection],
+  );
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
   const [titleQuery, setTitleQuery] = useState("");
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [minRating, setMinRating] = useState(0);
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
@@ -103,38 +120,23 @@ export default function Articles() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isFilterOpen]);
 
-  const toggleCategory = (category: string) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((item) => item !== category)
-        : [...prev, category],
-    );
-  };
-
   const activeFilterCount =
     (titleQuery ? 1 : 0) +
-    (selectedCategories.length > 0 ? 1 : 0) +
     (minRating > 0 ? 1 : 0) +
     (dateFrom ? 1 : 0) +
     (dateTo ? 1 : 0) +
     (featuredFilter !== "all" ? 1 : 0);
 
   const filteredArticles = useMemo(() => {
-    return articles
+    return sectionArticles
       .filter((article) => {
-        if (
-          titleQuery &&
-          !article.title.toLowerCase().includes(titleQuery.trim().toLowerCase())
-        ) {
-          return false;
-        }
-        if (
-          selectedCategories.length > 0 &&
-          !article.categories.some((category) =>
-            selectedCategories.includes(category),
-          )
-        ) {
-          return false;
+        if (titleQuery) {
+          const query = titleQuery.trim().toLowerCase();
+          const matchesTitle = article.title.toLowerCase().includes(query);
+          const matchesCategory = article.categories.some((category) =>
+            category.toLowerCase().includes(query),
+          );
+          if (!matchesTitle && !matchesCategory) return false;
         }
         if (minRating > 0 && (article.rating ?? 0) < minRating) return false;
         if (dateFrom && article.date < dateFrom) return false;
@@ -149,9 +151,8 @@ export default function Articles() {
           : a.date.localeCompare(b.date),
       );
   }, [
-    articles,
+    sectionArticles,
     titleQuery,
-    selectedCategories,
     minRating,
     dateFrom,
     dateTo,
@@ -176,7 +177,20 @@ export default function Articles() {
         </TextLink>
       </Reveal>
 
-      <div className="relative mt-6 inline-block" ref={filterRef}>
+      <div className="mt-6 flex flex-wrap gap-2">
+        {SECTION_FILTERS.map(({ key, label }) => (
+          <Chip
+            key={key}
+            clickable
+            selected={selectedSection === key}
+            onClick={() => setSelectedSection(key)}
+          >
+            {label(t)}
+          </Chip>
+        ))}
+      </div>
+
+      <div className="relative mt-4 inline-block" ref={filterRef}>
         <Button
           type="button"
           variant="secondary"
@@ -191,8 +205,8 @@ export default function Articles() {
           <div className="absolute left-0 top-full z-20 mt-2 w-[min(36rem,90vw)] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 shadow-lg">
             <div className="flex flex-wrap items-end gap-4">
               <Input
-                label={t.common.searchTitle}
-                placeholder={t.common.titleKeywordPlaceholder}
+                label={t.articles.searchLabel}
+                placeholder={t.common.keywordPlaceholder}
                 value={titleQuery}
                 onChange={(event) => setTitleQuery(event.target.value)}
                 className="w-40"
@@ -256,19 +270,6 @@ export default function Articles() {
                 value={dateTo}
                 onChange={(event) => setDateTo(event.target.value)}
               />
-            </div>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              {allCategories.map((category) => (
-                <Chip
-                  key={category}
-                  clickable
-                  selected={selectedCategories.includes(category)}
-                  onClick={() => toggleCategory(category)}
-                >
-                  {category}
-                </Chip>
-              ))}
             </div>
 
             <div className="mt-4 flex flex-wrap items-center gap-2">

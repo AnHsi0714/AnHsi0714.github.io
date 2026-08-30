@@ -1,5 +1,6 @@
 ---
 type: journal
+section: notes
 title: 睡多或睡少，怎麼睡最好？影響睡眠的關鍵因子
 date: 2024-04-09
 categories: [科普, 健康, 睡眠]
