@@ -183,7 +183,11 @@ export default function Articles() {
             key={key}
             clickable
             selected={selectedSection === key}
-            onClick={() => setSelectedSection(key)}
+            onClick={() =>
+              setSelectedSection((prev) =>
+                prev === key && key !== "all" ? "all" : key,
+              )
+            }
           >
             {label(t)}
           </Chip>
@@ -287,7 +291,11 @@ export default function Articles() {
                   key={value}
                   clickable
                   selected={featuredFilter === value}
-                  onClick={() => setFeaturedFilter(value)}
+                  onClick={() =>
+                    setFeaturedFilter((prev) =>
+                      prev === value && value !== "all" ? "all" : value,
+                    )
+                  }
                 >
                   {label}
                 </Chip>

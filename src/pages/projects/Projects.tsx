@@ -144,7 +144,7 @@ export default function Projects() {
         }
         if (
           selectedTags.length > 0 &&
-          !project.tags?.some((tag) => selectedTags.includes(tag))
+          !selectedTags.every((tag) => project.tags?.includes(tag))
         ) {
           return false;
         }
@@ -193,7 +193,27 @@ export default function Projects() {
         </TextLink>
       </Reveal>
 
-      <div className="relative mt-6 inline-block" ref={filterRef}>
+      <div className="mt-6 flex flex-wrap gap-2">
+        <Chip
+          clickable
+          selected={selectedTags.length === 0}
+          onClick={() => setSelectedTags([])}
+        >
+          {t.common.filterAll}
+        </Chip>
+        {allTags.map((tag) => (
+          <Chip
+            key={tag}
+            clickable
+            selected={selectedTags.includes(tag)}
+            onClick={() => toggleTag(tag)}
+          >
+            {tag}
+          </Chip>
+        ))}
+      </div>
+
+      <div className="relative mt-4 inline-block" ref={filterRef}>
         <Button
           type="button"
           variant="secondary"
@@ -240,19 +260,6 @@ export default function Projects() {
               ))}
             </div>
 
-            <div className="mt-4 flex flex-wrap gap-2">
-              {allTags.map((tag) => (
-                <Chip
-                  key={tag}
-                  clickable
-                  selected={selectedTags.includes(tag)}
-                  onClick={() => toggleTag(tag)}
-                >
-                  {tag}
-                </Chip>
-              ))}
-            </div>
-
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <span className="text-sm font-medium text-[var(--color-text)]">
                 {t.common.featuredFilterLabel}
@@ -268,7 +275,11 @@ export default function Projects() {
                   key={value}
                   clickable
                   selected={featuredFilter === value}
-                  onClick={() => setFeaturedFilter(value)}
+                  onClick={() =>
+                    setFeaturedFilter((prev) =>
+                      prev === value && value !== "all" ? "all" : value,
+                    )
+                  }
                 >
                   {label}
                 </Chip>

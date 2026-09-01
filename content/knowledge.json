@@ -166,8 +166,92 @@
     "category": "DB",
     "status": "published",
     "relatedProjects": ["silkroad"],
-    "relatedArticles": [],
-    "relatedNodes": []
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [{ "slug": "rails-restful-routing", "type": "related" }]
+  },
+  "prefetch": {
+    "term": "Prefetch（預先載入）",
+    "definition": "在使用者實際需要前，預先載入可能會用到的資源，例如滑鼠移到連結時先載入頁面。因請求可能未被使用，通常只適合套用在不會產生副作用的 Safe 方法。",
+    "application": "HTTP Methods 筆記用 Prefetch 說明為什麼只有 GET 這類 Safe 方法能被瀏覽器放心拿來預先載入：非 Safe 的方法一旦被搶先呼叫，可能造成非預期的資料變動，例如誤觸發一次刪除或扣款。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [{ "slug": "safe", "type": "prerequisite" }]
+  },
+  "safe": {
+    "term": "Safe（安全方法）",
+    "definition": "HTTP 方法的一種特性：呼叫這個方法不會改變 Server 上 Resource 的狀態，單純讀取而已，不會有除了記錄之外的副作用。",
+    "application": "HTTP Methods 筆記用 Safe 分辨哪些方法可以被中間層（Proxy、CDN）快取，甚至被瀏覽器拿去做 Prefetch：只有保證沒有副作用的方法，才能在使用者還沒真的觸發前就先呼叫。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [
+      { "slug": "idempotent", "type": "related" },
+      { "slug": "prefetch", "type": "applies_to" },
+      { "slug": "proxy", "type": "applies_to" },
+      { "slug": "cdn", "type": "applies_to" }
+    ]
+  },
+  "idempotent": {
+    "term": "Idempotent（冪等）",
+    "definition": "HTTP 方法的一種特性：呼叫一次和呼叫多次，Resource 最終的狀態是一樣的。這跟「有沒有副作用」是兩件事，例如重複呼叫可能讓 Server 第二次回傳不同的狀態碼，但資源本身的最終狀態不變。",
+    "application": "HTTP Methods 筆記用 Idempotent 判斷網路逾時時能不能放心自動重送 Request：PUT、DELETE 是 Idempotent，可以安全重試；POST 通常不是，重送可能造成重複新增。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [{ "slug": "safe", "type": "related" }]
+  },
+  "proxy": {
+    "term": "Proxy（代理伺服器）",
+    "definition": "架在 Client 與真正的 Server 中間，先幫忙轉發、過濾 Request 的伺服器，例如公司網路出口統一管理對外連線的那種伺服器。",
+    "application": "HTTP Methods 筆記提到，因為 Safe 方法保證不會有副作用，這類中間的 Proxy 才能放心快取回應內容，不用每次都真的把 Request 轉發到最後的 Server。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [
+      { "slug": "cdn", "type": "related" },
+      { "slug": "safe", "type": "prerequisite" }
+    ]
+  },
+  "cdn": {
+    "term": "CDN（內容傳遞網路）",
+    "definition": "Content Delivery Network，把資料複製、快取到離使用者更近的節點，讓讀取更快、更省頻寬，例如 Cloudflare。",
+    "application": "HTTP Methods 筆記提到 CDN 是 Safe 方法能被快取的典型例子：因為 GET 這類方法不會改變資料，CDN 才能安心把回應內容存起來直接回應給使用者，不用每次都問到原始 Server。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [
+      { "slug": "proxy", "type": "related" },
+      { "slug": "safe", "type": "prerequisite" }
+    ]
+  },
+  "rails": {
+    "term": "Ruby on Rails",
+    "definition": "以 Ruby 語言寫成的全端 Web Framework，主張「慣例優於設定（Convention over Configuration）」，只要照著它的檔案結構與命名慣例寫，很多路由、資料庫操作的樣板程式碼都能自動產生，不用每個專案重新設定一次。",
+    "application": "HTTP Methods 筆記用 Rails 的 RESTful routing 當實例，說明 Rails 怎麼把 HTTP Method 的語意（而不只是 CRUD）對應到固定命名的 Controller action 上。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [{ "slug": "rails-restful-routing", "type": "related" }]
+  },
+  "rails-restful-routing": {
+    "term": "Rails RESTful Routing",
+    "definition": "Rails 用 `resources :xxx` 一行設定，依照 HTTP Method 加路徑的慣例自動產生一組標準路由，並對應到 Controller 裡固定命名的 action（index／show／create／update／destroy），不用手動一條條寫路由規則。",
+    "application": "HTTP Methods 筆記用來說明 Rails 並不是單純把 HTTP Method 對應到 CRUD，而是善用 HTTP 本身對 Resource 的語意（GET 讀取、POST 建立、PUT 完整設定、PATCH 部分修改、DELETE 移除）建立一致的 REST API 結構。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [
+      { "slug": "crud", "type": "related" },
+      { "slug": "rails", "type": "prerequisite" }
+    ]
   },
   "normalization": {
     "term": "Normalization（正規化）",
@@ -398,7 +482,7 @@
   "human-centered-computing": {
     "term": "Human-Centered Computing（人本計算）",
     "definition": "以人的需求、能力與價值觀作為系統設計出發點的研究取向，是人機互動、社群運算、使用者中心設計等領域共同的上位概念，不是與它們平行的另一個獨立研究方向，而是這些子領域共通具備的核心立場：先問這項技術對人有什麼意義，再決定要做什麼功能。",
-    "application": "| CodePulse | HCC 關聯 |\n| --- | --- |\n| 前端互動設計 | 以人的需求與使用方式設計系統 |\n| 使用者研究 | 直接研究人與系統的互動 |\n| A/B crossover study | 以使用者資料評估系統設計 |\n| 前後測 | 觀察系統對學習者的影響 |\n| 問卷、自陳信心 | 研究使用者的主觀感受 |\n| 發現 information overload | 根據人的認知與行為調整系統 |\n| Data Structures Visualization | 讓系統配合人的理解與學習 |\n\n這些工作各自落在人機互動、資訊視覺化的方法裡，HCC 對我來說比較像是統整它們背後共同立場的上位概念。",
+    "application": "CodePulse 的前端互動設計、使用者研究、A/B crossover study、前後測等工作看似分屬不同方法，但背後其實都在回答同一組 HCC 式的問題：這樣設計對人有沒有幫助。",
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse"],

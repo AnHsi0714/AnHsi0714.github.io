@@ -166,8 +166,92 @@
     "category": "DB",
     "status": "published",
     "relatedProjects": ["silkroad"],
-    "relatedArticles": [],
-    "relatedNodes": []
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [{ "slug": "rails-restful-routing", "type": "related" }]
+  },
+  "prefetch": {
+    "term": "Prefetch",
+    "definition": "Loading a resource before the user actually needs it, for example loading a page as soon as the user hovers over its link. Since the request might go to waste, this is generally only suitable for Safe methods that produce no side effects.",
+    "application": "The HTTP Methods note uses Prefetch to explain why only Safe methods like GET can be safely prefetched by the browser: calling a non-Safe method ahead of time could trigger an unintended change, such as an accidental delete or charge.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [{ "slug": "safe", "type": "prerequisite" }]
+  },
+  "safe": {
+    "term": "Safe (Safe Method)",
+    "definition": "An HTTP method property: calling it does not change the state of any Resource on the server. It's a pure read with no side effects beyond logging.",
+    "application": "The HTTP Methods note uses Safe to determine which methods can be cached by intermediaries like a Proxy or CDN, and even prefetched by the browser: only a method guaranteed to have no side effects can safely be called before the user actually triggers it.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [
+      { "slug": "idempotent", "type": "related" },
+      { "slug": "prefetch", "type": "applies_to" },
+      { "slug": "proxy", "type": "applies_to" },
+      { "slug": "cdn", "type": "applies_to" }
+    ]
+  },
+  "idempotent": {
+    "term": "Idempotent",
+    "definition": "An HTTP method property: calling it once or many times leaves the Resource in the same final state. That's a separate question from side effects, e.g. a repeated call might return a different status code the second time, even though the resource's final state doesn't change.",
+    "application": "The HTTP Methods note uses idempotency to decide whether a timed-out request can be safely retried: PUT and DELETE are idempotent and safe to retry, while POST usually isn't, since retrying it can create a duplicate record.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [{ "slug": "safe", "type": "related" }]
+  },
+  "proxy": {
+    "term": "Proxy",
+    "definition": "A server placed between the Client and the real Server that forwards and filters requests on the client's behalf, such as the gateway server that manages all outbound connections on a corporate network.",
+    "application": "The HTTP Methods note points out that because Safe methods are guaranteed to have no side effects, a Proxy sitting in between can safely cache their responses instead of forwarding every request all the way to the origin server.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [
+      { "slug": "cdn", "type": "related" },
+      { "slug": "safe", "type": "prerequisite" }
+    ]
+  },
+  "cdn": {
+    "term": "CDN (Content Delivery Network)",
+    "definition": "A network that copies and caches data onto nodes physically closer to end users, making reads faster and saving bandwidth, e.g. Cloudflare.",
+    "application": "The HTTP Methods note uses CDN as a concrete example of caching Safe methods: because GET-type requests never change data, a CDN can safely store the response and serve it directly to users without hitting the origin server every time.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [
+      { "slug": "proxy", "type": "related" },
+      { "slug": "safe", "type": "prerequisite" }
+    ]
+  },
+  "rails": {
+    "term": "Ruby on Rails",
+    "definition": "A full-stack web framework written in Ruby that favors \"Convention over Configuration\": as long as you follow its file structure and naming conventions, a lot of boilerplate for routing and database operations is generated automatically instead of being configured by hand in every project.",
+    "application": "The HTTP Methods note uses Rails' RESTful routing as a concrete example of how Rails maps HTTP method semantics (not just CRUD) onto fixed-name controller actions.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [{ "slug": "rails-restful-routing", "type": "related" }]
+  },
+  "rails-restful-routing": {
+    "term": "Rails RESTful Routing",
+    "definition": "With a single `resources :xxx` declaration, Rails auto-generates a standard set of routes following the HTTP-method-plus-path convention, mapping each one to a fixed controller action name (index/show/create/update/destroy), instead of requiring every route to be written by hand.",
+    "application": "The HTTP Methods note uses this to show that Rails isn't simply mapping HTTP methods onto CRUD; it's leveraging HTTP's own Resource semantics (GET reads, POST creates, PUT fully sets, PATCH partially modifies, DELETE removes) to build a consistent REST API structure.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["http-methods"],
+    "relatedNodes": [
+      { "slug": "crud", "type": "related" },
+      { "slug": "rails", "type": "prerequisite" }
+    ]
   },
   "normalization": {
     "term": "Normalization",
@@ -398,7 +482,7 @@
   "human-centered-computing": {
     "term": "Human-Centered Computing",
     "definition": "A research approach that starts system design from human needs, capabilities, and values. It's a superordinate concept shared by HCI, social computing, and user-centered design, not a separate research direction alongside them, but the common stance underneath those sub-fields: ask what a technology means for people first, then decide what to build.",
-    "application": "| CodePulse | HCC Connection |\n| --- | --- |\n| Frontend interaction design | Designing the system around human needs and usage patterns |\n| User research | Directly studying human-system interaction |\n| A/B crossover study | Evaluating system design with user data |\n| Pre/post testing | Observing the system's effect on learners |\n| Surveys, self-reported confidence | Studying users' subjective experience |\n| Discovering information overload | Adjusting the system based on human cognition and behavior |\n| Data structures visualization | Fitting the system to how people understand and learn |\n\nEach of these already sits inside HCI or information-visualization methods; HCC, for me, is more the umbrella concept behind their shared stance.",
+    "application": "CodePulse's frontend interaction design, user research, A/B crossover study, and pre/post testing look like separate methods on the surface, but they're all answering the same HCC-shaped question underneath: does this design actually help a person.",
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse"],
