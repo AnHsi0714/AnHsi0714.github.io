@@ -482,7 +482,7 @@
   "human-centered-computing": {
     "term": "Human-Centered Computing（人本計算）",
     "definition": "以人的需求、能力與價值觀作為系統設計出發點的研究取向，是人機互動、社群運算、使用者中心設計等領域共同的上位概念，不是與它們平行的另一個獨立研究方向，而是這些子領域共通具備的核心立場：先問這項技術對人有什麼意義，再決定要做什麼功能。",
-    "application": "| CodePulse | HCC 關聯 |\n| --- | --- |\n| 前端互動設計 | 以人的需求與使用方式設計系統 |\n| 使用者研究 | 直接研究人與系統的互動 |\n| A/B crossover study | 以使用者資料評估系統設計 |\n| 前後測 | 觀察系統對學習者的影響 |\n| 問卷、自陳信心 | 研究使用者的主觀感受 |\n| 發現 information overload | 根據人的認知與行為調整系統 |\n| Data Structures Visualization | 讓系統配合人的理解與學習 |\n\n這些工作各自落在人機互動、資訊視覺化的方法裡，HCC 對我來說比較像是統整它們背後共同立場的上位概念。",
+    "application": "CodePulse 的前端互動設計、使用者研究、A/B crossover study、前後測等工作看似分屬不同方法，但背後其實都在回答同一組 HCC 式的問題：這樣設計對人有沒有幫助。",
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse"],

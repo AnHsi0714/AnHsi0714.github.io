@@ -226,6 +226,7 @@ export interface Strings {
     >;
     entryPointHint: string;
     relatedKnowledge: string;
+    tableOfContents: string;
   };
   creator: {
     inviteCode: string;
@@ -505,6 +506,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       },
       entryPointHint: "想更深入了解背後概念？逛逛 Knowledge →",
       relatedKnowledge: "相關知識",
+      tableOfContents: "詞條目錄",
     },
     creator: {
       inviteCode: "邀請碼",
@@ -802,6 +804,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       entryPointHint:
         "Want to dig into the concepts behind this? Browse Knowledge →",
       relatedKnowledge: "Related Knowledge",
+      tableOfContents: "Table of Contents",
     },
     creator: {
       inviteCode: "Invite Code",

@@ -482,7 +482,7 @@
   "human-centered-computing": {
     "term": "Human-Centered Computing",
     "definition": "A research approach that starts system design from human needs, capabilities, and values. It's a superordinate concept shared by HCI, social computing, and user-centered design, not a separate research direction alongside them, but the common stance underneath those sub-fields: ask what a technology means for people first, then decide what to build.",
-    "application": "| CodePulse | HCC Connection |\n| --- | --- |\n| Frontend interaction design | Designing the system around human needs and usage patterns |\n| User research | Directly studying human-system interaction |\n| A/B crossover study | Evaluating system design with user data |\n| Pre/post testing | Observing the system's effect on learners |\n| Surveys, self-reported confidence | Studying users' subjective experience |\n| Discovering information overload | Adjusting the system based on human cognition and behavior |\n| Data structures visualization | Fitting the system to how people understand and learn |\n\nEach of these already sits inside HCI or information-visualization methods; HCC, for me, is more the umbrella concept behind their shared stance.",
+    "application": "CodePulse's frontend interaction design, user research, A/B crossover study, and pre/post testing look like separate methods on the surface, but they're all answering the same HCC-shaped question underneath: does this design actually help a person.",
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse"],

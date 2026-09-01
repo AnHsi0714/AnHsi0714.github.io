@@ -1,19 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import projectsDataZh from "../../../content/projects.json";
 import projectsDataEn from "../../../content/projects.en.json";
 import Chip from "../../components/Chip";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
+import TableOfContents from "../../components/TableOfContents";
 import Trail from "../../components/Trail";
 import { useKnowledgeNode, useKnowledgeMap } from "../../lib/knowledge";
+import { useKnowledgeBodies } from "../../lib/knowledgeBodies";
 import TextLink from "../../components/TextLink";
 import { usePublishedArticles } from "../../lib/articles";
 import { useLocalized } from "../../lib/localized";
 import { useNeedsScroll } from "../../lib/useNeedsScroll";
 import { useTranslation } from "../../i18n/useTranslation";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
-import { deriveExcerpt } from "../../lib/markdown";
+import { deriveExcerpt, extractHeadings } from "../../lib/markdown";
 import { useTrail } from "../../context/TrailContext";
 import type { KnowledgeRelationType, Project } from "../../types/content";
 
@@ -31,6 +33,10 @@ export default function KnowledgeDetail() {
   const knowledgeMap = useKnowledgeMap();
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
   const articles = usePublishedArticles();
+  const knowledgeBodies = useKnowledgeBodies();
+  const body = node ? knowledgeBodies[node.slug] : undefined;
+  const headings = useMemo(() => extractHeadings(body ?? ""), [body]);
+  const hasToc = headings.length > 1;
   useDocumentTitle(
     node ? `${node.term} · AnHsi0714` : `${t.knowledge.notFoundTitle} · AnHsi0714`,
     node ? deriveExcerpt(node.definition, 150) : undefined,
@@ -90,100 +96,113 @@ export default function KnowledgeDetail() {
   ].sort((a, b) => a.date.localeCompare(b.date));
 
   return (
-    <section>
-      <TextLink to="/knowledge" restoreScroll className="text-sm font-medium">
-        {t.knowledge.backToList}
-      </TextLink>
-      <Trail />
-
-      <div className="mt-4 flex items-start justify-between gap-2">
-        <h1 className="text-2xl font-bold">{node.term}</h1>
-        <Chip className="shrink-0">{node.category}</Chip>
-      </div>
-
-      <MarkdownContent className="mt-4">{node.definition}</MarkdownContent>
-
-      {node.application && (
-        <div className="mt-4 rounded-md border border-[var(--color-border)] p-4">
-          <p className="text-sm font-medium text-[var(--color-text)]">
-            {t.term.inThisProject}
-          </p>
-          <MarkdownContent className="mt-1">{node.application}</MarkdownContent>
-        </div>
-      )}
-
-      {relatedProjects.length > 0 && (
-        <div className="mt-6">
-          <h2 className="text-lg font-semibold">{t.knowledge.relatedProjects}</h2>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {relatedProjects.map((p) => (
-              <Link key={p.slug} to={`/projects/${p.slug}#${node.slug}`}>
-                <Chip clickable>{p.name}</Chip>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {relatedArticles.length > 0 && (
-        <div className="mt-6">
-          <h2 className="text-lg font-semibold">{t.knowledge.relatedArticles}</h2>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {relatedArticles.map((a) => (
-              <Link key={a.slug} to={`/articles/${a.slug}#${node.slug}`}>
-                <Chip clickable>{a.title}</Chip>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {relatedNodesByType.length > 0 && (
-        <div className="mt-6">
-          <h2 className="text-lg font-semibold">{t.knowledge.relatedNodes}</h2>
-          <div className="mt-2 flex flex-col gap-3">
-            {relatedNodesByType.map((group) => (
-              <div key={group.type}>
-                <p className="text-sm font-medium text-[var(--color-text-muted)]">
-                  {t.knowledge.relationType[group.type]}
-                </p>
-                <div className="mt-1 flex flex-wrap gap-2">
-                  {group.nodes.map((n) => (
-                    <Link key={n.slug} to={`/knowledge/${n.slug}`}>
-                      <Chip clickable>{n.term}</Chip>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {timeline.length > 0 && (
-        <div className="mt-6">
-          <h2 className="text-lg font-semibold">{t.knowledge.timeline}</h2>
-          <ul className="mt-2 flex flex-col gap-1 text-sm">
-            {timeline.map((entry) => (
-              <li key={entry.to}>
-                <TextLink to={entry.to}>
-                  {entry.date} · {entry.label}
-                </TextLink>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {needsScroll && (
+    <>
+      <TableOfContents
+        title={t.knowledge.tableOfContents}
+        sections={headings}
+        backLink={{ to: "/knowledge", label: t.knowledge.backToList }}
+      />
+      <section>
         <TextLink
           to="/knowledge"
           restoreScroll
-          className="mt-8 inline-block text-sm font-medium"
+          className={`text-sm font-medium ${hasToc ? "2xl:hidden" : ""}`}
         >
           {t.knowledge.backToList}
         </TextLink>
-      )}
-    </section>
+        <Trail />
+
+        <div className="mt-4 flex items-start justify-between gap-2">
+          <h1 className="text-2xl font-bold">{node.term}</h1>
+          <Chip className="shrink-0">{node.category}</Chip>
+        </div>
+
+        <MarkdownContent className="mt-4">{node.definition}</MarkdownContent>
+
+        {node.application && (
+          <div className="mt-4 rounded-md border border-[var(--color-border)] p-4">
+            <p className="text-sm font-medium text-[var(--color-text)]">
+              {t.term.inThisProject}
+            </p>
+            <MarkdownContent className="mt-1">{node.application}</MarkdownContent>
+          </div>
+        )}
+
+        {body && <MarkdownContent className="mt-6">{body}</MarkdownContent>}
+
+        {relatedProjects.length > 0 && (
+          <div className="mt-6">
+            <h2 className="text-lg font-semibold">{t.knowledge.relatedProjects}</h2>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {relatedProjects.map((p) => (
+                <Link key={p.slug} to={`/projects/${p.slug}#${node.slug}`}>
+                  <Chip clickable>{p.name}</Chip>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {relatedArticles.length > 0 && (
+          <div className="mt-6">
+            <h2 className="text-lg font-semibold">{t.knowledge.relatedArticles}</h2>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {relatedArticles.map((a) => (
+                <Link key={a.slug} to={`/articles/${a.slug}#${node.slug}`}>
+                  <Chip clickable>{a.title}</Chip>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {relatedNodesByType.length > 0 && (
+          <div className="mt-6">
+            <h2 className="text-lg font-semibold">{t.knowledge.relatedNodes}</h2>
+            <div className="mt-2 flex flex-col gap-3">
+              {relatedNodesByType.map((group) => (
+                <div key={group.type}>
+                  <p className="text-sm font-medium text-[var(--color-text-muted)]">
+                    {t.knowledge.relationType[group.type]}
+                  </p>
+                  <div className="mt-1 flex flex-wrap gap-2">
+                    {group.nodes.map((n) => (
+                      <Link key={n.slug} to={`/knowledge/${n.slug}`}>
+                        <Chip clickable>{n.term}</Chip>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {timeline.length > 0 && (
+          <div className="mt-6">
+            <h2 className="text-lg font-semibold">{t.knowledge.timeline}</h2>
+            <ul className="mt-2 flex flex-col gap-1 text-sm">
+              {timeline.map((entry) => (
+                <li key={entry.to}>
+                  <TextLink to={entry.to}>
+                    {entry.date} · {entry.label}
+                  </TextLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {needsScroll && (
+          <TextLink
+            to="/knowledge"
+            restoreScroll
+            className={`mt-8 inline-block text-sm font-medium ${hasToc ? "2xl:hidden" : ""}`}
+          >
+            {t.knowledge.backToList}
+          </TextLink>
+        )}
+      </section>
+    </>
   );
 }
