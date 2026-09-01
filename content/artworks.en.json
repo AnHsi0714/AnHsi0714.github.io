@@ -23,7 +23,8 @@
       "/images/gallery/moontain5.jpg",
       "/images/gallery/moontain6.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2323611"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2323611",
+    "description": "A randomly generated mountain silhouette against a night sky: irregular polygons stack into peaks, crisscrossing lines carve the sky into crack-like fragments, and a moon hangs somewhere in between. A layer of fine noise dusts the whole scene with a rough, grainy texture."
   },
   {
     "slug": "POP",
@@ -34,7 +35,8 @@
       "/images/gallery/POP1.jpg",
       "/images/gallery/POP2.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2324346"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2324346",
+    "description": "A cluster of circular and square bubbles drifts slowly across the canvas, wrapping around to the other side whenever they hit an edge, while a number at the center tracks the current bubble count. Click the canvas to switch between day and night palettes and scatter a fresh batch of bubbles, different in count and size each time."
   },
   {
     "slug": "tentacle",
@@ -45,7 +47,8 @@
       "/images/gallery/tentacle1.jpg",
       "/images/gallery/tentacle2.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2324602"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2324602",
+    "description": "A row of tentacles rises at fixed intervals from the bottom of the canvas, each segment shrinking as it climbs and swaying faintly along the way. A difference blend mode gives every overlap an eerie, inverted hue."
   },
   {
     "slug": "audio",
@@ -88,7 +91,8 @@
       "/images/gallery/Prism7.jpg",
       "/images/gallery/Prism8.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2328664"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2328664",
+    "description": "The canvas fills with sheared tiles laid out column by column, each neighboring pair slanted in opposite directions to build a diamond texture like the facets of a prism. Hue drifts gradually across the canvas, and a darkest-color blend deepens every overlap into extra layers."
   },
   {
     "slug": "TRI",
@@ -101,7 +105,8 @@
       "/images/gallery/TRI3.jpg",
       "/images/gallery/TRI4.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2332523"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2332523",
+    "description": "Hundreds of triangles radiate outward from the center of the canvas, sheared and overlapped into sharp, jagged edges that give the whole composition a warped, time-warp kind of feel."
   },
   {
     "slug": "TRII",
@@ -118,7 +123,8 @@
       "/images/gallery/TRII7.jpg",
       "/images/gallery/TRII8.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2332542"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2332542",
+    "description": "Just a bunch of triangles, scattered and stacked into something dense and spiky."
   },
   {
     "slug": "pollute",
@@ -145,14 +151,16 @@
       "/images/gallery/Eruption1.jpg",
       "/images/gallery/Eruption2.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2336863"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2336863",
+    "description": "Colorful balls burst outward from the center of the canvas all at once, bouncing back whenever they hit an edge. Their trails never get cleared, layering into streaks of afterimages that gradually build into something like the scars of an explosion."
   },
   {
     "slug": "RPS",
     "title": "RPS",
     "date": "240908",
     "images": ["/images/gallery/RPS0.jpg", "/images/gallery/RPS1.jpg"],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2344323"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2344323",
+    "description": "Scissors, rock, and paper blocks bounce around the canvas, and every collision is settled by rock-paper-scissors rules, converting the loser into the winner's type while the score tallies live. Once the whole field turns into a single type, the game freezes and declares the winner."
   },
   {
     "slug": "metal_collision",
@@ -162,7 +170,8 @@
       "/images/gallery/Metal_collision0.png",
       "/images/gallery/Metal_collision1.png"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2356949"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2356949",
+    "description": "Colorful polygonal metal chunks keep falling from above, tumbling into a pit where they collide and pile up. Drag any piece with the mouse to grab it, either sweeping the others out of the pit like a broom or hurling it back in to slam into the rest."
   },
   {
     "slug": "Hsi_lantern",
@@ -179,7 +188,8 @@
       "/images/gallery/watermelon16.jpg",
       "/images/gallery/watermelon17.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2700026"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2700026",
+    "description": "Styled after a jack-o'-lantern, made to celebrate a special day for Hsi-gua."
   },
   {
     "slug": "boxing_melee",
@@ -192,7 +202,8 @@
       "/images/gallery/Boxing_Melee3.jpg",
       "/images/gallery/Boxing_Melee4.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2700272"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2700272",
+    "description": "Fifteen fighters bounce around the arena in a free-for-all, each collision settled by a circular counter system that converts the loser into the winner's type. Once only one type survives, scores are tallied for the round, the fighter with the lowest total is eliminated, and hitting start begins the next round, continuing until a single champion remains."
   },
   {
     "slug": "ocean_city",
@@ -202,7 +213,8 @@
       "/images/gallery/ocean_city0.jpg",
       "/images/gallery/ocean_city1.jpg"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2710933"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2710933",
+    "description": "A checkerboard grid is twisted and sheared into diamond-shaped blocks, each one raised into a three-dimensional structure with a top face and two slanted walls. Blue-green tones and crisscrossing gridlines sketch out a geometric city sunk beneath the sea."
   },
   {
     "slug": "Fish_Life",
@@ -214,7 +226,8 @@
       "/images/gallery/Fish_Life2.png",
       "/images/gallery/Fish_Life3.png"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2712131"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2712131",
+    "description": "A tidy grid of triangular fish, mostly rendered in muted grayscale, with the occasional brightly colored one swimming among them, much like how, in a crowd of ordinary people like us, a spark of individual talent occasionally surfaces."
   },
   {
     "slug": "Chessboard_World",
@@ -226,7 +239,8 @@
       "/images/gallery/Chessboard_World2.png",
       "/images/gallery/Chessboard_World3.png"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2712377"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2712377",
+    "description": "The same sheared checkerboard structure as \"Undersea City,\" now built from a complementary color pair so each block's face and sides swap between contrasting hues. The grid size also changes with every run, giving each version its own density and rhythm."
   },
   {
     "slug": "BloomOfDelirium",
@@ -237,7 +251,8 @@
       "/images/gallery/BloomOfDelirium1.png",
       "/images/gallery/BloomOfDelirium2.png"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2714823"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2714823",
+    "description": "Flowers and snowflake shapes alternate across a grid, gaining one petal per frame as they bloom outward until settling on a random final petal count. Wherever the petals overlap, their colors stack into a hazy, psychedelic layering."
   },
   {
     "slug": "Hina_Daisy",
@@ -249,7 +264,8 @@
       "/images/gallery/Hina_Daisy2.png",
       "/images/gallery/Hina_Daisy3.png"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2715277"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2715277",
+    "description": "A daisy pattern built entirely from the overlapping regions where pairs of petals intersect, its warm-toned center and fine noise texture giving the image a vintage, grainy feel, tiled neatly across the whole grid."
   },
   {
     "slug": "Maze_Racing",
@@ -262,7 +278,8 @@
       "/images/gallery/Maze_Racing_v23.png",
       "/images/gallery/Maze_Racing_v24.png"
     ],
-    "openProcessingUrl": "https://openprocessing.org/@u455151/2716270"
+    "openProcessingUrl": "https://openprocessing.org/@u455151/2716270",
+    "description": "A randomly generated two-player maze game: arrow keys drive Player 1, WASD drives Player 2. Choose Race Mode to compete for the exit or Co-op Mode to find it together, and optionally turn on fog to limit visibility to just around each player for extra difficulty. Reaching the goal tallies both players' steps and time to decide the winner."
   },
   {
     "slug": "A_Lost_Face",
