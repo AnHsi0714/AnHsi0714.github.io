@@ -5,6 +5,7 @@ import Chip from "../../components/Chip";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
 import Reveal from "../../components/Reveal";
+import TextLink from "../../components/TextLink";
 import { usePublishedKnowledgeNodes } from "../../lib/knowledge";
 import { useTranslation } from "../../i18n/useTranslation";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
@@ -58,6 +59,9 @@ export default function Knowledge() {
       <Reveal>
         <h1 className="text-2xl font-bold">{t.knowledge.title}</h1>
         <p className="mt-2 text-[var(--color-text-muted)]">{t.knowledge.subtitle}</p>
+        <TextLink to="/knowledge/graph" className="mt-1 hidden text-sm sm:block">
+          {t.knowledge.graphViewLabel}
+        </TextLink>
       </Reveal>
 
       <div className="mt-6 flex flex-col gap-4">

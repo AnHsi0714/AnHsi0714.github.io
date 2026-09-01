@@ -9,6 +9,7 @@ import ArticleDetail from './pages/articles/ArticleDetail'
 import Projects from './pages/projects/Projects'
 import ProjectDetail from './pages/projects/ProjectDetail'
 import Knowledge from './pages/knowledge/Knowledge'
+import KnowledgeGraph from './pages/knowledge/KnowledgeGraph'
 import KnowledgeDetail from './pages/knowledge/KnowledgeDetail'
 import Experience from './pages/experience/Experience'
 import Dreams from './pages/dreams/Dreams'
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
       { path: 'projects', element: <Projects /> },
       { path: 'projects/:slug', element: <ProjectDetail /> },
       { path: 'knowledge', element: <Knowledge /> },
+      { path: 'knowledge/graph', element: <KnowledgeGraph /> },
       { path: 'knowledge/:slug', element: <KnowledgeDetail /> },
       { path: 'experience', element: <Experience /> },
       { path: 'playground', element: <Playground /> },

@@ -28,9 +28,9 @@ export default function Experience() {
       <div className="mt-10 flex flex-col gap-0">
         {entries.map((entry, index) => (
           <Reveal key={entry.title} delay={Math.min(index, 5) * 60}>
-            <div className="flex gap-6">
-              {/* 左側：日期 */}
-              <div className="w-36 shrink-0 pt-1 text-right text-sm text-[var(--color-text-muted)]">
+            <div className="flex gap-3 sm:gap-6">
+              {/* 左側：日期，手機螢幕太窄放不下固定寬度的日期欄，改到內容區塊上方顯示 */}
+              <div className="hidden w-36 shrink-0 pt-1 text-right text-sm text-[var(--color-text-muted)] sm:block">
                 {entry.period}
               </div>
 
@@ -43,7 +43,10 @@ export default function Experience() {
               </div>
 
               {/* 右側：內容 */}
-              <div className="pb-10 flex-1">
+              <div className="min-w-0 flex-1 pb-10">
+                <p className="text-xs text-[var(--color-text-muted)] sm:hidden">
+                  {entry.period}
+                </p>
                 <div className="flex flex-wrap items-center gap-2">
                   <p className="font-semibold text-[var(--color-text)]">
                     {entry.title}

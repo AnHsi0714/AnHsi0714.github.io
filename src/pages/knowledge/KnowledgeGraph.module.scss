@@ -1,0 +1,121 @@
+@use "../../styles/tokens" as *;
+
+.canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 900 / 620;
+  margin-top: 1rem;
+  border: 1px solid $color-border;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: $color-surface;
+}
+
+.edges {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.edge {
+  stroke: $color-border;
+  stroke-width: 1;
+  transition:
+    stroke $transition-fast,
+    stroke-width $transition-fast,
+    opacity $transition-fast;
+}
+
+.edgeDimmed {
+  opacity: 0.15;
+}
+
+.edgeActive {
+  stroke: $color-primary;
+  stroke-width: 2;
+  opacity: 1;
+}
+
+// .node 同時用在 <Link>（單一知識點）跟 <button>（分類 hub，點擊展開/收合），
+// button 的預設瀏覽器樣式（背景、邊框、字型）在這裡統一重置掉。
+.node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  cursor: grab;
+  padding: 2px 6px 2px 2px;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: none;
+  font: inherit;
+  text-align: left;
+  touch-action: none;
+  user-select: none;
+  // left/top 用 % 定位，展開/收合分類時位置會整個重算，靠 transition 讓節點滑過去
+  // 而不是瞬間跳位，力導向布局本身沒有做逐幀動畫，全靠這行補上過渡感。
+  transition:
+    left 300ms ease,
+    top 300ms ease,
+    opacity $transition-fast,
+    background-color $transition-fast,
+    border-color $transition-fast;
+}
+
+.hub {
+  padding: 4px 12px 4px 4px;
+  border-color: $color-border;
+  background-color: $color-surface;
+
+  .dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .label {
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+
+  &:hover {
+    border-color: $color-primary;
+  }
+}
+
+.nodeDimmed {
+  opacity: 0.35;
+}
+
+.dragging {
+  transition: none;
+  cursor: grabbing;
+  z-index: 1;
+}
+
+.nodeActive {
+  background-color: $color-surface-hover;
+  border-color: $color-primary;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 9999px;
+  background-color: var(--node-color);
+  flex-shrink: 0;
+}
+
+.label {
+  font-size: 0.7rem;
+  color: $color-text;
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: var(--node-color);
+}
