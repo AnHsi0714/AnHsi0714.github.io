@@ -45,18 +45,18 @@
     },
     {
       "period": "2026 / 07 – 2026 / 12",
-      "title": "2026 Taiwan Baseball Data Analysis Competition",
-      "subtitle": "On-Field Tactical Analysis Group (in preparation)",
+      "title": "2026 Taiwan Baseball Data Analysis Competition: Should You Steal with a Runner on First and Two Outs? A Decision Analysis",
+      "subtitle": "On-Field Tactical Analysis Group (in preparation, 4-person team)",
       "tags": [{ "label": "Competition", "variant": "info" }],
       "highlights": [
+        "Built a scraper to pull pitch-by-pitch, game-by-game records for analyzing steal decisions with two outs and a runner on first",
         "Studying the break-even success-rate threshold for stealing in CPBL games with two outs and a runner on first only, in innings 1-8, and how that threshold shifts with batting-order position and batter type",
         "Introduces a \"retention effect\": a failed steal keeps that batter's at-bat held over to start the next inning, correcting a blind spot in traditional RE24 analysis that only looks at the current half-inning",
-        "Data drawn from a custom scraper of the CPBL website covering the 2025 season, with a self-built batter decision simulation model",
-        "Written materials due 2026/10/31; teams that advance present live on 12/19"
+        "Built a batter decision simulation model to analyze the break-even steal threshold"
       ]
     },
     {
-      "period": "2025 / 07 – 2027 / 01",
+      "period": "2025 / 07 – 2026 / 12",
       "title": "Sun Bird Software Co., Ltd. (Taiwan Branch)",
       "subtitle": "Frontend Development Team: Intern",
       "tags": [{ "label": "Internship", "variant": "info" }],
