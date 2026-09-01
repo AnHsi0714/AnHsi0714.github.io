@@ -7,21 +7,10 @@ export default function Playground() {
 
   const links = [
     { to: "/dreams", label: t.nav.dreams, desc: t.playground.dreamsDesc },
-    { to: "/friends", label: t.nav.friends, desc: t.playground.friendsDesc },
     {
       to: "/dev/components",
       label: t.nav.devComponents,
       desc: t.playground.devComponentsDesc,
-    },
-    {
-      to: "/dev/creature",
-      label: t.nav.devCreature,
-      desc: t.playground.devCreatureDesc,
-    },
-    {
-      to: "/dev/creature-builder",
-      label: t.nav.devCreatureBuilder,
-      desc: t.playground.devCreatureBuilderDesc,
     },
     {
       to: "/playground/mini-works",
