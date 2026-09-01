@@ -1,30 +1,25 @@
 ---
 type: tech
 title: "HTTP Methods Aren't Just CRUD: Understanding GET, POST, PUT, PATCH, DELETE"
-date: 2026-08-29
+date: 2026-09-01
 categories: [Notes, Web, Technical]
 excerpt: Stop memorizing GET/POST/PUT/DELETE as read/create/update/delete. Think in terms of "what do I want to do to this Resource" instead, and finally get straight on what actually separates PUT from PATCH.
-status: draft
 ---
 
-When building web APIs, we constantly run into these HTTP methods:
+> Writing period: 2026-08-29 – 2026-09-01
 
-- GET
-- POST
-- PUT
-- PATCH
-- DELETE
+## Backstory
 
-Many beginners just memorize them as:
+When I first started working with web APIs, all I knew was that there were methods like GET/POST/PUT/DELETE, and I'd often mix up what POST and PUT even meant.
 
-```
-GET    = Read
-POST   = Create
-PUT    = Update
-DELETE = Delete
-```
+Many beginners memorize them straight as <span data-term="crud">CRUD</span>, and that's how I originally learned it too:
 
-That's convenient, but not precise enough.
+- GET => READ
+- POST => CREATE
+- PUT => UPDATE
+- DELETE => DELETE
+
+During a recent internship I happened to need to integrate with an API, so I went back and reviewed this, and realized that while this way of memorizing it is convenient, it isn't precise enough.
 
 A better way is to understand them through the lens of "what do I want to do to this Resource":
 
@@ -38,7 +33,7 @@ A better way is to understand them through the lens of "what do I want to do to 
 
 GET is the simplest to grasp:
 
-> Give me this Resource.
+> Give this Resource to me.
 
 For example:
 
@@ -46,7 +41,7 @@ For example:
 GET /users/123
 ```
 
-This means: fetch the User with ID 123. The server might respond:
+This means: fetch the data of the User with ID 123. The server might respond:
 
 ```json
 {
@@ -58,19 +53,19 @@ This means: fetch the User with ID 123. The server might respond:
 
 The point of GET is retrieving data, not modifying it. For example:
 
+- Fetching the product list
+
 ```
 GET /products
 ```
 
-fetches a list of products;
+- Fetching a single product
 
 ```
 GET /products/123
 ```
 
-fetches a single product.
-
-GET is generally Safe and Idempotent. In other words, repeating a GET on the same Resource shouldn't change any data because of the GET itself.
+GET generally has the properties of Safe and Idempotent (explained in more detail later on). In other words, repeating a GET on the same Resource shouldn't change any data because of the GET itself.
 
 ## POST: Create / Command
 
@@ -89,17 +84,21 @@ POST /users
 }
 ```
 
-The server might create `User #123`.
+The server can create that `User` Tom's data.
 
-Here's an important trait: the server usually decides the ID of the new Resource under POST. So:
+Here's an important trait: POST usually lets the server decide the ID of the new Resource. So:
 
 ```
 POST /users
 ```
 
-reads more like "please create a new User for me" rather than "I want to create a User with ID = 123."
+reads more like "please help me create a new User" rather than "I want to create a User with ID = 123."
 
-Because of this, POST shouldn't be understood as Create alone. It's also commonly used to mean "please have the server execute an operation." For example:
+Back when I was interning, I noticed that with POST I didn't need to pass an id, but GET would return one automatically.
+
+That's usually because the id column is set up as an auto-increment primary key in the database, so the database generates the next number itself when a row is inserted, and the application doesn't need to specify one. The exact behavior really depends on how that column is designed.
+
+Because of this, POST shouldn't be understood as Create alone. It's also commonly used to mean "please have the Server execute an operation." For example:
 
 ```
 POST /orders/123/cancel
@@ -107,7 +106,7 @@ POST /orders/123/cancel
 
 This isn't creating an Order at all. It's asking the server to execute the "cancel order" Command.
 
-So POST is best understood as:
+So POST can be understood as:
 
 **POST → Create / Command**
 
@@ -115,7 +114,7 @@ So POST is best understood as:
 
 PUT is the most commonly misunderstood one. Many people remember it as `PUT = Update`, but a better mental model is `PUT = Set`, meaning:
 
-> Make this Resource end up in exactly the state I specify.
+> Make this Resource end up in the exact state I specify.
 
 For example:
 
@@ -135,7 +134,7 @@ That's why PUT is well suited to expressing:
 
 > I want this Resource to become this state.
 
-PUT also has a critically important trait: **idempotency**. Suppose:
+PUT also has a critically important trait: **Idempotent**. Suppose:
 
 ```
 PUT /users/123/settings
@@ -145,13 +144,21 @@ PUT /users/123/settings
 }
 ```
 
-Send it once, `theme = dark`. Send it ten times, `theme = dark`. The end state is still the same.
+Sending it once gives `theme = dark`, and sending it ten times also gives `theme = dark`; the final state stays the same.
 
 So PUT is a good fit for "set to a given state."
 
+Another thing worth adding: PUT isn't only for "updating."
+
+If the `User 123` targeted by `PUT /users/123` doesn't already exist, the server can also choose to create a new record directly from the content sent, so that `User 123` now exists. This behavior is called an Upsert (Update + Insert).
+
+This is also why PUT requires the Client to specify the Resource's ID itself (e.g. the `123` in the URL): regardless of whether the record already existed, the result of the call has to be "User 123 becomes this specified state," which fits PUT = Set's semantics exactly. POST, by contrast, leaves the new ID up to the server to decide, so it can't express "create" the same way.
+
 ## PATCH: Modify
 
-PATCH, by contrast, is closer to:
+PATCH is something I learned after reading up on this topic, so let's look at its definition and usage first.
+
+PATCH is closer to:
 
 > Modify part of this Resource.
 
@@ -216,7 +223,15 @@ Take this User, for example:
 
 If you use `PUT /users/123`, conceptually that's "User 123 → gets fully set to the specified Resource." Whereas `PATCH /users/123` is "User 123 → only the specified fields get modified."
 
-So PUT isn't "an older version of PATCH." The two express different semantics entirely.
+So PUT isn't "an older version of PATCH." The two express entirely different semantics.
+
+A question came up for me at this point.
+
+Q: So why can't PATCH just replace PUT entirely?
+
+A: It actually can, since PATCH is capable of both partially modifying and fully replacing an entire record.
+
+But the difference in semantics between them is exactly why PUT still exists: PUT means "set to this final state." If everything were expressed through PATCH, the semantics would get muddled, because PATCH conveys "change these few fields," not "this is the final state."
 
 ## DELETE: Remove
 
@@ -230,35 +245,58 @@ For example:
 DELETE /users/123
 ```
 
-This means: remove User 123. DELETE is also idempotent.
+This means: remove User 123. DELETE is also Idempotent.
 
-First call: `User 123 → deleted`. Second call: `User 123 → already doesn't exist`. Third call: `User 123 → still doesn't exist`. The end state is always "User 123 doesn't exist."
+- First call: `User 123` gets deleted
+- Second call: `User 123` already doesn't exist
+- Third call: `User 123` still doesn't exist
+
+The end state is always "User 123 doesn't exist."
 
 So DELETE can be remembered as:
 
 **DELETE → Remove**
 
-## A quick-reference table
+## What Safe and Idempotent Actually Mean
 
-| Method | Mental Model | Common Use |
-| --- | --- | --- |
-| GET | Get | Fetch a Resource |
-| POST | Create / Command | Create a Resource, or execute an operation |
-| PUT | Set | Set the complete state of a Resource |
-| PATCH | Modify | Modify part of a Resource |
-| DELETE | Remove | Remove a Resource |
+Earlier I mentioned that GET, PUT, and DELETE have the property of being <span data-term="safe">Safe</span> or <span data-term="idempotent">Idempotent</span>.
+
+Safe guarantees "calling it won't change any data." Idempotent guarantees "no matter how many times you call it, the end result is the same."
+
+It's precisely because Safe methods are guaranteed to have no side effects that they can be safely cached by intermediaries like a <span data-term="proxy">Proxy</span> or a <span data-term="cdn">CDN</span>, and even be used by the browser to <span data-term="prefetch">prefetch</span> content ahead of time.
+
+Idempotency matters a lot in practice: suppose a Client calls an API and hits a network timeout, unsure whether the Request actually reached the Server. If that Method is Idempotent, the Client can safely resend it once without worrying about a duplicate side effect (like a duplicate charge or inserting the same record twice).
+
+This is also why POST generally isn't recommended for automatic retries, while PUT and DELETE are fine.
+
+Here's where you can also see the difference between understanding this before and after:
+
+- Before (only mapping to CRUD): all I knew was `POST = create` and `PUT = update`. Faced with a question like "should I resend this after a network timeout," I had no basis to decide.
+- After (understanding Safe / Idempotent): I know PUT and DELETE can be safely resent, but POST can't, because their guarantees around idempotency are different. This is the knowledge that actually matters when designing a retry mechanism or reading API docs.
+
+## Summary Table
+
+| Method | Mental Model     | Safe | Idempotent | Common Use                          |
+| ------ | ---------------- | ---- | ---------- | ----------------------------------- |
+| GET    | Get              | Yes  | Yes        | Fetch a Resource                    |
+| POST   | Create / Command | No   | No         | Create a Resource, or run an action |
+| PUT    | Set              | No   | Yes        | Set a Resource's complete state     |
+| PATCH  | Modify           | No   | Depends    | Modify part of a Resource           |
+| DELETE | Remove           | No   | Yes        | Remove a Resource                   |
+
+PATCH's Idempotent column is marked "Depends," because PATCH is semantically about "modifying": if the modification is a fixed value (e.g. setting `name` to `"John"`), resending it multiple times gives the same result, so it counts as Idempotent. But if it's a relative modification, like "quantity += 1," resending it keeps changing the result, so it isn't Idempotent.
 
 Don't just memorize `POST = Create` and `PUT = Update`. Instead, think of it as:
 
 - GET → "give me"
-- POST → "create / execute this for me"
+- POST → "create / run this for me"
 - PUT → "make it become this"
 - PATCH → "change this part"
 - DELETE → "make it disappear"
 
 ## Finally: why this matters for Rails
 
-Rails' RESTful routing ties these HTTP methods directly to controller actions. For example:
+<span data-term="rails">Rails</span>' <span data-term="rails-restful-routing">RESTful routing</span> ties these HTTP methods directly to controller actions. For example:
 
 ```ruby
 resources :users
@@ -288,17 +326,7 @@ DELETE → destroy
 
 At this point it becomes clear that Rails isn't simply mapping HTTP methods onto CRUD. It's actually leveraging HTTP's own semantics around Resources to build a consistent web API structure.
 
-So what's actually worth remembering isn't:
-
-```
-GET    = Read
-POST   = Create
-PUT    = Update
-PATCH  = Update
-DELETE = Delete
-```
-
-but rather:
+So what's actually worth remembering is:
 
 - GET → Get
 - POST → Create / Command
@@ -306,6 +334,6 @@ but rather:
 - PATCH → Modify
 - DELETE → Remove
 
-Once you start understanding HTTP this way, Rails controllers, REST APIs, frontend `fetch()` calls, and third-party APIs all become a lot easier to read, and questions like "why does this API use POST instead of PUT" stop being mysterious.
+Once you understand HTTP this way, it becomes a lot easier to read API methods later on, and to understand questions like "why does this API use POST instead of PUT."
 
 Reference: [ihower - HTTP Verbs: POST, PUT, PATCH](https://ihower.tw/blog/6483-http-verbs-post-put-patch)
