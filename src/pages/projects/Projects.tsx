@@ -49,9 +49,9 @@ function ProjectCard({ project, t }: { project: Project; t: Strings }) {
             {t.common.noPreviewImage}
           </div>
         )}
-        <div className="mt-3 flex items-center justify-between gap-2">
-          <p className="font-semibold">{project.name}</p>
-          <div className="flex shrink-0 flex-wrap justify-end items-center gap-1">
+        <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <p className="min-w-0 flex-1 font-semibold">{project.name}</p>
+          <div className="flex flex-wrap items-center gap-1 sm:shrink-0 sm:justify-end">
             {project.tags?.map((tag) => (
               <Chip key={tag} size="sm">{tag}</Chip>
             ))}

@@ -59,7 +59,10 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
 
   return (
     <Link to={`/articles/${article.slug}`} className="block">
-      <Card className="flex items-start gap-4" hoverable>
+      <Card
+        className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4"
+        hoverable
+      >
         <div className="min-w-0 flex-1">
           <p className="font-semibold">{article.title}</p>
           <p className="text-sm text-[var(--color-text-muted)]">{subtitle}</p>
@@ -67,14 +70,12 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
             {article.excerpt}
           </p>
         </div>
-        <div className="flex shrink-0 flex-col items-end gap-1">
-          <div className="flex flex-wrap justify-end gap-1">
-            {article.categories.map((category) => (
-              <Chip key={category} size="sm">
-                {category}
-              </Chip>
-            ))}
-          </div>
+        <div className="flex flex-wrap items-center gap-2 sm:shrink-0 sm:flex-col sm:items-end sm:gap-1">
+          {article.categories.map((category) => (
+            <Chip key={category} size="sm">
+              {category}
+            </Chip>
+          ))}
           {article.rating !== undefined && (
             <Stars rating={article.rating} t={t} />
           )}
