@@ -62,7 +62,7 @@
     "category": "EVAL",
     "status": "published",
     "relatedProjects": ["code-pulse"],
-    "relatedArticles": [],
+    "relatedArticles": ["code-pulse-user-study"],
     "relatedNodes": [
       { "slug": "partial-f1", "type": "related" },
       { "slug": "human-computer-interaction", "type": "related" },
@@ -376,7 +376,7 @@
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],
-    "relatedArticles": [],
+    "relatedArticles": ["code-pulse-confidence-vs-competence"],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
       { "slug": "cfg", "type": "applies_to" }
@@ -389,10 +389,12 @@
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse"],
-    "relatedArticles": [],
+    "relatedArticles": ["code-pulse-user-study", "code-pulse-confidence-vs-competence"],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
       { "slug": "normalized-gain", "type": "applies_to" },
+      { "slug": "learning-confidence", "type": "applies_to" },
+      { "slug": "self-perceived-learning-effectiveness", "type": "applies_to" },
       { "slug": "reflexive-thematic-analysis", "type": "related" },
       { "slug": "social-computing", "type": "related" },
       { "slug": "interactive-systems", "type": "related" },
@@ -490,6 +492,76 @@
     "relatedNodes": [
       { "slug": "human-computer-interaction", "type": "related" },
       { "slug": "social-computing", "type": "related" }
+    ]
+  },
+  "learning-confidence": {
+    "term": "Learning Confidence",
+    "definition": "A participant's subjective belief about whether they can learn or complete a given learning task, answering \"do I believe I can learn this?\" It's a psychological construct, not a measurement method in itself.",
+    "application": "In CodePulse's pre/post survey, participants rated their confidence in being able to learn harder algorithms going forward, and that confidence rose significantly after using the platform (p < 0.001). A rise in confidence, however, is not the same as a significant gain in test scores (see Normalized Gain); the two are separate pieces of evidence that need to be verified independently.",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-user-study", "code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "self-reported-confidence", "type": "applies_to" },
+      { "slug": "self-perceived-learning-effectiveness", "type": "contrasts_with" },
+      { "slug": "normalized-gain", "type": "contrasts_with" },
+      { "slug": "retrospective-pre-post", "type": "related" }
+    ]
+  },
+  "self-reported-confidence": {
+    "term": "Self-Reported Confidence",
+    "definition": "A measurement method where participants rate their own confidence level on a scale. It's an operationalized measurement technique, not an independent psychological construct, and is commonly used to quantify beliefs like learning confidence.",
+    "application": "CodePulse's pre/post survey used a rating scale to have participants self-report their confidence in learning algorithms; this self-report method is what makes it possible to turn the change in learning confidence into a comparable number.",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-user-study", "code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "learning-confidence", "type": "applies_to" },
+      { "slug": "self-perceived-learning-effectiveness", "type": "related" },
+      { "slug": "retrospective-pre-post", "type": "related" }
+    ]
+  },
+  "self-perceived-learning-effectiveness": {
+    "term": "Self-Perceived Learning Effectiveness",
+    "definition": "A participant's own subjective judgment of how well they learned, answering \"do I feel like I learned better?\" This is a different layer of evidence from objective learning outcomes measured by test scores, and the two can point in the same direction or diverge.",
+    "application": "CodePulse's survey asked participants whether, compared to traditional textbooks and slides, they felt CodePulse made the material more intuitive and easier to understand. That kind of answer is self-perceived learning effectiveness, a separate thing from the positive-but-not-significant Normalized Gain shown in test scores.",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-user-study", "code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "normalized-gain", "type": "contrasts_with" },
+      { "slug": "learning-confidence", "type": "contrasts_with" },
+      { "slug": "self-reported-confidence", "type": "related" }
+    ]
+  },
+  "retrospective-pre-post": {
+    "term": "Retrospective Pre-Post",
+    "definition": "A pre/post design where participants answer both a \"before\" and an \"after\" self-report item at the same single point in time, usually right after an intervention, rather than being measured once before and once after. Unlike a true pre-post measured on two separate occasions, the \"before\" rating is actually a recollection made after the fact.",
+    "application": "CodePulse's survey items \"Before using it, I found algorithms very intimidating\" and \"After using it, I feel confident I can learn harder algorithms\" were both answered together right after the platform session, making this a retrospective pre-post. Treating those two scores as if they came from two separately-administered measurements, when comparing the change in confidence, needs to account for the limits this design carries.",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "response-shift-bias", "type": "related" },
+      { "slug": "learning-confidence", "type": "related" },
+      { "slug": "self-reported-confidence", "type": "related" }
+    ]
+  },
+  "response-shift-bias": {
+    "term": "Response-Shift Bias",
+    "definition": "When a participant recalls and rates a \"before\" state after the fact, that rating tends to get colored by how they currently feel, common in retrospective pre-post designs. It isn't participants deliberately misreporting, the recollection itself gets recalibrated by their present cognitive or emotional state.",
+    "application": "CodePulse's survey asked participants, after using the platform, to recall and rate how intimidating they'd found algorithms before. That recollection was likely already colored by the positive experience of using the platform, which could understate the \"before\" score and inflate the confidence change computed from the pre/post pair.",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "retrospective-pre-post", "type": "prerequisite" },
+      { "slug": "learning-confidence", "type": "related" }
     ]
   }
 }

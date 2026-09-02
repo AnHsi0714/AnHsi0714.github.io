@@ -62,7 +62,7 @@
     "category": "EVAL",
     "status": "published",
     "relatedProjects": ["code-pulse"],
-    "relatedArticles": [],
+    "relatedArticles": ["code-pulse-user-study"],
     "relatedNodes": [
       { "slug": "partial-f1", "type": "related" },
       { "slug": "human-computer-interaction", "type": "related" },
@@ -376,7 +376,7 @@
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],
-    "relatedArticles": [],
+    "relatedArticles": ["code-pulse-confidence-vs-competence"],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
       { "slug": "cfg", "type": "applies_to" }
@@ -389,10 +389,15 @@
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse"],
-    "relatedArticles": [],
+    "relatedArticles": [
+      "code-pulse-user-study",
+      "code-pulse-confidence-vs-competence"
+    ],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
       { "slug": "normalized-gain", "type": "applies_to" },
+      { "slug": "learning-confidence", "type": "applies_to" },
+      { "slug": "self-perceived-learning-effectiveness", "type": "applies_to" },
       { "slug": "reflexive-thematic-analysis", "type": "related" },
       { "slug": "social-computing", "type": "related" },
       { "slug": "interactive-systems", "type": "related" },
@@ -490,6 +495,88 @@
     "relatedNodes": [
       { "slug": "human-computer-interaction", "type": "related" },
       { "slug": "social-computing", "type": "related" }
+    ]
+  },
+  "learning-confidence": {
+    "term": "Learning Confidence（學習信心）",
+    "definition": "受試者對「自己能不能學會或完成某項學習任務」的主觀信念，回答的是「我相信自己學得會嗎」，是一種心理構念，不是測量方式本身。",
+    "application": "CodePulse 前後測問卷讓受試者自評「能否進一步學習更困難演算法」的信心，操作平台後這項信心顯著提升（p < 0.001）；但信心提升不等於測驗分數（見 Normalized Gain）也顯著進步，兩者是需要分開驗證的證據。",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [
+      "code-pulse-user-study",
+      "code-pulse-confidence-vs-competence"
+    ],
+    "relatedNodes": [
+      { "slug": "self-reported-confidence", "type": "applies_to" },
+      {
+        "slug": "self-perceived-learning-effectiveness",
+        "type": "contrasts_with"
+      },
+      { "slug": "normalized-gain", "type": "contrasts_with" },
+      { "slug": "retrospective-pre-post", "type": "related" }
+    ]
+  },
+  "self-reported-confidence": {
+    "term": "Self-Reported Confidence（自陳信心）",
+    "definition": "讓受試者自己填答量表回報信心水準的測量方式，是一種操作化的測量手段，不是獨立的心理構念，常被用來量化「學習信心」這類主觀信念。",
+    "application": "CodePulse 前後測問卷用量表讓受試者自評對演算法學習的信心分數，藉由這種自陳測量方式，才能把「學習信心」這個構念的變化量化成可比較的數字。",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [
+      "code-pulse-user-study",
+      "code-pulse-confidence-vs-competence"
+    ],
+    "relatedNodes": [
+      { "slug": "learning-confidence", "type": "applies_to" },
+      { "slug": "self-perceived-learning-effectiveness", "type": "related" },
+      { "slug": "retrospective-pre-post", "type": "related" }
+    ]
+  },
+  "self-perceived-learning-effectiveness": {
+    "term": "Self-Perceived Learning Effectiveness（學習成效自評）",
+    "definition": "受試者對自己學習結果好壞的主觀評價，回答的是「我覺得自己學得有沒有比較好」，跟用測驗分數衡量的客觀學習成效是不同層次的證據，兩者可能同向、也可能不同向。",
+    "application": "CodePulse 問卷詢問受試者，相較於傳統課本與 PPT，是否覺得 CodePulse 讓學習更直觀、更容易理解，這類回答屬於學習成效自評，跟測驗分數呈現的正向但未達統計顯著的 Normalized Gain，是需要分開看待的兩件事。",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [
+      "code-pulse-user-study",
+      "code-pulse-confidence-vs-competence"
+    ],
+    "relatedNodes": [
+      { "slug": "normalized-gain", "type": "contrasts_with" },
+      { "slug": "learning-confidence", "type": "contrasts_with" },
+      { "slug": "self-reported-confidence", "type": "related" }
+    ]
+  },
+  "retrospective-pre-post": {
+    "term": "回溯式前後測（Retrospective Pre-Post）",
+    "definition": "一種前後測設計：受試者在同一個時間點（通常是介入結束後）同時回答「介入前」與「介入後」的自評題項，而不是先測一次、介入後再另外測一次。跟真正分兩次施測的前後測不同，因為「介入前」的評分其實是事後回想出來的。",
+    "application": "CodePulse 問卷裡「使用之前，我覺得演算法很可怕」與「使用之後，我有信心學習更難的演算法」兩題，都是操作完平台後才一起填的，屬於回溯式前後測；把這兩題的分數當成真正分開施測的前後測來比較信心變化，需要特別留意這個設計本身帶來的限制。",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "response-shift-bias", "type": "related" },
+      { "slug": "learning-confidence", "type": "related" },
+      { "slug": "self-reported-confidence", "type": "related" }
+    ]
+  },
+  "response-shift-bias": {
+    "term": "回應偏移偏誤（Response-Shift Bias）",
+    "definition": "受試者事後回想「介入前」的狀態並打分數時，評分容易被「介入後」的當下感受影響而產生偏移，常見於回溯式前後測；不是受試者刻意誤報，而是回憶本身會被目前的認知或情緒狀態重新校準。",
+    "application": "CodePulse 問卷請受試者在操作平台後，回想「使用之前」對演算法的畏懼程度並打分數，這個回想很可能已經被操作後的正向經驗影響，讓「使用前」的分數被低估，連帶讓前後測算出來的信心變化量被放大。",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "retrospective-pre-post", "type": "prerequisite" },
+      { "slug": "learning-confidence", "type": "related" }
     ]
   }
 }
