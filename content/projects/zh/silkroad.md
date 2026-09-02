@@ -53,7 +53,7 @@ Demo: https://youtu.be/oEN80YCLeAc
 
 下單時，`CART_ITEM` / `ORDER_ITEM` 會把當時選擇的 `selected_sugar` / `selected_ice` / `selected_size` 與成交價格 `price` 直接存一份快照，而不是即時參照 `PRODUCT` 當前設定，這樣即使店家之後更動商品選項或價格，已成立的歷史訂單也不會被意外連動改變。
 
-角色設計上，`USER` 是共用基底資料表，`ADMIN` / `CUSTOMER` / `VENDOR` 用 1:1 的 <span data-term="pk-fk">PK-FK</span> 關聯去模擬繼承。`VENDOR` 另外拉出 `VENDOR_MANAGER` 實體，因為同一位店家負責人可能名下管理多間分店（例如「50 嵐 - 大安店」與「可不可 - 信義店」可能同屬一位區經理）。
+角色設計上，`USER` 是共用基底資料表，`ADMIN` / `CUSTOMER` / `VENDOR` 用 1:1 的 PK-FK 關聯去模擬繼承。`VENDOR` 另外拉出 `VENDOR_MANAGER` 實體，因為同一位店家負責人可能名下管理多間分店（例如「50 嵐 - 大安店」與「可不可 - 信義店」可能同屬一位區經理）。
 
 <figure>
   <img src="/images/projects/silkroad/erdplus.png" alt="SilkRoad ER Model" style="display: block; margin: 0 auto; max-width: 100%;" />
