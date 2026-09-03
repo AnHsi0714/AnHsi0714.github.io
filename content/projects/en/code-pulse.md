@@ -50,7 +50,7 @@ To balance "recognized standard algorithms" against "arbitrary user code," Playg
 
 The recognition pipeline converts a user's code into a vector and compares it against a prebuilt library of reference algorithm vectors using <span data-term="cosine-similarity">Cosine Similarity</span>. We compared five candidate embedding models (CodeBERT, GraphCodeBERT, UniXcoder, MiniLM-L6-v2, Jina-Code v2) and tested three identifier-normalization strategies: none, partial, and full. Full normalization erases variable names too, which actually made the similarity distributions of known and unknown cases overlap more; no normalization, on the other hand, let the model get thrown off by function naming. Partial normalization (normalizing only function and parameter names while keeping internal variable names intact) struck the best balance across most models.
 
-We ultimately went with **Jina-Code v2 + partial normalization**: 100% recognition accuracy on known algorithms, holding at 100% even for multi-function cases involving helper functions, with the recognition threshold set at 0.80 as the trigger for Level 1 animation. Below that threshold, or when the code structure doesn't match a known template, the system doesn't force a semantic animation: it falls back to the more conservative CFG visualization instead, with Gemini generating a code summary, complexity explanation, and learning feedback.
+We ultimately went with **Jina-Code v2 + partial normalization**: 100% recognition accuracy on known algorithms, holding at 100% even for multi-function cases involving helper functions, with the recognition threshold set at 0.80 as the trigger for Level 1 animation. Below that threshold, or when the code structure doesn't match a known template, the system doesn't force a semantic animation: it falls back to the more conservative <span data-term="cfg">CFG</span> visualization instead, with Gemini generating a code summary, complexity explanation, and learning feedback.
 
 ## Interaction Design
 
@@ -96,46 +96,58 @@ After finishing guided lessons, learners move to practice mode: single-choice, m
 
 ### Study Design
 
-We ran a single-group pre/post-test design with 56 participants, split into a high-school group (11th graders who had taken a programming course) and a university group (sophomores who had taken data structures and programming courses). The pre-test and post-test used two versions, A and B, covering the same concepts with different questions; participants alternated which version they got as pre-test versus post-test, to reduce memory effects from encountering the same questions twice. Given participants' limited available time, they used the platform for about 20–30 minutes before completing the post-test and survey.
+We ran a single-group pre/post-test design with 56 participants, split into a high-school group (11th graders who had taken a programming course) and a university group (sophomores who had taken data structures and programming courses).
 
-Test performance was measured with Normalized Gain:
+If the pre-test and post-test used the exact same questions, participants might do better simply from remembering the questions or answers, a practice effect. So the test was designed as two versions, A and B, covering the same concepts but expressing the questions differently, changing numeric values, swapping between a DFS and a BFS scenario, or switching the question format between reading code and reading its execution result, while keeping the underlying solving steps identical so participants couldn't tell the two versions were really the same quiz and answer from memory alone. Participants alternated which version they got as pre-test versus post-test.
+
+Given participants' limited available time, they used the platform for about 20–30 minutes before completing the post-test and survey.
+
+Test performance was measured with <span data-term="normalized-gain">Normalized Gain</span>:
 
 `g = (Posttest score - Pretest score) / (Max score - Pretest score)`
 
 | Metric | University Group | High-School Group |
 | --- | --- | --- |
 | Test score <span data-term="normalized-gain">Normalized Gain</span> | 0.222 (p = 0.292, not significant) | 0.230 (p = 0.214, not significant) |
-| Learning confidence gain | p < 0.001 (significant) | p = 0.021 (significant) |
+| <span data-term="learning-confidence">Learning confidence</span> gain | p < 0.001 (significant) | p = 0.021 (significant) |
 
 ### Test Performance
 
-Normalized Gain was 0.230 for the high-school group and 0.222 for the university group, both trending positive, but neither pre/post difference reached statistical significance (high-school p = 0.214; university p = 0.292). This is likely influenced by the limited sample size and short session length, so the results don't yet support a claim that the platform significantly improves test performance.
+<span data-term="normalized-gain">Normalized Gain</span> was 0.230 for the high-school group and 0.222 for the university group, both trending positive, but neither pre/post difference reached statistical significance (high-school p = 0.214; university p = 0.292). This is likely influenced by the limited sample size and short session length, so the results don't yet support a claim that the platform significantly improves test performance.
 
 <figure>
   <img src="/images/projects/code-pulse/test-score.png" alt="Pre/post test-score comparison" style="display: block; margin: 0 auto; max-width: 100%;" />
   <figcaption style="text-align: center;">Pre/post test-score comparison</figcaption>
 </figure>
 
+Looking back at participants' performance, this might not simply mean CodePulse had no learning effect: it could also have to do with question difficulty and participants' prior knowledge. Some higher-performing participants (the university sophomores) could already reliably answer the easier questions on the pre-test. For the harder questions, participants who already understood a concept tended to get it right on both tests, and those who didn't tended to get it wrong on both, a ceiling effect that left little room for scores to move regardless of what they picked up from the platform. The high-school group, by contrast, was more prone to guessing, which made their pre/post scores less stable to begin with and further weakened the scores' ability to reflect actual learning. Separately, some questions may have been beyond what participants with weaker prior knowledge could grasp to begin with, so a single short session wasn't enough to translate into better quiz performance.
+
 ### Learning Confidence and Survey Feedback
 
-By contrast, learning confidence improved significantly in both groups (university p < 0.001; high-school p = 0.021), indicating participants felt more confident about learning algorithms after using the platform. This is an early signal that the dynamic visualization may help build learners' confidence and motivation around algorithm concepts.
+By contrast, <span data-term="learning-confidence">learning confidence</span> improved significantly in both groups (university p < 0.001; high-school p = 0.021). That confidence was measured through a Likert-scale item participants self-rated on the survey, a form of <span data-term="self-reported-confidence">self-reported confidence</span>, indicating participants felt more confident about learning algorithms after using the platform. This is an early signal that the dynamic visualization may help build learners' confidence and motivation around algorithm concepts.
 
 <figure>
   <img src="/images/projects/code-pulse/confidence-score.png" alt="Pre/post learning-confidence comparison" style="display: block; margin: 0 auto; max-width: 100%;" />
   <figcaption style="text-align: center;">Pre/post learning-confidence comparison</figcaption>
 </figure>
 
-In survey feedback, "step-by-step execution animation" was the highest-rated visualization feature (4.18/5), followed closely by "helped me understand abstract data-structure operations" (4.11/5). Open-ended feedback noted that the platform still has a noticeable learning curve on first use, and that some features aren't positioned intuitively.
+In survey feedback, "step-by-step execution animation" was the highest-rated visualization feature for clarity and usefulness (4.18/5); it was also the most-picked item when participants multi-selected which tools helped their learning (37/56); and when asked which single feature they'd keep if they could only keep one, it was again the most-picked answer (19/56, ahead of the second most-picked, basic error detection, at 12/56). Three independent questions point to the same conclusion: step-by-step execution animation is the platform's core value in users' minds. Separately, <span data-term="self-perceived-learning-effectiveness">"helped me understand abstract data-structure operations"</span> was the highest-rated item in the "understanding and learning" category (4.11/5), a self-perceived learning effectiveness item asking whether participants felt the platform helped them learn better, evidence that stands separately from the objective learning outcome shown in the test scores. The item "I could find and use features quickly without guidance" averaged only 3.46/5, one of the lower-rated items on the survey, echoing the open-ended feedback noting the platform still has a noticeable learning curve on first use and that some features aren't positioned intuitively.
+
+### Information Load
+
+The survey also showed that while visualization makes an algorithm's execution easier to follow, presenting animation, variables, and other information all at once can leave users feeling like there's too much to take in. On the item "While watching the animation and tracking variables, did I feel like there was too much information to take in?", the average rating came out to only 3.14 (where 5 meant "very effortful"), one of the lower-rated items in the survey. In response, a setting was added so the pseudocode panel only opens while an animation is playing, auto-scrolling to the relevant variable section during playback so users could stay focused on the current execution step.
 
 ### Study Limitations
 
-This study used a single-group pre/post-test design without a control group, so we can't rule out confounds like test familiarity, short-term learning, or novelty effects; the gains in test performance and learning confidence can't be directly attributed to the platform intervention alone. Future work could add a control group and extend session time to further validate the platform's learning outcomes.
+This study used a single-group pre/post-test design without a control group, so we can't rule out confounds like test familiarity, short-term learning, or novelty effects; the gains in test performance and learning confidence can't be directly attributed to the platform intervention alone. Participants also didn't necessarily experience the system the way it was intended: during the high-school group's sessions, for instance, some fell asleep, and others didn't stick to the intended scope (since session time was short, the goal was for participants to focus on the material the quiz actually covered). Whether to exclude that kind of behavior or try to control for it remains an open question. Future work could add a control group and extend session time to further validate the platform's learning outcomes.
 
 ## What I Learned
 
 CodePulse demonstrates that combining static analysis, dynamic tracing, semantic embedding models, and LLM-assisted analysis into a single pipeline is workable: able to teach like a traditional animation tool while also analyzing arbitrary code like a debugger. One of the more interesting findings was that the value of the identifier-normalization strategy isn't really about raising accuracy per se, but about finding the right balance between "naming noise" and "preserving semantic features."
 
-The user study also surfaced a gap worth thinking about: the interface's psychological benefit (a significant boost in learning confidence) didn't fully line up with its measurable learning gains (test scores only trended positive). A short visualization session seems to meaningfully ease learning anxiety, but turning that into measurable knowledge gains probably needs longer practice time, a control-group design, or more precisely targeted guidance.
+The user study also surfaced a gap worth thinking about: the interface's psychological benefit (a significant boost in <span data-term="learning-confidence">learning confidence</span>) didn't fully line up with its measurable learning gains (test scores only trended positive). That gap is what later pushed me to pull apart learning confidence, <span data-term="self-reported-confidence">self-reported confidence</span>, and <span data-term="self-perceived-learning-effectiveness">self-perceived learning effectiveness</span> as three distinct things. A short visualization session seems to meaningfully ease learning anxiety, but turning that into measurable knowledge gains probably needs longer practice time, a control-group design, or more precisely targeted guidance.
+
+The survey turned up one more unexpected finding: asked how they usually resolve confusing code logic day-to-day, over 80% of participants mentioned asking an AI. That sits in an interesting tension with what CodePulse is trying to do: in an environment where AI can hand you an answer almost instantly, is it still worth spending time tracing execution yourself to build a mental model? My current view is that the two aren't mutually exclusive, asking an AI gets you an answer fast, but a visualization tool makes the "why is this the answer" process visible and re-inspectable in a way that's harder to replace by just asking. That question itself is part of why I want to keep digging into HCI and user-research methods.
 
 Beyond the methodological limits of the user study itself, the platform currently supports only Python, and hasn't been stress-tested at scale for concurrency.
 
@@ -145,3 +157,4 @@ Beyond the methodological limits of the user study itself, the platform currentl
 2. Finer-grained adaptive guidance and personalized learning paths
 3. Expand the reference algorithm-vector library to improve recognition of unfamiliar code
 4. Scale up the participant pool and observation window to validate long-term learning outcomes
+5. Improve how basic error detection is presented: on the survey, this feature had the lowest clarity-and-usefulness rating of any visualization feature (3.95/5), yet it was the second most-picked answer to "if you could only keep one feature" (12/56), suggesting users value it conceptually even though its current presentation isn't pulling its weight

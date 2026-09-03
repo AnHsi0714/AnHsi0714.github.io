@@ -88,8 +88,10 @@ export interface KnowledgeRelatedNode {
 export interface KnowledgeNode {
   term: string;
   definition: string;
-  // 這個詞彙在專案裡實際如何被應用，非通用字典解釋；沒有對應專案的純知識點可留空
-  application?: string;
+  // 這個詞彙在專案裡實際如何被應用，非通用字典解釋；沒有對應專案的純知識點可留空。
+  // 被多個專案／文章共用時，改用 { [slug]: 該情境下的說明 }，讓顯示時能依目前情境只挑一句，
+  // 而不是把不同專案的用法黏成一段話
+  application?: string | Record<string, string>;
   // 分類代碼沿用 ProjectTag 的簡短風格（ALGO/NLP/DB/WEB/EVAL...），不強制列舉，允許之後自由擴充
   category: string;
   status: KnowledgeStatus;

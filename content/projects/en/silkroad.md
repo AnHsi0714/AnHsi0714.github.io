@@ -53,11 +53,11 @@ The biggest design challenge was beverages' "multi-dimensional customization": t
 
 At checkout, `CART_ITEM` / `ORDER_ITEM` store a snapshot of the `selected_sugar` / `selected_ice` / `selected_size` chosen at that moment along with the final `price`, rather than referencing `PRODUCT`'s current settings live, so if a vendor later changes a product's options or price, existing historical orders aren't retroactively affected.
 
-For roles, `USER` is a shared base table, with `ADMIN` / `CUSTOMER` / `VENDOR` simulating inheritance through a 1:1 <span data-term="pk-fk">PK-FK</span> relationship. `VENDOR` also has a separate `VENDOR_MANAGER` entity, since a single vendor manager may run multiple branches (e.g. "50 Lan – Da'an Branch" and "KeBuKe – Xinyi Branch" might both report to the same regional manager).
+For roles, `USER` is a shared base table, with `ADMIN` / `CUSTOMER` / `VENDOR` simulating inheritance through a 1:1 PK-FK relationship. `VENDOR` also has a separate `VENDOR_MANAGER` entity, since a single vendor manager may run multiple branches (e.g. "50 Lan – Da'an Branch" and "KeBuKe – Xinyi Branch" might both report to the same regional manager).
 
 <figure>
   <img src="/images/projects/silkroad/erdplus.png" alt="SilkRoad ER Model" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">SilkRoad ER Model</figcaption>
+  <figcaption style="text-align: center;">SilkRoad <span data-term="er-model">ER Model</span></figcaption>
 </figure>
 
 <figure>

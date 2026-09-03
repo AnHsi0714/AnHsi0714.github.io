@@ -45,7 +45,10 @@
   "cosine-similarity": {
     "term": "Cosine Similarity（餘弦相似度）",
     "definition": "衡量兩個向量方向相似程度的指標，數值介於 -1 到 1，越接近 1 代表兩者語意越相近，常用於比較程式碼或文字轉成向量後的相似程度。",
-    "application": "CodePulse 把使用者程式碼轉成語意向量，跟預先建好的標準演算法向量庫做 cosine similarity 比對，相似度高於門檻（0.80）才觸發對應的 Level 1 語意動畫；ABSA Pipeline 則是把每個 Aspect Term 轉成語意向量，跟六大面向的種子詞向量算 cosine similarity，相似度最高的面向就是這個詞被歸類的類別，取代人工逐句判斷分類。",
+    "application": {
+      "code-pulse": "CodePulse 把使用者程式碼轉成語意向量，跟預先建好的標準演算法向量庫做 cosine similarity 比對，相似度高於門檻（0.80）才觸發對應的 Level 1 語意動畫。",
+      "absa-wordcloud": "ABSA Pipeline 把每個 Aspect Term 轉成語意向量，跟六大面向的種子詞向量算 cosine similarity，相似度最高的面向就是這個詞被歸類的類別，取代人工逐句判斷分類。"
+    },
     "category": "ALGO",
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],
@@ -62,7 +65,7 @@
     "category": "EVAL",
     "status": "published",
     "relatedProjects": ["code-pulse"],
-    "relatedArticles": [],
+    "relatedArticles": ["code-pulse-user-study"],
     "relatedNodes": [
       { "slug": "partial-f1", "type": "related" },
       { "slug": "human-computer-interaction", "type": "related" },
@@ -312,12 +315,18 @@
   "race-condition": {
     "term": "Race Condition（競態條件）",
     "definition": "多個操作同時存取、修改同一份資料時，因為執行順序的先後而導致結果不一致或出乎預期的問題，常見於多個使用者或多個執行緒同時讀寫同一筆記錄的情境。",
-    "application": "如果兩位朋友在同一瞬間輸入同一組邀請碼，單純在前端「先檢查碼是否已用，再寫入」會有機會兩邊都通過檢查、碼被重複兌換。個人網站用資料庫的 `for update` 鎖住該列，確保「檢查＋標記已用＋寫入創作」這組操作不會被另一次同時執行的請求打斷。",
+    "application": {
+      "personal-website": "如果兩位朋友在同一瞬間輸入同一組邀請碼，單純在前端「先檢查碼是否已用，再寫入」會有機會兩邊都通過檢查、碼被重複兌換。個人網站用資料庫的 `for update` 鎖住該列，確保「檢查＋標記已用＋寫入創作」這組操作不會被另一次同時執行的請求打斷。",
+      "rxjs-flattening-operators": "RxJS 也會遇到同一類問題：同一個動作被重複觸發、送出多個非同步請求時，如果沒有用對的 flattening operator 攤平，舊的請求可能比新的請求晚回來，導致畫面顯示過期的結果。"
+    },
     "category": "WEB",
     "status": "published",
     "relatedProjects": ["personal-website"],
-    "relatedArticles": [],
-    "relatedNodes": [{ "slug": "security-definer", "type": "prerequisite" }]
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [
+      { "slug": "security-definer", "type": "prerequisite" },
+      { "slug": "merge-map", "type": "related" }
+    ]
   },
   "intersection-observer": {
     "term": "IntersectionObserver",
@@ -372,11 +381,14 @@
   "information-visualization": {
     "term": "Information Visualization（資訊視覺化）",
     "definition": "把抽象資料（數字、程式結構、文字統計）轉換成圖形表示法，讓人能靠視覺感知而非逐行閱讀來理解資料的結構與規律。",
-    "application": "CodePulse 把程式的控制流程畫成 CFG／Call Graph；ABSA Pipeline 把使用者回饋的情感分析結果畫成文字雲（WordCloud），都是把處理完的抽象資料轉成可以一眼看出規律的圖形表示。",
+    "application": {
+      "code-pulse": "CodePulse 把程式的控制流程畫成 CFG／Call Graph，把處理完的抽象資料轉成可以一眼看出規律的圖形表示。",
+      "absa-wordcloud": "ABSA Pipeline 把使用者回饋的情感分析結果畫成文字雲（WordCloud），把處理完的抽象資料轉成可以一眼看出規律的圖形表示。"
+    },
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],
-    "relatedArticles": [],
+    "relatedArticles": ["code-pulse-confidence-vs-competence"],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
       { "slug": "cfg", "type": "applies_to" }
@@ -389,10 +401,15 @@
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse"],
-    "relatedArticles": [],
+    "relatedArticles": [
+      "code-pulse-user-study",
+      "code-pulse-confidence-vs-competence"
+    ],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
       { "slug": "normalized-gain", "type": "applies_to" },
+      { "slug": "learning-confidence", "type": "applies_to" },
+      { "slug": "self-perceived-learning-effectiveness", "type": "applies_to" },
       { "slug": "reflexive-thematic-analysis", "type": "related" },
       { "slug": "social-computing", "type": "related" },
       { "slug": "interactive-systems", "type": "related" },
@@ -490,6 +507,287 @@
     "relatedNodes": [
       { "slug": "human-computer-interaction", "type": "related" },
       { "slug": "social-computing", "type": "related" }
+    ]
+  },
+  "learning-confidence": {
+    "term": "Learning Confidence（學習信心）",
+    "definition": "受試者對「自己能不能學會或完成某項學習任務」的主觀信念，回答的是「我相信自己學得會嗎」，是一種心理構念，不是測量方式本身。",
+    "application": "CodePulse 前後測問卷讓受試者自評「能否進一步學習更困難演算法」的信心，操作平台後這項信心顯著提升（p < 0.001）；但信心提升不等於測驗分數（見 Normalized Gain）也顯著進步，兩者是需要分開驗證的證據。",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [
+      "code-pulse-user-study",
+      "code-pulse-confidence-vs-competence"
+    ],
+    "relatedNodes": [
+      { "slug": "self-reported-confidence", "type": "applies_to" },
+      {
+        "slug": "self-perceived-learning-effectiveness",
+        "type": "contrasts_with"
+      },
+      { "slug": "normalized-gain", "type": "contrasts_with" },
+      { "slug": "retrospective-pre-post", "type": "related" }
+    ]
+  },
+  "self-reported-confidence": {
+    "term": "Self-Reported Confidence（自陳信心）",
+    "definition": "讓受試者自己填答量表回報信心水準的測量方式，是一種操作化的測量手段，不是獨立的心理構念，常被用來量化「學習信心」這類主觀信念。",
+    "application": "CodePulse 前後測問卷用量表讓受試者自評對演算法學習的信心分數，藉由這種自陳測量方式，才能把「學習信心」這個構念的變化量化成可比較的數字。",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [
+      "code-pulse-user-study",
+      "code-pulse-confidence-vs-competence"
+    ],
+    "relatedNodes": [
+      { "slug": "learning-confidence", "type": "applies_to" },
+      { "slug": "self-perceived-learning-effectiveness", "type": "related" },
+      { "slug": "retrospective-pre-post", "type": "related" }
+    ]
+  },
+  "self-perceived-learning-effectiveness": {
+    "term": "Self-Perceived Learning Effectiveness（學習成效自評）",
+    "definition": "受試者對自己學習結果好壞的主觀評價，回答的是「我覺得自己學得有沒有比較好」，跟用測驗分數衡量的客觀學習成效是不同層次的證據，兩者可能同向、也可能不同向。",
+    "application": "CodePulse 問卷詢問受試者，相較於傳統課本與 PPT，是否覺得 CodePulse 讓學習更直觀、更容易理解，這類回答屬於學習成效自評，跟測驗分數呈現的正向但未達統計顯著的 Normalized Gain，是需要分開看待的兩件事。",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [
+      "code-pulse-user-study",
+      "code-pulse-confidence-vs-competence"
+    ],
+    "relatedNodes": [
+      { "slug": "normalized-gain", "type": "contrasts_with" },
+      { "slug": "learning-confidence", "type": "contrasts_with" },
+      { "slug": "self-reported-confidence", "type": "related" }
+    ]
+  },
+  "retrospective-pre-post": {
+    "term": "回溯式前後測（Retrospective Pre-Post）",
+    "definition": "一種前後測設計：受試者在同一個時間點（通常是介入結束後）同時回答「介入前」與「介入後」的自評題項，而不是先測一次、介入後再另外測一次。跟真正分兩次施測的前後測不同，因為「介入前」的評分其實是事後回想出來的。",
+    "application": "CodePulse 問卷裡「使用之前，我覺得演算法很可怕」與「使用之後，我有信心學習更難的演算法」兩題，都是操作完平台後才一起填的，屬於回溯式前後測；把這兩題的分數當成真正分開施測的前後測來比較信心變化，需要特別留意這個設計本身帶來的限制。",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "response-shift-bias", "type": "related" },
+      { "slug": "learning-confidence", "type": "related" },
+      { "slug": "self-reported-confidence", "type": "related" }
+    ]
+  },
+  "response-shift-bias": {
+    "term": "回應偏移偏誤（Response-Shift Bias）",
+    "definition": "受試者事後回想「介入前」的狀態並打分數時，評分容易被「介入後」的當下感受影響而產生偏移，常見於回溯式前後測；不是受試者刻意誤報，而是回憶本身會被目前的認知或情緒狀態重新校準。",
+    "application": "CodePulse 問卷請受試者在操作平台後，回想「使用之前」對演算法的畏懼程度並打分數，這個回想很可能已經被操作後的正向經驗影響，讓「使用前」的分數被低估，連帶讓前後測算出來的信心變化量被放大。",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "retrospective-pre-post", "type": "prerequisite" },
+      { "slug": "learning-confidence", "type": "related" }
+    ]
+  },
+  "rxjs": {
+    "term": "RxJS",
+    "definition": "JavaScript 的反應式程式庫，核心是 Observable：把非同步事件（使用者互動、HTTP 回應、計時器）都包裝成一串會隨時間發出值的資料流，透過 operator 組合、轉換這些資料流，取代各自寫 callback 或分散的 async/await。",
+    "application": "在太陽鳥軟體實習的 Angular 專案裡，非同步事件與 API 請求大量透過 RxJS 處理：使用者互動跟 HTTP 回應都是 Observable，再用 concatMap／switchMap／mergeMap／exhaustMap 這類 operator 決定重複觸發時該怎麼處理，而不是各自手動用旗標或計時器控制。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "signal", "type": "contrasts_with" }]
+  },
+  "concat-map": {
+    "term": "concatMap",
+    "definition": "RxJS 的 flattening operator：遇到新的內層 Observable 時，把它排進佇列，等前一個內層 Observable 完成後才開始下一個，確保處理順序跟觸發順序一致。",
+    "application": "在太陽鳥軟體實習的 Angular 專案裡，處理需要保證執行順序的非同步操作（例如依序送出的多筆請求）時，用 concatMap 確保不會因為並行處理而打亂順序。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [
+      { "slug": "switch-map", "type": "contrasts_with" },
+      { "slug": "merge-map", "type": "contrasts_with" },
+      { "slug": "exhaust-map", "type": "contrasts_with" }
+    ]
+  },
+  "switch-map": {
+    "term": "switchMap",
+    "definition": "RxJS 的 flattening operator：遇到新的內層 Observable 時，直接取消前一個還沒完成的內層 Observable，只保留最新一次觸發的結果。",
+    "application": "在太陽鳥軟體實習的 Angular 專案裡，處理搜尋框、篩選這類「使用者操作會不斷取代前一次意圖」的情境時，用 switchMap 確保畫面只顯示最新一次操作的結果，不會被舊的請求回應蓋掉。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [
+      { "slug": "concat-map", "type": "contrasts_with" },
+      { "slug": "merge-map", "type": "contrasts_with" },
+      { "slug": "exhaust-map", "type": "contrasts_with" },
+      { "slug": "debounce-time", "type": "related" }
+    ]
+  },
+  "merge-map": {
+    "term": "mergeMap",
+    "definition": "RxJS 的 flattening operator：遇到新的內層 Observable 時，讓它跟先前還沒完成的內層 Observable 並行處理，互不取消、互不等待，結果依各自完成的時間陸續回傳。",
+    "application": "在太陽鳥軟體實習的 Angular 專案裡，處理彼此獨立、沒有先後關係的非同步操作時，用 mergeMap 讓多個請求同時進行，不需要排隊等待。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [
+      { "slug": "concat-map", "type": "contrasts_with" },
+      { "slug": "switch-map", "type": "contrasts_with" },
+      { "slug": "exhaust-map", "type": "contrasts_with" },
+      { "slug": "race-condition", "type": "related" }
+    ]
+  },
+  "exhaust-map": {
+    "term": "exhaustMap",
+    "definition": "RxJS 的 flattening operator：遇到新的內層 Observable 時，如果前一個內層 Observable 還沒完成，直接忽略這次新的觸發，等前一個完成後才會再接受下一次觸發。跟 switchMap 相反：switchMap 是新的蓋過舊的，exhaustMap 是舊的還在跑就不理新的。",
+    "application": "在太陽鳥軟體實習的 Angular 專案裡，處理送出按鈕這類「執行中不該被新觸發打斷或重複觸發」的情境時，用 exhaustMap 避免使用者重複點擊造成表單被重複送出。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [
+      { "slug": "concat-map", "type": "contrasts_with" },
+      { "slug": "switch-map", "type": "contrasts_with" },
+      { "slug": "merge-map", "type": "contrasts_with" }
+    ]
+  },
+  "debounce-time": {
+    "term": "debounceTime",
+    "definition": "RxJS 的 operator：只有在指定時間內都沒有新事件發生時，才把最後一次的值往下傳遞，用來節流短時間內連續觸發的事件（例如打字）；跟 concatMap／switchMap／mergeMap 處理的「內層 Observable 該怎麼攤平」是不同層次的問題。",
+    "application": "在太陽鳥軟體實習的 Angular 專案裡，搭配 switchMap 處理搜尋框輸入：debounceTime 先過濾掉打字過程中間的中間狀態，只在使用者停下來一段時間後才真正觸發請求，switchMap 再確保只有最新一次請求的結果會被採用。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "switch-map", "type": "related" }]
+  },
+  "map": {
+    "term": "map",
+    "definition": "RxJS 的 operator：把串流裡的每一個值轉換成新的值，一對一映射，不改變值的數量。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "filter", "type": "related" }]
+  },
+  "filter": {
+    "term": "filter",
+    "definition": "RxJS 的 operator：只放行符合條件的值，不符合的直接丟掉，不會改變留下來的值的內容。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "map", "type": "related" }]
+  },
+  "tap": {
+    "term": "tap",
+    "definition": "RxJS 的 operator：不改變資料本身，只是在資料流過的路上執行一次 side effect（例如 log、debug），常用來在不影響串流的前提下觀察目前的值。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": []
+  },
+  "distinct-until-changed": {
+    "term": "distinctUntilChanged",
+    "definition": "RxJS 的 operator：如果新值跟前一個值相同就不繼續往下傳，只有值真的變了才會發送，避免重複的值重複觸發後續邏輯。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators", "ngrx-state-management"],
+    "relatedNodes": [{ "slug": "onpush", "type": "related" }]
+  },
+  "catch-error": {
+    "term": "catchError",
+    "definition": "RxJS 的 operator：攔截串流裡的錯誤，換成一個新的 Observable 繼續往下走，讓串流不會因為一次錯誤就直接中斷。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "retry", "type": "related" }]
+  },
+  "retry": {
+    "term": "retry",
+    "definition": "RxJS 的 operator：串流發生錯誤時，自動重新訂閱原本的 Observable，重試指定的次數，常用來處理偶發的網路錯誤。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "catch-error", "type": "related" }]
+  },
+  "fork-join": {
+    "term": "forkJoin",
+    "definition": "RxJS 的組合 operator：等傳入的所有 Observable 都完成後，才一次送出每一個的最後一個值，常用在需要同時打多支 API、等全部都回來才能繼續的情境。只要其中一個來源出錯，會立刻整個失敗，其他已經成功的結果也會被一起丟掉。",
+    "application": "在太陽鳥軟體實習的 Angular 專案裡，一開始把好幾支 API 包進同一個 forkJoin 平行拿資料，後來 code review 被提醒：forkJoin 只要其中一個來源出錯就會整個失敗，其他已經成功的結果也會被丟棄。後來改成每支 API 各自用 catchError 接住自己的錯誤、給預設值，確保 forkJoin 一定能成功完成。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": []
+  },
+  "take-one": {
+    "term": "take(1)",
+    "definition": "RxJS 的 operator：只取串流的第一個值，取到後自動取消訂閱，適合只需要讀一次的資料。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "take-until", "type": "related" }]
+  },
+  "take-until": {
+    "term": "takeUntil",
+    "definition": "RxJS 的 operator：持續訂閱，直到傳入的另一個 Observable 發出值為止，之後自動取消訂閱，常搭配元件銷毀時發出值的 Subject 使用，用來統一取消訂閱。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "take-one", "type": "related" }]
+  },
+  "ngrx": {
+    "term": "NgRx",
+    "definition": "Angular 生態系裡實作 Redux 模式的狀態管理函式庫，核心概念是把應用程式狀態集中在單一的 Store，透過 Action 宣告事件發生、Reducer 計算新狀態、Effect 處理副作用（如 API 呼叫）、Selector 讀取狀態，讓元件之間不需要直接溝通就能共享同一份資料。",
+    "application": "在太陽鳥軟體實習的 Angular 專案裡，多個沒有直接父子關係的元件需要共用、同步同一份資料（例如使用者資訊、篩選狀態）時，是透過 NgRx 的 Store 集中管理，而不是各自在 Service 裡存一份容易失去同步的狀態。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["ngrx-state-management"],
+    "relatedNodes": [
+      { "slug": "signal", "type": "contrasts_with" },
+      { "slug": "onpush", "type": "related" }
+    ]
+  },
+  "onpush": {
+    "term": "ChangeDetectionStrategy.OnPush",
+    "definition": "Angular 的效能優化策略：預設情況下任何事件發生後都會檢查整棵元件樹要不要重新渲染，設成 OnPush 的元件則只在少數情況下才重新檢查，最常見的是傳入的 @Input 用 === 比較後發現參照不同。",
+    "application": "在太陽鳥軟體實習的 Angular 專案裡，搭配 NgRx 使用 OnPush：因為 Reducer 保證每次都回傳新的物件而不是直接修改原本的 state，OnPush 元件才能用參照比較正確偵測到資料真的變了，進而只在必要時重新渲染。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["ngrx-state-management"],
+    "relatedNodes": [
+      { "slug": "ngrx", "type": "related" },
+      { "slug": "distinct-until-changed", "type": "related" }
+    ]
+  },
+  "signal": {
+    "term": "Signal",
+    "definition": "Angular 內建的反應式狀態機制：signal() 建立一個可讀寫的狀態容器，computed() 建立會隨依賴的 signal 自動重新計算的衍生值，template 直接讀取 signal 就能在值改變時自動更新畫面，不需要透過 Store 或訂閱 Observable。",
+    "application": "在太陽鳥軟體實習的 Angular 專案裡，只在單一元件內部使用、不需要跟其他無父子關係的元件共享的狀態（例如表單區塊的展開／收合），是用 Signal 處理，而不是為了統一硬塞進 NgRx 的 Store，避免多出不必要的 Action／Reducer 樣板。",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["ngrx-state-management"],
+    "relatedNodes": [
+      { "slug": "ngrx", "type": "contrasts_with" },
+      { "slug": "rxjs", "type": "contrasts_with" }
     ]
   }
 }

@@ -8,6 +8,9 @@ import { slugifyHeadingText } from "../lib/markdown";
 interface MarkdownContentProps {
   children: string;
   className?: string;
+  // 目前這段內容屬於哪個專案／文章（傳 slug），讓內文裡的 Term 彈窗能只顯示這個情境下的
+  // application，而不是把所有用過這個詞的專案／文章的說明全部列出來
+  contextSlug?: string;
 }
 
 // 把標題底下巢狀的 React 節點（粗體、行內程式碼等）攤平成純文字，用來算 id
@@ -45,6 +48,7 @@ const H4 = renderHeading("h4");
 export default function MarkdownContent({
   children,
   className,
+  contextSlug,
 }: MarkdownContentProps) {
   const classNames = ["prose prose-neutral max-w-none", className]
     .filter(Boolean)
@@ -76,7 +80,11 @@ export default function MarkdownContent({
           span: ({ children: spanChildren, ...props }) => {
             const termId = (props as Record<string, unknown>)["data-term"];
             if (typeof termId === "string") {
-              return <Term id={termId}>{spanChildren}</Term>;
+              return (
+                <Term id={termId} contextSlug={contextSlug}>
+                  {spanChildren}
+                </Term>
+              );
             }
             return <span {...props}>{spanChildren}</span>;
           },

@@ -45,7 +45,10 @@
   "cosine-similarity": {
     "term": "Cosine Similarity",
     "definition": "A measure of how similar the direction of two vectors is, ranging from -1 to 1: the closer to 1, the more semantically similar the two are; commonly used to compare code or text after being converted into vectors.",
-    "application": "CodePulse converts a user's code into a semantic vector and compares it against a prebuilt library of standard-algorithm vectors via cosine similarity; a similarity above the threshold (0.80) triggers the corresponding Level 1 semantic animation. The ABSA Pipeline converts each Aspect Term into a semantic vector and compares it against the seed-word vectors of six categories via cosine similarity; the category with the highest similarity becomes the term's assigned category, replacing manual sentence-by-sentence classification.",
+    "application": {
+      "code-pulse": "CodePulse converts a user's code into a semantic vector and compares it against a prebuilt library of standard-algorithm vectors via cosine similarity; a similarity above the threshold (0.80) triggers the corresponding Level 1 semantic animation.",
+      "absa-wordcloud": "The ABSA Pipeline converts each Aspect Term into a semantic vector and compares it against the seed-word vectors of six categories via cosine similarity; the category with the highest similarity becomes the term's assigned category, replacing manual sentence-by-sentence classification."
+    },
     "category": "ALGO",
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],
@@ -62,7 +65,7 @@
     "category": "EVAL",
     "status": "published",
     "relatedProjects": ["code-pulse"],
-    "relatedArticles": [],
+    "relatedArticles": ["code-pulse-user-study"],
     "relatedNodes": [
       { "slug": "partial-f1", "type": "related" },
       { "slug": "human-computer-interaction", "type": "related" },
@@ -312,12 +315,18 @@
   "race-condition": {
     "term": "Race Condition",
     "definition": "A bug where multiple operations access and modify the same data at the same time, and the result becomes inconsistent or unexpected depending on execution order; this is common when multiple users or threads read and write the same record simultaneously.",
-    "application": "If two friends submit the same invite code at nearly the same instant, a naive frontend flow of \"check if the code is used, then write\" could let both pass the check and redeem the code twice. The personal website uses the database's FOR UPDATE to lock the row, ensuring the \"check + mark used + write creation\" sequence can't be interrupted by another concurrent request.",
+    "application": {
+      "personal-website": "If two friends submit the same invite code at nearly the same instant, a naive frontend flow of \"check if the code is used, then write\" could let both pass the check and redeem the code twice. The personal website uses the database's FOR UPDATE to lock the row, ensuring the \"check + mark used + write creation\" sequence can't be interrupted by another concurrent request.",
+      "rxjs-flattening-operators": "RxJS runs into the same kind of problem: when the same action fires repeatedly and sends out several async requests, not flattening them with the right operator can let an older request come back after a newer one, leaving the screen showing a stale result."
+    },
     "category": "WEB",
     "status": "published",
     "relatedProjects": ["personal-website"],
-    "relatedArticles": [],
-    "relatedNodes": [{ "slug": "security-definer", "type": "prerequisite" }]
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [
+      { "slug": "security-definer", "type": "prerequisite" },
+      { "slug": "merge-map", "type": "related" }
+    ]
   },
   "intersection-observer": {
     "term": "IntersectionObserver",
@@ -372,11 +381,14 @@
   "information-visualization": {
     "term": "Information Visualization",
     "definition": "Converting abstract data (numbers, program structure, text statistics) into graphical representations, so people can grasp structure and patterns through visual perception instead of reading line by line.",
-    "application": "CodePulse renders a program's control flow as a CFG / call graph; the ABSA Pipeline renders user-feedback sentiment results as a word cloud. Both convert processed abstract data into a graphical form whose patterns are visible at a glance.",
+    "application": {
+      "code-pulse": "CodePulse renders a program's control flow as a CFG / call graph, converting processed abstract data into a graphical form whose patterns are visible at a glance.",
+      "absa-wordcloud": "The ABSA Pipeline renders user-feedback sentiment results as a word cloud, converting processed abstract data into a graphical form whose patterns are visible at a glance."
+    },
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],
-    "relatedArticles": [],
+    "relatedArticles": ["code-pulse-confidence-vs-competence"],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
       { "slug": "cfg", "type": "applies_to" }
@@ -389,10 +401,12 @@
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse"],
-    "relatedArticles": [],
+    "relatedArticles": ["code-pulse-user-study", "code-pulse-confidence-vs-competence"],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
       { "slug": "normalized-gain", "type": "applies_to" },
+      { "slug": "learning-confidence", "type": "applies_to" },
+      { "slug": "self-perceived-learning-effectiveness", "type": "applies_to" },
       { "slug": "reflexive-thematic-analysis", "type": "related" },
       { "slug": "social-computing", "type": "related" },
       { "slug": "interactive-systems", "type": "related" },
@@ -490,6 +504,275 @@
     "relatedNodes": [
       { "slug": "human-computer-interaction", "type": "related" },
       { "slug": "social-computing", "type": "related" }
+    ]
+  },
+  "learning-confidence": {
+    "term": "Learning Confidence",
+    "definition": "A participant's subjective belief about whether they can learn or complete a given learning task, answering \"do I believe I can learn this?\" It's a psychological construct, not a measurement method in itself.",
+    "application": "In CodePulse's pre/post survey, participants rated their confidence in being able to learn harder algorithms going forward, and that confidence rose significantly after using the platform (p < 0.001). A rise in confidence, however, is not the same as a significant gain in test scores (see Normalized Gain); the two are separate pieces of evidence that need to be verified independently.",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-user-study", "code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "self-reported-confidence", "type": "applies_to" },
+      { "slug": "self-perceived-learning-effectiveness", "type": "contrasts_with" },
+      { "slug": "normalized-gain", "type": "contrasts_with" },
+      { "slug": "retrospective-pre-post", "type": "related" }
+    ]
+  },
+  "self-reported-confidence": {
+    "term": "Self-Reported Confidence",
+    "definition": "A measurement method where participants rate their own confidence level on a scale. It's an operationalized measurement technique, not an independent psychological construct, and is commonly used to quantify beliefs like learning confidence.",
+    "application": "CodePulse's pre/post survey used a rating scale to have participants self-report their confidence in learning algorithms; this self-report method is what makes it possible to turn the change in learning confidence into a comparable number.",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-user-study", "code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "learning-confidence", "type": "applies_to" },
+      { "slug": "self-perceived-learning-effectiveness", "type": "related" },
+      { "slug": "retrospective-pre-post", "type": "related" }
+    ]
+  },
+  "self-perceived-learning-effectiveness": {
+    "term": "Self-Perceived Learning Effectiveness",
+    "definition": "A participant's own subjective judgment of how well they learned, answering \"do I feel like I learned better?\" This is a different layer of evidence from objective learning outcomes measured by test scores, and the two can point in the same direction or diverge.",
+    "application": "CodePulse's survey asked participants whether, compared to traditional textbooks and slides, they felt CodePulse made the material more intuitive and easier to understand. That kind of answer is self-perceived learning effectiveness, a separate thing from the positive-but-not-significant Normalized Gain shown in test scores.",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-user-study", "code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "normalized-gain", "type": "contrasts_with" },
+      { "slug": "learning-confidence", "type": "contrasts_with" },
+      { "slug": "self-reported-confidence", "type": "related" }
+    ]
+  },
+  "retrospective-pre-post": {
+    "term": "Retrospective Pre-Post",
+    "definition": "A pre/post design where participants answer both a \"before\" and an \"after\" self-report item at the same single point in time, usually right after an intervention, rather than being measured once before and once after. Unlike a true pre-post measured on two separate occasions, the \"before\" rating is actually a recollection made after the fact.",
+    "application": "CodePulse's survey items \"Before using it, I found algorithms very intimidating\" and \"After using it, I feel confident I can learn harder algorithms\" were both answered together right after the platform session, making this a retrospective pre-post. Treating those two scores as if they came from two separately-administered measurements, when comparing the change in confidence, needs to account for the limits this design carries.",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "response-shift-bias", "type": "related" },
+      { "slug": "learning-confidence", "type": "related" },
+      { "slug": "self-reported-confidence", "type": "related" }
+    ]
+  },
+  "response-shift-bias": {
+    "term": "Response-Shift Bias",
+    "definition": "When a participant recalls and rates a \"before\" state after the fact, that rating tends to get colored by how they currently feel, common in retrospective pre-post designs. It isn't participants deliberately misreporting, the recollection itself gets recalibrated by their present cognitive or emotional state.",
+    "application": "CodePulse's survey asked participants, after using the platform, to recall and rate how intimidating they'd found algorithms before. That recollection was likely already colored by the positive experience of using the platform, which could understate the \"before\" score and inflate the confidence change computed from the pre/post pair.",
+    "category": "EVAL",
+    "status": "published",
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": ["code-pulse-confidence-vs-competence"],
+    "relatedNodes": [
+      { "slug": "retrospective-pre-post", "type": "prerequisite" },
+      { "slug": "learning-confidence", "type": "related" }
+    ]
+  },
+  "rxjs": {
+    "term": "RxJS",
+    "definition": "A reactive programming library for JavaScript built around the Observable: async events (user interactions, HTTP responses, timers) are wrapped as streams that emit values over time, and operators compose and transform those streams instead of scattering callbacks or ad hoc async/await logic.",
+    "application": "In the Angular codebase from my internship at Sun Bird Software, async events and API calls ran heavily through RxJS: user interactions and HTTP responses were both Observables, and operators like concatMap, switchMap, mergeMap, and exhaustMap decided what should happen when the same action fired again, instead of hand-rolling flags or timers to manage it.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "signal", "type": "contrasts_with" }]
+  },
+  "concat-map": {
+    "term": "concatMap",
+    "definition": "An RxJS flattening operator: when a new inner Observable arrives, it's queued, and only starts once the previous inner Observable completes, so processing order always matches trigger order.",
+    "application": "In the Angular codebase from my internship at Sun Bird Software, concatMap was used for async operations where execution order had to be guaranteed, such as a sequence of requests that had to be sent in order, to keep parallel processing from scrambling that order.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [
+      { "slug": "switch-map", "type": "contrasts_with" },
+      { "slug": "merge-map", "type": "contrasts_with" },
+      { "slug": "exhaust-map", "type": "contrasts_with" }
+    ]
+  },
+  "switch-map": {
+    "term": "switchMap",
+    "definition": "An RxJS flattening operator: when a new inner Observable arrives, it immediately cancels whatever inner Observable was still in flight, keeping only the result of the most recent trigger.",
+    "application": "In the Angular codebase from my internship at Sun Bird Software, switchMap was used for search boxes and filters, situations where a user's next action supersedes their previous intent, so the screen only ever shows the result of the latest action instead of getting overwritten by a stale response.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [
+      { "slug": "concat-map", "type": "contrasts_with" },
+      { "slug": "merge-map", "type": "contrasts_with" },
+      { "slug": "exhaust-map", "type": "contrasts_with" },
+      { "slug": "debounce-time", "type": "related" }
+    ]
+  },
+  "merge-map": {
+    "term": "mergeMap",
+    "definition": "An RxJS flattening operator: when a new inner Observable arrives, it runs alongside any still-pending inner Observables in parallel, without cancelling or waiting on each other, with results coming back in whatever order they finish.",
+    "application": "In the Angular codebase from my internship at Sun Bird Software, mergeMap was used for async operations that were independent of each other with no ordering requirement, letting multiple requests run at once instead of queuing.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [
+      { "slug": "concat-map", "type": "contrasts_with" },
+      { "slug": "switch-map", "type": "contrasts_with" },
+      { "slug": "exhaust-map", "type": "contrasts_with" },
+      { "slug": "race-condition", "type": "related" }
+    ]
+  },
+  "exhaust-map": {
+    "term": "exhaustMap",
+    "definition": "An RxJS flattening operator: when a new inner Observable arrives, if the previous inner Observable hasn't completed yet, the new trigger is dropped outright, and only the next trigger after the current one finishes gets accepted. It's the mirror of switchMap: switchMap lets the new one override the old, exhaustMap lets whatever's already running finish and ignores the new one.",
+    "application": "In the Angular codebase from my internship at Sun Bird Software, exhaustMap was used for submit buttons and similar cases where an in-flight operation shouldn't be interrupted or duplicated, preventing a form from being submitted twice if a user clicked again before the first request came back.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [
+      { "slug": "concat-map", "type": "contrasts_with" },
+      { "slug": "switch-map", "type": "contrasts_with" },
+      { "slug": "merge-map", "type": "contrasts_with" }
+    ]
+  },
+  "debounce-time": {
+    "term": "debounceTime",
+    "definition": "An RxJS operator that only lets the latest value through once a specified amount of time has passed with no new events, used to throttle events that fire rapidly in a short span (like typing). It's a different layer of problem from what concatMap, switchMap, and mergeMap deal with, how to flatten a nested Observable.",
+    "application": "In the Angular codebase from my internship at Sun Bird Software, debounceTime was paired with switchMap to handle search-box input: debounceTime filtered out the intermediate keystrokes and only let a request fire once the user paused for a moment, and switchMap then made sure only the latest request's result got used.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "switch-map", "type": "related" }]
+  },
+  "map": {
+    "term": "map",
+    "definition": "An RxJS operator that transforms each value in the stream into a new value, one to one, without changing how many values there are.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "filter", "type": "related" }]
+  },
+  "filter": {
+    "term": "filter",
+    "definition": "An RxJS operator that only lets values matching a condition through, dropping the rest without changing the ones that pass.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "map", "type": "related" }]
+  },
+  "tap": {
+    "term": "tap",
+    "definition": "An RxJS operator that doesn't change the data itself, it just runs a side effect (like logging or debugging) partway through the stream, commonly used to observe the current value without affecting it.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": []
+  },
+  "distinct-until-changed": {
+    "term": "distinctUntilChanged",
+    "definition": "An RxJS operator that skips a new value if it's the same as the previous one, only letting a value through when it actually changes, to avoid triggering downstream logic again for a repeated value.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators", "ngrx-state-management"],
+    "relatedNodes": [{ "slug": "onpush", "type": "related" }]
+  },
+  "catch-error": {
+    "term": "catchError",
+    "definition": "An RxJS operator that catches an error in the stream and swaps in a new Observable to keep going, so the stream doesn't just die on a single error.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "retry", "type": "related" }]
+  },
+  "retry": {
+    "term": "retry",
+    "definition": "An RxJS operator that automatically resubscribes to the original Observable a set number of times when the stream errors out, commonly used for transient network failures.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "catch-error", "type": "related" }]
+  },
+  "fork-join": {
+    "term": "forkJoin",
+    "definition": "An RxJS combination operator that waits for every Observable passed in to complete, then emits each one's final value at once, commonly used when several API calls need to finish before continuing. The moment any one source errors, the whole thing fails immediately, and results from sources that had already succeeded get discarded too.",
+    "application": "In the Angular codebase from my internship at Sun Bird Software, several API calls were originally bundled into one forkJoin to fetch them in parallel. Code review pointed out that forkJoin fails entirely the moment any one source errors, discarding the results of the ones that had already succeeded. It was reworked so each API call caught its own error with catchError and fell back to a default, guaranteeing forkJoin would always complete successfully.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": []
+  },
+  "take-one": {
+    "term": "take(1)",
+    "definition": "An RxJS operator that takes only the first value from the stream and then unsubscribes automatically, good for data that only needs to be read once.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "take-until", "type": "related" }]
+  },
+  "take-until": {
+    "term": "takeUntil",
+    "definition": "An RxJS operator that keeps subscribing until another Observable it's given emits a value, then unsubscribes automatically, often paired with a Subject that emits on component destroy to clean up subscriptions in one place.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["rxjs-flattening-operators"],
+    "relatedNodes": [{ "slug": "take-one", "type": "related" }]
+  },
+  "ngrx": {
+    "term": "NgRx",
+    "definition": "A state-management library implementing the Redux pattern for the Angular ecosystem. The core idea is centralizing app state in a single Store: an Action declares that an event happened, a Reducer computes the new state, an Effect handles side effects (like API calls), and a Selector reads state, letting components share data without talking to each other directly.",
+    "application": "In the Angular codebase from my internship at Sun Bird Software, several components with no direct parent-child relationship needed to share and stay in sync on the same data (user info, filter state), managed centrally through NgRx's Store instead of each component keeping its own copy in a service, which is prone to falling out of sync.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["ngrx-state-management"],
+    "relatedNodes": [
+      { "slug": "signal", "type": "contrasts_with" },
+      { "slug": "onpush", "type": "related" }
+    ]
+  },
+  "onpush": {
+    "term": "ChangeDetectionStrategy.OnPush",
+    "definition": "An Angular performance optimization: by default, any event triggers a check of the whole component tree for re-rendering; a component set to OnPush only gets re-checked in a handful of cases, most commonly when an incoming @Input is compared with === and found to be a different reference.",
+    "application": "In the Angular codebase from my internship at Sun Bird Software, OnPush was paired with NgRx: because a reducer always returns a new object instead of mutating the existing state, an OnPush component can correctly detect that the data actually changed via reference comparison, and only re-render when it needs to.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["ngrx-state-management"],
+    "relatedNodes": [
+      { "slug": "ngrx", "type": "related" },
+      { "slug": "distinct-until-changed", "type": "related" }
+    ]
+  },
+  "signal": {
+    "term": "Signal",
+    "definition": "Angular's built-in reactivity primitive: signal() creates a readable, writable state container, computed() creates a derived value that automatically recomputes when the signals it depends on change, and a template that reads a signal directly re-renders whenever the value changes, no Store, no subscribing to an Observable.",
+    "application": "In the Angular codebase from my internship at Sun Bird Software, state that only mattered inside a single component and didn't need to be shared with components outside its parent-child chain (like whether a form section was expanded or collapsed) was handled with Signal instead of being forced into NgRx's Store for consistency, avoiding unnecessary Action/Reducer boilerplate.",
+    "category": "WEB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["ngrx-state-management"],
+    "relatedNodes": [
+      { "slug": "ngrx", "type": "contrasts_with" },
+      { "slug": "rxjs", "type": "contrasts_with" }
     ]
   }
 }

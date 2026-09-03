@@ -65,7 +65,7 @@ GET /products
 GET /products/123
 ```
 
-GET generally has the properties of Safe and Idempotent (explained in more detail later on). In other words, repeating a GET on the same Resource shouldn't change any data because of the GET itself.
+GET generally has the properties of <span data-term="safe">Safe</span> and <span data-term="idempotent">Idempotent</span> (explained in more detail later on). In other words, repeating a GET on the same Resource shouldn't change any data because of the GET itself.
 
 ## POST: Create / Command
 
@@ -134,7 +134,7 @@ That's why PUT is well suited to expressing:
 
 > I want this Resource to become this state.
 
-PUT also has a critically important trait: **Idempotent**. Suppose:
+PUT also has a critically important trait: **<span data-term="idempotent">Idempotent</span>**. Suppose:
 
 ```
 PUT /users/123/settings
@@ -245,7 +245,7 @@ For example:
 DELETE /users/123
 ```
 
-This means: remove User 123. DELETE is also Idempotent.
+This means: remove User 123. DELETE is also <span data-term="idempotent">Idempotent</span>.
 
 - First call: `User 123` gets deleted
 - Second call: `User 123` already doesn't exist
@@ -271,7 +271,7 @@ This is also why POST generally isn't recommended for automatic retries, while P
 
 Here's where you can also see the difference between understanding this before and after:
 
-- Before (only mapping to CRUD): all I knew was `POST = create` and `PUT = update`. Faced with a question like "should I resend this after a network timeout," I had no basis to decide.
+- Before (only mapping to <span data-term="crud">CRUD</span>): all I knew was `POST = create` and `PUT = update`. Faced with a question like "should I resend this after a network timeout," I had no basis to decide.
 - After (understanding Safe / Idempotent): I know PUT and DELETE can be safely resent, but POST can't, because their guarantees around idempotency are different. This is the knowledge that actually matters when designing a retry mechanism or reading API docs.
 
 ## Summary Table
@@ -284,7 +284,7 @@ Here's where you can also see the difference between understanding this before a
 | PATCH  | Modify           | No   | Depends    | Modify part of a Resource           |
 | DELETE | Remove           | No   | Yes        | Remove a Resource                   |
 
-PATCH's Idempotent column is marked "Depends," because PATCH is semantically about "modifying": if the modification is a fixed value (e.g. setting `name` to `"John"`), resending it multiple times gives the same result, so it counts as Idempotent. But if it's a relative modification, like "quantity += 1," resending it keeps changing the result, so it isn't Idempotent.
+PATCH's <span data-term="idempotent">Idempotent</span> column is marked "Depends," because PATCH is semantically about "modifying": if the modification is a fixed value (e.g. setting `name` to `"John"`), resending it multiple times gives the same result, so it counts as Idempotent. But if it's a relative modification, like "quantity += 1," resending it keeps changing the result, so it isn't Idempotent.
 
 Don't just memorize `POST = Create` and `PUT = Update`. Instead, think of it as:
 
@@ -324,7 +324,7 @@ PUT    → update
 DELETE → destroy
 ```
 
-At this point it becomes clear that Rails isn't simply mapping HTTP methods onto CRUD. It's actually leveraging HTTP's own semantics around Resources to build a consistent web API structure.
+At this point it becomes clear that Rails isn't simply mapping HTTP methods onto <span data-term="crud">CRUD</span>. It's actually leveraging HTTP's own semantics around Resources to build a consistent web API structure.
 
 So what's actually worth remembering is:
 

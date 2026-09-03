@@ -7,7 +7,7 @@ import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
 import TableOfContents from "../../components/TableOfContents";
 import Trail from "../../components/Trail";
-import { useKnowledgeNode, useKnowledgeMap } from "../../lib/knowledge";
+import { useKnowledgeNode, useKnowledgeMap, resolveApplicationLines } from "../../lib/knowledge";
 import { useKnowledgeBodies } from "../../lib/knowledgeBodies";
 import TextLink from "../../components/TextLink";
 import { usePublishedArticles } from "../../lib/articles";
@@ -65,6 +65,10 @@ export default function KnowledgeDetail() {
     );
   }
 
+  // 獨立的知識節點頁沒有「目前在哪個專案／文章」的情境，被多個專案共用的詞就全部列出，
+  // 不挑單一情境（挑單一情境是 Term 彈窗在專案/文章頁內文裡才做的事）
+  const applicationLines = resolveApplicationLines(node);
+
   const relatedProjects = (node.relatedProjects ?? [])
     .map((projectSlug) => projects.find((p) => p.slug === projectSlug))
     .filter((p): p is Project => Boolean(p));
@@ -119,12 +123,16 @@ export default function KnowledgeDetail() {
 
         <MarkdownContent className="mt-4">{node.definition}</MarkdownContent>
 
-        {node.application && (
+        {applicationLines.length > 0 && (
           <div className="mt-4 rounded-md border border-[var(--color-border)] p-4">
             <p className="text-sm font-medium text-[var(--color-text)]">
               {t.term.inThisProject}
             </p>
-            <MarkdownContent className="mt-1">{node.application}</MarkdownContent>
+            {applicationLines.map((line, index) => (
+              <MarkdownContent key={index} className="mt-1">
+                {line}
+              </MarkdownContent>
+            ))}
           </div>
         )}
 

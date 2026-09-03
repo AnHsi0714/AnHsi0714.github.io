@@ -134,7 +134,7 @@ PUT /users/123/settings
 
 > 我要這個 Resource 變成這個狀態。
 
-PUT 也具有一個非常重要的特性：**Idempotent（冪等）**。假設：
+PUT 也具有一個非常重要的特性：**<span data-term="idempotent">Idempotent</span>（冪等）**。假設：
 
 ```
 PUT /users/123/settings
@@ -245,7 +245,7 @@ DELETE 就是：
 DELETE /users/123
 ```
 
-意思是：移除 User 123。DELETE 同樣具有 Idempotent 的特性。
+意思是：移除 User 123。DELETE 同樣具有 <span data-term="idempotent">Idempotent</span> 的特性。
 
 - 第一次執行 delete，`User 123` 被刪除
 - 第二次，`User 123` 已經不存在
@@ -271,7 +271,7 @@ Idempotent 這個特性在實務上很重要：假設 Client 呼叫 API 時遇�
 
 這裡也能看出理解這兩個特性前後的差別：
 
-- 理解前（只用 CRUD 對應）：只知道 `POST = 新增`、`PUT = 更新`，遇到「網路逾時要不要重送」這種問題時，完全沒有依據判斷。
+- 理解前（只用 <span data-term="crud">CRUD</span> 對應）：只知道 `POST = 新增`、`PUT = 更新`，遇到「網路逾時要不要重送」這種問題時，完全沒有依據判斷。
 - 理解後（掌握 Safe / Idempotent）：知道 PUT、DELETE 可以放心重送，POST 不行，因為它們在冪等性上的保證不同。這才是設計重試機制、查 API 文件時真正需要的知識。
 
 ## 表格統整
@@ -284,7 +284,7 @@ Idempotent 這個特性在實務上很重要：假設 Client 呼叫 API 時遇�
 | PATCH  | Modify           | 否   | 視實作而定 | 修改 Resource 的部分內容 |
 | DELETE | Remove           | 否   | 是         | 移除 Resource            |
 
-PATCH 的 Idempotent 欄位寫「視實作而定」，是因為 PATCH 語意上是「修改」，如果修改的內容是固定值（例如把 `name` 設成 `"John"`），重送幾次結果都一樣，算 Idempotent；但如果是像「數量 +1」這種相對修改，重送就會讓結果一直改變，不算 Idempotent。
+PATCH 的 <span data-term="idempotent">Idempotent</span> 欄位寫「視實作而定」，是因為 PATCH 語意上是「修改」，如果修改的內容是固定值（例如把 `name` 設成 `"John"`），重送幾次結果都一樣，算 Idempotent；但如果是像「數量 +1」這種相對修改，重送就會讓結果一直改變，不算 Idempotent。
 
 不要只記 `POST = Create`、`PUT = Update`，而應該理解成：
 
@@ -324,7 +324,7 @@ PUT    → update
 DELETE → destroy
 ```
 
-這時候就可以理解，Rails 並不是單純把 HTTP Method 對應到 CRUD，它其實是在利用 HTTP 本身對 Resource 的語意，建立一套一致的 Web API 結構。
+這時候就可以理解，Rails 並不是單純把 HTTP Method 對應到 <span data-term="crud">CRUD</span>，它其實是在利用 HTTP 本身對 Resource 的語意，建立一套一致的 Web API 結構。
 
 所以真正值得記住的是：
 
