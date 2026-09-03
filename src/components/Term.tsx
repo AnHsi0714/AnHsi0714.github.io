@@ -18,7 +18,7 @@ export default function Term({ id, children, contextSlug }: TermProps) {
   const knowledgeMap = useKnowledgeMap();
   const { t } = useTranslation();
   const entry = knowledgeMap[id];
-  const applicationLines = resolveApplicationLines(entry?.application, contextSlug);
+  const applicationLines = resolveApplicationLines(entry, contextSlug);
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const triggerRef = useRef<HTMLButtonElement>(null);

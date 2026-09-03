@@ -2,7 +2,7 @@
 
 ## 研究背景與動機
 
-這個研究針對 [CodePulse](https://code-pulse.cc/) 平台的使用者回饋問卷，分別用規則式（Rule-Based）NLP pipeline 與 Gemini Zero-Shot 兩種方法做細粒度情感分析（Aspect-Based Sentiment Analysis, ABSA），把「動畫很流暢，但測驗送出會卡頓」這類自由文字拆解成「(動畫, 動畫演示, 流暢, 正向)、(測驗送出, 測驗系統, 卡頓, 負向)」這樣可操作的四元組。相較於只能判斷整句好壞的傳統情感分析，ABSA 能精確指出「哪個功能被如何評價」，讓開發團隊可以直接對應到具體要改進的地方。在同一份人工標註的 Ground Truth 上，Gemini Zero-Shot 的完整四元組抽取 Partial F1 全面勝過規則式方法（+0.207），差距主要來自隱含（implicit）屬性的補全能力；但規則式方法仍保有零 API 成本、可解釋性高、能在隱私敏感場景本地執行的優勢，兩者互補而非單純被取代。
+這個研究針對 [CodePulse](https://code-pulse.cc/) 平台的使用者回饋問卷，分別用規則式（Rule-Based）NLP pipeline 與 Gemini Zero-Shot 兩種方法做細粒度情感分析（Aspect-Based Sentiment Analysis, ABSA），把「動畫很流暢，但測驗送出會卡頓」這類自由文字拆解成「(動畫, 動畫演示, 流暢, 正向)、(測驗送出, 測驗系統, 卡頓, 負向)」這樣可操作的四元組。相較於只能判斷整句好壞的傳統情感分析，ABSA 能精確指出「哪個功能被如何評價」，讓開發團隊可以直接對應到具體要改進的地方。在同一份人工標註的 Ground Truth 上，Gemini <span data-term="zero-shot">Zero-Shot</span> 的完整四元組抽取 <span data-term="partial-f1">Partial F1</span> 全面勝過規則式方法（+0.207），差距主要來自隱含（implicit）屬性的補全能力；但規則式方法仍保有零 API 成本、可解釋性高、能在隱私敏感場景本地執行的優勢，兩者互補而非單純被取代。
 
 問卷回饋是自由文字，難以系統性分析：哪個功能最需要改進？使用者真正在意什麼？哪個面向有具體問題？
 
@@ -93,13 +93,13 @@ Track A 的天花板：implicit aspect/opinion 約佔 GT 25%、規則無法理�
 
 Prompt 設計把六大面向定義、polarity 規則（優點 = pos；缺點/建議 = neg）、implicit 規則（無法摘取具體詞時填 "implicit"）都寫進 system prompt，並要求只回傳 JSON array。
 
-流程：使用者回饋文字 → system prompt → Gemini API（rate_delay=6s，50 rows ≈ 5 分鐘）→ JSON 解析 + 欄位驗證 → 快取 → 與 Track A 同一套 Ground Truth 計算 Quadruplet Partial F1。
+流程：使用者回饋文字 → system prompt → Gemini API（rate_delay=6s，50 rows ≈ 5 分鐘）→ JSON 解析 + 欄位驗證 → 快取 → 與 Track A 同一套 Ground Truth 計算 Quadruplet <span data-term="partial-f1">Partial F1</span>。
 
-把面向定義中的種子詞補進 prompt 後，Track B 的 Category macro F1 從 0.6094 提升到 0.7881，Quad <span data-term="partial-f1">Partial F1</span> 也跟著從 0.4155 提升到 0.5352。
+把面向定義中的種子詞補進 prompt 後，Track B 的 Category macro F1 從 0.6094 提升到 0.7881，Quad Partial F1 也跟著從 0.4155 提升到 0.5352。
 
 ## 雙軌對比分析
 
-同一套 101-tuple 手標 Ground Truth、同一套 Quadruplet Partial F1 評估：
+同一套 101-tuple 手標 Ground Truth、同一套 Quadruplet <span data-term="partial-f1">Partial F1</span> 評估：
 
 | 指標               | Track A（Rule-Based） | Track B（Gemini） | Δ         |
 | ------------------ | --------------------- | ----------------- | --------- |

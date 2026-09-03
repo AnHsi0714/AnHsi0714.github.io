@@ -50,7 +50,7 @@ To balance "recognized standard algorithms" against "arbitrary user code," Playg
 
 The recognition pipeline converts a user's code into a vector and compares it against a prebuilt library of reference algorithm vectors using <span data-term="cosine-similarity">Cosine Similarity</span>. We compared five candidate embedding models (CodeBERT, GraphCodeBERT, UniXcoder, MiniLM-L6-v2, Jina-Code v2) and tested three identifier-normalization strategies: none, partial, and full. Full normalization erases variable names too, which actually made the similarity distributions of known and unknown cases overlap more; no normalization, on the other hand, let the model get thrown off by function naming. Partial normalization (normalizing only function and parameter names while keeping internal variable names intact) struck the best balance across most models.
 
-We ultimately went with **Jina-Code v2 + partial normalization**: 100% recognition accuracy on known algorithms, holding at 100% even for multi-function cases involving helper functions, with the recognition threshold set at 0.80 as the trigger for Level 1 animation. Below that threshold, or when the code structure doesn't match a known template, the system doesn't force a semantic animation: it falls back to the more conservative CFG visualization instead, with Gemini generating a code summary, complexity explanation, and learning feedback.
+We ultimately went with **Jina-Code v2 + partial normalization**: 100% recognition accuracy on known algorithms, holding at 100% even for multi-function cases involving helper functions, with the recognition threshold set at 0.80 as the trigger for Level 1 animation. Below that threshold, or when the code structure doesn't match a known template, the system doesn't force a semantic animation: it falls back to the more conservative <span data-term="cfg">CFG</span> visualization instead, with Gemini generating a code summary, complexity explanation, and learning feedback.
 
 ## Interaction Design
 
@@ -102,7 +102,7 @@ If the pre-test and post-test used the exact same questions, participants might 
 
 Given participants' limited available time, they used the platform for about 20–30 minutes before completing the post-test and survey.
 
-Test performance was measured with Normalized Gain:
+Test performance was measured with <span data-term="normalized-gain">Normalized Gain</span>:
 
 `g = (Posttest score - Pretest score) / (Max score - Pretest score)`
 
@@ -113,7 +113,7 @@ Test performance was measured with Normalized Gain:
 
 ### Test Performance
 
-Normalized Gain was 0.230 for the high-school group and 0.222 for the university group, both trending positive, but neither pre/post difference reached statistical significance (high-school p = 0.214; university p = 0.292). This is likely influenced by the limited sample size and short session length, so the results don't yet support a claim that the platform significantly improves test performance.
+<span data-term="normalized-gain">Normalized Gain</span> was 0.230 for the high-school group and 0.222 for the university group, both trending positive, but neither pre/post difference reached statistical significance (high-school p = 0.214; university p = 0.292). This is likely influenced by the limited sample size and short session length, so the results don't yet support a claim that the platform significantly improves test performance.
 
 <figure>
   <img src="/images/projects/code-pulse/test-score.png" alt="Pre/post test-score comparison" style="display: block; margin: 0 auto; max-width: 100%;" />

@@ -67,7 +67,7 @@ export default function KnowledgeDetail() {
 
   // 獨立的知識節點頁沒有「目前在哪個專案／文章」的情境，被多個專案共用的詞就全部列出，
   // 不挑單一情境（挑單一情境是 Term 彈窗在專案/文章頁內文裡才做的事）
-  const applicationLines = resolveApplicationLines(node.application);
+  const applicationLines = resolveApplicationLines(node);
 
   const relatedProjects = (node.relatedProjects ?? [])
     .map((projectSlug) => projects.find((p) => p.slug === projectSlug))

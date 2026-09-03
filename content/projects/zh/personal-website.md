@@ -19,7 +19,7 @@
 - **TanStack Query**：統一處理 Supabase 資料的 loading／error／cache，避免每個頁面手刻 fetch 邏輯與重複的 loading state。
 - **react-markdown + remark-gfm + rehype-raw**：文章與專案長文（`content/articles/*.md`、`content/projects/*.md`）以 Markdown 撰寫、frontmatter 記標題／日期／分類，`rehype-raw` 允許在 Markdown 裡內嵌原生 HTML（例如置中的 `<figure>`、名詞解釋用的 `<span data-term>`），支援度比純 Markdown 語法更彈性。
 - **p5.js（instance mode）**：藝術畫廊區塊，21 件從 OpenProcessing 搬遷過來的生成藝術／互動作品；用 instance mode 而非 global mode，是因為多個 sketch 共存時 global 模式的 `setup`/`draw` 會互相覆蓋，instance mode 才能讓每個作品獨立掛載、`p5Instance.remove()` 乾淨卸載，確保任何時刻網站最多只有一個活著的 canvas。
-- **matter-js**：畫廊裡「金屬碰撞」一件作品用到的 2D 剛體物理引擎，正式作為 npm 依賴管理（而非原稿在 OpenProcessing 上用的 CDN 注入），只有該 sketch 模組引用。
+- **matter-js**：畫廊裡「金屬碰撞」一件作品用到的 2D 剛體物理引擎，正式作為 npm 依賴管理（而非原稿在 OpenProcessing 上用的 <span data-term="cdn">CDN</span> 注入），只有該 sketch 模組引用。
 - **React Three Fiber + drei + three.js**：朋友創作區的 3D 怪獸塗色編輯器與展示、`/dev/creature-builder` 雕刻工具；用 <span data-term="instancing">Instancing</span> 做大量體素方塊的渲染，並自行處理鏡頭質心計算、<span data-term="intersection-observer">IntersectionObserver</span> 掛載/卸載 WebGL context 等效能細節。
 - **FontAwesome**：圖示（About 頁興趣列表、UI 控制項等）。
 
@@ -46,7 +46,7 @@
 
 ### 部署
 
-GitHub Actions（`.github/workflows/deploy.yml`）在 push 到 `main` 時自動跑 `npm run build`，把 `dist/` 部署到 GitHub Pages；Supabase 的 URL／anon key 存成 GitHub repo secrets，build 時注入前端 bundle（anon key 設計上就是可公開的，安全性由 RLS 保證）。
+GitHub Actions（`.github/workflows/deploy.yml`）在 push 到 `main` 時自動跑 `npm run build`，把 `dist/` 部署到 GitHub Pages；Supabase 的 URL／anon key 存成 GitHub repo secrets，build 時注入前端 bundle（anon key 設計上就是可公開的，安全性由 <span data-term="rls">RLS</span> 保證）。
 
 ## 各區塊功能
 
@@ -55,12 +55,12 @@ GitHub Actions（`.github/workflows/deploy.yml`）在 push 到 `main` 時自動�
 - **經歷 `/experience`**：垂直時間軸頁，含主要與次要經歷兩類條目，各自標註時間、標籤（Chip）與重點說明；純靜態資料（`content/experience.json`），條目不多，不需要動態抓取。
 - **文章 `/articles`**：讀書心得與科普／技術筆記（`type: book | note` 判別），支援標題、分類、評分、日期篩選；正文渲染為 `/articles/:slug` 詳細頁，可內嵌名詞解釋（見下）。
 - **專案 `/projects`**：專案列表支援標籤、狀態、日期篩選；`projects.json` 之外若有對應的 `content/projects/<slug>.md` 長文，會渲染成 `/projects/:slug` 詳細頁，統一用「專案簡介、系統架構、核心功能、結論」（或研究型專案的「研究背景、方法、結果、結論」）幾個小節組織。
-- **名詞解釋 Glossary**：文章／專案長文裡的專有名詞（ELO Rating、AST、Cosine Similarity、CKIP、Zero-Shot、RLS 等）標記成可點擊的詞彙，點開彈出卡片顯示「通用定義」＋「在這個專案裡實際怎麼被用」兩段說明。不是把讀者導去外部維基，而是把名詞收斂回「這個專案為什麼需要它」，方便不熟悉背景的讀者在不離開頁面的情況下看懂研究向專案的技術內容。另外也有獨立的 `/knowledge` 列表頁，可用關鍵字與分類篩選所有詞條，點進 `/knowledge/:slug` 看單一詞條的完整說明與關聯專案／文章。
+- **名詞解釋 Glossary**：文章／專案長文裡的專有名詞（<span data-term="elo-rating">ELO Rating</span>、<span data-term="ast">AST</span>、<span data-term="cosine-similarity">Cosine Similarity</span>、<span data-term="ckip">CKIP</span>、<span data-term="zero-shot">Zero-Shot</span>、<span data-term="rls">RLS</span> 等）標記成可點擊的詞彙，點開彈出卡片顯示「通用定義」＋「在這個專案裡實際怎麼被用」兩段說明。不是把讀者導去外部維基，而是把名詞收斂回「這個專案為什麼需要它」，方便不熟悉背景的讀者在不離開頁面的情況下看懂研究向專案的技術內容。另外也有獨立的 `/knowledge` 列表頁，可用關鍵字與分類篩選所有詞條，點進 `/knowledge/:slug` 看單一詞條的完整說明與關聯專案／文章。
 - **藝術畫廊 `/gallery`**：21 件從 OpenProcessing 搬遷、重寫成 p5.js instance mode 的生成藝術與互動作品，列表頁做成「橫向展場房間」：每件作品掛在畫框裡、滾輪垂直捲動轉橫向捲動、置中作品被聚光燈點亮；支援標題、日期、互動類型（點擊重繪／拖曳作畫／鍵盤操作／按鈕回合制／拖曳物理）篩選與最新／最久排序。點進單一作品的詳細頁才真正動態載入該 sketch 模組並掛載 canvas，背景轉為深色展覽氛圍（CSS `radial-gradient` 疊出聚光燈效果），離開頁面立即卸載，確保同時最多只有一個活著的 p5 canvas。
 - **Playground `/playground`**：收攏「比較個人、還在玩的東西」的入口頁，連到夢想、朋友創作、小作品，以及開發用工具 `/dev/components`（UI 組件庫預覽）、`/dev/creature`（3D 怪獸走路動畫驗證）、`/dev/creature-builder`（堆積木雕刻 3D 怪獸形狀、輸出座標貼回程式碼）。這幾個 `/dev` 工具不接 Supabase、不寫檔案系統，純粹是開發過程中用完即丟的輔具；它們不在主導覽列，但透過 Playground 頁仍是公開可達的路由。
 - **夢想 `/dreams`**：想做的事的靜態清單，部分項目附進度條（如果有可量化的目標）。
 - **小作品 `/playground/mini-works`**：課堂作業、CodePen 練習等小型互動作品的清單頁，點進 `/playground/mini-works/:slug` 看單一作品。
-- **朋友創作 `/friends`**：創作牆用 carousel 呈現朋友的 2D 像素畫與 3D 怪獸塗色作品，3D 卡片只在捲進可視範圍時才即時掛載 Three.js 場景（IntersectionObserver 控制掛載／卸載，避免同時存在的 WebGL context 超過瀏覽器上限）；點擊置中且附有敘述的作品會開啟整頁遮罩放大檢視。`/friends/create` 是完整的創作流程：輸入邀請碼與暱稱 → 驗證（`unused`／`used`＋原作品／`invalid` 三種狀態）→ 選 2D 或 3D（選定即鎖，二次編輯不能換類型）→ 對應編輯器作畫（自由選色、油漆桶、undo/redo 以「一次拖曳」為單位、200 字以內的選填作品敘述）→ 送出寫入 Supabase。
+- **朋友創作 `/friends`**：創作牆用 carousel 呈現朋友的 2D 像素畫與 3D 怪獸塗色作品，3D 卡片只在捲進可視範圍時才即時掛載 Three.js 場景（<span data-term="intersection-observer">IntersectionObserver</span> 控制掛載／卸載，避免同時存在的 WebGL context 超過瀏覽器上限）；點擊置中且附有敘述的作品會開啟整頁遮罩放大檢視。`/friends/create` 是完整的創作流程：輸入邀請碼與暱稱 → 驗證（`unused`／`used`＋原作品／`invalid` 三種狀態）→ 選 2D 或 3D（選定即鎖，二次編輯不能換類型）→ 對應編輯器作畫（自由選色、油漆桶、undo/redo 以「一次拖曳」為單位、200 字以內的選填作品敘述）→ 送出寫入 Supabase。
 
 ## 結論與貢獻
 

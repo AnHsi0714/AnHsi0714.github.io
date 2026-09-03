@@ -57,7 +57,7 @@ For roles, `USER` is a shared base table, with `ADMIN` / `CUSTOMER` / `VENDOR` s
 
 <figure>
   <img src="/images/projects/silkroad/erdplus.png" alt="SilkRoad ER Model" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">SilkRoad ER Model</figcaption>
+  <figcaption style="text-align: center;">SilkRoad <span data-term="er-model">ER Model</span></figcaption>
 </figure>
 
 <figure>

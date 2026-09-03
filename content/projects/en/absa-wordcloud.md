@@ -2,7 +2,7 @@
 
 ## Background and Motivation
 
-This research applies two parallel approaches (a rule-based NLP pipeline and Gemini zero-shot prompting) to Aspect-Based Sentiment Analysis (ABSA) on user feedback surveys for the [CodePulse](https://code-pulse.cc/) platform, breaking free-text feedback like "the animation is smooth, but submitting a quiz lags" down into actionable quadruplets such as (animation, ANIMATION, smooth, positive) and (submitting a quiz, QUIZ, lags, negative). Unlike traditional sentiment analysis, which can only judge a whole sentence as good or bad, ABSA pinpoints exactly which feature is being evaluated and how, letting the development team map feedback directly onto concrete things to fix. On the same hand-annotated ground truth, Gemini's zero-shot pipeline outperforms the rule-based pipeline across the board on full-quadruplet extraction (Partial F1, +0.207), with the gap driven mainly by Gemini's ability to recover implicit attributes. Even so, the rule-based pipeline retains real advantages: zero API cost, high interpretability, and the ability to run entirely locally in privacy-sensitive settings, so the two approaches complement rather than simply replace each other.
+This research applies two parallel approaches (a rule-based NLP pipeline and Gemini zero-shot prompting) to Aspect-Based Sentiment Analysis (ABSA) on user feedback surveys for the [CodePulse](https://code-pulse.cc/) platform, breaking free-text feedback like "the animation is smooth, but submitting a quiz lags" down into actionable quadruplets such as (animation, ANIMATION, smooth, positive) and (submitting a quiz, QUIZ, lags, negative). Unlike traditional sentiment analysis, which can only judge a whole sentence as good or bad, ABSA pinpoints exactly which feature is being evaluated and how, letting the development team map feedback directly onto concrete things to fix. On the same hand-annotated ground truth, Gemini's <span data-term="zero-shot">zero-shot</span> pipeline outperforms the rule-based pipeline across the board on full-quadruplet extraction (<span data-term="partial-f1">Partial F1</span>, +0.207), with the gap driven mainly by Gemini's ability to recover implicit attributes. Even so, the rule-based pipeline retains real advantages: zero API cost, high interpretability, and the ability to run entirely locally in privacy-sensitive settings, so the two approaches complement rather than simply replace each other.
 
 Survey feedback is free text, which makes it hard to analyze systematically: which feature most needs improvement? What do users actually care about? Which aspect has a concrete problem?
 
@@ -93,13 +93,13 @@ Track A's ceiling: implicit aspects/opinions make up roughly 25% of the ground t
 
 The prompt design bakes the six category definitions, polarity rules (pros = pos; cons/suggestions = neg), and an implicit rule (fill in "implicit" when no concrete term can be extracted) directly into the system prompt, and requires the model to return only a JSON array.
 
-Pipeline: user feedback text → system prompt → Gemini API (rate_delay = 6s, ~5 minutes for 50 rows) → JSON parsing + field validation → caching → Quadruplet Partial F1 computed against the same ground truth used for Track A.
+Pipeline: user feedback text → system prompt → Gemini API (rate_delay = 6s, ~5 minutes for 50 rows) → JSON parsing + field validation → caching → Quadruplet <span data-term="partial-f1">Partial F1</span> computed against the same ground truth used for Track A.
 
-After adding the category definitions' seed words into the prompt, Track B's Category macro F1 rose from 0.6094 to 0.7881, and Quad <span data-term="partial-f1">Partial F1</span> rose along with it from 0.4155 to 0.5352.
+After adding the category definitions' seed words into the prompt, Track B's Category macro F1 rose from 0.6094 to 0.7881, and Quad Partial F1 rose along with it from 0.4155 to 0.5352.
 
 ## Comparing the Two Tracks
 
-Evaluated on the same 101-tuple hand-labeled ground truth, using the same Quadruplet Partial F1 metric:
+Evaluated on the same 101-tuple hand-labeled ground truth, using the same Quadruplet <span data-term="partial-f1">Partial F1</span> metric:
 
 | Metric | Track A (Rule-Based) | Track B (Gemini) | Δ |
 | --- | --- | --- | --- |
