@@ -45,7 +45,10 @@
   "cosine-similarity": {
     "term": "Cosine Similarity（餘弦相似度）",
     "definition": "衡量兩個向量方向相似程度的指標，數值介於 -1 到 1，越接近 1 代表兩者語意越相近，常用於比較程式碼或文字轉成向量後的相似程度。",
-    "application": "CodePulse 把使用者程式碼轉成語意向量，跟預先建好的標準演算法向量庫做 cosine similarity 比對，相似度高於門檻（0.80）才觸發對應的 Level 1 語意動畫；ABSA Pipeline 則是把每個 Aspect Term 轉成語意向量，跟六大面向的種子詞向量算 cosine similarity，相似度最高的面向就是這個詞被歸類的類別，取代人工逐句判斷分類。",
+    "application": {
+      "code-pulse": "CodePulse 把使用者程式碼轉成語意向量，跟預先建好的標準演算法向量庫做 cosine similarity 比對，相似度高於門檻（0.80）才觸發對應的 Level 1 語意動畫。",
+      "absa-wordcloud": "ABSA Pipeline 把每個 Aspect Term 轉成語意向量，跟六大面向的種子詞向量算 cosine similarity，相似度最高的面向就是這個詞被歸類的類別，取代人工逐句判斷分類。"
+    },
     "category": "ALGO",
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],
@@ -312,7 +315,10 @@
   "race-condition": {
     "term": "Race Condition（競態條件）",
     "definition": "多個操作同時存取、修改同一份資料時，因為執行順序的先後而導致結果不一致或出乎預期的問題，常見於多個使用者或多個執行緒同時讀寫同一筆記錄的情境。",
-    "application": "如果兩位朋友在同一瞬間輸入同一組邀請碼，單純在前端「先檢查碼是否已用，再寫入」會有機會兩邊都通過檢查、碼被重複兌換。個人網站用資料庫的 `for update` 鎖住該列，確保「檢查＋標記已用＋寫入創作」這組操作不會被另一次同時執行的請求打斷。在 RxJS 裡則是另一種樣貌：同一個動作被重複觸發、送出多個非同步請求時，如果沒有用對的 flattening operator 攤平，舊的請求可能比新的請求晚回來，導致畫面顯示過期的結果。",
+    "application": {
+      "personal-website": "如果兩位朋友在同一瞬間輸入同一組邀請碼，單純在前端「先檢查碼是否已用，再寫入」會有機會兩邊都通過檢查、碼被重複兌換。個人網站用資料庫的 `for update` 鎖住該列，確保「檢查＋標記已用＋寫入創作」這組操作不會被另一次同時執行的請求打斷。",
+      "rxjs-flattening-operators": "RxJS 也會遇到同一類問題：同一個動作被重複觸發、送出多個非同步請求時，如果沒有用對的 flattening operator 攤平，舊的請求可能比新的請求晚回來，導致畫面顯示過期的結果。"
+    },
     "category": "WEB",
     "status": "published",
     "relatedProjects": ["personal-website"],
@@ -375,7 +381,10 @@
   "information-visualization": {
     "term": "Information Visualization（資訊視覺化）",
     "definition": "把抽象資料（數字、程式結構、文字統計）轉換成圖形表示法，讓人能靠視覺感知而非逐行閱讀來理解資料的結構與規律。",
-    "application": "CodePulse 把程式的控制流程畫成 CFG／Call Graph；ABSA Pipeline 把使用者回饋的情感分析結果畫成文字雲（WordCloud），都是把處理完的抽象資料轉成可以一眼看出規律的圖形表示。",
+    "application": {
+      "code-pulse": "CodePulse 把程式的控制流程畫成 CFG／Call Graph，把處理完的抽象資料轉成可以一眼看出規律的圖形表示。",
+      "absa-wordcloud": "ABSA Pipeline 把使用者回饋的情感分析結果畫成文字雲（WordCloud），把處理完的抽象資料轉成可以一眼看出規律的圖形表示。"
+    },
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],

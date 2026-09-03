@@ -45,7 +45,10 @@
   "cosine-similarity": {
     "term": "Cosine Similarity",
     "definition": "A measure of how similar the direction of two vectors is, ranging from -1 to 1: the closer to 1, the more semantically similar the two are; commonly used to compare code or text after being converted into vectors.",
-    "application": "CodePulse converts a user's code into a semantic vector and compares it against a prebuilt library of standard-algorithm vectors via cosine similarity; a similarity above the threshold (0.80) triggers the corresponding Level 1 semantic animation. The ABSA Pipeline converts each Aspect Term into a semantic vector and compares it against the seed-word vectors of six categories via cosine similarity; the category with the highest similarity becomes the term's assigned category, replacing manual sentence-by-sentence classification.",
+    "application": {
+      "code-pulse": "CodePulse converts a user's code into a semantic vector and compares it against a prebuilt library of standard-algorithm vectors via cosine similarity; a similarity above the threshold (0.80) triggers the corresponding Level 1 semantic animation.",
+      "absa-wordcloud": "The ABSA Pipeline converts each Aspect Term into a semantic vector and compares it against the seed-word vectors of six categories via cosine similarity; the category with the highest similarity becomes the term's assigned category, replacing manual sentence-by-sentence classification."
+    },
     "category": "ALGO",
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],
@@ -312,7 +315,10 @@
   "race-condition": {
     "term": "Race Condition",
     "definition": "A bug where multiple operations access and modify the same data at the same time, and the result becomes inconsistent or unexpected depending on execution order; this is common when multiple users or threads read and write the same record simultaneously.",
-    "application": "If two friends submit the same invite code at nearly the same instant, a naive frontend flow of \"check if the code is used, then write\" could let both pass the check and redeem the code twice. The personal website uses the database's FOR UPDATE to lock the row, ensuring the \"check + mark used + write creation\" sequence can't be interrupted by another concurrent request. RxJS runs into a different shape of the same problem: when the same action fires repeatedly and sends out several async requests, not flattening them with the right operator can let an older request come back after a newer one, leaving the screen showing a stale result.",
+    "application": {
+      "personal-website": "If two friends submit the same invite code at nearly the same instant, a naive frontend flow of \"check if the code is used, then write\" could let both pass the check and redeem the code twice. The personal website uses the database's FOR UPDATE to lock the row, ensuring the \"check + mark used + write creation\" sequence can't be interrupted by another concurrent request.",
+      "rxjs-flattening-operators": "RxJS runs into the same kind of problem: when the same action fires repeatedly and sends out several async requests, not flattening them with the right operator can let an older request come back after a newer one, leaving the screen showing a stale result."
+    },
     "category": "WEB",
     "status": "published",
     "relatedProjects": ["personal-website"],
@@ -375,7 +381,10 @@
   "information-visualization": {
     "term": "Information Visualization",
     "definition": "Converting abstract data (numbers, program structure, text statistics) into graphical representations, so people can grasp structure and patterns through visual perception instead of reading line by line.",
-    "application": "CodePulse renders a program's control flow as a CFG / call graph; the ABSA Pipeline renders user-feedback sentiment results as a word cloud. Both convert processed abstract data into a graphical form whose patterns are visible at a glance.",
+    "application": {
+      "code-pulse": "CodePulse renders a program's control flow as a CFG / call graph, converting processed abstract data into a graphical form whose patterns are visible at a glance.",
+      "absa-wordcloud": "The ABSA Pipeline renders user-feedback sentiment results as a word cloud, converting processed abstract data into a graphical form whose patterns are visible at a glance."
+    },
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],

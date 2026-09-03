@@ -132,7 +132,11 @@ export default function ProjectDetail() {
           </div>
         )}
 
-        {body && <MarkdownContent className="mt-6">{body}</MarkdownContent>}
+        {body && (
+          <MarkdownContent className="mt-6" contextSlug={project.slug}>
+            {body}
+          </MarkdownContent>
+        )}
 
         {needsScroll && (
           <TextLink

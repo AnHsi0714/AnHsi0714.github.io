@@ -133,7 +133,9 @@ export default function ArticleDetail() {
           </div>
         )}
 
-        <MarkdownContent className="mt-6">{article.body}</MarkdownContent>
+        <MarkdownContent className="mt-6" contextSlug={article.slug}>
+          {article.body}
+        </MarkdownContent>
 
         {(previousArticle || nextArticle || showBackToListInRow) && (
           <div

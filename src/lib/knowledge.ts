@@ -12,6 +12,19 @@ export interface KnowledgeNodeWithSlug extends KnowledgeNode {
   slug: string;
 }
 
+// application 可能是單一字串，也可能是 { [專案或文章 slug]: 該情境下的說明 }（同一個詞被多個
+// 專案／文章使用，且各自說法不同時）。有 contextSlug 且對得上時只回傳那一句；對不上（或沒有
+// 傳 contextSlug，例如獨立的知識節點頁）就回傳全部，讓呼叫端各自條列顯示，而不是黏成一段話
+export function resolveApplicationLines(
+  application: string | Record<string, string> | undefined,
+  contextSlug?: string,
+): string[] {
+  if (!application) return [];
+  if (typeof application === "string") return [application];
+  if (contextSlug && application[contextSlug]) return [application[contextSlug]];
+  return Object.values(application);
+}
+
 function toArray(map: Record<string, KnowledgeNode>): KnowledgeNodeWithSlug[] {
   return Object.entries(map).map(([slug, node]) => ({ slug, ...node }));
 }
