@@ -38,7 +38,7 @@ export default function FeaturedProjectsCarousel({
                 {t.common.noPreviewImage}
               </div>
             )}
-            <p className="mt-3 font-semibold">{project.name}</p>
+            <h3 className="mt-3 font-semibold">{project.name}</h3>
             {project.advisor && (
               <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">
                 {t.home.advisor}
