@@ -5,17 +5,17 @@
    用一組 --room-* 變數集中管理隨主題變化的顏色，:global(.dark) & 覆寫深色版本。 */
 
 .room {
-  --room-bg-glow: #ece6d6;
-  --room-bg-1: #f7f3e9;
-  --room-bg-2: #efe8d6;
-  --room-bg-3: #e6dcc2;
+  --room-bg-glow: #eef1f2;
+  --room-bg-1: #f8f9f9;
+  --room-bg-2: #eff1f1;
+  --room-bg-3: #e3e6e7;
   --room-header-title: #2b2620;
   --room-header-sub: #75705f;
   /* hover 到某件作品時打在那件上的光，強度比原本吊燈光束弱很多——原本的光束
      是打在一大片牆面上、範圍大所以可以濃；這裡是貼著畫作本身的一小塊疊色，
      太濃會蓋掉畫面內容，所以 core/mid 的透明度都調低。 */
-  --room-hover-core: rgba(214, 168, 86, 0.28);
-  --room-hover-mid: rgba(214, 168, 86, 0.1);
+  --room-hover-core: rgba(140, 178, 189, 0.28);
+  --room-hover-mid: rgba(140, 178, 189, 0.1);
   --room-hover-blend: multiply;
   --room-frame-1: #efe4c9;
   --room-frame-2: #ddcea6;
