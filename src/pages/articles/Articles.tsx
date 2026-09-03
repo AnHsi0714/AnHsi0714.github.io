@@ -207,7 +207,7 @@ export default function Articles() {
         </Button>
 
         {isFilterOpen && (
-          <div className="absolute left-0 top-full z-20 mt-2 w-[min(36rem,90vw)] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 shadow-lg">
+          <div className="absolute left-0 top-full z-20 mt-2 w-[min(24rem,90vw)] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 shadow-lg">
             <div className="flex flex-wrap items-end gap-4">
               <Input
                 label={t.articles.searchLabel}
@@ -263,18 +263,20 @@ export default function Articles() {
                 </select>
               </label>
 
-              <Input
-                label={t.common.startDate}
-                type="date"
-                value={dateFrom}
-                onChange={(event) => setDateFrom(event.target.value)}
-              />
-              <Input
-                label={t.common.endDate}
-                type="date"
-                value={dateTo}
-                onChange={(event) => setDateTo(event.target.value)}
-              />
+              <div className="flex items-end gap-4">
+                <Input
+                  label={t.common.startDate}
+                  type="date"
+                  value={dateFrom}
+                  onChange={(event) => setDateFrom(event.target.value)}
+                />
+                <Input
+                  label={t.common.endDate}
+                  type="date"
+                  value={dateTo}
+                  onChange={(event) => setDateTo(event.target.value)}
+                />
+              </div>
             </div>
 
             <div className="mt-4 flex flex-wrap items-center gap-2">
