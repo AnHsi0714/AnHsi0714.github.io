@@ -725,7 +725,8 @@
   },
   "fork-join": {
     "term": "forkJoin",
-    "definition": "RxJS 的組合 operator：等傳入的所有 Observable 都完成後，才一次送出每一個的最後一個值，常用在需要同時打多支 API、等全部都回來才能繼續的情境。",
+    "definition": "RxJS 的組合 operator：等傳入的所有 Observable 都完成後，才一次送出每一個的最後一個值，常用在需要同時打多支 API、等全部都回來才能繼續的情境。只要其中一個來源出錯，會立刻整個失敗，其他已經成功的結果也會被一起丟掉。",
+    "application": "在太陽鳥軟體實習的 Angular 專案裡，一開始把好幾支 API 包進同一個 forkJoin 平行拿資料，後來 code review 被提醒：forkJoin 只要其中一個來源出錯就會整個失敗，其他已經成功的結果也會被丟棄。後來改成每支 API 各自用 catchError 接住自己的錯誤、給預設值，確保 forkJoin 一定能成功完成。",
     "category": "WEB",
     "status": "published",
     "relatedProjects": [],

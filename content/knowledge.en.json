@@ -710,7 +710,8 @@
   },
   "fork-join": {
     "term": "forkJoin",
-    "definition": "An RxJS combination operator that waits for every Observable passed in to complete, then emits each one's final value at once, commonly used when several API calls need to finish before continuing.",
+    "definition": "An RxJS combination operator that waits for every Observable passed in to complete, then emits each one's final value at once, commonly used when several API calls need to finish before continuing. The moment any one source errors, the whole thing fails immediately, and results from sources that had already succeeded get discarded too.",
+    "application": "In the Angular codebase from my internship at Sun Bird Software, several API calls were originally bundled into one forkJoin to fetch them in parallel. Code review pointed out that forkJoin fails entirely the moment any one source errors, discarding the results of the ones that had already succeeded. It was reworked so each API call caught its own error with catchError and fell back to a default, guaranteeing forkJoin would always complete successfully.",
     "category": "WEB",
     "status": "published",
     "relatedProjects": [],

@@ -4,6 +4,7 @@ title: NgRx 到底在幹嘛：Angular 的狀態管理
 date: 2026-09-02
 categories: [筆記, Web, 技術]
 excerpt: 從實習接觸 NgRx 的經驗，拆解 Store、Action、Reducer、Effect、Selector 這幾個核心概念，以及為什麼 Angular 專案需要多一層狀態管理，還有哪些狀態其實不需要進 Store，用 Signal 處理就好。
+status: draft
 ---
 
 > 撰寫期間：2026-09-02
@@ -16,7 +17,7 @@ excerpt: 從實習接觸 NgRx 的經驗，拆解 Store、Action、Reducer、Effe
 
 當同一份資料（例如使用者資訊、某個列表的篩選狀態）需要被多個彼此沒有直接父子關係的元件讀取或修改時，如果各自用 Service 存一份，很容易出現「兩個地方存的資料不同步」的問題，或者為了同步而讓元件之間產生不必要的耦合，彼此知道對方的存在、互相呼叫對方的方法。
 
-NgRx 的做法是把「這份資料現在長什麼樣子」跟「誰可以怎麼改它」分開管理，全部集中在一個地方。元件不直接互相溝通，而是各自對這個集中的地方發出「我想做什麼」的訊號，再各自訂閱「現在的資料長怎樣」。
+<span data-term="ngrx">NgRx</span> 的做法是把「這份資料現在長什麼樣子」跟「誰可以怎麼改它」分開管理，全部集中在一個地方。元件不直接互相溝通，而是各自對這個集中的地方發出「我想做什麼」的訊號，再各自訂閱「現在的資料長怎樣」。
 
 ## 核心概念
 
@@ -42,14 +43,14 @@ Angular 的 <span data-term="onpush">ChangeDetectionStrategy.OnPush</span> 是�
 
 這也是為什麼 Reducer 一定要回傳一個新的物件，不能直接修改原本的 state：如果 Reducer 直接改動原本物件的內容再回傳，物件的參照沒有變，用 OnPush 的元件拿 === 一比會覺得「什麼都沒變」，畫面就不會更新，即使資料其實已經不一樣了。Reducer 保持 immutable，某種程度上就是在配合 OnPush 這種只看參照、不看內容的比較方式。
 
-這跟 RxJS 的 <span data-term="distinct-until-changed">distinctUntilChanged</span> 概念上很像：兩者都是先比較一次，覺得「沒有變」就不繼續往下做事，而且預設都是用 === 判斷有沒有變，不是真的去比較物件內容，差別只在於一個用在 Angular 的變更偵測，一個用在資料流本身。
+這跟 <span data-term="rxjs">RxJS</span> 的 <span data-term="distinct-until-changed">distinctUntilChanged</span> 概念上很像：兩者都是先比較一次，覺得「沒有變」就不繼續往下做事，而且預設都是用 === 判斷有沒有變，不是真的去比較物件內容，差別只在於一個用在 Angular 的變更偵測，一個用在資料流本身。
 
 ## Signal：不是所有狀態都要進 Store
 
-除了 NgRx 的 Store，Angular 本身也有一套獨立的反應式機制，叫 <span data-term="signal">Signal</span>：用 signal() 建立一個可讀寫的狀態容器，computed() 建立會隨著其他 signal 自動重新計算的衍生值，template 直接讀取 signal 就能在值改變時自動更新畫面，不需要透過 Store，也不需要訂閱 Observable。
+除了 <span data-term="ngrx">NgRx</span> 的 Store，Angular 本身也有一套獨立的反應式機制，叫 <span data-term="signal">Signal</span>：用 signal() 建立一個可讀寫的狀態容器，computed() 建立會隨著其他 signal 自動重新計算的衍生值，template 直接讀取 signal 就能在值改變時自動更新畫面，不需要透過 Store，也不需要訂閱 Observable。
 
 一開始容易誤以為「這個專案已經在用 NgRx 了，所有狀態都應該進 Store」，但兩者處理的其實是不同範圍的問題：Signal 適合只在單一元件內部使用、不需要被沒有父子關係的其他元件共享的狀態，例如一個表單區塊的展開／收合狀態。這種狀態如果硬塞進 NgRx，只是多出不必要的 Action／Reducer 樣板；NgRx 的 Store 則留給真的需要跨元件共享、同步的那份資料。判斷標準很單純：這份狀態只有這個元件自己在乎，還是有其他不相關的元件也要讀它。
 
 ## 結論
 
-NgRx 用「集中狀態 + 單向資料流」換取元件之間的解耦：元件不需要互相認識，只需要對同一個 Store 發訊號、訂閱資料。代價是多了一層抽象與樣板程式碼，對小專案來說可能有點殺雞用牛刀，但在多元件共享同一份複雜狀態的場景下，這個代價是值得的。至於只有單一元件自己在乎的狀態，用 Signal 處理就好，不需要為了統一而全部經過 Store。
+<span data-term="ngrx">NgRx</span> 用「集中狀態 + 單向資料流」換取元件之間的解耦：元件不需要互相認識，只需要對同一個 Store 發訊號、訂閱資料。代價是多了一層抽象與樣板程式碼，對小專案來說可能有點殺雞用牛刀，但在多元件共享同一份複雜狀態的場景下，這個代價是值得的。至於只有單一元件自己在乎的狀態，用 <span data-term="signal">Signal</span> 處理就好，不需要為了統一而全部經過 Store。

@@ -1,6 +1,6 @@
 ---
 name: knowledge-coverage
-description: Audit one article's data-term links against content/knowledge.json and content/knowledge.en.json — coverage (is every relevant term linked, in both languages) and hygiene (does any term link twice inside the same section). Use when the user asks to check knowledge point coverage, 知識點覆蓋, confirm all knowledge points, verify each section only links a term once, or audit data-term tags for an article.
+description: Audit one article's data-term links against content/knowledge.json and content/knowledge.en.json — coverage (is every relevant term linked, in both languages, in every section that mentions it) and hygiene (does any term link twice inside the same section). Use when the user asks to check knowledge point coverage, 知識點覆蓋, confirm all knowledge points, verify each section links a term on its first mention, or audit data-term tags for an article.
 ---
 
 # Knowledge coverage check
@@ -13,7 +13,9 @@ A content-QA pass over one article's `<span data-term="...">` links, not a build
 
 2. **Extract tagged terms per section.** Pull every `data-term="..."` id from both files in document order, and record which `##`/`###` heading each occurrence falls under.
 
-3. **Duplicate-in-section check.** For each section, flag any `data-term` id that appears more than once. The site convention is: a term links on its first occurrence within a section; later mentions in the *same* section stay plain text. Being tagged again in a *different*, later section (reintroducing it there) is fine and not a violation.
+3. **Per-section tagging check.** The site convention is: a term is tagged on its *first* mention within *every* `##`/`###` section that mentions it by name — including a section named after the term itself (e.g. the `## mergeMap: ...` section still tags `mergeMap` the first time that section's body text says "mergeMap"). Two things to flag here:
+   - **Duplicate-in-section**: the same id tagged more than once inside one section. Only the first mention in a section should carry the tag; later mentions in that same section stay plain text.
+   - **Missing-in-section**: a term's name appears as plain text in a section but was never tagged there, because it happens to already be tagged in an earlier section. This is the easy mistake to make — tagging a term once near the top (e.g. in the backstory paragraph) and then treating it as "already covered" for the rest of the article is wrong. Check every section independently: read each section's body text (skip code fences and table cells — those stay plain) for the *first* plain-text mention of any id already known in this run (from step 2's ids, or from any `content/knowledge.json` term name), and confirm that specific mention carries the tag.
 
 4. **zh/en parity.** The set of ids used in the zh file and the en file should match exactly. Flag anything present in one language and missing in the other — a common cause is a section added to one language and not mirrored to the other.
 
@@ -30,6 +32,7 @@ A content-QA pass over one article's `<span data-term="...">` links, not a build
 Summarize as a short checklist, grouped by severity:
 
 - ⚠ duplicate-in-section (step 3)
+- ⚠ missing-in-section (step 3)
 - ⚠ zh/en mismatch (step 4)
 - ⚠ missing knowledge entry (step 5)
 - ⚠ stale relatedArticles (step 6)

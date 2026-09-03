@@ -4,6 +4,7 @@ title: "What NgRx Actually Does: State Management in Angular"
 date: 2026-09-02
 categories: [Notes, Web, Technical]
 excerpt: "From encountering NgRx during an internship: breaking down Store, Action, Reducer, Effect, and Selector, why an Angular app needs a separate state-management layer at all, and which state doesn't need to go through the Store, Signal handles that instead."
+status: draft
 ---
 
 > Writing period: 2026-09-02
@@ -16,7 +17,7 @@ While doing Angular frontend development during my internship at Sun Bird Softwa
 
 When the same piece of data (user info, a list's filter state) needs to be read or changed by several components that aren't in a direct parent-child relationship, having each one keep its own copy in a service quickly leads to two places holding data that's out of sync, or to components becoming tightly coupled just to stay in sync, knowing about each other and calling each other's methods directly.
 
-NgRx's approach is to separate "what does this data currently look like" from "who's allowed to change it," and centralize both in one place. Components don't talk to each other directly, instead, each one sends a signal to that central place saying what it wants to happen, and separately subscribes to what the current data looks like.
+<span data-term="ngrx">NgRx</span>'s approach is to separate "what does this data currently look like" from "who's allowed to change it," and centralize both in one place. Components don't talk to each other directly, instead, each one sends a signal to that central place saying what it wants to happen, and separately subscribes to what the current data looks like.
 
 ## The core pieces
 
@@ -40,16 +41,16 @@ The part that was easiest to mix up early on was the difference between an actio
 
 Angular's <span data-term="onpush">ChangeDetectionStrategy.OnPush</span> is a performance optimization. By default, Angular checks the entire component tree for re-rendering after any event; a component set to OnPush only gets re-checked in a handful of cases, most commonly when an incoming @Input is compared with === and found to be a different reference.
 
-That's also why an NgRx reducer has to return a brand-new object instead of mutating the existing state directly: if a reducer mutated the original object in place and returned it, the reference never changes, so an OnPush component comparing with === sees "nothing changed" and never re-renders, even though the data is actually different now. Keeping reducers immutable is, in a sense, playing along with OnPush's reference-only comparison.
+That's also why an <span data-term="ngrx">NgRx</span> reducer has to return a brand-new object instead of mutating the existing state directly: if a reducer mutated the original object in place and returned it, the reference never changes, so an OnPush component comparing with === sees "nothing changed" and never re-renders, even though the data is actually different now. Keeping reducers immutable is, in a sense, playing along with OnPush's reference-only comparison.
 
-That's conceptually close to RxJS's <span data-term="distinct-until-changed">distinctUntilChanged</span>: both compare once and skip doing the next thing if nothing "changed," and both default to a === check rather than actually comparing the contents of an object. The only difference is which layer they operate on, one drives Angular's change detection, the other drives the data stream itself.
+That's conceptually close to <span data-term="rxjs">RxJS</span>'s <span data-term="distinct-until-changed">distinctUntilChanged</span>: both compare once and skip doing the next thing if nothing "changed," and both default to a === check rather than actually comparing the contents of an object. The only difference is which layer they operate on, one drives Angular's change detection, the other drives the data stream itself.
 
 ## Signal: not every piece of state belongs in the Store
 
-Besides NgRx's Store, Angular has its own separate reactivity mechanism called <span data-term="signal">Signal</span>: signal() creates a readable, writable state container, computed() creates a derived value that automatically recomputes when the signals it depends on change, and a template that reads a signal directly re-renders whenever the value changes, no Store, no subscribing to an Observable.
+Besides <span data-term="ngrx">NgRx</span>'s Store, Angular has its own separate reactivity mechanism called <span data-term="signal">Signal</span>: signal() creates a readable, writable state container, computed() creates a derived value that automatically recomputes when the signals it depends on change, and a template that reads a signal directly re-renders whenever the value changes, no Store, no subscribing to an Observable.
 
 It's easy to assume early on that "this codebase already uses NgRx, so every piece of state should go through the Store," but the two solve problems at a different scope. Signal fits state that only matters inside a single component and doesn't need to be shared with components outside its parent-child chain, like whether a form section is expanded or collapsed. Forcing that kind of state into NgRx just adds unnecessary Action/Reducer boilerplate. NgRx's Store is for the data that genuinely needs to be shared and kept in sync across components. The test is simple: does only this component care about this state, or do unrelated components need to read it too?
 
 ## Takeaway
 
-NgRx trades centralized state plus one-directional data flow for decoupling between components: components don't need to know about each other, they just signal and subscribe to the same Store. The cost is an extra layer of abstraction and boilerplate, which can be overkill for a small project, but in a codebase where multiple components share the same piece of complex state, that cost is worth paying. For state only one component cares about, Signal handles it fine, there's no need to route everything through the Store just for consistency's sake.
+<span data-term="ngrx">NgRx</span> trades centralized state plus one-directional data flow for decoupling between components: components don't need to know about each other, they just signal and subscribe to the same Store. The cost is an extra layer of abstraction and boilerplate, which can be overkill for a small project, but in a codebase where multiple components share the same piece of complex state, that cost is worth paying. For state only one component cares about, <span data-term="signal">Signal</span> handles it fine, there's no need to route everything through the Store just for consistency's sake.
