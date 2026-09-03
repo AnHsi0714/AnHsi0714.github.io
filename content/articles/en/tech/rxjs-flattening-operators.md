@@ -22,11 +22,23 @@ mergeMap lets every trigger fire its own request independently, running in paral
 
 Good for cases where each trigger is independent and order doesn't matter, like firing off several unrelated requests at once. The downside: if a user triggers it multiple times in quick succession, older requests aren't cancelled, responses can come back out of order, and the screen might not end up showing the result of the most recent action.
 
+```ts
+trigger$.pipe(
+  mergeMap((id) => request(id))
+).subscribe((result) => handleResult(result));
+```
+
 ## concatMap: queue up, preserve order
 
 concatMap queues each new inner Observable and waits for the previous one to finish before starting the next, so processing order always matches trigger order.
 
 Good for cases where order can't be scrambled, submitting several form entries in sequence, or a step that must only run after the previous one succeeds. The cost: if one trigger is slow or stuck, everything after it has to wait, which can feel sluggish to the user.
+
+```ts
+trigger$.pipe(
+  concatMap((id) => request(id))
+).subscribe((result) => handleResult(result));
+```
 
 ## switchMap: keep only the latest, cancel the rest
 
@@ -34,11 +46,25 @@ switchMap cancels whatever inner Observable is still in flight the moment a new 
 
 Good for cases where only the latest result matters and older ones can just be thrown away, which is exactly why it's the default choice for search boxes and filters, situations where a user's next action supersedes their previous intent. By the time someone's typed a fifth character, the first four search requests are already meaningless, so cancelling them is the right call.
 
+```ts
+trigger$.pipe(
+  switchMap((id) => request(id))
+).subscribe((result) => handleResult(result));
+```
+
 ## exhaustMap: ignore new triggers while busy
 
 When a new trigger comes in, exhaustMap ignores it outright if the previous inner Observable hasn't finished yet, and only starts accepting new triggers once the current one completes. It's the mirror image of switchMap: switchMap lets the new one override the old, exhaustMap lets whatever's already running finish untouched and drops the new one.
 
 Good for cases where you don't want an in-flight operation interrupted or duplicated, like a submit button: while the request from the first click is still in flight, a second click shouldn't fire another request, otherwise you risk double-submitting a form or double-charging a payment.
+
+```ts
+trigger$.pipe(
+  exhaustMap((id) => request(id))
+).subscribe((result) => handleResult(result));
+```
+
+The pipe body is identical in all four snippets, only the operator's name changes, and that's exactly the point of this comparison: what decides the behavior isn't how the request is written, it's which flattening strategy you pick.
 
 ## How the four compare
 
@@ -55,21 +81,28 @@ Good for cases where you don't want an in-flight operation interrupted or duplic
 
 Because they're so often seen together, debounceTime gets mistaken for a member of the switchMap family, but it isn't in the same category as concatMap, switchMap, or mergeMap at all: one controls trigger frequency, the others decide the flattening strategy.
 
+```ts
+searchInput$.pipe(
+  debounceTime(300),
+  switchMap((keyword) => searchApi(keyword))
+).subscribe((results) => showResults(results));
+```
+
 ## Common operators at a glance
 
 Beyond flattening strategy, a handful of other operators show up constantly in day-to-day RxJS: <span data-term="map">map</span> transforms data, <span data-term="filter">filter</span> filters it, <span data-term="tap">tap</span> runs a side effect, <span data-term="distinct-until-changed">distinctUntilChanged</span> drops repeated values, <span data-term="catch-error">catchError</span> catches errors, <span data-term="retry">retry</span> retries automatically, <span data-term="fork-join">forkJoin</span> waits for several sources to all complete, <span data-term="take-one">take(1)</span> subscribes exactly once, and <span data-term="take-until">takeUntil</span> keeps subscribing until some other event fires. None of these are as easy to mix up as the flattening operators, but the syntax and the right moment to reach for each one are easy to forget before they're second nature, so here's a lookup table.
 
-| Operator | What it does | When to use it |
-| --- | --- | --- |
-| map | Transforms each value into a new one, one to one | The API response needs reshaping into what the view needs |
-| filter | Only lets values matching a condition through | You only want the values in the stream that meet some condition |
-| tap | Doesn't change the data, just runs a side effect (like logging) partway through | You want to log or debug as data flows by without affecting the data itself |
-| distinctUntilChanged | Skips a value if it's the same as the previous one | Avoid triggering downstream logic again for the same value |
-| catchError | Catches an error and swaps in a new Observable so the stream doesn't just die | An API call fails and you don't want the whole stream to break, you want to catch it and keep going |
-| retry | Automatically resubscribes to the original Observable a few times when an error occurs | A network request occasionally fails and you want an automatic retry before showing an error |
-| forkJoin | Waits for every Observable passed in to complete, then delivers all their final results at once | You need several API calls to finish before the screen can render |
-| take(1) | Takes only the first value, then unsubscribes automatically | You only need to subscribe once, no ongoing listening needed |
-| takeUntil | Keeps subscribing until another Observable emits, then unsubscribes automatically | A component needs to cancel all its subscriptions on destroy |
+| Operator | What it does | When to use it | Example |
+| --- | --- | --- | --- |
+| map | Transforms each value into a new one, one to one | The API response needs reshaping into what the view needs | `map((res) => res.data)` |
+| filter | Only lets values matching a condition through | You only want the values in the stream that meet some condition | `filter((n) => n > 0)` |
+| tap | Doesn't change the data, just runs a side effect (like logging) partway through | You want to log or debug as data flows by without affecting the data itself | `tap((val) => console.log(val))` |
+| distinctUntilChanged | Skips a value if it's the same as the previous one | Avoid triggering downstream logic again for the same value | `distinctUntilChanged()` |
+| catchError | Catches an error and swaps in a new Observable so the stream doesn't just die | An API call fails and you don't want the whole stream to break, you want to catch it and keep going | `catchError(() => of(fallback))` |
+| retry | Automatically resubscribes to the original Observable a few times when an error occurs | A network request occasionally fails and you want an automatic retry before showing an error | `retry(3)` |
+| forkJoin | Waits for every Observable passed in to complete, then delivers all their final results at once | You need several API calls to finish before the screen can render | `forkJoin([getUser(), getOrders()])` |
+| take(1) | Takes only the first value, then unsubscribes automatically | You only need to subscribe once, no ongoing listening needed | `take(1)` |
+| takeUntil | Keeps subscribing until another Observable emits, then unsubscribes automatically | A component needs to cancel all its subscriptions on destroy | `takeUntil(this.destroy$)` |
 
 This table is more of a dictionary than lived experience, whether I'd actually reach for the right one in practice still depends on having hit that specific wall before. Right now the flattening operators above are the ones I can point to a concrete scenario for, the rest are reference for now until a real case sends me back to them.
 
