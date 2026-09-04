@@ -9,6 +9,7 @@ import TextLink from "../../components/TextLink";
 import { usePublishedKnowledgeNodes } from "../../lib/knowledge";
 import { useTranslation } from "../../i18n/useTranslation";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
+import type { KnowledgeRelationType } from "../../types/content";
 import styles from "./KnowledgeGraph.module.scss";
 
 const CATEGORY_PREFIX = "cat:";
@@ -34,6 +35,33 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 const FALLBACK_COLOR = "#9ca3af";
 
+// 「相關概念」是最普通、數量最多的關係，維持中性色（跟主題走），
+// 另外三種比較少見、有特定語意的關係才給固定的強調色。
+const RELATION_ACCENT_COLORS: Partial<Record<KnowledgeRelationType, string>> = {
+  prerequisite: "#f59e0b",
+  applies_to: "#22c55e",
+  contrasts_with: "#ef4444",
+};
+// 跟 KnowledgeDetail.tsx 的 relationOrder 保持一致的顯示順序。
+const RELATION_LEGEND_ORDER: KnowledgeRelationType[] = [
+  "prerequisite",
+  "applies_to",
+  "related",
+  "contrasts_with",
+];
+// 分類收合時，同一對 hub 之間可能同時存在好幾種底層關係，只畫得出一條邊，
+// 排序在前的優先顯示（先備知識最值得看到，相關概念最普通、優先度最低）。
+const RELATION_PRIORITY: KnowledgeRelationType[] = [
+  "prerequisite",
+  "contrasts_with",
+  "applies_to",
+  "related",
+];
+
+function relationColor(type: KnowledgeRelationType, neutralColor: string): string {
+  return RELATION_ACCENT_COLORS[type] ?? neutralColor;
+}
+
 // 圖上實際畫出來的節點：分類還沒展開時是一顆代表整個分類的 hub，
 // 展開後 hub 換成該分類底下每個知識點各自一顆節點。
 interface VisualNode {
@@ -47,7 +75,7 @@ interface VisualNode {
 interface GraphEdge {
   a: string;
   b: string;
-  directed: boolean;
+  type: KnowledgeRelationType;
 }
 
 interface Point3 {
@@ -57,6 +85,7 @@ interface Point3 {
 }
 
 type NodeColorStyle = CSSProperties & { "--node-color": string };
+type EdgeColorStyle = CSSProperties & { "--edge-color": string };
 
 function idFor(category: string, slug: string, expanded: Set<string>): string {
   return expanded.has(category) ? slug : CATEGORY_PREFIX + category;
@@ -341,7 +370,7 @@ function EdgeLine({ edge, positions, isActive, isDimmed, color, activeColor }: E
   const a = positions[edge.a];
   const b = positions[edge.b];
   if (!a || !b) return null;
-  const lineColor = isActive ? activeColor : color;
+  const lineColor = isActive ? activeColor : relationColor(edge.type, color);
   const opacity = isDimmed ? 0.15 : 1;
 
   return (
@@ -356,7 +385,9 @@ function EdgeLine({ edge, positions, isActive, isDimmed, color, activeColor }: E
         transparent
         opacity={opacity}
       />
-      {edge.directed && <ArrowHead from={a} to={b} color={lineColor} opacity={opacity} />}
+      {edge.type === "prerequisite" && (
+        <ArrowHead from={a} to={b} color={lineColor} opacity={opacity} />
+      )}
     </>
   );
 }
@@ -399,9 +430,9 @@ export default function KnowledgeGraph() {
         if (seen.has(key)) return;
         if (rel.type === "prerequisite") {
           // rel.slug 是 node.slug 的先備知識，箭頭畫成「先備 → 這個節點」
-          seen.set(key, { a: rel.slug, b: node.slug, directed: true });
+          seen.set(key, { a: rel.slug, b: node.slug, type: "prerequisite" });
         } else {
-          seen.set(key, { a: node.slug, b: rel.slug, directed: false });
+          seen.set(key, { a: node.slug, b: rel.slug, type: rel.type });
         }
       });
     });
@@ -440,7 +471,8 @@ export default function KnowledgeGraph() {
   }, [allNodes, expandedCategories]);
 
   // 分類還收合著的邊,兩端都會收斂成同一顆分類 hub，這種「分類內部關聯」先不畫，
-  // 展開該分類後兩端變成各自獨立的節點才會出現。
+  // 展開該分類後兩端變成各自獨立的節點才會出現。多個成員對之間的關係可能種類不同，
+  // 收斂到同一對 hub 時只留優先度最高的那種（先備 > 對比 > 應用 > 相關）代表整條邊。
   const visibleEdges: GraphEdge[] = useMemo(() => {
     const grouped = new Map<string, GraphEdge>();
     rawEdges.forEach((e) => {
@@ -449,8 +481,9 @@ export default function KnowledgeGraph() {
       if (va === vb) return;
       const key = [va, vb].sort().join("|");
       const existing = grouped.get(key);
-      if (existing && (existing.directed || !e.directed)) return;
-      grouped.set(key, { a: va, b: vb, directed: e.directed });
+      if (existing && RELATION_PRIORITY.indexOf(existing.type) <= RELATION_PRIORITY.indexOf(e.type))
+        return;
+      grouped.set(key, { a: va, b: vb, type: e.type });
     });
     return Array.from(grouped.values());
   }, [rawEdges, categoryBySlug, expandedCategories]);
@@ -498,9 +531,27 @@ export default function KnowledgeGraph() {
       </p>
 
       <div className="hidden sm:block">
-        <p className="mt-4 text-sm text-[var(--color-text-muted)]">
-          → {t.knowledge.relationType.prerequisite}
-        </p>
+        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-[var(--color-text-muted)]">
+          {RELATION_LEGEND_ORDER.map((type) => (
+            <span key={type} className="inline-flex items-center gap-1.5">
+              {type === "prerequisite" ? (
+                <span
+                  className={styles.legendArrow}
+                  style={{ "--edge-color": relationColor(type, edgeColor) } as EdgeColorStyle}
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+              ) : (
+                <span
+                  className={styles.legendLine}
+                  style={{ "--edge-color": relationColor(type, edgeColor) } as EdgeColorStyle}
+                />
+              )}
+              {t.knowledge.relationType[type]}
+            </span>
+          ))}
+        </div>
 
         <div className="mt-3 flex flex-wrap gap-2">
           {categoriesWithCount.map(({ category, count }) => (

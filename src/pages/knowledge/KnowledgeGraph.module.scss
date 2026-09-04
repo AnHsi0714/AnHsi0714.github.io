@@ -84,3 +84,17 @@
   border-radius: 9999px;
   background-color: var(--node-color);
 }
+
+.legendLine {
+  display: inline-block;
+  width: 18px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: var(--edge-color);
+}
+
+.legendArrow {
+  color: var(--edge-color);
+  font-weight: 700;
+  line-height: 1;
+}

@@ -108,13 +108,13 @@ Technical terms that appear in articles and long-form project write-ups (<span d
   <figcaption style="text-align: center;">Knowledge term detail page: general definition, context-aware application, and long-form content</figcaption>
 </figure>
 
-### Knowledge Graph `/knowledge/graph` (experimental)
+### Knowledge Graph `/knowledge/graph`
 
-Renders the prerequisite/related/applies_to/contrasts_with relationships between glossary terms as a force-directed graph. By default only category hubs are shown; clicking one expands it into individual terms, several categories can be expanded at once, and nodes can be manually dragged into place. Panning and dragging don't work well on a narrow phone screen, so below the `sm` breakpoint it shows a text hint pointing users to a tablet or desktop instead.
+Renders the prerequisite/related/applies_to/contrasts_with relationships between glossary terms as a 3D force-directed graph (React Three Fiber + drei), color-coded by relation type with an extra arrow marking direction for prerequisites. By default only category hubs are shown; clicking one expands it into individual terms, and several categories can be expanded at once. Drag to rotate the camera and scroll to zoom. These gestures don't work well on a narrow phone screen, so below the `sm` breakpoint it shows a text hint pointing users to a tablet or desktop instead.
 
 <figure>
   <img src="/images/projects/personal-website/knowledge-graph.png" alt="The Knowledge Graph page, with one category expanded showing individual term nodes and edges" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">Knowledge Graph: force-directed layout with a category expanded</figcaption>
+  <figcaption style="text-align: center;">Knowledge Graph: 3D force-directed layout with a category expanded</figcaption>
 </figure>
 
 ### Art Gallery `/gallery`
@@ -164,7 +164,7 @@ There are four main technical contributions:
 - **p5.js instance-mode migration**: migrating p5.js entirely from OpenProcessing's global mode to instance mode, letting 30 generative-art pieces coexist in the same SPA without polluting each other's global state, so the whole site never has more than one live canvas at a time.
 - **Invite-code race condition**: the friend-creation system uses Postgres <span data-term="security-definer">Security Definer Function</span> RPCs combined with `for update` row locking to resolve the invite-code <span data-term="race-condition">Race Condition</span> without any account system, while letting a single invite code serve double duty as both a one-time redemption token and a long-term editing credential.
 - **A unified painting data model**: 2D pixel art and 3D voxel painting share the same "sparse coordinate array" data model and undo/redo architecture, keeping data volume and content risk at the same level across both creation types, so the database schema never needed to change to accommodate a new creation type.
-- **Context-aware glossary**: when a term is shared across multiple projects/articles, its "how it's used" text now picks the passage matching the current context instead of merging everything into one sentence; some terms also carry a full write-up, and there's a new experimental force-directed view of term relationships (`/knowledge/graph`).
+- **Context-aware glossary**: when a term is shared across multiple projects/articles, its "how it's used" text now picks the passage matching the current context instead of merging everything into one sentence; some terms also carry a full write-up, and there's a new 3D force-directed view of term relationships, color-coded by relation type (`/knowledge/graph`).
 
 What's currently finished covers all the static content sections (Home, About, Experience, Articles, Projects, Glossary, Gallery, Playground, Dreams, Mini Works); the glossary feature is wired into both articles and project write-ups, with context-aware descriptions, long-form entries for some terms, and the graph view, all aimed at lowering the barrier to reading research-oriented project content.
 
@@ -173,5 +173,5 @@ The full friend-creation flow (invite-code redemption, 2D/3D editors, re-editing
 What's next:
 
 1. Keep refining the visual design
-2. Knowledge graph: color-code edges by relationship type (prerequisite/related/applies_to/contrasts_with), and add a way to browse it on mobile
+2. Knowledge graph: add a way to browse it on mobile
 3. Reconnect the friend-creation feature to a main navigation entry point

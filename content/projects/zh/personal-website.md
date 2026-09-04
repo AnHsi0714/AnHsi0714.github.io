@@ -108,13 +108,13 @@ Hero 區塊（姓名、定位標語、簡短 bio）＋研究興趣標籤（連�
   <figcaption style="text-align: center;">知識點詳細頁：通用定義、情境化說明與長文內容</figcaption>
 </figure>
 
-### 知識關聯圖 `/knowledge/graph`（實驗性）
+### 知識關聯圖 `/knowledge/graph`
 
-把詞條之間的 prerequisite／related／applies_to／contrasts_with 關聯畫成力導向圖，預設只顯示分類 hub，點開才展開成個別詞條，可同時展開多個分類，也支援手動拖曳調整位置。平移、拖曳這類操作在手機窄螢幕不好用，`sm` 以下改顯示文字提示，請使用者改用平板或電腦。
+把詞條之間的 prerequisite／related／applies_to／contrasts_with 關聯畫成 3D 力導向圖（React Three Fiber + drei），依關聯類型上色，先備知識另外加箭頭標示方向；預設只顯示分類 hub，點開才展開成個別詞條，可同時展開多個分類，拖曳旋轉視角、滾輪縮放檢視。這類操作在手機窄螢幕不好用，`sm` 以下改顯示文字提示，請使用者改用平板或電腦。
 
 <figure>
   <img src="/images/projects/personal-website/knowledge-graph.png" alt="知識關聯圖畫面，展開一個分類後顯示個別詞條與連線" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">知識關聯圖：展開分類後的力導向佈局</figcaption>
+  <figcaption style="text-align: center;">知識關聯圖：展開分類後的 3D 力導向佈局</figcaption>
 </figure>
 
 ### 藝術畫廊 `/gallery`
@@ -164,7 +164,7 @@ Hero 區塊（姓名、定位標語、簡短 bio）＋研究興趣標籤（連�
 - **p5.js instance mode 遷移**：從 OpenProcessing 的 global mode 完整遷移到 instance mode，讓 30 件生成藝術作品能在同一個 SPA 裡共存而不互相污染全域狀態，任何時刻整站只有一個活著的 canvas。
 - **邀請碼 Race Condition**：朋友創作系統用 Postgres 的 <span data-term="security-definer">Security Definer</span> RPC 搭配 `for update` 鎖列，在無帳號系統的前提下解決邀請碼的 <span data-term="race-condition">Race Condition</span>，並讓「邀請碼」同時身兼一次性憑證與長期編輯憑證兩種角色。
 - **統一的塗色資料模型**：2D 像素與 3D 體素塗色共用同一套「稀疏座標陣列」資料模型與 undo/redo 架構，兩種創作型態的資料量與內容風險維持同一等級，也讓資料庫 schema 從一開始就不需要因為新增類型而改動。
-- **情境化名詞解釋**：同一個詞被多個專案／文章共用時，「怎麼被用」的說明改成依目前所在的情境分開挑對應段落顯示，不再混成一句話；部分詞條另外掛一篇完整長文，並新增一個把詞條關聯畫成力導向圖的實驗性檢視（`/knowledge/graph`）。
+- **情境化名詞解釋**：同一個詞被多個專案／文章共用時，「怎麼被用」的說明改成依目前所在的情境分開挑對應段落顯示，不再混成一句話；部分詞條另外掛一篇完整長文，並新增一個把詞條關聯畫成 3D 力導向圖、依關聯類型上色的檢視（`/knowledge/graph`）。
 
 網站目前完成的部分涵蓋所有靜態內容區塊（首頁、關於、經歷、文章、專案、名詞解釋、畫廊、Playground、夢想、小作品），名詞解釋 glossary 功能已接上文章與專案長文，支援情境化說明、部分詞條長文與關聯圖檢視，用於降低研究向專案內容的閱讀門檻。
 
@@ -173,5 +173,5 @@ Hero 區塊（姓名、定位標語、簡短 bio）＋研究興趣標籤（連�
 之後想做的事：
 
 1. 視覺風格持續打磨
-2. 知識關聯圖：依關聯類型（prerequisite／related／applies_to／contrasts_with）上色區分，並補上行動版的瀏覽方式
+2. 知識關聯圖：補上行動版的瀏覽方式
 3. 朋友創作功能重新接上主要導覽入口
