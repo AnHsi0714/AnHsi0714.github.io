@@ -59,7 +59,7 @@ export default function Knowledge() {
       <Reveal>
         <h1 className="text-2xl font-bold">{t.knowledge.title}</h1>
         <p className="mt-2 text-[var(--color-text-muted)]">{t.knowledge.subtitle}</p>
-        <TextLink to="/knowledge/graph" className="mt-1 hidden text-sm sm:block">
+        <TextLink to="/knowledge/graph" className="mt-1 block text-sm">
           {t.knowledge.graphViewLabel}
         </TextLink>
       </Reveal>
