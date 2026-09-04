@@ -530,93 +530,91 @@ export default function KnowledgeGraph() {
         {t.knowledge.graphViewMobileNotice}
       </p>
 
-      <div className="hidden sm:block">
-        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-[var(--color-text-muted)]">
-          {RELATION_LEGEND_ORDER.map((type) => (
-            <span key={type} className="inline-flex items-center gap-1.5">
-              {type === "prerequisite" ? (
-                <span
-                  className={styles.legendArrow}
-                  style={{ "--edge-color": relationColor(type, edgeColor) } as EdgeColorStyle}
-                  aria-hidden="true"
-                >
-                  →
-                </span>
-              ) : (
-                <span
-                  className={styles.legendLine}
-                  style={{ "--edge-color": relationColor(type, edgeColor) } as EdgeColorStyle}
-                />
-              )}
-              {t.knowledge.relationType[type]}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-3 flex flex-wrap gap-2">
-          {categoriesWithCount.map(({ category, count }) => (
-            <Chip
-              key={category}
-              clickable
-              selected={expandedCategories.has(category)}
-              onClick={() => toggleCategory(category)}
-              className="inline-flex items-center gap-1.5"
-            >
+      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-[var(--color-text-muted)]">
+        {RELATION_LEGEND_ORDER.map((type) => (
+          <span key={type} className="inline-flex items-center gap-1.5">
+            {type === "prerequisite" ? (
               <span
-                className={styles.legendDot}
-                style={{ "--node-color": CATEGORY_COLORS[category] ?? FALLBACK_COLOR } as NodeColorStyle}
+                className={styles.legendArrow}
+                style={{ "--edge-color": relationColor(type, edgeColor) } as EdgeColorStyle}
+                aria-hidden="true"
+              >
+                →
+              </span>
+            ) : (
+              <span
+                className={styles.legendLine}
+                style={{ "--edge-color": relationColor(type, edgeColor) } as EdgeColorStyle}
               />
-              {category} ({count})
-            </Chip>
-          ))}
-        </div>
+            )}
+            {t.knowledge.relationType[type]}
+          </span>
+        ))}
+      </div>
 
-        <div className={styles.canvas}>
-          <Canvas camera={{ position: [0, 0, ANCHOR_RADIUS * 2.6], fov: 50 }} gl={{ alpha: true }}>
-            {visibleEdges.map((edge) => {
-              const isActive = activeId != null && (edge.a === activeId || edge.b === activeId);
-              const isDimmed = activeId != null && !isActive;
-              return (
-                <EdgeLine
-                  key={`${edge.a}-${edge.b}`}
-                  edge={edge}
-                  positions={positions}
-                  isActive={isActive}
-                  isDimmed={isDimmed}
-                  color={edgeColor}
-                  activeColor={activeEdgeColor}
-                />
-              );
-            })}
-
-            {visibleNodes.map((node) => {
-              const p = positions[node.id];
-              if (!p) return null;
-              const isDimmed = neighborIds != null && !neighborIds.has(node.id);
-              const isActive = activeId === node.id;
-              return (
-                <GraphNode
-                  key={node.id}
-                  node={node}
-                  position={p}
-                  isActive={isActive}
-                  isDimmed={isDimmed}
-                  onHoverStart={() => setActiveId(node.id)}
-                  onHoverEnd={() => setActiveId(null)}
-                  onToggleCategory={toggleCategory}
-                  onNavigate={(slug) => navigate(`/knowledge/${slug}`)}
-                />
-              );
-            })}
-
-            <OrbitControls
-              enableDamping
-              dampingFactor={0.15}
-              minDistance={ANCHOR_RADIUS * 1.1}
-              maxDistance={ANCHOR_RADIUS * 5}
+      <div className="mt-3 flex flex-wrap gap-2">
+        {categoriesWithCount.map(({ category, count }) => (
+          <Chip
+            key={category}
+            clickable
+            selected={expandedCategories.has(category)}
+            onClick={() => toggleCategory(category)}
+            className="inline-flex items-center gap-1.5"
+          >
+            <span
+              className={styles.legendDot}
+              style={{ "--node-color": CATEGORY_COLORS[category] ?? FALLBACK_COLOR } as NodeColorStyle}
             />
-          </Canvas>
-        </div>
+            {category} ({count})
+          </Chip>
+        ))}
+      </div>
+
+      <div className={styles.canvas}>
+        <Canvas camera={{ position: [0, 0, ANCHOR_RADIUS * 2.6], fov: 50 }} gl={{ alpha: true }}>
+          {visibleEdges.map((edge) => {
+            const isActive = activeId != null && (edge.a === activeId || edge.b === activeId);
+            const isDimmed = activeId != null && !isActive;
+            return (
+              <EdgeLine
+                key={`${edge.a}-${edge.b}`}
+                edge={edge}
+                positions={positions}
+                isActive={isActive}
+                isDimmed={isDimmed}
+                color={edgeColor}
+                activeColor={activeEdgeColor}
+              />
+            );
+          })}
+
+          {visibleNodes.map((node) => {
+            const p = positions[node.id];
+            if (!p) return null;
+            const isDimmed = neighborIds != null && !neighborIds.has(node.id);
+            const isActive = activeId === node.id;
+            return (
+              <GraphNode
+                key={node.id}
+                node={node}
+                position={p}
+                isActive={isActive}
+                isDimmed={isDimmed}
+                onHoverStart={() => setActiveId(node.id)}
+                onHoverEnd={() => setActiveId(null)}
+                onToggleCategory={toggleCategory}
+                onNavigate={(slug) => navigate(`/knowledge/${slug}`)}
+              />
+            );
+          })}
+
+          <OrbitControls
+            enableDamping
+            dampingFactor={0.15}
+            minDistance={ANCHOR_RADIUS * 1.1}
+            maxDistance={ANCHOR_RADIUS * 5}
+          />
+        </Canvas>
       </div>
     </section>
   );

@@ -514,7 +514,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       graphViewLabel: "圖譜檢視 →",
       graphViewTitle: "知識圖譜",
       graphViewSubtitle: "依先備知識、應用、對比等關係連起來的知識點，點一個節點進到該詞條頁面。",
-      graphViewMobileNotice: "這個檢視畫面比較寬，手機螢幕太窄不適合操作，請改用平板或電腦開啟。",
+      graphViewMobileNotice: "手指拖曳可以旋轉視角，雙指縮放。",
     },
     creator: {
       inviteCode: "邀請碼",
@@ -817,8 +817,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       graphViewTitle: "Knowledge Graph",
       graphViewSubtitle:
         "Knowledge nodes connected by prerequisite, application, and contrast relationships. Click a node to open its page.",
-      graphViewMobileNotice:
-        "This view needs more width than a phone screen allows. Please open it on a tablet or desktop instead.",
+      graphViewMobileNotice: "Drag with a finger to rotate the view, pinch to zoom.",
     },
     creator: {
       inviteCode: "Invite Code",

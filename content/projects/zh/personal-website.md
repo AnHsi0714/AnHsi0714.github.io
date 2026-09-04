@@ -110,7 +110,7 @@ Hero 區塊（姓名、定位標語、簡短 bio）＋研究興趣標籤（連�
 
 ### 知識關聯圖 `/knowledge/graph`
 
-把詞條之間的 prerequisite／related／applies_to／contrasts_with 關聯畫成 3D 力導向圖（React Three Fiber + drei），依關聯類型上色，先備知識另外加箭頭標示方向；預設只顯示分類 hub，點開才展開成個別詞條，可同時展開多個分類，拖曳旋轉視角、滾輪縮放檢視。這類操作在手機窄螢幕不好用，`sm` 以下改顯示文字提示，請使用者改用平板或電腦。
+把詞條之間的 prerequisite／related／applies_to／contrasts_with 關聯畫成 3D 力導向圖（React Three Fiber + drei），依關聯類型上色，先備知識另外加箭頭標示方向；預設只顯示分類 hub，點開才展開成個別詞條，可同時展開多個分類，拖曳旋轉視角、滾輪（手機用雙指）縮放檢視。手機上畫布改用比較接近方形的比例，避免橫向的力導向佈局被壓得太扁。
 
 <figure>
   <img src="/images/projects/personal-website/knowledge-graph.png" alt="知識關聯圖畫面，展開一個分類後顯示個別詞條與連線" style="display: block; margin: 0 auto; max-width: 100%;" />
@@ -173,5 +173,4 @@ Hero 區塊（姓名、定位標語、簡短 bio）＋研究興趣標籤（連�
 之後想做的事：
 
 1. 視覺風格持續打磨
-2. 知識關聯圖：補上行動版的瀏覽方式
-3. 朋友創作功能重新接上主要導覽入口
+2. 朋友創作功能重新接上主要導覽入口

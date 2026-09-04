@@ -1,14 +1,20 @@
 @use "../../styles/tokens" as *;
 
+// 手機窄螢幕用比較接近方形的比例，不然 900/620 這種橫向比例會被壓得很扁；
+// `sm` 以上（跟 Tailwind 的 sm: 斷點對齊，640px）才切回原本的橫向比例。
 .canvas {
   position: relative;
   width: 100%;
-  aspect-ratio: 900 / 620;
+  aspect-ratio: 4 / 5;
   margin-top: 1rem;
   border: 1px solid $color-border;
   border-radius: 0.75rem;
   overflow: hidden;
   background: $color-surface;
+
+  @media (min-width: 640px) {
+    aspect-ratio: 900 / 620;
+  }
 }
 
 // .node 同時用在 <Link>（單一知識點）跟 <button>（分類 hub，點擊展開/收合），

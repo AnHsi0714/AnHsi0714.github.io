@@ -110,7 +110,7 @@ Technical terms that appear in articles and long-form project write-ups (<span d
 
 ### Knowledge Graph `/knowledge/graph`
 
-Renders the prerequisite/related/applies_to/contrasts_with relationships between glossary terms as a 3D force-directed graph (React Three Fiber + drei), color-coded by relation type with an extra arrow marking direction for prerequisites. By default only category hubs are shown; clicking one expands it into individual terms, and several categories can be expanded at once. Drag to rotate the camera and scroll to zoom. These gestures don't work well on a narrow phone screen, so below the `sm` breakpoint it shows a text hint pointing users to a tablet or desktop instead.
+Renders the prerequisite/related/applies_to/contrasts_with relationships between glossary terms as a 3D force-directed graph (React Three Fiber + drei), color-coded by relation type with an extra arrow marking direction for prerequisites. By default only category hubs are shown; clicking one expands it into individual terms, and several categories can be expanded at once. Drag to rotate the camera, scroll (or pinch on mobile) to zoom. The canvas switches to a closer-to-square aspect ratio on phones so the normally wide force-directed layout doesn't get squashed.
 
 <figure>
   <img src="/images/projects/personal-website/knowledge-graph.png" alt="The Knowledge Graph page, with one category expanded showing individual term nodes and edges" style="display: block; margin: 0 auto; max-width: 100%;" />
@@ -173,5 +173,4 @@ The full friend-creation flow (invite-code redemption, 2D/3D editors, re-editing
 What's next:
 
 1. Keep refining the visual design
-2. Knowledge graph: add a way to browse it on mobile
-3. Reconnect the friend-creation feature to a main navigation entry point
+2. Reconnect the friend-creation feature to a main navigation entry point
