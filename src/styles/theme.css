@@ -15,15 +15,25 @@
   --color-primary-hover: #396969;
   --color-primary-text: #f7f7f7;
 
-  --color-danger-text: #f7f7f7;
-  --color-danger-hover: #fa1414;
-  --color-danger: #cd3c3c;
+  /* success/info/danger 各有兩個角色，各配一個 token，不能共用：
+     -bg（danger 是 -bg／-hover）＝實心底配 -text 這個淺字，Alert／Badge／Button／
+     filled Chip 在用，深淺跟主題無關，固定夠深、兩個模式共用同一組數值，所以下面
+     .dark 沒有另外覆寫。
+     -outline（danger 是 base token 自己）＝outline Chip 的邊框／文字色，直接印在
+     頁面背景上，深淺要跟主題同方向（淺色模式配白底要夠深、深色模式配黑底要夠亮），
+     所以分開在 .dark 覆寫一版。 */
+  --color-danger-text: #f7f7f7; /* Alert.error／Badge.danger／Button.danger／Chip filledDanger 的淺字 */
+  --color-danger-hover: #fa1414; /* Button.danger 的 hover 底色 */
+  --color-danger-bg: #cd3c3c; /* Alert.error／Badge.danger／Button.danger／Chip filledDanger 的實心底色 */
+  --color-danger: #cd3c3c; /* Chip outlineDanger 的邊框／文字色（淺色模式） */
 
-  --color-success: #f7f7f7;
-  --color-success-bg: #408000;
+  --color-success: #f7f7f7; /* Badge.success/done／Chip filledSuccess 的淺字 */
+  --color-success-bg: #408000; /* Badge.success/done／Chip filledSuccess 的實心底色 */
+  --color-success-outline: #408000; /* Chip outlineSuccess 的邊框／文字色（淺色模式） */
 
-  --color-info: #f7f7f7;
-  --color-info-bg: #19749f;
+  --color-info: #f7f7f7; /* Badge.doing／Alert.info／Chip filledInfo 的淺字 */
+  --color-info-bg: #19749f; /* Badge.doing／Alert.info／Chip filledInfo 的實心底色 */
+  --color-info-outline: #19749f; /* Chip outlineInfo 的邊框／文字色（淺色模式） */
 }
 
 .dark {
@@ -38,13 +48,13 @@
   --color-primary-hover: #cfd397;
   --color-primary-text: #14160f;
 
-  --color-danger: #f87171;
-  --color-danger-hover: #fca5a5;
-  --color-danger-text: #171717;
+  /* -bg／-text（實心底配淺字）跟主題無關，維持 :root 那組值，這裡不用覆寫；
+     只有 -outline／danger 本身這個「印在頁面背景上」的角色要換成夠亮的版本。
+     -hover 純粹是按鈕 hover 態，跟這次的對比分析無關，維持原本就分日夜模式各一版。 */
+  --color-danger: #f87171; /* Chip outlineDanger 的邊框／文字色（深色模式，要夠亮） */
+  --color-danger-hover: #fca5a5; /* Button.danger 的 hover 底色 */
 
-  --color-success: #171717;
-  --color-success-bg: #88ca1e;
+  --color-success-outline: #88ca1e; /* Chip outlineSuccess 的邊框／文字色（深色模式，要夠亮） */
 
-  --color-info: #171717;
-  --color-info-bg: #4d99cf;
+  --color-info-outline: #4d99cf; /* Chip outlineInfo 的邊框／文字色（深色模式，要夠亮） */
 }
