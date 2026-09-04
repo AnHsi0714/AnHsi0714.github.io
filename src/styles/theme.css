@@ -15,18 +15,25 @@
   --color-primary-hover: #396969;
   --color-primary-text: #f7f7f7;
 
+  /* --color-danger 是「淺底上的文字/外框」用色（outline chip、input 錯誤文字）。
+     --color-danger-bg／--color-danger-hover 是「實心底配 --color-danger-text 淺色文字」
+     用色（Alert、Badge、filled chip、danger 按鈕）：這兩種角色對「夠不夠深」的要求
+     方向相同（都要夠深才配得出 4.5:1），所以不分日夜模式，統一給同一組夠深的紅。 */
   --color-danger-text: #f7f7f7;
-  --color-danger-hover: #fa1414;
-  --color-danger: #f34848;
+  --color-danger-hover: #991b1b;
+  --color-danger-bg: #b91c1c;
+  --color-danger: #b91c1c;
 
+  /* --color-success-bg／--color-info-bg 同理是「實心底配淺色文字」用色，深淺不分日夜模式；
+     --color-success-outline／--color-info-outline 是「淺底上的文字/外框」用色，
+     淺色模式底是白的、要夠深的色；深色模式底是黑的，要夠亮的色，兩者方向相反，
+     這兩個 token 才需要分日夜模式各自配一版。 */
   --color-success: #f7f7f7;
-  --color-success-bg: #93da22;
-  /* -bg 是給實心底配的亮色（前景是 --color-success 淺色文字），拿來當淺底上的
-     文字/外框自己的顏色用會對比不足，outline chip 另外配一組較暗的同色系。 */
+  --color-success-bg: #15803d;
   --color-success-outline: #4d7c0f;
 
   --color-info: #f7f7f7;
-  --color-info-bg: #5fc4f3;
+  --color-info-bg: #0369a1;
   --color-info-outline: #0369a1;
 }
 
@@ -42,17 +49,22 @@
   --color-primary-hover: #cfd397;
   --color-primary-text: #14160f;
 
+  /* --color-danger 深色模式維持淺紅（配深色底文字用，本來就夠亮）；
+     --color-danger-bg／--color-danger-hover 跟淺色模式共用同一組深紅
+     （實心底配淺色文字，跟主題無關，見 :root 註解）。 */
   --color-danger: #f87171;
-  --color-danger-hover: #fca5a5;
+  --color-danger-hover: #991b1b;
+  --color-danger-bg: #b91c1c;
   --color-danger-text: #fff;
 
+  /* --color-success-bg／--color-info-bg 跟淺色模式共用同一組深色（見 :root 註解） */
   --color-success: #f7f7f7;
-  --color-success-bg: #88ca1e;
-  /* 深色底下 --color-success-bg 拿來當文字對比就已經夠，不用另外調亮 */
+  --color-success-bg: #15803d;
+  /* 深色底下 --color-success-outline 拿來當文字對比就已經夠，不用另外調亮 */
   --color-success-outline: #88ca1e;
 
   --color-info: #f7f7f7;
-  --color-info-bg: #337ca0;
-  /* --color-info-bg 深色版對深色底文字對比不夠（3.4:1），outline 另外配較亮的版本 */
+  --color-info-bg: #0369a1;
+  /* --color-info-outline 深色版要另外調亮，跟淺色模式（配白底）方向相反 */
   --color-info-outline: #38bdf8;
 }

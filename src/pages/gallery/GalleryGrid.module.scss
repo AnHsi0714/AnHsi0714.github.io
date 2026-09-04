@@ -10,7 +10,8 @@
   --room-bg-2: #efe8d6;
   --room-bg-3: #e6dcc2;
   --room-header-title: #2b2620;
-  --room-header-sub: #75705f;
+  // 原本 #75705f 對 --room-bg-1 只有 4.47:1，過不了 4.5:1，調暗一點
+  --room-header-sub: #6d6858;
   /* hover 到某件作品時打在那件上的光，強度比原本吊燈光束弱很多——原本的光束
      是打在一大片牆面上、範圍大所以可以濃；這裡是貼著畫作本身的一小塊疊色，
      太濃會蓋掉畫面內容，所以 core/mid 的透明度都調低。 */
@@ -24,7 +25,8 @@
   --room-placard-bg: #f4eedb;
   --room-placard-border: #d6c69a;
   --room-placard-title: #2b2620;
-  --room-placard-meta: #7a7460;
+  // 原本 #7a7460 對 --room-placard-bg 只有 4.03:1，過不了 4.5:1，調暗一點
+  --room-placard-meta: #6d6858;
 
   :global(.dark) & {
     --room-bg-glow: #2a2a31;

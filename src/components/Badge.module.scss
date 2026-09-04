@@ -16,9 +16,11 @@
 }
 
 // 對應 projects.status 等粗顆粒度狀態欄位：todo / doing / done
+// 文字色跟 .neutral 一樣用 $color-text（不是 $color-text-muted）：
+// text-muted 疊在 border 這個底色上對比不夠（3.3:1 / 3.97:1，過不了 4.5:1）。
 .todo {
   background-color: $color-border;
-  color: $color-text-muted;
+  color: $color-text;
 }
 
 .doing {
@@ -37,6 +39,6 @@
 }
 
 .danger {
-  background-color: $color-danger;
+  background-color: $color-danger-bg;
   color: $color-danger-text;
 }

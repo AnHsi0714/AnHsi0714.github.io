@@ -76,7 +76,7 @@
 }
 
 .danger {
-  background-color: $color-danger;
+  background-color: $color-danger-bg;
   color: $color-danger-text;
 
   &:hover:not(:disabled) {
