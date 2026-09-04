@@ -22,9 +22,9 @@ export default function Projects() {
   const { t } = useTranslation();
   useDocumentTitle(`${t.projects.title} · AnHsi0714`, t.projects.subtitle);
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
-  const allTags = Array.from(
-    new Set(projects.flatMap((p) => p.tags ?? [])),
-  ) as ProjectTag[];
+  const allTags = (
+    Array.from(new Set(projects.flatMap((p) => p.tags ?? []))) as ProjectTag[]
+  ).sort();
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);

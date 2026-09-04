@@ -20,6 +20,8 @@ export default function ProjectCard({
   t,
   variant = "grid",
 }: ProjectCardProps) {
+  const sortedTags = [...(project.tags ?? [])].sort();
+
   return (
     <Card hoverable className="h-full">
       <Link to={`/projects/${project.slug}`} className="block">
@@ -46,7 +48,7 @@ export default function ProjectCard({
             <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <p className="min-w-0 flex-1 font-semibold">{project.name}</p>
               <div className="flex flex-wrap items-center gap-1 sm:shrink-0 sm:justify-end">
-                {project.tags?.map((tag) => (
+                {sortedTags.map((tag) => (
                   <Chip key={tag} size="sm">
                     {tag}
                   </Chip>
@@ -76,7 +78,7 @@ export default function ProjectCard({
               {project.desc}
             </p>
             <div className="mt-3 flex flex-wrap gap-1.5">
-              {project.tags.map((tag) => (
+              {sortedTags.map((tag) => (
                 <Chip key={tag} size="sm">
                   {tag}
                 </Chip>

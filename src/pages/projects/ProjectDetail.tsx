@@ -89,7 +89,7 @@ export default function ProjectDetail() {
         <div className="mt-4 flex items-start justify-between gap-2">
           <h1 className="text-2xl font-bold">{project.name}</h1>
           <div className="flex shrink-0 flex-wrap justify-end items-center gap-1 pt-0.5">
-            {project.tags?.map((tag) => (
+            {[...(project.tags ?? [])].sort().map((tag) => (
               <Chip key={tag} size="sm">{tag}</Chip>
             ))}
             <Badge variant={statusBadgeVariant[project.status]}>
