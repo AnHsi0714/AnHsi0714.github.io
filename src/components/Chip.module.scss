@@ -109,21 +109,13 @@
 
 // success / info / danger 直接沿用 Badge 的顏色 token（tokens.scss），
 // 跟著 .dark class 自動切換，不用另外寫 dark 覆寫。
+// success / info 的「色相」放在 -bg 這個 token，base token 是給實心底配的淺色文字；
+// danger 相反，base token 本身就是色相，-text token 才是給實心底配的淺色文字。
 // --chip-gradient 是給 .clickable 邊框動畫用的同色系漸層，因為漸層裡的
 // 相鄰色需要硬寫實際色碼（不是單一 token 能表示），所以 light/dark 分開寫。
-//
-// 三色各自有兩個角色的 token，不能混用：
-// -bg（success/info）／-bg（danger，成對的 $color-danger 本身在深色模式仍是淺紅）
-//   是「實心底配 --color-*-text 淺色文字」用色，不分日夜模式，兩種模式都要夠深。
-// -outline（success/info）／$color-danger 本身（淺色模式已調深）
-//   是「淺底上的文字/外框自己的顏色」用色，淺色模式要夠深、深色模式要夠亮，
-//   跟主題方向一致，所以分日夜模式各配一版。
-// outlineSuccess/outlineInfo/outlineDanger 用的都是後者，filledSuccess/filledInfo/
-// filledDanger 用的都是前者；兩者對比需求方向不同，不能共用同一個 token
-// （細節見 theme.css 的註解）。
 .outlineSuccess {
-  border-color: $color-success-outline;
-  color: $color-success-outline;
+  border-color: $color-success-bg;
+  color: $color-success-bg;
   --chip-gradient: linear-gradient(90deg, #93da22, #22c55e, #06b6d4, #93da22);
 
   :global(.dark) & {
@@ -132,8 +124,8 @@
 }
 
 .outlineInfo {
-  border-color: $color-info-outline;
-  color: $color-info-outline;
+  border-color: $color-info-bg;
+  color: $color-info-bg;
   --chip-gradient: linear-gradient(90deg, #5fc4f3, #3b82f6, #6366f1, #5fc4f3);
 
   :global(.dark) & {
@@ -196,7 +188,7 @@
 }
 
 .filledDanger {
-  background-color: $color-danger-bg;
+  background-color: $color-danger;
   color: $color-danger-text;
   --chip-gradient: linear-gradient(90deg, #f34848, #f97316, #ec4899, #f34848);
 

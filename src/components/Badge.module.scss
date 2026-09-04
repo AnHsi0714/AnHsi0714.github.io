@@ -6,7 +6,7 @@
   padding: $space-1 $space-3;
   border-radius: $radius-sm;
   font-size: $font-size-sm;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.4;
 }
 
@@ -39,6 +39,6 @@
 }
 
 .danger {
-  background-color: $color-danger-bg;
+  background-color: $color-danger;
   color: $color-danger-text;
 }
