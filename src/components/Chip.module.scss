@@ -113,9 +113,13 @@
 // danger 相反，base token 本身就是色相，-text token 才是給實心底配的淺色文字。
 // --chip-gradient 是給 .clickable 邊框動畫用的同色系漸層，因為漸層裡的
 // 相鄰色需要硬寫實際色碼（不是單一 token 能表示），所以 light/dark 分開寫。
+// outlineSuccess/outlineInfo 的邊框＋文字用 -outline 這個獨立 token，不是 -bg：
+// -bg 是為了配 filled 變體的淺色文字（$color-success／$color-info）調校的高彩度亮色，
+// 直接拿來當淺色底上的文字/外框自己的顏色，對比不夠（AA 4.5:1 過不了，
+// 連 UI 元件外框要求的 3:1 也過不了），-outline 另外配一組同色系但對比夠的顏色。
 .outlineSuccess {
-  border-color: $color-success-bg;
-  color: $color-success-bg;
+  border-color: $color-success-outline;
+  color: $color-success-outline;
   --chip-gradient: linear-gradient(90deg, #93da22, #22c55e, #06b6d4, #93da22);
 
   :global(.dark) & {
@@ -124,8 +128,8 @@
 }
 
 .outlineInfo {
-  border-color: $color-info-bg;
-  color: $color-info-bg;
+  border-color: $color-info-outline;
+  color: $color-info-outline;
   --chip-gradient: linear-gradient(90deg, #5fc4f3, #3b82f6, #6366f1, #5fc4f3);
 
   :global(.dark) & {

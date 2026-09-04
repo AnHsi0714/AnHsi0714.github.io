@@ -21,9 +21,13 @@
 
   --color-success: #f7f7f7;
   --color-success-bg: #93da22;
+  /* -bg 是給實心底配的亮色（前景是 --color-success 淺色文字），拿來當淺底上的
+     文字/外框自己的顏色用會對比不足，outline chip 另外配一組較暗的同色系。 */
+  --color-success-outline: #4d7c0f;
 
   --color-info: #f7f7f7;
   --color-info-bg: #5fc4f3;
+  --color-info-outline: #0369a1;
 }
 
 .dark {
@@ -44,7 +48,11 @@
 
   --color-success: #f7f7f7;
   --color-success-bg: #88ca1e;
+  /* 深色底下 --color-success-bg 拿來當文字對比就已經夠，不用另外調亮 */
+  --color-success-outline: #88ca1e;
 
   --color-info: #f7f7f7;
   --color-info-bg: #337ca0;
+  /* --color-info-bg 深色版對深色底文字對比不夠（3.4:1），outline 另外配較亮的版本 */
+  --color-info-outline: #38bdf8;
 }
