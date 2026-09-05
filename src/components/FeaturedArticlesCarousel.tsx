@@ -22,7 +22,7 @@ export default function FeaturedArticlesCarousel({
       renderItem={(article) => (
         <Card hoverable className="h-full">
           <Link to={`/articles/${article.slug}`} className="block">
-            <p className="font-semibold">{article.title}</p>
+            <h3 className="font-semibold">{article.title}</h3>
             <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">
               {article.author ? `${article.author} · ${article.date}` : article.date}
             </p>

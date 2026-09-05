@@ -258,7 +258,7 @@ export default function ComponentsPreview() {
       <section id="chip" className="scroll-mt-20">
         <h2 className="text-xl font-bold">Chip</h2>
         <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-          內容標籤元件，微透明背景。適用於技能、分類、書卷等標註。
+          內容標籤元件，透明底＋邊框。適用於技能、分類、書卷等標註。
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <Chip>default</Chip>
@@ -280,21 +280,6 @@ export default function ComponentsPreview() {
           </Chip>
           <Chip variant="danger" size="sm">
             danger sm
-          </Chip>
-        </div>
-        <div className="mt-2 flex flex-wrap items-center gap-2">
-          <Chip tone="filled">default filled</Chip>
-          <Chip tone="filled" variant="success">
-            success filled
-          </Chip>
-          <Chip tone="filled" variant="info">
-            info filled
-          </Chip>
-          <Chip tone="filled" variant="warn">
-            warn filled
-          </Chip>
-          <Chip tone="filled" variant="danger">
-            danger filled
           </Chip>
         </div>
         <div className="mt-2 flex flex-wrap items-center gap-2">

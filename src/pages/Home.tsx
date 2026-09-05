@@ -79,9 +79,9 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-16">
       <Reveal as="section" className="pt-4 sm:pt-8 lg:pt-12">
-        <p className="text-4xl font-light leading-tight text-[var(--color-text)] sm:text-5xl md:text-6xl lg:text-7xl">
+        <h1 className="text-4xl font-light leading-tight text-[var(--color-text)] sm:text-5xl md:text-6xl lg:text-7xl">
           {t.home.titleZh} {t.home.titleEn}
-        </p>
+        </h1>
         <TextLink to="/about#research-interests" className="mt-3 block text-lg">
           {t.home.tagline}
         </TextLink>
@@ -112,9 +112,9 @@ export default function Home() {
 
       {featuredProjects.length > 0 && (
         <section>
-          <p className="font-semibold text-[var(--color-primary)]">
+          <h2 className="font-semibold text-[var(--color-primary)]">
             {t.home.featuredProjects}
-          </p>
+          </h2>
           <div className="mt-4">
             <FeaturedProjectsCarousel projects={featuredProjects} />
           </div>
@@ -123,9 +123,9 @@ export default function Home() {
 
       {featuredArticles.length > 0 && (
         <section>
-          <p className="font-semibold text-[var(--color-primary)]">
+          <h2 className="font-semibold text-[var(--color-primary)]">
             {t.home.featuredArticles}
-          </p>
+          </h2>
           <div className="mt-4">
             <FeaturedArticlesCarousel articles={featuredArticles} />
           </div>
@@ -133,9 +133,9 @@ export default function Home() {
       )}
 
       <section>
-        <p className="font-semibold text-[var(--color-primary)]">
+        <h2 className="font-semibold text-[var(--color-primary)]">
           {t.home.explore}
-        </p>
+        </h2>
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {quickLinks.map((link, index) => (
             <Reveal
@@ -145,7 +145,7 @@ export default function Home() {
             >
               <Link to={link.to} className="block h-full">
                 <Card hoverable className="h-full">
-                  <p className="font-semibold">{link.label}</p>
+                  <h3 className="font-semibold">{link.label}</h3>
                   <p className="mt-1 text-sm text-[var(--color-text-muted)]">
                     {link.desc}
                   </p>
