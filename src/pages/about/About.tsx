@@ -245,25 +245,25 @@ export default function About() {
 
   return (
     <section className="flex flex-col gap-8 lg:relative lg:left-1/2 lg:grid lg:w-screen lg:-translate-x-1/2 lg:grid-cols-[10%_30%_5%_45%_10%]">
-      <div className="flex flex-wrap items-baseline gap-x-4 lg:block lg:sticky lg:top-1/2 lg:col-start-2 lg:-translate-y-1/2 lg:self-start">
-        <p className="text-5xl font-light leading-none text-[var(--color-text)] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem]">
+      <h1 className="flex flex-wrap items-baseline gap-x-4 lg:block lg:sticky lg:top-1/2 lg:col-start-2 lg:-translate-y-1/2 lg:self-start">
+        <span className="block text-5xl font-light leading-none text-[var(--color-text)] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem]">
           About
-        </p>
-        <p className="text-5xl font-light leading-none text-[var(--color-text)] sm:text-6xl md:text-7xl lg:mt-3 lg:text-8xl xl:text-9xl 2xl:text-[10rem]">
+        </span>
+        <span className="block text-5xl font-light leading-none text-[var(--color-text)] sm:text-6xl md:text-7xl lg:mt-3 lg:text-8xl xl:text-9xl 2xl:text-[10rem]">
           Me
-        </p>
-      </div>
+        </span>
+      </h1>
 
       <div className="divide-y divide-[var(--color-border)] lg:col-start-4">
         <Reveal>
           <div id="research-interests" className="pb-6">
-            <p className="font-semibold text-[var(--color-primary)]">
+            <h2 className="font-semibold text-[var(--color-primary)]">
               {t.about.researchInterests}
-            </p>
+            </h2>
             <div className="mt-3 flex flex-col gap-3">
               {data.researchInterests.map(({ layer, items }) => (
                 <div key={layer}>
-                  <p className="text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)] opacity-80">
+                  <p className="text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)]">
                     {layer}
                   </p>
                   <p className="mt-1 text-sm text-[var(--color-text-muted)]">
@@ -277,9 +277,9 @@ export default function About() {
 
         <Reveal>
           <div className="py-6">
-            <p className="font-semibold text-[var(--color-primary)]">
+            <h2 className="font-semibold text-[var(--color-primary)]">
               {t.about.researchStatement}
-            </p>
+            </h2>
             <div className="mt-3 flex flex-col gap-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
               {data.researchStatement.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
@@ -290,9 +290,9 @@ export default function About() {
 
         <Reveal>
           <div className="py-6">
-            <p className="font-semibold text-[var(--color-primary)]">
+            <h2 className="font-semibold text-[var(--color-primary)]">
               {t.about.skills}
-            </p>
+            </h2>
             <div className="mt-3 flex flex-col gap-4">
               {data.skillGroups.map((group) => (
                 <div key={group.label}>
@@ -302,15 +302,9 @@ export default function About() {
                       : group.label}
                   </p>
                   <div className="flex flex-wrap gap-1.5">
-                    {group.items.map((item) =>
-                      group.label === "專業方向" ? (
-                        <Chip key={item}>{item}</Chip>
-                      ) : (
-                        <Chip key={item} tone="filled">
-                          {item}
-                        </Chip>
-                      ),
-                    )}
+                    {group.items.map((item) => (
+                      <Chip key={item}>{item}</Chip>
+                    ))}
                   </div>
                 </div>
               ))}
@@ -320,9 +314,9 @@ export default function About() {
 
         <Reveal>
           <div className="py-6">
-            <p className="font-semibold text-[var(--color-primary)]">
+            <h2 className="font-semibold text-[var(--color-primary)]">
               {t.about.education}
-            </p>
+            </h2>
             <div className="mt-2 flex flex-col gap-1">
               <p className="text-sm text-[var(--color-text-muted)]">
                 {data.education[0]}
@@ -351,9 +345,9 @@ export default function About() {
 
         <Reveal>
           <div className="py-6">
-            <p className="font-semibold text-[var(--color-primary)]">
+            <h2 className="font-semibold text-[var(--color-primary)]">
               {t.about.academicAchievements}
-            </p>
+            </h2>
             <div className="mt-2 flex flex-col gap-3 text-sm text-[var(--color-text-muted)]">
               {data.achievements.map((item) => (
                 <div key={item.title}>
@@ -367,13 +361,13 @@ export default function About() {
 
         <Reveal>
           <div className="py-6">
-            <p className="font-semibold text-[var(--color-primary)]">
+            <h2 className="font-semibold text-[var(--color-primary)]">
               {t.about.experience}
-            </p>
+            </h2>
             <div className="mt-2 flex flex-col gap-1.5 text-sm text-[var(--color-text-muted)]">
               {data.experienceHighlights.map((item) => (
                 <div key={item.text} className="flex items-baseline gap-3">
-                  <span className="w-14 shrink-0 text-xs text-[var(--color-text-muted)] opacity-80">
+                  <span className="w-14 shrink-0 text-xs text-[var(--color-text-muted)]">
                     {item.year}
                   </span>
                   <span>{item.text}</span>
@@ -391,9 +385,9 @@ export default function About() {
 
         <Reveal>
           <div className="py-6">
-            <p className="font-semibold text-[var(--color-primary)]">
+            <h2 className="font-semibold text-[var(--color-primary)]">
               {t.about.interests}
-            </p>
+            </h2>
             <div className="mt-3 grid grid-cols-4 gap-x-2 gap-y-2 text-sm text-[var(--color-text-muted)]">
               {data.interests.map(({ icon, label }) => (
                 <span key={label} className="inline-flex items-center gap-1.5">

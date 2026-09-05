@@ -4,19 +4,21 @@
   padding: $space-3 $space-4;
   border-radius: $radius-md;
   font-size: $font-size-sm;
+  background-color: transparent;
+  border: 1px solid transparent;
 }
 
 .info {
-  background-color: $color-info-bg;
+  border-color: $color-info;
   color: $color-info;
 }
 
 .success {
-  background-color: $color-success-bg;
+  border-color: $color-success;
   color: $color-success;
 }
 
 .error {
-  background-color: $color-danger;
-  color: $color-danger-text;
+  border-color: $color-danger;
+  color: $color-danger;
 }

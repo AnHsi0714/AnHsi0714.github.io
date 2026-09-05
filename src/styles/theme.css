@@ -15,15 +15,12 @@
   --color-primary-hover: #396969;
   --color-primary-text: #f7f7f7;
 
-  --color-danger-text: #f7f7f7;
-  --color-danger-hover: #fa1414;
-  --color-danger: #f34848;
-
-  --color-success: #f7f7f7;
-  --color-success-bg: #93da22;
-
-  --color-info: #f7f7f7;
-  --color-info-bg: #5fc4f3;
+  /* Badge/Alert/Chip/Button.danger 全站都是邊框＋文字樣式，沒有實心底，
+     顏色直接印在頁面背景上，所以淺色模式要夠深才過 4.5:1。 */
+  --color-danger: #cd3c3c; /* Badge.danger／Alert.error／Button.danger／Chip outlineDanger */
+  --color-danger-hover: #fa1414; /* Button.danger 的 hover 色 */
+  --color-success: #408000; /* Badge.success/done／Alert.success／Chip outlineSuccess */
+  --color-info: #19749f; /* Badge.doing／Alert.info／Chip outlineInfo */
 }
 
 .dark {
@@ -38,13 +35,9 @@
   --color-primary-hover: #cfd397;
   --color-primary-text: #14160f;
 
+  /* 深色模式頁面接近全黑，同一組顏色要換成夠亮的版本才過對比。 */
   --color-danger: #f87171;
   --color-danger-hover: #fca5a5;
-  --color-danger-text: #fff;
-
-  --color-success: #f7f7f7;
-  --color-success-bg: #88ca1e;
-
-  --color-info: #f7f7f7;
-  --color-info-bg: #337ca0;
+  --color-success: #88ca1e;
+  --color-info: #4d99cf;
 }

@@ -130,7 +130,9 @@
     margin-top: 0.35rem;
     font-size: 0.78rem;
     letter-spacing: 0.06em;
-    color: #8f8f95;
+    // 這個灰在日間版的舞台底（#2e2e35）上只有 4.19:1，過不了 4.5:1，
+    // 調亮到能同時吃夜間版（#0a0a0d）跟日間版兩種舞台底色。
+    color: #a3a3a9;
   }
 }
 
@@ -148,7 +150,7 @@ a.openProcessing {
   font-size: 0.78rem;
   font-weight: 400;
   letter-spacing: 0.06em;
-  color: #8f8f95;
+  color: #a3a3a9;
   /* TextLink 基底的虛線是主題的 muted 色；淺色模式的 muted 灰在這個
      永遠暗色的舞台上會暗到看不見，改跟著本身的灰字色走 */
   text-decoration-color: currentColor;
@@ -162,5 +164,5 @@ a.openProcessing {
 .notFound {
   position: relative;
   z-index: 1;
-  color: #8f8f95;
+  color: #a3a3a9;
 }

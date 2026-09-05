@@ -6,37 +6,30 @@
   padding: $space-1 $space-3;
   border-radius: $radius-sm;
   font-size: $font-size-sm;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.4;
+  background-color: transparent;
+  border: 2px solid transparent;
 }
 
-.neutral {
-  background-color: $color-border;
+.neutral,
+.todo {
+  border-color: $color-border;
   color: $color-text;
 }
 
-// 對應 projects.status 等粗顆粒度狀態欄位：todo / doing / done
-.todo {
-  background-color: $color-border;
-  color: $color-text-muted;
-}
-
 .doing {
-  background-color: $color-info-bg;
+  border-color: $color-info;
   color: $color-info;
 }
 
-.done {
-  background-color: $color-success-bg;
-  color: $color-success;
-}
-
+.done,
 .success {
-  background-color: $color-success-bg;
+  border-color: $color-success;
   color: $color-success;
 }
 
 .danger {
-  background-color: $color-danger;
-  color: $color-danger-text;
+  border-color: $color-danger;
+  color: $color-danger;
 }
