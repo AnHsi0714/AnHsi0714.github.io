@@ -77,8 +77,8 @@ export type KnowledgeStatus = "draft" | "published";
 export type KnowledgeRelationType =
   | "prerequisite"
   | "related"
-  | "applies_to"
-  | "contrasts_with";
+  | "applies-to"
+  | "contrasts-with";
 
 export interface KnowledgeRelatedNode {
   slug: string;

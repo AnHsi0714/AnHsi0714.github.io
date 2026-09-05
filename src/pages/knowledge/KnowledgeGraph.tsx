@@ -39,22 +39,22 @@ const FALLBACK_COLOR = "#9ca3af";
 // 另外三種比較少見、有特定語意的關係才給固定的強調色。
 const RELATION_ACCENT_COLORS: Partial<Record<KnowledgeRelationType, string>> = {
   prerequisite: "#f59e0b",
-  applies_to: "#22c55e",
-  contrasts_with: "#ef4444",
+  "applies-to": "#22c55e",
+  "contrasts-with": "#ef4444",
 };
 // 跟 KnowledgeDetail.tsx 的 relationOrder 保持一致的顯示順序。
 const RELATION_LEGEND_ORDER: KnowledgeRelationType[] = [
   "prerequisite",
-  "applies_to",
+  "applies-to",
   "related",
-  "contrasts_with",
+  "contrasts-with",
 ];
 // 分類收合時，同一對 hub 之間可能同時存在好幾種底層關係，只畫得出一條邊，
 // 排序在前的優先顯示（先備知識最值得看到，相關概念最普通、優先度最低）。
 const RELATION_PRIORITY: KnowledgeRelationType[] = [
   "prerequisite",
-  "contrasts_with",
-  "applies_to",
+  "contrasts-with",
+  "applies-to",
   "related",
 ];
 
