@@ -181,7 +181,7 @@ export default function ComponentsPreview() {
           <Card>一般卡片內容</Card>
           <Card hoverable>滑過會浮起的卡片（無圖，可點擊至其他頁面用）</Card>
           <Card hoverable>
-            <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
+            <div className="flex aspect-video w-full items-center justify-center bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
               圖片預覽
             </div>
             <div className="mt-3 flex items-center justify-between gap-2">

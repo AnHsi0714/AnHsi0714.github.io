@@ -1,5 +1,12 @@
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { parseFrontmatter } from "./markdown";
+import type { ProjectStatus } from "../types/content";
+
+export const statusBadgeVariant: Record<ProjectStatus, "todo" | "doing" | "done"> = {
+  todo: "todo",
+  "in-progress": "doing",
+  done: "done",
+};
 
 const modules = import.meta.glob("../../content/projects/**/*.md", {
   eager: true,

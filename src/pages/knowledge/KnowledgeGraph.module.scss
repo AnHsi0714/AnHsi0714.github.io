@@ -1,74 +1,55 @@
 @use "../../styles/tokens" as *;
 
+// 手機窄螢幕用比較接近方形的比例，不然 900/620 這種橫向比例會被壓得很扁；
+// `sm` 以上（跟 Tailwind 的 sm: 斷點對齊，640px）才切回原本的橫向比例。
 .canvas {
   position: relative;
   width: 100%;
-  aspect-ratio: 900 / 620;
+  aspect-ratio: 4 / 5;
   margin-top: 1rem;
   border: 1px solid $color-border;
   border-radius: 0.75rem;
   overflow: hidden;
   background: $color-surface;
-}
 
-.edges {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.edge {
-  stroke: $color-border;
-  stroke-width: 1;
-  transition:
-    stroke $transition-fast,
-    stroke-width $transition-fast,
-    opacity $transition-fast;
-}
-
-.edgeDimmed {
-  opacity: 0.15;
-}
-
-.edgeActive {
-  stroke: $color-primary;
-  stroke-width: 2;
-  opacity: 1;
+  @media (min-width: 640px) {
+    aspect-ratio: 900 / 620;
+  }
 }
 
 // .node 同時用在 <Link>（單一知識點）跟 <button>（分類 hub，點擊展開/收合），
 // button 的預設瀏覽器樣式（背景、邊框、字型）在這裡統一重置掉。
+// 位置本身交給 drei 的 <Html position={...} center>，這裡只管外觀。
+// 2D 版本節點沒有底色，靠平面座標的間距就能看得出是獨立節點；3D 版本文字/連線
+// 常常互相交疊穿插，沒有底色的話個別知識點會被邊線、其他標籤蓋過去只剩一串裸連結，
+// 所以這裡統一給節點卡片式底色+邊框，跟分類 hub 用同一套視覺語言、只是尺寸小一號。
 .node {
-  position: absolute;
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  transform: translate(-50%, -50%);
   white-space: nowrap;
-  cursor: grab;
-  padding: 2px 6px 2px 2px;
+  cursor: pointer;
+  padding: 2px 8px 2px 3px;
   border-radius: 9999px;
-  border: 1px solid transparent;
-  background: none;
+  border: 1px solid $color-border;
+  background-color: $color-surface;
   font: inherit;
   text-align: left;
-  touch-action: none;
+  text-decoration: none;
   user-select: none;
-  // left/top 用 % 定位，展開/收合分類時位置會整個重算，靠 transition 讓節點滑過去
-  // 而不是瞬間跳位，力導向布局本身沒有做逐幀動畫，全靠這行補上過渡感。
+  box-shadow: 0 1px 2px rgb(0 0 0 / 8%);
   transition:
-    left 300ms ease,
-    top 300ms ease,
     opacity $transition-fast,
     background-color $transition-fast,
     border-color $transition-fast;
+
+  &:hover {
+    border-color: $color-primary;
+  }
 }
 
 .hub {
   padding: 4px 12px 4px 4px;
-  border-color: $color-border;
-  background-color: $color-surface;
 
   .dot {
     width: 14px;
@@ -79,20 +60,10 @@
     font-weight: 600;
     font-size: 0.8rem;
   }
-
-  &:hover {
-    border-color: $color-primary;
-  }
 }
 
 .nodeDimmed {
   opacity: 0.35;
-}
-
-.dragging {
-  transition: none;
-  cursor: grabbing;
-  z-index: 1;
 }
 
 .nodeActive {
@@ -118,4 +89,18 @@
   height: 8px;
   border-radius: 9999px;
   background-color: var(--node-color);
+}
+
+.legendLine {
+  display: inline-block;
+  width: 18px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: var(--edge-color);
+}
+
+.legendArrow {
+  color: var(--edge-color);
+  font-weight: 700;
+  line-height: 1;
 }

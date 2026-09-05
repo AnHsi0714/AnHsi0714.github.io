@@ -33,7 +33,7 @@ function parseArticle(slug: string, raw: string): Article {
     section: (data.section as ArticleSection) || defaultSectionByType[type],
     title: data.title ?? slug,
     date: data.date ?? "",
-    categories: data.categories ? parseListField(data.categories) : [],
+    categories: data.categories ? parseListField(data.categories).sort() : [],
     excerpt: data.excerpt || deriveExcerpt(body),
     body,
     coverUrl: data.coverUrl || undefined,

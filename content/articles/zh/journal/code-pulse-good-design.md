@@ -4,6 +4,7 @@ title: 從 CodePulse 認識「好設計」
 date: 2026-08-08
 categories: [雜記, HCI]
 excerpt: 用 affordance、signifiers、feedback、mapping、discoverability 五個好設計元素，回頭檢視畢業專題 CodePulse 的介面設計。
+nextSlug: ai-interaction-five-principles
 ---
 
 > 撰寫期間：2026-08-08

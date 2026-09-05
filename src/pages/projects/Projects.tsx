@@ -1,12 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import projectsDataZh from "../../../content/projects.json";
 import projectsDataEn from "../../../content/projects.en.json";
-import Card from "../../components/Card";
-import ImageWithSkeleton from "../../components/ImageWithSkeleton";
-import Badge from "../../components/Badge";
-import Chip from "../../components/Chip";
+import ProjectCard from "../../components/ProjectCard";
 import Button from "../../components/Button";
+import Chip from "../../components/Chip";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
 import Reveal from "../../components/Reveal";
@@ -14,7 +11,6 @@ import TextLink from "../../components/TextLink";
 import type { Project, ProjectStatus, ProjectTag } from "../../types/content";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
-import type { Strings } from "../../i18n/strings";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 
 const allStatuses: ProjectStatus[] = ["todo", "in-progress", "done"];
@@ -22,72 +18,13 @@ const allStatuses: ProjectStatus[] = ["todo", "in-progress", "done"];
 type SortOrder = "newest" | "oldest";
 type FeaturedFilter = "all" | "featured" | "not-featured";
 
-export const statusBadgeVariant: Record<ProjectStatus, "todo" | "doing" | "done"> = {
-  todo: "todo",
-  "in-progress": "doing",
-  done: "done",
-};
-
-function ProjectCard({ project, t }: { project: Project; t: Strings }) {
-  return (
-    <Card hoverable className="h-full">
-      <Link to={`/projects/${project.slug}`} className="block">
-        {project.screenshotUrl ? (
-          <ImageWithSkeleton
-            src={project.screenshotUrl}
-            alt={project.name}
-            wrapperClassName="aspect-video w-full rounded-md"
-            className="object-cover"
-            style={{
-              objectPosition: project.screenshotPosition
-                ? `${project.screenshotPosition.w}% ${project.screenshotPosition.h}%`
-                : undefined,
-            }}
-          />
-        ) : (
-          <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--color-surface)] text-sm text-[var(--color-text-muted)]">
-            {t.common.noPreviewImage}
-          </div>
-        )}
-        <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <p className="min-w-0 flex-1 font-semibold">{project.name}</p>
-          <div className="flex flex-wrap items-center gap-1 sm:shrink-0 sm:justify-end">
-            {project.tags?.map((tag) => (
-              <Chip key={tag} size="sm">{tag}</Chip>
-            ))}
-            <Badge
-              variant={statusBadgeVariant[project.status]}
-              className="shrink-0"
-            >
-              {t.projects.status[project.status]}
-            </Badge>
-          </div>
-        </div>
-        <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
-          {project.desc}
-        </p>
-      </Link>
-      {project.githubUrl && (
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-3 inline-block text-sm font-medium text-[var(--color-text)]"
-        >
-          {t.common.viewGithub}
-        </a>
-      )}
-    </Card>
-  );
-}
-
 export default function Projects() {
   const { t } = useTranslation();
   useDocumentTitle(`${t.projects.title} · AnHsi0714`, t.projects.subtitle);
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
-  const allTags = Array.from(
-    new Set(projects.flatMap((p) => p.tags ?? [])),
-  ) as ProjectTag[];
+  const allTags = (
+    Array.from(new Set(projects.flatMap((p) => p.tags ?? []))) as ProjectTag[]
+  ).sort();
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);

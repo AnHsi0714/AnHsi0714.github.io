@@ -217,7 +217,7 @@ export default function GalleryGrid() {
           </Button>
 
           {isFilterOpen && (
-            <div className="absolute left-0 top-full z-20 mt-2 w-[min(32rem,90vw)] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 shadow-lg">
+            <div className="absolute left-0 top-full z-20 mt-2 w-[min(36rem,90vw)] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 shadow-lg">
               <div className="flex flex-wrap items-end gap-4">
                 <Input
                   label={t.common.searchTitle}

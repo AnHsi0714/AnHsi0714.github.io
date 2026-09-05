@@ -70,11 +70,7 @@ const content = {
       },
       {
         layer: "學習與教育 Learning & Education",
-        items: [
-          "Programming Education",
-          "Interactive Learning Systems",
-          "Developer Tools",
-        ],
+        items: ["Programming Education", "Interactive Learning Systems"],
       },
       {
         layer: "研究方法 Methods",
@@ -93,11 +89,21 @@ const content = {
     achievements: [
       {
         title: "資料結構與演算法視覺化教學平台 CodePulse",
-        desc: "114 學年度 資工系實務專題｜指導教授 陳香君｜前後測使用者研究（n=56）發現學習信心顯著提升（p < 0.001）｜已投件國科會大專生研究計畫",
+        summary: "前後測使用者研究（n=56）發現學習信心顯著提升（p < 0.001）",
+        details: [
+          "114 學年度 資工系實務專題",
+          "指導教授 陳香君",
+          "已投件國科會大專生研究計畫",
+        ],
       },
       {
-        title: "2026 台灣棒球數據分析競賽　現場戰術分析組",
-        desc: "自行撰寫爬蟲取得 CPBL 逐球紀錄，建立打者決策模擬模型分析盜壘損益兩平門檻｜提出「保留效應」修正傳統 RE24 盲點｜書面資料籌備中，預計 12 月口頭簡報",
+        title: "兩出局一壘有人該不該跑：盜壘決策分析",
+        summary: "提出「保留效應」修正傳統 RE24 盲點",
+        details: [
+          "2026 台灣棒球數據分析競賽　現場戰術分析組",
+          "自行撰寫爬蟲取得 CPBL 逐球紀錄，建立打者決策模擬模型分析盜壘損益兩平門檻",
+          "書面資料籌備中，預計 12 月口頭簡報",
+        ],
       },
     ],
     experienceHighlights: [
@@ -106,7 +112,7 @@ const content = {
       { year: "2023~2025", text: "母校技藝競賽選手培訓教師" },
       { year: "2025 / 12", text: "教育大數據微學程 成果發表 佳作" },
       {
-        year: "2025~2027",
+        year: "2025~2026",
         text: "美商太陽鳥軟體 前端開發實習（Scrum / Sprint Review / 設計文件）",
       },
     ],
@@ -171,11 +177,7 @@ const content = {
       },
       {
         layer: "Learning & Education",
-        items: [
-          "Programming Education",
-          "Interactive Learning Systems",
-          "Developer Tools",
-        ],
+        items: ["Programming Education", "Interactive Learning Systems"],
       },
       {
         layer: "Methods",
@@ -188,18 +190,30 @@ const content = {
     ],
     researchStatement: [
       "CodePulse is a DSA visualization learning platform I built with my team, combining interactive visualization with program execution tracing; I led the frontend interaction and animation design, plus the pre/post user study's design, execution, and analysis. Once the features worked, what I really wanted to know was: does this interface design actually help people learn better?",
-      "I designed a pre/post study with A/B version swaps to see whether users could transfer what they'd learned to new problems. Confidence in continuing to learn algorithms rose significantly (p < 0.001), but test scores only trended positive without reaching significance. That taught me subjective confidence and objective learning gains need to be validated separately, and that my own judgments about whether interaction design \"works\" had mostly stayed at the level of intuition.",
+      'I designed a pre/post study with A/B version swaps to see whether users could transfer what they\'d learned to new problems. Confidence in continuing to learn algorithms rose significantly (p < 0.001), but test scores only trended positive without reaching significance. That taught me subjective confidence and objective learning gains need to be validated separately, and that my own judgments about whether interaction design "works" had mostly stayed at the level of intuition.',
       "That's why I want to pursue graduate research in CSCW / Social Computing-oriented HCI, learning rigorous user-research methods to turn intuitions about usability into falsifiable research questions. I carry two secondary interests alongside it: Information Visualization and Technology-Supported Learning, the tools and domains I keep returning to when putting CSCW ideas into practice.",
     ],
     achievements: [
       {
         title:
           "CodePulse: Data Structures & Algorithms Visualization Teaching Platform",
-        desc: "2025 Academic Year Capstone Project, Dept. of CSIE ｜ Advisor: Annette Chen ｜ Pre/post user study (n=56) found a significant rise in learning confidence (p < 0.001) ｜ Submitted to the NSTC Undergraduate Research Program",
+        summary:
+          "Pre/post user study (n=56) found a significant rise in learning confidence (p < 0.001)",
+        details: [
+          "2025 Academic Year Capstone Project, Dept. of CSIE",
+          "Advisor: Annette Chen",
+          "Submitted to the NSTC Undergraduate Research Program",
+        ],
       },
       {
-        title: "2026 Taiwan Baseball Analytics Competition, In-Game Tactics Track",
-        desc: 'Built a custom crawler for pitch-by-pitch CPBL data and a batter decision-simulation model to analyze stolen-base break-even thresholds ｜ Proposed a "retention effect" correcting a blind spot in traditional RE24 ｜ Write-up in progress, oral presentation expected in December',
+        title: "Two Outs, Runner on First: A Stolen-Base Decision Analysis",
+        summary:
+          'Proposed a "retention effect" correcting a blind spot in traditional RE24',
+        details: [
+          "2026 Taiwan Baseball Analytics Competition, In-Game Tactics Track",
+          "Built a custom crawler for pitch-by-pitch CPBL data and a batter decision-simulation model to analyze stolen-base break-even thresholds",
+          "Write-up in progress, oral presentation expected in December",
+        ],
       },
     ],
     experienceHighlights: [
@@ -217,7 +231,7 @@ const content = {
         text: "Educational Big Data Micro-Program, Honorable Mention",
       },
       {
-        year: "2025~2027",
+        year: "2025~2026",
         text: "Sun Bird Software, Frontend Development Intern (Scrum / Sprint Review / Design Docs)",
       },
     ],
@@ -233,6 +247,50 @@ const content = {
     ],
   },
 };
+
+function AchievementItem({
+  title,
+  summary,
+  details,
+}: {
+  title: string;
+  summary: string;
+  details: string[];
+}) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setExpanded((e) => !e)}
+        className="group flex w-fit items-center text-left"
+      >
+        <span className="-ml-5 flex w-5 shrink-0 justify-start text-[var(--color-text-muted)] transition-colors group-hover:text-[var(--color-text)]">
+          <FontAwesomeIcon
+            icon={faChevronRight}
+            className={`h-3 w-3 transition-transform duration-150 ${expanded ? "rotate-90" : ""}`}
+          />
+        </span>
+        <span className="text-[var(--color-text)]">{title}</span>
+      </button>
+      <p className="mt-0.5">{summary}</p>
+      {expanded && (
+        <ul className="mt-1.5 flex flex-col gap-1 text-sm">
+          {details.map((detail) => (
+            <li key={detail} className="flex gap-2">
+              <span
+                aria-hidden
+                className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-current"
+              />
+              <span>{detail}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
 
 export default function About() {
   const [showGrades, setShowGrades] = useState(false);
@@ -260,15 +318,17 @@ export default function About() {
             <h2 className="font-semibold text-[var(--color-primary)]">
               {t.about.researchInterests}
             </h2>
-            <div className="mt-3 flex flex-col gap-3">
+            <div className="mt-3 flex flex-col gap-4">
               {data.researchInterests.map(({ layer, items }) => (
                 <div key={layer}>
-                  <p className="text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)]">
+                  <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)]">
                     {layer}
                   </p>
-                  <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-                    {items.join(" · ")}
-                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {items.map((item) => (
+                      <Chip key={item}>{item}</Chip>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
@@ -324,17 +384,19 @@ export default function About() {
               <button
                 type="button"
                 onClick={() => setShowGrades((g) => !g)}
-                className="flex w-fit items-center gap-1 text-left text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
+                className="flex w-fit items-center text-left text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
               >
-                <FontAwesomeIcon
-                  icon={faChevronRight}
-                  className={`h-3 w-3 transition-transform duration-150 ${showGrades ? "rotate-90" : ""}`}
-                />
+                <span className="-ml-5 flex w-5 shrink-0 justify-start">
+                  <FontAwesomeIcon
+                    icon={faChevronRight}
+                    className={`h-3 w-3 transition-transform duration-150 ${showGrades ? "rotate-90" : ""}`}
+                  />
+                </span>
                 <span>{data.education[1]}</span>
               </button>
             </div>
             {showGrades && (
-              <div className="mt-3 flex items-center gap-4 pl-4 text-sm tabular-nums text-[var(--color-text-muted)]">
+              <div className="mt-3 flex items-center gap-4 text-sm tabular-nums text-[var(--color-text-muted)]">
                 <span>{data.academicSummary.rank}</span>
                 <span>{data.academicSummary.percentile}</span>
                 <span>GPA {data.academicSummary.gpa}</span>
@@ -348,12 +410,14 @@ export default function About() {
             <h2 className="font-semibold text-[var(--color-primary)]">
               {t.about.academicAchievements}
             </h2>
-            <div className="mt-2 flex flex-col gap-3 text-sm text-[var(--color-text-muted)]">
+            <div className="mt-2 flex flex-col gap-4 text-sm text-[var(--color-text-muted)]">
               {data.achievements.map((item) => (
-                <div key={item.title}>
-                  <p className="text-[var(--color-text)]">{item.title}</p>
-                  <p className="mt-0.5">{item.desc}</p>
-                </div>
+                <AchievementItem
+                  key={item.title}
+                  title={item.title}
+                  summary={item.summary}
+                  details={item.details}
+                />
               ))}
             </div>
           </div>

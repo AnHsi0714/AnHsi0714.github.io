@@ -85,7 +85,7 @@ export default function Home() {
         <TextLink to="/about#research-interests" className="mt-3 block text-lg">
           {t.home.tagline}
         </TextLink>
-        <p className="mt-5 max-w-2xl text-pretty text-sm leading-relaxed text-[var(--color-text-muted)]">
+        <p className="mt-5 max-w-3xl text-pretty text-sm leading-relaxed text-[var(--color-text-muted)]">
           {t.home.bio}
         </p>
         <div className="mt-6 flex flex-wrap gap-2">

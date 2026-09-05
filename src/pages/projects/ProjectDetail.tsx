@@ -9,13 +9,12 @@ import MarkdownContent from "../../components/MarkdownContent";
 import ImageWithSkeleton from "../../components/ImageWithSkeleton";
 import TableOfContents from "../../components/TableOfContents";
 import Trail from "../../components/Trail";
-import { useProjectBodies } from "../../lib/projects";
+import { useProjectBodies, statusBadgeVariant } from "../../lib/projects";
 import { useKnowledgeNodesLinkedTo } from "../../lib/knowledge";
 import { extractHeadings } from "../../lib/markdown";
 import { useNeedsScroll } from "../../lib/useNeedsScroll";
 import TextLink from "../../components/TextLink";
 import type { Project } from "../../types/content";
-import { statusBadgeVariant } from "./Projects";
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
@@ -77,7 +76,7 @@ export default function ProjectDetail() {
           <ImageWithSkeleton
             src={project.screenshotUrl}
             alt={project.name}
-            wrapperClassName="mt-4 aspect-video w-full rounded-md"
+            wrapperClassName="mt-4 aspect-video w-full"
             className="object-cover"
             style={{
               objectPosition: project.screenshotPosition
@@ -90,7 +89,7 @@ export default function ProjectDetail() {
         <div className="mt-4 flex items-start justify-between gap-2">
           <h1 className="text-2xl font-bold">{project.name}</h1>
           <div className="flex shrink-0 flex-wrap justify-end items-center gap-1 pt-0.5">
-            {project.tags?.map((tag) => (
+            {[...(project.tags ?? [])].sort().map((tag) => (
               <Chip key={tag} size="sm">{tag}</Chip>
             ))}
             <Badge variant={statusBadgeVariant[project.status]}>
