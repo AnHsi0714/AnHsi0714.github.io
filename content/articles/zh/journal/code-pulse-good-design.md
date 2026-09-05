@@ -9,7 +9,7 @@ nextSlug: ai-interaction-five-principles
 
 > 撰寫期間：2026-08-08
 
-這篇是〈[探索 HCI：原來我在意的問題有個名字](/articles/exploring-hci)〉的延伸，記錄我看了一系列人機互動概論的介紹影片[^1]後，對「什麼是好設計」的理解，以及回頭用這些概念檢視 CodePulse 介面設計的過程。
+這篇是〈[探索 HCI：從「好不好用」到「為什麼」](/articles/exploring-hci)〉的延伸，記錄我看了一系列人機互動概論的介紹影片[^1]後，對「什麼是好設計」的理解，以及回頭用這些概念檢視 CodePulse 介面設計的過程。
 
 ## Affordance
 
@@ -78,4 +78,4 @@ CodePulse 辨識演算法執行時會顯示 loading 文字，讓使用者知道�
 
 這次重新檢視 CodePulse，也讓我發現，HCI 並不是替介面問題貼上幾個名詞，而是提供一種分析問題的方式。以前我可能只會說「這個設計容易讓人誤會」，現在則可以進一步追問：是哪一個 signifier 造成了什麼樣的認知？使用者因此建立了什麼 mental model？而這個模型又與實際系統行為有何落差？
 
-[^1]: [人機互動概論介紹影片播放清單](https://www.youtube.com/watch?v=pR-kh31zIUo&list=PLQn99bzkJv9xK8KR9foKdNC3dLyL77u3Y)
+[^1]: [人機互動概論：探索人與科技交會的新思維](https://www.youtube.com/watch?v=pR-kh31zIUo&list=PLQn99bzkJv9xK8KR9foKdNC3dLyL77u3Y)〈課程簡介〉

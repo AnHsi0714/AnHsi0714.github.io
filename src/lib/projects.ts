@@ -1,6 +1,8 @@
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { parseFrontmatter } from "./markdown";
-import type { ProjectStatus } from "../types/content";
+import type { Project, ProjectStatus } from "../types/content";
+import projectsDataZh from "../../content/projects.json";
+import projectsDataEn from "../../content/projects.en.json";
 
 export const statusBadgeVariant: Record<ProjectStatus, "todo" | "doing" | "done"> = {
   todo: "todo",
@@ -48,3 +50,10 @@ export function useProjectBodies(): Record<string, string> {
   const { language } = useLanguage();
   return projectBodiesByLang[language];
 }
+
+// projects.json / projects.en.json 用 array index 對應（見 CLAUDE.md），但兩邊的 slug
+// 值本身相同，所以查詢時仍能直接用 slug 比對
+export const projectsByLang: Record<Language, Project[]> = {
+  zh: projectsDataZh as Project[],
+  en: projectsDataEn as Project[],
+};

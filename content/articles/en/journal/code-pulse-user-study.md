@@ -8,7 +8,7 @@ excerpt: "Breaking down a user study from my capstone project CodePulse: the res
 
 > Written on 2026-08-08 – 2026-08-08
 
-This piece is about a user study I designed and ran on CodePulse, my capstone project; it's a companion piece to [Exploring HCI: From "Is It Usable" to "Why"](/articles/exploring-hci).
+This piece is about a user study I designed and ran on CodePulse, my capstone project; it's a companion piece to [Exploring HCI: From Usability to Understanding Why](/articles/exploring-hci).
 
 On the team, I was mainly responsible for front-end interaction and animation design, as well as designing, running, and analyzing the user study's pre/post-tests.
 

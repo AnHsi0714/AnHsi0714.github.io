@@ -88,4 +88,4 @@ CodePulse's results make that point directly: user confidence in learning rose s
 
 Looking back at that conversion from "not afraid" to "confident," it's an extension of the same reminder: every transformation and assumption made while analyzing data deserves to be written down and examined, not just used to compute a number that looks reasonable and left at that.
 
-That conclusion is a lot more grown-up than just saying "our system works," and it's part of why I want to keep going deeper into <span data-term="human-computer-interaction">HCI</span>, user studies, and <span data-term="information-visualization">information visualization</span>, the threads I laid out in [Exploring HCI: From "Is It Usable" to "Why"](/articles/exploring-hci).
+That conclusion is a lot more grown-up than just saying "our system works," and it's part of why I want to keep going deeper into <span data-term="human-computer-interaction">HCI</span>, user studies, and <span data-term="information-visualization">information visualization</span>, the threads I laid out in [Exploring HCI: From Usability to Understanding Why](/articles/exploring-hci).

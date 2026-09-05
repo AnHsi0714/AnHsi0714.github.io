@@ -1,6 +1,6 @@
 ---
 type: paper
-title: "2022 Paper Notes on 《SnapPI: Understanding the Everyday Use of Personal Informatics Stickers on Ephemeral Social Media》: Data Isn't Just Data: SnapPI and Personal Data Sharing in Social Contexts"
+title: "2022 Paper Notes on 《SnapPI: Understanding Everyday Use of Personal Informatics Data Stickers on Ephemeral Social Media》: Data Isn't Just Data: SnapPI and Personal Data Sharing in Social Contexts"
 date: 2026-08-08
 categories: [Paper, HCI, Social Media]
 featured: true
@@ -10,7 +10,7 @@ excerpt: How do people use personal data stickers in everyday social contexts? W
 
 > Written between: 2026-08-08 – 2026-08-09
 
-**Original paper**: [SnapPI: Understanding the Everyday Use of Personal Informatics Stickers on Ephemeral Social Media](https://denniswang.net/static/wang2022.pdf)
+**Original paper**: [SnapPI: Understanding Everyday Use of Personal Informatics Data Stickers on Ephemeral Social Media](https://denniswang.net/static/wang2022.pdf) (Dennis Wang, Marawin Chheang, Siyun Ji, Ryan Mohta, Daniel A. Epstein, CSCW 2022)
 
 ## Introduction
 

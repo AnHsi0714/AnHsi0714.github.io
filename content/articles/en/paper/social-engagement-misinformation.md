@@ -8,7 +8,7 @@ coverUrl: /images/articles/social-engagement-misinformation/fakey-interface.png
 excerpt: Through an analysis of social engagement metrics on social platforms, examining how they affect people's trust in a piece of content, their motivation to fact-check, and their willingness to share low-credibility content.
 ---
 
-**Original paper**: [Exposure to Social Engagement Metrics Increases Vulnerability to Misinformation](https://arxiv.org/pdf/2005.04682)
+**Original paper**: [Exposure to Social Engagement Metrics Increases Vulnerability to Misinformation](https://arxiv.org/pdf/2005.04682) (Mihai Avram, Nicholas Micallef, Sameer Patil, Filippo Menczer, HKS Misinformation Review 2020)
 
 ## Introduction
 
