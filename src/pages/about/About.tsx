@@ -302,15 +302,9 @@ export default function About() {
                       : group.label}
                   </p>
                   <div className="flex flex-wrap gap-1.5">
-                    {group.items.map((item) =>
-                      group.label === "專業方向" ? (
-                        <Chip key={item}>{item}</Chip>
-                      ) : (
-                        <Chip key={item} tone="filled">
-                          {item}
-                        </Chip>
-                      ),
-                    )}
+                    {group.items.map((item) => (
+                      <Chip key={item}>{item}</Chip>
+                    ))}
                   </div>
                 </div>
               ))}

@@ -3,44 +3,32 @@ import styles from "./Chip.module.scss";
 
 export type ChipVariant = "default" | "success" | "info" | "warn" | "danger";
 export type ChipSize = "sm" | "md";
-export type ChipTone = "outline" | "filled";
 
 interface ChipProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: ChipVariant;
   size?: ChipSize;
-  tone?: ChipTone;
   /** 標示此 chip 可點擊：外框會加上流動漸層動畫；有傳 onClick 時才會補上鍵盤操作與 a11y 屬性 */
   clickable?: boolean;
-  /** 篩選器等 toggle 情境的「已選中」樣式：套用主色實心底，蓋過 variant/tone 本身的顏色 */
+  /** 篩選器等 toggle 情境的「已選中」樣式：套用主色實心底，蓋過 variant 本身的顏色 */
   selected?: boolean;
 }
 
-const variantClassKey: Record<ChipTone, Record<ChipVariant, string>> = {
-  outline: {
-    default: "outlineDefault",
-    success: "outlineSuccess",
-    info: "outlineInfo",
-    warn: "outlineWarn",
-    danger: "outlineDanger",
-  },
-  filled: {
-    default: "filledDefault",
-    success: "filledSuccess",
-    info: "filledInfo",
-    warn: "filledWarn",
-    danger: "filledDanger",
-  },
+const variantClassKey: Record<ChipVariant, string> = {
+  default: "outlineDefault",
+  success: "outlineSuccess",
+  info: "outlineInfo",
+  warn: "outlineWarn",
+  danger: "outlineDanger",
 };
 
-const sizeClassKey: Record<ChipTone, Record<ChipSize, string>> = {
-  outline: { sm: "outlineSm", md: "outlineMd" },
-  filled: { sm: "filledSm", md: "filledMd" },
+const sizeClassKey: Record<ChipSize, string> = {
+  sm: "outlineSm",
+  md: "outlineMd",
 };
 
 export default function Chip({
   variant = "default",
   size = "md",
-  tone = "outline",
   clickable = false,
   selected,
   className,
@@ -51,9 +39,9 @@ export default function Chip({
 }: ChipProps) {
   const classNames = [
     styles.chip,
-    styles[tone],
-    styles[variantClassKey[tone][variant]],
-    styles[sizeClassKey[tone][size]],
+    styles.outline,
+    styles[variantClassKey[variant]],
+    styles[sizeClassKey[size]],
     clickable && styles.clickable,
     selected && styles.selected,
     className,

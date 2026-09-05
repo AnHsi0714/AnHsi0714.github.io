@@ -76,11 +76,13 @@
 }
 
 .danger {
-  background-color: $color-danger-bg;
-  color: $color-danger-text;
+  background-color: transparent;
+  border-color: $color-danger;
+  color: $color-danger;
 
   &:hover:not(:disabled) {
-    background-color: $color-danger-hover;
+    border-color: $color-danger-hover;
+    color: $color-danger-hover;
     transition: 1s;
   }
 }

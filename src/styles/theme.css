@@ -15,19 +15,12 @@
   --color-primary-hover: #396969;
   --color-primary-text: #f7f7f7;
 
-  /* -bg／-outline 是兩種角色：-bg 配淺字給實心底用，不分日夜模式；-outline 印在頁面背景上，分日夜模式各一版。 */
-  --color-danger-text: #f7f7f7; /* Alert.error／Badge.danger／Button.danger／Chip filledDanger 的淺字 */
-  --color-danger-hover: #fa1414; /* Button.danger 的 hover 底色 */
-  --color-danger-bg: #cd3c3c; /* Alert.error／Badge.danger／Button.danger／Chip filledDanger 的實心底色 */
-  --color-danger: #cd3c3c; /* Chip outlineDanger 的邊框／文字色（淺色模式） */
-
-  --color-success: #f7f7f7; /* Badge.success/done／Chip filledSuccess 的淺字 */
-  --color-success-bg: #408000; /* Badge.success/done／Chip filledSuccess 的實心底色 */
-  --color-success-outline: #408000; /* Chip outlineSuccess 的邊框／文字色（淺色模式） */
-
-  --color-info: #f7f7f7; /* Badge.doing／Alert.info／Chip filledInfo 的淺字 */
-  --color-info-bg: #19749f; /* Badge.doing／Alert.info／Chip filledInfo 的實心底色 */
-  --color-info-outline: #19749f; /* Chip outlineInfo 的邊框／文字色（淺色模式） */
+  /* Badge/Alert/Chip/Button.danger 全站都是邊框＋文字樣式，沒有實心底，
+     顏色直接印在頁面背景上，所以淺色模式要夠深才過 4.5:1。 */
+  --color-danger: #cd3c3c; /* Badge.danger／Alert.error／Button.danger／Chip outlineDanger */
+  --color-danger-hover: #fa1414; /* Button.danger 的 hover 色 */
+  --color-success: #408000; /* Badge.success/done／Alert.success／Chip outlineSuccess */
+  --color-info: #19749f; /* Badge.doing／Alert.info／Chip outlineInfo */
 }
 
 .dark {
@@ -42,11 +35,9 @@
   --color-primary-hover: #cfd397;
   --color-primary-text: #14160f;
 
-  /* -bg／-text 不分日夜模式，這裡不覆寫；只換 -outline 這個要夠亮的版本。 */
-  --color-danger: #f87171; /* Chip outlineDanger 的邊框／文字色（深色模式，要夠亮） */
-  --color-danger-hover: #fca5a5; /* Button.danger 的 hover 底色 */
-
-  --color-success-outline: #88ca1e; /* Chip outlineSuccess 的邊框／文字色（深色模式，要夠亮） */
-
-  --color-info-outline: #4d99cf; /* Chip outlineInfo 的邊框／文字色（深色模式，要夠亮） */
+  /* 深色模式頁面接近全黑，同一組顏色要換成夠亮的版本才過對比。 */
+  --color-danger: #f87171;
+  --color-danger-hover: #fca5a5;
+  --color-success: #88ca1e;
+  --color-info: #4d99cf;
 }
