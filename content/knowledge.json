@@ -38,7 +38,7 @@
     "relatedProjects": ["code-pulse"],
     "relatedArticles": [],
     "relatedNodes": [
-      { "slug": "cfg", "type": "applies_to" },
+      { "slug": "cfg", "type": "applies-to" },
       { "slug": "interactive-data-exploration", "type": "related" }
     ]
   },
@@ -54,7 +54,7 @@
     "relatedProjects": ["code-pulse", "absa-wordcloud"],
     "relatedArticles": [],
     "relatedNodes": [
-      { "slug": "agglomerative-clustering", "type": "contrasts_with" },
+      { "slug": "agglomerative-clustering", "type": "contrasts-with" },
       { "slug": "visual-analytics", "type": "related" }
     ]
   },
@@ -106,7 +106,7 @@
     "status": "published",
     "relatedProjects": ["absa-wordcloud"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "zero-shot", "type": "contrasts_with" }]
+    "relatedNodes": [{ "slug": "zero-shot", "type": "contrasts-with" }]
   },
   "zero-shot": {
     "term": "Zero-Shot（零樣本學習）",
@@ -117,7 +117,7 @@
     "relatedProjects": ["absa-wordcloud"],
     "relatedArticles": [],
     "relatedNodes": [
-      { "slug": "distilbert", "type": "contrasts_with" },
+      { "slug": "distilbert", "type": "contrasts-with" },
       { "slug": "partial-f1", "type": "related" },
       { "slug": "natural-language-processing", "type": "related" }
     ]
@@ -140,7 +140,7 @@
     "status": "published",
     "relatedProjects": ["absa-wordcloud"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "cosine-similarity", "type": "contrasts_with" }]
+    "relatedNodes": [{ "slug": "cosine-similarity", "type": "contrasts-with" }]
   },
   "b2c": {
     "term": "B2C",
@@ -192,9 +192,9 @@
     "relatedArticles": ["http-methods"],
     "relatedNodes": [
       { "slug": "idempotent", "type": "related" },
-      { "slug": "prefetch", "type": "applies_to" },
-      { "slug": "proxy", "type": "applies_to" },
-      { "slug": "cdn", "type": "applies_to" }
+      { "slug": "prefetch", "type": "applies-to" },
+      { "slug": "proxy", "type": "applies-to" },
+      { "slug": "cdn", "type": "applies-to" }
     ]
   },
   "idempotent": {
@@ -264,7 +264,7 @@
     "status": "published",
     "relatedProjects": ["silkroad"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "er-model", "type": "applies_to" }]
+    "relatedNodes": [{ "slug": "er-model", "type": "applies-to" }]
   },
   "er-model": {
     "term": "ER Model（實體關聯模型）",
@@ -309,7 +309,7 @@
     "relatedArticles": [],
     "relatedNodes": [
       { "slug": "rls", "type": "related" },
-      { "slug": "race-condition", "type": "applies_to" }
+      { "slug": "race-condition", "type": "applies-to" }
     ]
   },
   "race-condition": {
@@ -360,8 +360,8 @@
       { "slug": "information-visualization", "type": "related" },
       { "slug": "human-computer-interaction", "type": "related" },
       { "slug": "interactive-data-exploration", "type": "related" },
-      { "slug": "cosine-similarity", "type": "applies_to" },
-      { "slug": "normalized-gain", "type": "applies_to" },
+      { "slug": "cosine-similarity", "type": "applies-to" },
+      { "slug": "normalized-gain", "type": "applies-to" },
       { "slug": "interactive-systems", "type": "related" }
     ]
   },
@@ -375,7 +375,7 @@
     "relatedArticles": [],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
-      { "slug": "ast", "type": "applies_to" }
+      { "slug": "ast", "type": "applies-to" }
     ]
   },
   "information-visualization": {
@@ -391,7 +391,7 @@
     "relatedArticles": ["code-pulse-confidence-vs-competence"],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
-      { "slug": "cfg", "type": "applies_to" }
+      { "slug": "cfg", "type": "applies-to" }
     ]
   },
   "human-computer-interaction": {
@@ -407,9 +407,9 @@
     ],
     "relatedNodes": [
       { "slug": "visual-analytics", "type": "related" },
-      { "slug": "normalized-gain", "type": "applies_to" },
-      { "slug": "learning-confidence", "type": "applies_to" },
-      { "slug": "self-perceived-learning-effectiveness", "type": "applies_to" },
+      { "slug": "normalized-gain", "type": "applies-to" },
+      { "slug": "learning-confidence", "type": "applies-to" },
+      { "slug": "self-perceived-learning-effectiveness", "type": "applies-to" },
       { "slug": "reflexive-thematic-analysis", "type": "related" },
       { "slug": "social-computing", "type": "related" },
       { "slug": "interactive-systems", "type": "related" },
@@ -438,7 +438,7 @@
     "relatedArticles": ["snappi-personal-data-stickers"],
     "relatedNodes": [
       { "slug": "thematic-coding", "type": "prerequisite" },
-      { "slug": "human-computer-interaction", "type": "applies_to" }
+      { "slug": "human-computer-interaction", "type": "applies-to" }
     ]
   },
   "natural-language-processing": {
@@ -451,15 +451,15 @@
     "relatedArticles": [],
     "relatedNodes": [
       { "slug": "knowledge-graph", "type": "related" },
-      { "slug": "ckip", "type": "applies_to" },
-      { "slug": "stanza", "type": "applies_to" },
-      { "slug": "zero-shot", "type": "applies_to" }
+      { "slug": "ckip", "type": "applies-to" },
+      { "slug": "stanza", "type": "applies-to" },
+      { "slug": "zero-shot", "type": "applies-to" }
     ]
   },
   "knowledge-graph": {
     "term": "Knowledge Graph（知識圖譜）",
     "definition": "把概念當作節點、概念之間的關係當作邊，組織成一張可以互相連結、查詢的知識網路，讓知識不只是一條條獨立的紀錄，而是能彼此參照、支援推理與探索。",
-    "application": "這個網站的 Knowledge 頁面本身就是一次小規模的實作嘗試：每個技術概念是一個節點，節點之間有 prerequisite／related／applies_to／contrasts_with 等關係，並反查連結回引用它的專案與文章。目前規模還小、以人工維護為主，還沒有自動化的實體關係抽取或圖形視覺化，但已經是我對「知識圖譜」這個興趣的第一次動手實作。",
+    "application": "這個網站的 Knowledge 頁面本身就是一次小規模的實作嘗試：每個技術概念是一個節點，節點之間有 prerequisite／related／applies-to／contrasts-with 等關係，並反查連結回引用它的專案與文章。目前規模還小、以人工維護為主，還沒有自動化的實體關係抽取或圖形視覺化，但已經是我對「知識圖譜」這個興趣的第一次動手實作。",
     "category": "WEB",
     "status": "published",
     "relatedProjects": ["personal-website"],
@@ -478,7 +478,7 @@
     "relatedArticles": ["snappi-personal-data-stickers"],
     "relatedNodes": [
       { "slug": "human-computer-interaction", "type": "related" },
-      { "slug": "reflexive-thematic-analysis", "type": "applies_to" },
+      { "slug": "reflexive-thematic-analysis", "type": "applies-to" },
       { "slug": "human-centered-computing", "type": "related" }
     ]
   },
@@ -521,12 +521,12 @@
       "code-pulse-confidence-vs-competence"
     ],
     "relatedNodes": [
-      { "slug": "self-reported-confidence", "type": "applies_to" },
+      { "slug": "self-reported-confidence", "type": "applies-to" },
       {
         "slug": "self-perceived-learning-effectiveness",
-        "type": "contrasts_with"
+        "type": "contrasts-with"
       },
-      { "slug": "normalized-gain", "type": "contrasts_with" },
+      { "slug": "normalized-gain", "type": "contrasts-with" },
       { "slug": "retrospective-pre-post", "type": "related" }
     ]
   },
@@ -542,7 +542,7 @@
       "code-pulse-confidence-vs-competence"
     ],
     "relatedNodes": [
-      { "slug": "learning-confidence", "type": "applies_to" },
+      { "slug": "learning-confidence", "type": "applies-to" },
       { "slug": "self-perceived-learning-effectiveness", "type": "related" },
       { "slug": "retrospective-pre-post", "type": "related" }
     ]
@@ -559,8 +559,8 @@
       "code-pulse-confidence-vs-competence"
     ],
     "relatedNodes": [
-      { "slug": "normalized-gain", "type": "contrasts_with" },
-      { "slug": "learning-confidence", "type": "contrasts_with" },
+      { "slug": "normalized-gain", "type": "contrasts-with" },
+      { "slug": "learning-confidence", "type": "contrasts-with" },
       { "slug": "self-reported-confidence", "type": "related" }
     ]
   },
@@ -599,7 +599,7 @@
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["rxjs-flattening-operators"],
-    "relatedNodes": [{ "slug": "signal", "type": "contrasts_with" }]
+    "relatedNodes": [{ "slug": "signal", "type": "contrasts-with" }]
   },
   "concat-map": {
     "term": "concatMap",
@@ -610,9 +610,9 @@
     "relatedProjects": [],
     "relatedArticles": ["rxjs-flattening-operators"],
     "relatedNodes": [
-      { "slug": "switch-map", "type": "contrasts_with" },
-      { "slug": "merge-map", "type": "contrasts_with" },
-      { "slug": "exhaust-map", "type": "contrasts_with" }
+      { "slug": "switch-map", "type": "contrasts-with" },
+      { "slug": "merge-map", "type": "contrasts-with" },
+      { "slug": "exhaust-map", "type": "contrasts-with" }
     ]
   },
   "switch-map": {
@@ -624,9 +624,9 @@
     "relatedProjects": [],
     "relatedArticles": ["rxjs-flattening-operators"],
     "relatedNodes": [
-      { "slug": "concat-map", "type": "contrasts_with" },
-      { "slug": "merge-map", "type": "contrasts_with" },
-      { "slug": "exhaust-map", "type": "contrasts_with" },
+      { "slug": "concat-map", "type": "contrasts-with" },
+      { "slug": "merge-map", "type": "contrasts-with" },
+      { "slug": "exhaust-map", "type": "contrasts-with" },
       { "slug": "debounce-time", "type": "related" }
     ]
   },
@@ -639,9 +639,9 @@
     "relatedProjects": [],
     "relatedArticles": ["rxjs-flattening-operators"],
     "relatedNodes": [
-      { "slug": "concat-map", "type": "contrasts_with" },
-      { "slug": "switch-map", "type": "contrasts_with" },
-      { "slug": "exhaust-map", "type": "contrasts_with" },
+      { "slug": "concat-map", "type": "contrasts-with" },
+      { "slug": "switch-map", "type": "contrasts-with" },
+      { "slug": "exhaust-map", "type": "contrasts-with" },
       { "slug": "race-condition", "type": "related" }
     ]
   },
@@ -654,9 +654,9 @@
     "relatedProjects": [],
     "relatedArticles": ["rxjs-flattening-operators"],
     "relatedNodes": [
-      { "slug": "concat-map", "type": "contrasts_with" },
-      { "slug": "switch-map", "type": "contrasts_with" },
-      { "slug": "merge-map", "type": "contrasts_with" }
+      { "slug": "concat-map", "type": "contrasts-with" },
+      { "slug": "switch-map", "type": "contrasts-with" },
+      { "slug": "merge-map", "type": "contrasts-with" }
     ]
   },
   "debounce-time": {
@@ -760,7 +760,7 @@
     "relatedProjects": [],
     "relatedArticles": ["ngrx-state-management"],
     "relatedNodes": [
-      { "slug": "signal", "type": "contrasts_with" },
+      { "slug": "signal", "type": "contrasts-with" },
       { "slug": "onpush", "type": "related" }
     ]
   },
@@ -786,8 +786,8 @@
     "relatedProjects": [],
     "relatedArticles": ["ngrx-state-management"],
     "relatedNodes": [
-      { "slug": "ngrx", "type": "contrasts_with" },
-      { "slug": "rxjs", "type": "contrasts_with" }
+      { "slug": "ngrx", "type": "contrasts-with" },
+      { "slug": "rxjs", "type": "contrasts-with" }
     ]
   }
 }

@@ -21,9 +21,9 @@ import type { KnowledgeRelationType, Project } from "../../types/content";
 
 const relationOrder: KnowledgeRelationType[] = [
   "prerequisite",
-  "applies_to",
+  "applies-to",
   "related",
-  "contrasts_with",
+  "contrasts-with",
 ];
 
 export default function KnowledgeDetail() {

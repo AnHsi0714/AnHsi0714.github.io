@@ -221,7 +221,7 @@ export interface Strings {
     relatedNodes: string;
     timeline: string;
     relationType: Record<
-      "prerequisite" | "related" | "applies_to" | "contrasts_with",
+      "prerequisite" | "related" | "applies-to" | "contrasts-with",
       string
     >;
     entryPointHint: string;
@@ -505,8 +505,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       relationType: {
         prerequisite: "先備知識",
         related: "相關概念",
-        applies_to: "延伸應用",
-        contrasts_with: "對比概念",
+        "applies-to": "延伸應用",
+        "contrasts-with": "對比概念",
       },
       entryPointHint: "想更深入了解背後概念？逛逛 Knowledge →",
       relatedKnowledge: "相關知識",
@@ -806,8 +806,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       relationType: {
         prerequisite: "Prerequisite",
         related: "Related",
-        applies_to: "Applies to",
-        contrasts_with: "Contrasts with",
+        "applies-to": "Applies to",
+        "contrasts-with": "Contrasts with",
       },
       entryPointHint:
         "Want to dig into the concepts behind this? Browse Knowledge →",
