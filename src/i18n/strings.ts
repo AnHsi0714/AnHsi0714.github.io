@@ -390,9 +390,9 @@ export const strings: Record<"zh" | "en", Strings> = {
       title: "專案",
       subtitle: "做過、正在做的專案。",
       status: {
-        todo: "todo",
-        "in-progress": "doing",
-        done: "done",
+        todo: "待處理",
+        "in-progress": "進行中",
+        done: "已完成",
       },
       noMatch: "沒有符合條件的專案",
       tryAdjustFilter: "試試調整篩選條件。",
