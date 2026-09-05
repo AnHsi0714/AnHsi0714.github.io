@@ -8,9 +8,16 @@ import type { Dream } from '../../types/content'
 import { useLocalized } from '../../lib/localized'
 import { useTranslation } from '../../i18n/useTranslation'
 
+function progressPercent(dream: Dream): number {
+  if (!dream.progress || dream.progress.target <= 0) return 0
+  return dream.progress.current / dream.progress.target
+}
+
 export default function Dreams() {
   const { t } = useTranslation()
-  const dreams = useLocalized(dreamsDataZh, dreamsDataEn) as Dream[]
+  const dreams = [...(useLocalized(dreamsDataZh, dreamsDataEn) as Dream[])].sort(
+    (a, b) => progressPercent(a) - progressPercent(b),
+  )
 
   return (
     <section>
