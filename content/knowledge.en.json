@@ -422,7 +422,10 @@
     "relatedProjects": [],
     "relatedArticles": ["snappi-personal-data-stickers"],
     "relatedNodes": [
-      { "slug": "reflexive-thematic-analysis", "type": "related" }
+      { "slug": "reflexive-thematic-analysis", "type": "related" },
+      { "slug": "qualitative-data", "type": "related" },
+      { "slug": "inductive-reasoning", "type": "related" },
+      { "slug": "deductive-reasoning", "type": "related" }
     ]
   },
   "reflexive-thematic-analysis": {
@@ -435,7 +438,70 @@
     "relatedArticles": ["snappi-personal-data-stickers"],
     "relatedNodes": [
       { "slug": "thematic-coding", "type": "prerequisite" },
-      { "slug": "human-computer-interaction", "type": "applies-to" }
+      { "slug": "human-computer-interaction", "type": "applies-to" },
+      { "slug": "qualitative-data", "type": "related" }
+    ]
+  },
+  "micro-trends": {
+    "term": "Micro-trends",
+    "definition": "A short-lived spike in a particular kind of content on a social platform, often driven by a recurring or one-off community activity (e.g., a weekly sketching challenge). If data collection happens to land during one of these spikes, the resulting sample can end up skewed toward that specific short-term phenomenon rather than reflecting the domain's typical, longer-term content.",
+    "application": "When collecting TikTok videos, the team spread their 10-day collection window across five separate dates rather than pulling everything from a single day or week: this let them still capture activities people might complete within a week (like a half-marathon training cycle), while avoiding the risk of the sample being skewed by a community's recurring weekly challenge, a micro-trend inflating the sample.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["short-form-video-activity-sharing"],
+    "relatedNodes": []
+  },
+  "quantitative-data": {
+    "term": "Quantitative Data",
+    "definition": "Information presented as numbers, such as distance, time, scores, or counts. Numbers are easy to compare or aggregate, but on their own don't fully convey the surrounding context, feelings, or detail.",
+    "application": "When analyzing how videos present progress, the paper distinguishes between quantitative and qualitative presentation. Quantitative examples include an on-screen caption showing distance run or a ticking timer readout; a single video can mix both approaches.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["short-form-video-activity-sharing"],
+    "relatedNodes": [
+      { "slug": "qualitative-data", "type": "contrasts-with" }
+    ]
+  },
+  "qualitative-data": {
+    "term": "Qualitative Data",
+    "definition": "Information presented as description, narrative, or other non-numeric form, such as spoken narration, a gesture, or detail conveyed by the footage itself. It preserves context and feeling, but is harder to directly compare or tally.",
+    "application": "When analyzing how videos present progress, the paper distinguishes between quantitative and qualitative presentation. Qualitative examples include a runner gesturing how many laps they've done, or narrating how they currently feel; this preserves context and emotion that numbers alone can't convey, but makes it harder to directly compare progress across videos.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["short-form-video-activity-sharing"],
+    "relatedNodes": [
+      { "slug": "quantitative-data", "type": "contrasts-with" },
+      { "slug": "thematic-coding", "type": "related" },
+      { "slug": "reflexive-thematic-analysis", "type": "related" }
+    ]
+  },
+  "inductive-reasoning": {
+    "term": "Inductive Reasoning",
+    "definition": "A bottom-up analytical approach: start by closely examining the raw data itself and let categories and themes emerge from it, rather than applying an existing theory or framework up front and checking whether the data fits.",
+    "application": "The team began by inductively examining videos and open-coding how videos represented activity information; this surfaced timing (before, during, after the activity) as a recurring, important dimension, which then shaped the rest of the analysis, rather than the team assuming a timing framework upfront and fitting videos into it.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["short-form-video-activity-sharing"],
+    "relatedNodes": [
+      { "slug": "deductive-reasoning", "type": "related" },
+      { "slug": "thematic-coding", "type": "related" }
+    ]
+  },
+  "deductive-reasoning": {
+    "term": "Deductive Reasoning",
+    "definition": "A top-down analytical approach: establish a classification framework first, then use that framework to examine and categorize new data, checking whether it fits the framework.",
+    "application": "Once the team had inductively identified timing as a key dimension, they switched to deductively applying that framework to the rest of the videos, converging after several rounds of iteration on 17 codes organized around three dimensions of how information is represented (modality, form, strategy).",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["short-form-video-activity-sharing"],
+    "relatedNodes": [
+      { "slug": "inductive-reasoning", "type": "related" },
+      { "slug": "thematic-coding", "type": "related" }
     ]
   },
   "natural-language-processing": {

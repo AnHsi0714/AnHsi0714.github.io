@@ -425,7 +425,10 @@
     "relatedProjects": [],
     "relatedArticles": ["snappi-personal-data-stickers"],
     "relatedNodes": [
-      { "slug": "reflexive-thematic-analysis", "type": "related" }
+      { "slug": "reflexive-thematic-analysis", "type": "related" },
+      { "slug": "qualitative-data", "type": "related" },
+      { "slug": "inductive-reasoning", "type": "related" },
+      { "slug": "deductive-reasoning", "type": "related" }
     ]
   },
   "reflexive-thematic-analysis": {
@@ -438,7 +441,70 @@
     "relatedArticles": ["snappi-personal-data-stickers"],
     "relatedNodes": [
       { "slug": "thematic-coding", "type": "prerequisite" },
-      { "slug": "human-computer-interaction", "type": "applies-to" }
+      { "slug": "human-computer-interaction", "type": "applies-to" },
+      { "slug": "qualitative-data", "type": "related" }
+    ]
+  },
+  "micro-trends": {
+    "term": "Micro-trends（微型趨勢）",
+    "definition": "社群平台上因偶發或週期性活動（例如某社群固定舉辦的每週挑戰）而在短時間內集中大量出現、內容型態被放大的短期現象。若資料蒐集恰好落在這類活動發生的時間點，樣本就容易被特定短期現象扭曲，而非反映該領域內容長期以來的常態分佈。",
+    "application": "團隊蒐集 TikTok 影片時，把 10 天的蒐集區間拆成 5 個分散的日期，而非集中在同一天或同一週抓取：一方面涵蓋人們可能在一週內完成的活動（例如一次半程馬拉松訓練週期），另一方面避免剛好蒐集到某個社群固定每週舉辦一次的挑戰活動，讓樣本被這類微型趨勢放大。",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["short-form-video-activity-sharing"],
+    "relatedNodes": []
+  },
+  "quantitative-data": {
+    "term": "Quantitative Data（量化資料）",
+    "definition": "以數字呈現的資訊，例如里程、時間、分數、次數等，優點是能直接比較大小或加總統計，但較難完整傳達伴隨的情境、感受或細節。",
+    "application": "論文在分析影片如何呈現進度時，把呈現方式區分為量化與質化兩種：量化的例子包括字幕顯示已跑的公里數、計時器上跳動的讀秒數字，同一部影片也可能同時混用兩種方式。",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["short-form-video-activity-sharing"],
+    "relatedNodes": [
+      { "slug": "qualitative-data", "type": "contrasts-with" }
+    ]
+  },
+  "qualitative-data": {
+    "term": "Qualitative Data（質化資料）",
+    "definition": "以描述、敘事或非數字形式呈現的資訊，例如口頭敘述、手勢、畫面本身傳達的細節，優點是能保留脈絡與感受，但較難直接比較或統計。",
+    "application": "論文在分析影片如何呈現進度時，把呈現方式區分為量化與質化兩種：質化的例子包括跑者用手勢比出目前跑了幾圈、口頭描述當下的感受，這類方式保留了量化數字難以傳達的情境與情緒，但較難直接拿來比較不同影片之間的進度快慢。",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["short-form-video-activity-sharing"],
+    "relatedNodes": [
+      { "slug": "quantitative-data", "type": "contrasts-with" },
+      { "slug": "thematic-coding", "type": "related" },
+      { "slug": "reflexive-thematic-analysis", "type": "related" }
+    ]
+  },
+  "inductive-reasoning": {
+    "term": "Inductive Reasoning（歸納法）",
+    "definition": "由下而上的分析取向：先大量檢視原始資料本身，讓分類與主題從資料裡「長出來」，而不是預先套用既有理論或框架去檢驗資料是否符合。",
+    "application": "團隊一開始用歸納法大量檢視影片、對「影片如何呈現活動資訊」做開放編碼，從中發現「時間點」(活動前、活動中、活動後)是反覆出現的重要維度，才據此展開後續分析，而不是一開始就預設好時間軸框架去套用到影片上。",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["short-form-video-activity-sharing"],
+    "relatedNodes": [
+      { "slug": "deductive-reasoning", "type": "related" },
+      { "slug": "thematic-coding", "type": "related" }
+    ]
+  },
+  "deductive-reasoning": {
+    "term": "Deductive Reasoning（演繹法）",
+    "definition": "由上而下的分析取向：先訂出一套分類架構，再用這套架構去檢視、歸類新的資料，驗證資料是否符合這個既定框架。",
+    "application": "團隊歸納出「時間點」這個重要維度後，改用演繹法反過來用這個框架去檢視、分類其餘影片，經過多輪迭代後收斂成 17 個編碼，圍繞資訊呈現的三個維度(模態、形式、策略)。",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["short-form-video-activity-sharing"],
+    "relatedNodes": [
+      { "slug": "inductive-reasoning", "type": "related" },
+      { "slug": "thematic-coding", "type": "related" }
     ]
   },
   "natural-language-processing": {
