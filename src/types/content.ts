@@ -46,12 +46,19 @@ export interface ExperienceTag {
   variant: ChipVariant;
 }
 
+export interface ExperienceImage {
+  src: string;
+  caption: string;
+}
+
 export interface ExperienceEntry {
   period: string;
   title: string;
   subtitle?: string;
   tags: ExperienceTag[];
   highlights: string[];
+  // 有配圖的經歷，時間軸上的圓點才會顯示可點擊的動畫效果
+  images?: ExperienceImage[];
 }
 
 export interface SecondaryExperienceEntry {

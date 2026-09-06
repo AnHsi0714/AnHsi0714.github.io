@@ -1,7 +1,11 @@
+import { useState } from "react";
 import experienceDataZh from "../../../content/experience.json";
 import experienceDataEn from "../../../content/experience.en.json";
 import Chip from "../../components/Chip";
 import Reveal from "../../components/Reveal";
+import Modal from "../../components/Modal";
+import ImageWithSkeleton from "../../components/ImageWithSkeleton";
+import GroupedCarousel from "../../components/GroupedCarousel";
 import type {
   ExperienceEntry,
   SecondaryExperienceEntry,
@@ -15,6 +19,10 @@ export default function Experience() {
   const entries = experienceData.entries as ExperienceEntry[];
   const secondaryEntries =
     experienceData.secondaryEntries as SecondaryExperienceEntry[];
+  // 記錄哪一筆經歷的照片彈窗被打開，而不是單純的布林值，
+  // 這樣才知道要顯示 entries 裡的哪一筆 images
+  const [openEntryIndex, setOpenEntryIndex] = useState<number | null>(null);
+  const openEntry = openEntryIndex !== null ? entries[openEntryIndex] : undefined;
 
   return (
     <section>
@@ -36,7 +44,22 @@ export default function Experience() {
 
               {/* 中間：時間軸線 */}
               <div className="flex flex-col items-center">
-                <div className="mt-1.5 h-3 w-3 shrink-0 rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-bg)]" />
+                {entry.images && entry.images.length > 0 ? (
+                  <button
+                    type="button"
+                    onClick={() => setOpenEntryIndex(index)}
+                    aria-label={t.experience.viewPhotos}
+                    aria-haspopup="dialog"
+                    className="relative mt-1.5 flex h-3 w-3 shrink-0 cursor-pointer"
+                  >
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-primary)] opacity-60" />
+                    <span className="relative inline-flex h-3 w-3 rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-bg)]" />
+                  </button>
+                ) : (
+                  <span className="mt-1.5 flex h-3 w-3 shrink-0">
+                    <span className="inline-flex h-3 w-3 rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-bg)]" />
+                  </span>
+                )}
                 {index < entries.length - 1 && (
                   <div className="mt-1 w-px flex-1 bg-[var(--color-border)]" />
                 )}
@@ -117,6 +140,41 @@ export default function Experience() {
           </div>
         </Reveal>
       )}
+
+      <Modal
+        open={openEntry !== undefined}
+        onClose={() => setOpenEntryIndex(null)}
+        ariaLabel={openEntry?.title}
+        backdropClassName="bg-black/70 p-6"
+        panelClassName="flex max-h-full w-full max-w-3xl flex-col gap-4 overflow-y-auto rounded-lg bg-[var(--color-bg)] p-4"
+      >
+        {openEntry?.images && (
+          <GroupedCarousel
+            items={openEntry.images}
+            groupSize={1}
+            edgeNav
+            edgeNavLabels={{
+              previous: t.experience.previousPhoto,
+              next: t.experience.nextPhoto,
+            }}
+            itemKey={(image) => image.src}
+            gotoAriaLabel={(index) => t.experience.viewPhotoGoto(index)}
+            renderItem={(image) => (
+              <figure>
+                <ImageWithSkeleton
+                  src={image.src}
+                  alt={image.caption}
+                  wrapperClassName="aspect-video w-full rounded-md"
+                  className="object-cover"
+                />
+                <figcaption className="mt-1.5 text-sm text-[var(--color-text-muted)]">
+                  {image.caption}
+                </figcaption>
+              </figure>
+            )}
+          />
+        )}
+      </Modal>
     </section>
   );
 }
