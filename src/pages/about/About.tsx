@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCode,
@@ -9,7 +8,6 @@ import {
   faBasketball,
   faPaw,
   faLightbulb,
-  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../components/Button";
 import Chip from "../../components/Chip";
@@ -39,13 +37,14 @@ const content = {
       },
     ],
     education: [
-      "新北市樟樹實中 JICTS 資訊科",
+      "新北市立樟樹國際實創高級中等學校 JICTS 資訊科",
       "國立臺北科技大學 NTUT 資工系 大三",
     ],
     academicSummary: {
       rank: "Rank: 3/63",
       percentile: "4.8%",
       gpa: "3.98/4.00",
+      deansList: "書卷獎 × 5",
     },
     researchInterests: [
       {
@@ -93,7 +92,7 @@ const content = {
         details: [
           "114 學年度 資工系實務專題",
           "指導教授 陳香君",
-          "已投件國科會大專生研究計畫",
+          "曾申請國科會大專生研究計畫",
         ],
       },
       {
@@ -112,8 +111,8 @@ const content = {
       { year: "2023~2025", text: "母校技藝競賽選手培訓教師" },
       { year: "2025 / 12", text: "教育大數據微學程 成果發表 佳作" },
       {
-        year: "2025~2026",
-        text: "美商太陽鳥軟體 前端開發實習（Scrum / Sprint Review / 設計文件）",
+        year: "2026 / 07~2026 / 08",
+        text: "美商太陽鳥軟體 前端開發組 暑期實習（Scrum / Sprint Review / 設計文件）",
       },
     ],
     interests: [
@@ -146,13 +145,14 @@ const content = {
       },
     ],
     education: [
-      "New Taipei Municipal Zhangshu Experimental High School, JICTS Information Technology Program",
+      "New Taipei Municipal Jhangshu International Creative Technical High School, JICTS Information Technology Program",
       "National Taipei University of Technology (NTUT), Dept. of Computer Science & Information Engineering, Junior (3rd year)",
     ],
     academicSummary: {
-      rank: "3/63",
+      rank: "Rank: 3/63",
       percentile: "4.8%",
       gpa: "3.98/4.00",
+      deansList: "Dean's List × 5",
     },
     researchInterests: [
       {
@@ -202,7 +202,7 @@ const content = {
         details: [
           "2025 Academic Year Capstone Project, Dept. of CSIE",
           "Advisor: Annette Chen",
-          "Submitted to the NSTC Undergraduate Research Program",
+          "Applied to the NSTC Undergraduate Research Program",
         ],
       },
       {
@@ -231,8 +231,8 @@ const content = {
         text: "Educational Big Data Micro-Program, Honorable Mention",
       },
       {
-        year: "2025~2026",
-        text: "Sun Bird Software, Frontend Development Intern (Scrum / Sprint Review / Design Docs)",
+        year: "2026 / 07~2026 / 08",
+        text: "Sun Bird Software, Frontend Development Team, Summer Intern (Scrum / Sprint Review / Design Docs)",
       },
     ],
     interests: [
@@ -257,43 +257,26 @@ function AchievementItem({
   summary: string;
   details: string[];
 }) {
-  const [expanded, setExpanded] = useState(false);
-
   return (
     <div>
-      <button
-        type="button"
-        onClick={() => setExpanded((e) => !e)}
-        className="group flex w-fit items-center text-left"
-      >
-        <span className="-ml-5 flex w-5 shrink-0 justify-start text-[var(--color-text-muted)] transition-colors group-hover:text-[var(--color-text)]">
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            className={`h-3 w-3 transition-transform duration-150 ${expanded ? "rotate-90" : ""}`}
-          />
-        </span>
-        <span className="text-[var(--color-text)]">{title}</span>
-      </button>
+      <p className="text-[var(--color-text)]">{title}</p>
       <p className="mt-0.5">{summary}</p>
-      {expanded && (
-        <ul className="mt-1.5 flex flex-col gap-1 text-sm">
-          {details.map((detail) => (
-            <li key={detail} className="flex gap-2">
-              <span
-                aria-hidden
-                className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-current"
-              />
-              <span>{detail}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className="mt-1.5 flex flex-col gap-1 text-sm">
+        {details.map((detail) => (
+          <li key={detail} className="flex gap-2">
+            <span
+              aria-hidden
+              className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-current"
+            />
+            <span>{detail}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
 export default function About() {
-  const [showGrades, setShowGrades] = useState(false);
   const { t, language } = useTranslation();
   const data = content[language];
   useDocumentTitle(
@@ -381,27 +364,16 @@ export default function About() {
               <p className="text-sm text-[var(--color-text-muted)]">
                 {data.education[0]}
               </p>
-              <button
-                type="button"
-                onClick={() => setShowGrades((g) => !g)}
-                className="flex w-fit items-center text-left text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
-              >
-                <span className="-ml-5 flex w-5 shrink-0 justify-start">
-                  <FontAwesomeIcon
-                    icon={faChevronRight}
-                    className={`h-3 w-3 transition-transform duration-150 ${showGrades ? "rotate-90" : ""}`}
-                  />
-                </span>
-                <span>{data.education[1]}</span>
-              </button>
+              <p className="text-sm text-[var(--color-text-muted)]">
+                {data.education[1]}
+              </p>
             </div>
-            {showGrades && (
-              <div className="mt-3 flex items-center gap-4 text-sm tabular-nums text-[var(--color-text-muted)]">
-                <span>{data.academicSummary.rank}</span>
-                <span>{data.academicSummary.percentile}</span>
-                <span>GPA {data.academicSummary.gpa}</span>
-              </div>
-            )}
+            <div className="mt-3 flex flex-wrap items-center gap-4 text-sm tabular-nums text-[var(--color-text-muted)]">
+              <span>{data.academicSummary.rank}</span>
+              <span>{data.academicSummary.percentile}</span>
+              <span>GPA {data.academicSummary.gpa}</span>
+              <span>{data.academicSummary.deansList}</span>
+            </div>
           </div>
         </Reveal>
 
