@@ -9,6 +9,16 @@
         "使用 VB 撰寫六題實作程式試題，全數解出",
         "涵蓋資料結構、基礎演算法、版面設計、元件應用、資料處理",
         "備賽期間每日練習 7–8 小時，強化邏輯分析與實作速度"
+      ],
+      "images": [
+        {
+          "src": "/images/experience/golden-hand-award.jpg",
+          "caption": "領獎後留影"
+        },
+        {
+          "src": "/images/experience/golden-hand-certificate.jpg",
+          "caption": "教育部獎狀"
+        }
       ]
     },
     {
@@ -19,7 +29,26 @@
       "highlights": [
         "與當地學伴進行文化與教育交流，共同學習專業技術",
         "參訪多項知名景點，進行景點成功要素分析",
-        "擴展國際視野，觀察海外教育與科技應用現況"
+        "擴展國際視野，觀察海外教育與科技應用現況",
+        "返國後與日本、澳洲等海外見學團隊共同參與成果發表會，以口頭報告分享見學成果與收穫，培養跨文化交流與專業表達能力"
+      ],
+      "images": [
+        {
+          "src": "/images/experience/school-visit-group-photo.jpg",
+          "caption": "參訪美國當地學校時的大合照"
+        },
+        {
+          "src": "/images/experience/world-of-coca-cola-sign.jpg",
+          "caption": "亞特蘭大 World of Coca-Cola 觀光工廠，參訪時彷彿走進電影《巧克力冒險工廠》般的奇幻場景"
+        },
+        {
+          "src": "/images/experience/yosemite-el-capitan.jpg",
+          "caption": "抵達舊金山近郊的優勝美地國家公園，感受當地自然景觀與生態保育"
+        },
+        {
+          "src": "/images/experience/outcomes-presentation.jpg",
+          "caption": "返國後的見學成果發表會，上台分享見學收穫"
+        }
       ]
     },
     {
@@ -41,6 +70,12 @@
       "highlights": [
         "探討國中數位學習政策推行前後的學習成效差異",
         "三人分工完成資料蒐集、分析與成果報告"
+      ],
+      "images": [
+        {
+          "src": "/images/experience/education-big-data-certificate.jpg",
+          "caption": "專題成果發表競賽佳作獎狀"
+        }
       ]
     },
     {
@@ -56,9 +91,9 @@
       ]
     },
     {
-      "period": "2025 / 07 – 2026 / 12",
+      "period": "2026 / 07 – 2026 / 08",
       "title": "美商太陽鳥軟體股份有限公司 台灣分公司",
-      "subtitle": "前端開發組　實習",
+      "subtitle": "前端開發組　暑期實習",
       "tags": [{ "label": "實習", "variant": "info" }],
       "highlights": [
         "使用 Angular 進行前端功能開發與維護以及串接 API",
@@ -66,7 +101,14 @@
         "參與完整前端開發流程，包含 Code Review、Sprint Review",
         "撰寫技術文件與開發設計文件",
         "使用 Kanban 管理進度，每週更新 High Level Estimate 給 PM",
-        "參與專案規模估算與敏捷開發流程"
+        "參與專案規模估算與敏捷開發流程",
+        "透過學校與企業合作計畫，自 2025 / 07 至 2026 / 06、2026 / 09 至 2026 / 12 分兩階段參與前端開發，工作內容具高度連續性"
+      ],
+      "images": [
+        {
+          "src": "/images/experience/sunbird-internship-team.jpg",
+          "caption": "與實習團隊的合照"
+        }
       ]
     }
   ],

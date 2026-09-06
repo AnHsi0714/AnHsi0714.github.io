@@ -9,6 +9,10 @@
         "Wrote six hands-on programming problems in VB and solved all of them",
         "Covered data structures, basic algorithms, UI layout, component usage, and data processing",
         "Practiced 7–8 hours a day during preparation to sharpen logical analysis and implementation speed"
+      ],
+      "images": [
+        { "src": "/images/experience/golden-hand-award.jpg", "caption": "A photo taken after receiving the award" },
+        { "src": "/images/experience/golden-hand-certificate.jpg", "caption": "Ministry of Education certificate" }
       ]
     },
     {
@@ -19,7 +23,14 @@
       "highlights": [
         "Exchanged culture and professional skills with local student partners",
         "Visited notable sites and analyzed the factors behind their success",
-        "Broadened international perspective on overseas education and technology adoption"
+        "Broadened international perspective on overseas education and technology adoption",
+        "After returning, joined a joint outcomes symposium with Japanese and Australian study-tour delegations, sharing takeaways through an oral report and building cross-cultural communication and presentation skills"
+      ],
+      "images": [
+        { "src": "/images/experience/school-visit-group-photo.jpg", "caption": "Group photo taken while visiting a local school in the US" },
+        { "src": "/images/experience/world-of-coca-cola-sign.jpg", "caption": "The whimsical World of Coca-Cola in Atlanta, with scenes that felt like something out of Charlie and the Chocolate Factory" },
+        { "src": "/images/experience/yosemite-el-capitan.jpg", "caption": "Arriving at Yosemite National Park near San Francisco, taking in the local scenery and conservation efforts" },
+        { "src": "/images/experience/outcomes-presentation.jpg", "caption": "Presenting takeaways at the post-trip outcomes symposium" }
       ]
     },
     {
@@ -41,6 +52,9 @@
       "highlights": [
         "Investigated differences in learning outcomes before and after a junior-high digital learning policy rollout",
         "Split data collection, analysis, and the final report across a 3-person team"
+      ],
+      "images": [
+        { "src": "/images/experience/education-big-data-certificate.jpg", "caption": "Honorable Mention certificate from the capstone presentation competition" }
       ]
     },
     {
@@ -56,16 +70,20 @@
       ]
     },
     {
-      "period": "2025 / 07 – 2026 / 12",
+      "period": "2026 / 07 – 2026 / 08",
       "title": "Sun Bird Software Co., Ltd. (Taiwan Branch)",
-      "subtitle": "Frontend Development Team: Intern",
+      "subtitle": "Frontend Development Team: Summer Intern",
       "tags": [{ "label": "Internship", "variant": "info" }],
       "highlights": [
         "Developed and maintained frontend features in Angular, writing HTML, SCSS, and TypeScript",
         "Participated in the full frontend development workflow, including code reviews and sprint reviews",
         "Wrote technical and design documentation, and contributed to frontend architecture planning",
         "Collaborated via Kanban, providing a weekly High Level Estimate to the PM",
-        "Gained fluency with agile development cadence and project-scale estimation"
+        "Gained fluency with agile development cadence and project-scale estimation",
+        "Contributed to frontend development in two phases (Jul 2025 – Jun 2026 and Sep 2026 – Dec 2026) through a school-industry cooperation program, with highly continuous work across both phases"
+      ],
+      "images": [
+        { "src": "/images/experience/sunbird-internship-team.jpg", "caption": "With the internship team at the office" }
       ]
     }
   ],
