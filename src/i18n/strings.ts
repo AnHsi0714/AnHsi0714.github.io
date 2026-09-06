@@ -103,6 +103,10 @@ export interface Strings {
     title: string;
     subtitle: string;
     otherAwards: string;
+    viewPhotos: string;
+    viewPhotoGoto: (index: number) => string;
+    previousPhoto: string;
+    nextPhoto: string;
   };
   projects: {
     title: string;
@@ -385,6 +389,10 @@ export const strings: Record<"zh" | "en", Strings> = {
       title: "競賽與經歷",
       subtitle: "參與過的競賽、交流活動與工作經歷。",
       otherAwards: "其他獎項",
+      viewPhotos: "查看照片",
+      viewPhotoGoto: (index: number) => `切換至第 ${index} 張照片`,
+      previousPhoto: "上一張照片",
+      nextPhoto: "下一張照片",
     },
     projects: {
       title: "專案",
@@ -682,6 +690,10 @@ export const strings: Record<"zh" | "en", Strings> = {
       title: "Experience",
       subtitle: "Competitions, exchange programs, and work experience.",
       otherAwards: "Other Awards",
+      viewPhotos: "View photos",
+      viewPhotoGoto: (index: number) => `Go to photo ${index}`,
+      previousPhoto: "Previous photo",
+      nextPhoto: "Next photo",
     },
     projects: {
       title: "Projects",

@@ -10,7 +10,7 @@ excerpt: 人們在日常社交情境中，會如何使用個人數據貼圖？�
 
 > 撰寫期間：2026-08-08 – 2026-08-09
 
-**原文連結**：[SnapPI：瞭解個人資訊資料貼紙在限時動態的社群媒體上的日常使用](https://denniswang.net/static/wang2022.pdf)
+**原文連結**：[SnapPI：瞭解個人資訊資料貼紙在限時動態的社群媒體上的日常使用](https://denniswang.net/static/wang2022.pdf)（Dennis Wang、Marawin Chheang、Siyun Ji、Ryan Mohta、Daniel A. Epstein，CSCW 2022）
 
 ## 簡介
 

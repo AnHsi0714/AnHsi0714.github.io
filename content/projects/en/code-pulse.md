@@ -3,6 +3,7 @@
 ## Related Links
 
 Website: [code-pulse.cc](https://code-pulse.cc)
+Advisor: Annette Chen｜Applied to the NSTC Undergraduate Research Program
 
 ## Problem
 

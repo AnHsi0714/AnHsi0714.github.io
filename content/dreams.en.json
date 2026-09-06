@@ -9,17 +9,12 @@
     }
   },
   {
-    "title": "Try waking up early for a morning project",
-    "desc": "Reclaim time for myself by getting up earlier, and use it to start the day well.",
-    "progress": {
-      "current": 0,
-      "target": 30,
-      "unit": "days"
-    }
-  },
-  {
     "title": "Build my own personal website",
-    "desc": "Bringing together experience, reading, projects, and dreams in one place, currently building it out page by page."
+    "desc": "Bringing together experience, reading, projects, and dreams in one place, currently building it out page by page.",
+    "progress": {
+      "current": 1,
+      "target": 1
+    }
   },
   {
     "title": "Finish a small game",

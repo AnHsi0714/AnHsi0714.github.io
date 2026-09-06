@@ -9,7 +9,7 @@ nextSlug: ai-interaction-five-principles
 
 > Written on 2026-08-08
 
-This piece is a companion to [Discovering HCI: The Problem I Cared About Already Had a Name](/articles/exploring-hci). It records what I took away from a series of introductory videos on human-computer interaction[^1] about what makes a design "good," and the process of using those concepts to look back at CodePulse's interface.
+This piece is a companion to [Exploring HCI: From Usability to Understanding Why](/articles/exploring-hci). It records what I took away from a series of introductory videos on human-computer interaction[^1] about what makes a design "good," and the process of using those concepts to look back at CodePulse's interface.
 
 ## Affordance
 

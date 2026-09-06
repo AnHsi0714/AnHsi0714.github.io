@@ -4,6 +4,14 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import Term from "./Term";
 import { slugifyHeadingText } from "../lib/markdown";
+import { articlesByLang } from "../lib/articles";
+import { projectsByLang } from "../lib/projects";
+import { useLanguage } from "../context/LanguageContext";
+
+// 站內連結（文章、專案）顯示文字一律用當下的 title/name 帶出，這樣被連結的內容
+// 改標題時，所有引用處會自動跟著換，不用回頭找每篇引用手動改
+const INTERNAL_ARTICLE_LINK = /^\/articles\/([^/?#]+)\/?$/;
+const INTERNAL_PROJECT_LINK = /^\/projects\/([^/?#]+)\/?$/;
 
 interface MarkdownContentProps {
   children: string;
@@ -50,6 +58,7 @@ export default function MarkdownContent({
   className,
   contextSlug,
 }: MarkdownContentProps) {
+  const { language } = useLanguage();
   const classNames = ["prose prose-neutral max-w-none", className]
     .filter(Boolean)
     .join(" ");
@@ -67,13 +76,22 @@ export default function MarkdownContent({
             // 站內錨點(如 remark-gfm 的腳註 #user-content-fn-1)要在同頁捲動，
             // 不能開新分頁，否則等於重新載入整篇文章而看不到跳轉效果
             const isAnchor = href?.startsWith("#");
+            const articleSlug = href?.match(INTERNAL_ARTICLE_LINK)?.[1];
+            const projectSlug = href?.match(INTERNAL_PROJECT_LINK)?.[1];
+            const linkedArticle = articleSlug
+              ? articlesByLang[language].find((article) => article.slug === articleSlug)
+              : undefined;
+            const linkedProject = projectSlug
+              ? projectsByLang[language].find((project) => project.slug === projectSlug)
+              : undefined;
+            const resolvedTitle = linkedArticle?.title ?? linkedProject?.name;
             return (
               <a
                 {...props}
                 href={href}
                 {...(isAnchor ? {} : { target: "_blank", rel: "noreferrer" })}
               >
-                {linkChildren}
+                {resolvedTitle ?? linkChildren}
               </a>
             );
           },
