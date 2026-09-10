@@ -32,7 +32,6 @@ export default function NavBar() {
     { to: "/experience", label: t.nav.experience },
     { to: "/projects", label: t.nav.projects },
     { to: "/articles", label: t.nav.articles },
-    { to: "/gallery", label: t.nav.gallery },
     { to: "/playground", label: t.nav.playground },
   ];
 
