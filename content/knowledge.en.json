@@ -416,11 +416,17 @@
   "thematic-coding": {
     "term": "Coding & Theme",
     "definition": "In qualitative research, a code is a label a researcher attaches to a segment of data (an interview transcript, a screenshot) to capture something noteworthy about it; codes that share similar meaning are then grouped and abstracted into a higher-level, more abstract theme. \"Tagging\" and \"coding\" are the same act, not two sequential steps where tags get sorted into codes afterward.",
-    "application": "In the SnapPI study, the first author coded 21 participants' interview transcripts and returned Snap screenshots, tagging meaning units such as \"quantifying feelings that are hard to put into words\" or \"sharing different stickers depending on friend type\"; the team then met regularly to group related codes, converging on 9 codes and 3 core themes.",
+    "application": {
+      "snappi-personal-data-stickers": "In the SnapPI study, the first author coded 21 participants' interview transcripts and returned Snap screenshots, tagging meaning units such as \"quantifying feelings that are hard to put into words\" or \"sharing different stickers depending on friend type\"; the team then met regularly to group related codes, converging on 9 codes and 3 core themes.",
+      "3cpes-concrete-programming-environments": "The authors did a thematic analysis of the workshop recordings, tagging meaning units from the five teachers' comments, teaching difficulties, attitudes toward concretizing abstract concepts, views on CT Chef's usability and feasibility, then grouping them into recurring themes that informed further design changes to 3CPEs and CT Chef."
+    },
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": [],
-    "relatedArticles": ["snappi-personal-data-stickers"],
+    "relatedArticles": [
+      "snappi-personal-data-stickers",
+      "3cpes-concrete-programming-environments"
+    ],
     "relatedNodes": [
       { "slug": "reflexive-thematic-analysis", "type": "related" },
       { "slug": "qualitative-data", "type": "related" },
@@ -455,11 +461,17 @@
   "quantitative-data": {
     "term": "Quantitative Data",
     "definition": "Information presented as numbers, such as distance, time, scores, or counts. Numbers are easy to compare or aggregate, but on their own don't fully convey the surrounding context, feelings, or detail.",
-    "application": "When analyzing how videos present progress, the paper distinguishes between quantitative and qualitative presentation. Quantitative examples include an on-screen caption showing distance run or a ticking timer readout; a single video can mix both approaches.",
+    "application": {
+      "short-form-video-activity-sharing": "When analyzing how videos present progress, the paper distinguishes between quantitative and qualitative presentation. Quantitative examples include an on-screen caption showing distance run or a ticking timer readout; a single video can mix both approaches.",
+      "3cpes-concrete-programming-environments": "The authors note as a limitation that the study only gathered qualitative feedback through teacher interviews, without quantitative data verifying 3CPEs' actual learning outcomes for elementary students; adding quantitative data in future work would show the learning benefit more clearly."
+    },
     "category": "RESEARCH",
     "status": "published",
     "relatedProjects": [],
-    "relatedArticles": ["short-form-video-activity-sharing"],
+    "relatedArticles": [
+      "short-form-video-activity-sharing",
+      "3cpes-concrete-programming-environments"
+    ],
     "relatedNodes": [
       { "slug": "qualitative-data", "type": "contrasts-with" }
     ]
@@ -503,6 +515,59 @@
       { "slug": "inductive-reasoning", "type": "related" },
       { "slug": "thematic-coding", "type": "related" }
     ]
+  },
+  "3cpes": {
+    "term": "3CPEs (Concrete Computational Concepts Programming Environments)",
+    "definition": "Short for Concrete Computational Concepts Programming Environments: an approach that combines the concreteness and interactivity of CS-unplugged activities with the flexibility of a programming environment, using familiar everyday objects and gamified elements to make abstract programming concepts (variables, loops, conditionals, functions) tangible so learners can grasp them through everyday experience.",
+    "application": "CT Chef is a concrete instance of 3CPEs that wraps an entire set of programming concepts into a cooking scenario: a conveyor belt maps to program execution order, ingredients map to variables, and loop flow cards map to loops, letting elementary students grasp abstract programming concepts through familiar cooking actions.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["3cpes-concrete-programming-environments"],
+    "relatedNodes": [
+      { "slug": "human-computer-interaction", "type": "related" },
+      { "slug": "k-12", "type": "related" }
+    ]
+  },
+  "k-12": {
+    "term": "K-12",
+    "definition": "A common US schooling term spanning kindergarten through 12th grade, i.e. elementary through high school. It's often used to define the age range of learners an education study or tool targets.",
+    "application": "Based on feedback from teacher interviews, the authors close the paper by outlining how 3CPEs and CT Chef could extend to support K-12 CS education more broadly, beyond the elementary-school focus of the interviews themselves.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["3cpes-concrete-programming-environments"],
+    "relatedNodes": [{ "slug": "3cpes", "type": "related" }]
+  },
+  "semi-structured-interview": {
+    "term": "Semi-structured Interview",
+    "definition": "A common qualitative-research interview format: the researcher prepares core questions and a rough outline in advance, but doesn't read from a fixed script. Follow-up questions and the order of questions can flex based on the interviewee's answers, keeping the interview focused while still leaving room for participants to elaborate.",
+    "application": "After the workshop, the authors conducted semi-structured interviews with the five teachers, structured around three research questions (teaching difficulties and needs, attitudes toward concretizing abstract concepts, and how 3CPEs could fit into teaching practice), while leaving room to follow up on points beyond the interview outline.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["3cpes-concrete-programming-environments"],
+    "relatedNodes": [{ "slug": "thematic-coding", "type": "related" }]
+  },
+  "snowball-sampling": {
+    "term": "Snowball Sampling",
+    "definition": "A non-random sampling method: start with a small number of eligible participants, then ask them to refer or introduce other people who fit the criteria, letting the sample grow like a rolling snowball. It's well suited to recruiting a specific, hard-to-reach population that isn't easily found through a public list.",
+    "application": "The authors used snowball sampling to recruit elementary teachers experienced in teaching computer science, programming, and computational thinking, growing the participant list through existing networks until five eligible teachers had joined the workshop and interviews.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["3cpes-concrete-programming-environments"],
+    "relatedNodes": [{ "slug": "semi-structured-interview", "type": "related" }]
+  },
+  "paper-prototype": {
+    "term": "Paper Prototype",
+    "definition": "A low-fidelity prototype built from paper, cards, or similar materials, letting designers get real users to try it out and give feedback before the system is actually built, so usability problems surface quickly and cheaply and the design can be improved early.",
+    "application": "For the workshop, the authors built a paper card prototype of CT Chef for the five teachers to try out and evaluate, learning what teachers thought of the 3CPEs concept and CT Chef's usability and feasibility before building any of it as real software.",
+    "category": "RESEARCH",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": ["3cpes-concrete-programming-environments"],
+    "relatedNodes": [{ "slug": "3cpes", "type": "related" }]
   },
   "natural-language-processing": {
     "term": "Natural Language Processing (NLP)",
