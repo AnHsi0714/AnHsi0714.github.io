@@ -543,7 +543,7 @@
     "relatedNodes": [{ "slug": "3cpes", "type": "related" }]
   },
   "semi-structured-interview": {
-    "term": "半結構式訪談（Semi-structured Interview）",
+    "term": "Semi-structured Interview（半結構式訪談）",
     "definition": "質性研究常用的訪談形式：事先準備好核心問題與大致的訪談大綱，但不逐字照稿詢問，訪談過程中可依受訪者的回答彈性追問、調整問題順序，在維持聚焦主題的同時，保留讓受訪者深入闡述的空間。",
     "application": "作者在工作坊結束後，針對五位教師進行半結構式訪談，圍繞三個研究問題（教學困難與需求、對具象化教學的態度、3CPEs 如何整合進教學實務）展開提問，同時保留追問空間，讓教師能分享訪談大綱之外的實務經驗。",
     "category": "RESEARCH",
@@ -553,7 +553,7 @@
     "relatedNodes": [{ "slug": "thematic-coding", "type": "related" }]
   },
   "snowball-sampling": {
-    "term": "滾雪球抽樣（Snowball Sampling）",
+    "term": "Snowball Sampling（滾雪球抽樣）",
     "definition": "一種非隨機抽樣方法：先找到少數符合條件的受訪者，再請他們協助推薦或介紹其他符合條件的人選，讓樣本像滾雪球一樣逐漸擴大，適合用來招募特定領域、不容易透過公開名單直接找到的目標族群。",
     "application": "作者用滾雪球抽樣招募在電腦科學、程式設計與計算思維教學上有經驗的國小教師，透過既有人脈網絡逐步擴大受訪者名單，最終邀請到五位符合條件的教師參與工作坊與訪談。",
     "category": "RESEARCH",
@@ -563,7 +563,7 @@
     "relatedNodes": [{ "slug": "semi-structured-interview", "type": "related" }]
   },
   "paper-prototype": {
-    "term": "紙本原型（Paper Prototype）",
+    "term": "Paper Prototype（紙本原型）",
     "definition": "用紙張、卡片等低保真度素材做出的原型，讓設計師不必等到系統真正開發完成，就能先讓使用者實際操作、給出回饋，快速且經濟地發現可用性問題並改進設計。",
     "application": "工作坊中，作者準備 CT Chef 的紙本卡片原型讓五位教師試玩與評估，藉此在系統真正開發成軟體之前，先了解教師對 3CPEs 概念與 CT Chef 可用性、可行性的看法。",
     "category": "RESEARCH",
@@ -696,7 +696,7 @@
     ]
   },
   "retrospective-pre-post": {
-    "term": "回溯式前後測（Retrospective Pre-Post）",
+    "term": "Retrospective Pre-Post（回溯式前後測）",
     "definition": "一種前後測設計：受試者在同一個時間點（通常是介入結束後）同時回答「介入前」與「介入後」的自評題項，而不是先測一次、介入後再另外測一次。跟真正分兩次施測的前後測不同，因為「介入前」的評分其實是事後回想出來的。",
     "application": "CodePulse 問卷裡「使用之前，我覺得演算法很可怕」與「使用之後，我有信心學習更難的演算法」兩題，都是操作完平台後才一起填的，屬於回溯式前後測；把這兩題的分數當成真正分開施測的前後測來比較信心變化，需要特別留意這個設計本身帶來的限制。",
     "category": "EVAL",
@@ -710,7 +710,7 @@
     ]
   },
   "response-shift-bias": {
-    "term": "回應偏移偏誤（Response-Shift Bias）",
+    "term": "Response-Shift Bias（回應偏移偏誤）",
     "definition": "受試者事後回想「介入前」的狀態並打分數時，評分容易被「介入後」的當下感受影響而產生偏移，常見於回溯式前後測；不是受試者刻意誤報，而是回憶本身會被目前的認知或情緒狀態重新校準。",
     "application": "CodePulse 問卷請受試者在操作平台後，回想「使用之前」對演算法的畏懼程度並打分數，這個回想很可能已經被操作後的正向經驗影響，讓「使用前」的分數被低估，連帶讓前後測算出來的信心變化量被放大。",
     "category": "EVAL",
