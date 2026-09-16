@@ -1,8 +1,9 @@
 ---
 type: paper
-title: YYYY 文獻筆記《論文標題》——一句話重點提問
+title: YYYY 文獻筆記《論文標題》一句話重點提問
 date: YYYY-MM-DD
-categories: [論文, 心得, ...]
+categories: [論文, ...]
+excerpt: 一句話說明這篇論文在做什麼、發現什麼（必填）
 status: draft
 ---
 
