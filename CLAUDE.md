@@ -16,6 +16,10 @@ When a TS string-literal union's *values* represent something stored as data (a 
 
 Known exception not yet fixed: `VoxelRegion` (also in `creatureBody.ts`) uses camelCase (`legFrontLeft`, etc.) despite being persisted into Supabase's `friend_creations.data` jsonb column (see `src/types/friends.ts`). Fixing it means a data migration for already-saved rows, not just a type rename — treat it as a separate, deliberate piece of work if it's ever done, not something to "clean up" incidentally.
 
+### Knowledge node `term` field: English name first, Chinese gloss in parens
+
+In `content/knowledge.json`, a node's `term` string leads with the English name and follows with a full-width-paren Chinese gloss, e.g. `"Coding & Theme（編碼與主題）"`, `"Quantitative Data（量化資料）"` — never the reverse order. A term that's already English-only as a proper noun or acronym (`"ELO Rating"`, `"RxJS"`, `"K-12"`) doesn't need a Chinese gloss appended. `content/knowledge.en.json`'s `term` field is plain English with no gloss, so this only applies to the zh file.
+
 ## Repo-specific skills
 
 `.claude/skills/` has project-specific skills worth knowing about: `design-audit` (compute-don't-eyeball WCAG contrast audits over the color token system in `src/styles/theme.css`/`tokens.scss`), `knowledge-coverage` (QA pass over an article's `data-term` glossary-link coverage against `knowledge.json`), and `pr-content` (this repo's required PR title/body format and workflow — plain-text draft only, no `gh pr create`, no Claude attribution).
