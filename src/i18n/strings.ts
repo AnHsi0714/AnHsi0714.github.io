@@ -301,8 +301,7 @@ export const strings: Record<"zh" | "en", Strings> = {
     },
     playground: {
       title: "Playground",
-      subtitle:
-        "比較個人、還在玩的東西：夢想清單、朋友的創作、開發用的小工具。",
+      subtitle: "比較個人、還在玩的東西：生成藝術、夢想清單、開發用的小工具。",
       galleryDesc: "p5.js 互動式生成藝術創作",
       dreamsDesc: "想做的事",
       friendsDesc: "朋友們用邀請碼創作的 2D 像素畫與 3D 怪獸",
@@ -595,7 +594,7 @@ export const strings: Record<"zh" | "en", Strings> = {
     playground: {
       title: "Playground",
       subtitle:
-        "More personal, still-in-progress things: a dream list, creations by friends, and dev tools.",
+        "More personal, still-in-progress things: generative art, a dream list, and dev tools.",
       galleryDesc: "Interactive p5.js generative art",
       dreamsDesc: "Things I want to do",
       friendsDesc:
