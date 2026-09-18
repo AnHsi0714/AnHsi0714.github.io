@@ -6,6 +6,7 @@ export default function Playground() {
   const { t } = useTranslation();
 
   const links = [
+    { to: "/gallery", label: t.nav.gallery, desc: t.playground.galleryDesc },
     { to: "/dreams", label: t.nav.dreams, desc: t.playground.dreamsDesc },
     {
       to: "/dev/components",

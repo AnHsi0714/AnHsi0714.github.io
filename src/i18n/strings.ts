@@ -16,6 +16,7 @@ export interface Strings {
   playground: {
     title: string;
     subtitle: string;
+    galleryDesc: string;
     dreamsDesc: string;
     friendsDesc: string;
     devComponentsDesc: string;
@@ -300,8 +301,8 @@ export const strings: Record<"zh" | "en", Strings> = {
     },
     playground: {
       title: "Playground",
-      subtitle:
-        "比較個人、還在玩的東西——夢想清單、朋友的創作、開發用的小工具。",
+      subtitle: "比較個人、還在玩的東西：生成藝術、夢想清單、開發用的小工具。",
+      galleryDesc: "p5.js 互動式生成藝術創作",
       dreamsDesc: "想做的事",
       friendsDesc: "朋友們用邀請碼創作的 2D 像素畫與 3D 怪獸",
       devComponentsDesc: "UI 組件庫預覽（開發用）",
@@ -550,7 +551,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       asIdentity: (nickname: string) => `以「${nickname}」的名義創作。`,
       editIdentity: "修改邀請碼／暱稱",
       editModeNotice:
-        "這個邀請碼已經用過，現在是編輯模式——送出後會覆蓋你原本的作品。",
+        "這個邀請碼已經用過，現在是編輯模式：送出後會覆蓋你原本的作品。",
       chooseKind: "選擇創作類型（開始之後就不能換囉）",
       kind2d: "2D 像素風",
       kind3d: "3D 怪獸塗色",
@@ -593,7 +594,8 @@ export const strings: Record<"zh" | "en", Strings> = {
     playground: {
       title: "Playground",
       subtitle:
-        "More personal, still-in-progress things — a dream list, creations by friends, and dev tools.",
+        "More personal, still-in-progress things: generative art, a dream list, and dev tools.",
+      galleryDesc: "Interactive p5.js generative art",
       dreamsDesc: "Things I want to do",
       friendsDesc:
         "2D pixel art and 3D creatures made by friends using invite codes",
@@ -848,16 +850,16 @@ export const strings: Record<"zh" | "en", Strings> = {
       updatedTitle: "Piece updated!",
       submittedTitle: "Piece submitted!",
       thanksEdit: (nickname: string) =>
-        `Thanks, ${nickname} — the piece on the wall has been replaced with this new one.`,
+        `Thanks, ${nickname}. The piece on the wall has been replaced with this new one.`,
       thanksCreate: (nickname: string) =>
-        `Thanks, ${nickname} — your piece is now up on the wall.`,
+        `Thanks, ${nickname}. Your piece is now up on the wall.`,
       viewWall: "See the wall",
       gateSubtitle:
         "Enter an invite code and a nickname to start creating; an already-used code lets you re-edit your previous piece.",
       asIdentity: (nickname: string) => `Creating as "${nickname}".`,
       editIdentity: "Edit invite code / nickname",
       editModeNotice:
-        "This invite code has already been used — you're in edit mode now, and submitting will overwrite your original piece.",
+        "This invite code has already been used: you're in edit mode now, and submitting will overwrite your original piece.",
       chooseKind: "Choose a creation type (can't be changed once you start)",
       kind2d: "2D Pixel Art",
       kind3d: "3D Creature Painting",
@@ -872,7 +874,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       clear: "Clear",
       thumbnailPreview: "Thumbnail preview",
       introLabel2d:
-        "A description or note about your piece (optional, shown when others open it — no inappropriate content)",
+        "A description or note about your piece (optional, shown when others open it; no inappropriate content)",
       introPlaceholder2d: "Something you'd like to say to whoever sees this",
       introPlaceholder3d:
         "Something you'd like to say to whoever sees this creature",

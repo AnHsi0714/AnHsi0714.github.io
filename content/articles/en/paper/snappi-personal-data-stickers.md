@@ -10,6 +10,8 @@ excerpt: How do people use personal data stickers in everyday social contexts? W
 
 > Written between: 2026-08-08 – 2026-08-09
 
+**License**: CC BY 4.0
+
 **Original paper**: [SnapPI: Understanding Everyday Use of Personal Informatics Data Stickers on Ephemeral Social Media](https://denniswang.net/static/wang2022.pdf) (Dennis Wang, Marawin Chheang, Siyun Ji, Ryan Mohta, Daniel A. Epstein, CSCW 2022)
 
 ## Introduction
