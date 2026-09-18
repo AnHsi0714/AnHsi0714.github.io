@@ -2,11 +2,11 @@
   {
     "slug": "personal-website",
     "name": "個人網站",
-    "desc": "用 React + Vite + TypeScript + Supabase 打造的個人網站，記錄人生、讀書、專案與夢想。",
+    "desc": "用 React + Vite + TypeScript + Supabase 打造的個人網站，整合文章、專案、知識庫與經歷。",
     "date": "2026-06",
-    "status": "in-progress",
+    "status": "done",
     "tags": ["WEB"],
-    "period": "2026/06 ~",
+    "period": "2026/06 ~ 2026/09",
     "screenshotUrl": "/images/projects/personal-website/home.png",
     "githubUrl": "https://github.com/AnHsi0714/AnHsi0714.github.io",
     "featured": true

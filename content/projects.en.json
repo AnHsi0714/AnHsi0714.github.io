@@ -2,11 +2,11 @@
   {
     "slug": "personal-website",
     "name": "Personal Website",
-    "desc": "A personal website built with React + Vite + TypeScript + Supabase, documenting life, reading, projects, and dreams.",
+    "desc": "A personal website built with React + Vite + TypeScript + Supabase, bringing together articles, projects, a knowledge base, and experience.",
     "date": "2026-06",
-    "status": "in-progress",
+    "status": "done",
     "tags": ["WEB"],
-    "period": "2026/06 ~",
+    "period": "2026/06 ~ 2026/09",
     "screenshotUrl": "/images/projects/personal-website/home.png",
     "githubUrl": "https://github.com/AnHsi0714/AnHsi0714.github.io",
     "featured": true
