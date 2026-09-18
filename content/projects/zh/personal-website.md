@@ -117,21 +117,21 @@ Hero 區塊（姓名、定位標語、簡短 bio）＋研究興趣標籤（連�
   <figcaption style="text-align: center;">知識關聯圖：展開分類後的 3D 力導向佈局</figcaption>
 </figure>
 
-### 藝術畫廊 `/gallery`
+### 生成視覺 `/gallery`
 
-30 件從 OpenProcessing 搬遷、重寫成 p5.js instance mode 的生成藝術與互動作品，列表頁做成「橫向展場房間」：每件作品掛在畫框裡、滾輪垂直捲動轉橫向捲動、置中作品被聚光燈點亮；支援標題、日期、互動類型（點擊重繪／拖曳作畫／鍵盤操作／按鈕回合制／拖曳物理）篩選與最新／最久排序。點進單一作品的詳細頁才真正動態載入該 sketch 模組並掛載 canvas，背景轉為深色展覽氛圍（CSS `radial-gradient` 疊出聚光燈效果），離開頁面立即卸載，確保同時最多只有一個活著的 p5 canvas。
+30 件從 OpenProcessing 搬遷、重寫成 p5.js instance mode 的生成藝術與互動作品，頁面標題顯示為「生成視覺」，列表頁做成「橫向展場房間」：每件作品掛在畫框裡、滾輪垂直捲動轉橫向捲動、置中作品被聚光燈點亮；支援標題、日期、互動類型（點擊重繪／拖曳作畫／鍵盤操作／按鈕回合制／拖曳物理）篩選與最新／最久排序。點進單一作品的詳細頁才真正動態載入該 sketch 模組並掛載 canvas，背景轉為深色展覽氛圍（CSS `radial-gradient` 疊出聚光燈效果），離開頁面立即卸載，確保同時最多只有一個活著的 p5 canvas。
 
 <figure>
-  <img src="/images/projects/personal-website/gallery.png" alt="藝術畫廊列表頁畫面，橫向展場房間排列多件生成藝術作品縮圖" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">藝術畫廊：橫向展場房間</figcaption>
+  <img src="/images/projects/personal-website/gallery.png" alt="生成視覺列表頁畫面，橫向展場房間排列多件生成藝術作品縮圖" style="display: block; margin: 0 auto; max-width: 100%;" />
+  <figcaption style="text-align: center;">生成視覺：橫向展場房間</figcaption>
 </figure>
 
 ### Playground `/playground`
 
-收攏「比較個人、還在玩的東西」的入口頁，目前連到夢想、小作品，以及開發用工具 `/dev/components`（UI 組件庫預覽）。朋友創作與另外兩個 3D 怪獸開發工具（`/dev/creature` 走路動畫驗證、`/dev/creature-builder` 堆積木雕刻）的入口卡片先從這頁拔掉，相關功能還在另一條分支上繼續做；路由本身沒刪，之後要復原只要把連結加回來。
+收攏「比較個人、還在玩的東西」的入口頁，目前連到生成視覺、夢想、組件預覽（`/dev/components`，UI 組件庫預覽）與小作品四張卡片。朋友創作與另外兩個 3D 怪獸開發工具（`/dev/creature` 走路動畫驗證、`/dev/creature-builder` 堆積木雕刻）的入口卡片先從這頁拔掉，相關功能還在另一條分支上繼續做；路由本身沒刪，之後要復原只要把連結加回來。
 
 <figure>
-  <img src="/images/projects/personal-website/playground.png" alt="Playground 頁畫面，連到夢想、小作品、組件預覽三張卡片" style="display: block; margin: 0 auto; max-width: 100%;" />
+  <img src="/images/projects/personal-website/playground.png" alt="Playground 頁畫面，連到生成視覺、夢想、組件預覽、小作品四張卡片" style="display: block; margin: 0 auto; max-width: 100%;" />
   <figcaption style="text-align: center;">Playground：入口卡片</figcaption>
 </figure>
 
@@ -168,9 +168,9 @@ Hero 區塊（姓名、定位標語、簡短 bio）＋研究興趣標籤（連�
 
 網站目前完成的部分涵蓋所有靜態內容區塊（首頁、關於、經歷、文章、專案、名詞解釋、畫廊、Playground、夢想、小作品），名詞解釋 glossary 功能已接上文章與專案長文，支援情境化說明、部分詞條長文與關聯圖檢視，用於降低研究向專案內容的閱讀門檻。
 
-朋友創作的完整流程（邀請碼兌換、2D／3D 編輯器、二次編輯、undo/redo）程式碼已完成，但目前站上沒有任何入口連過去，等相關工作在另一條分支收斂後再重新接上。
+朋友創作的完整流程（邀請碼兌換、2D／3D 編輯器、二次編輯、undo/redo）程式碼已完成，但目前站上沒有任何入口連過去；後續計畫是移除這個功能，改建一個只給自己寫入的個人想法牆。
 
 之後想做的事：
 
 1. 視覺風格持續打磨
-2. 朋友創作功能重新接上主要導覽入口
+2. 移除朋友創作功能，改建個人想法牆（便條紙／軟木塞板風格，僅自己可寫入，資料透過 Supabase 管理）

@@ -117,21 +117,21 @@ Renders the prerequisite/related/applies_to/contrasts_with relationships between
   <figcaption style="text-align: center;">Knowledge Graph: 3D force-directed layout with a category expanded</figcaption>
 </figure>
 
-### Art Gallery `/gallery`
+### Generative Visuals `/gallery`
 
-30 generative-art and interactive pieces migrated from OpenProcessing and rewritten in p5.js instance mode. The list page is styled as a "horizontal exhibition room": each piece hangs in a frame, vertical scroll wheel input is converted to horizontal scrolling, and the centered piece is lit up like it's under a spotlight. Supports filtering by title, date, and interaction type (click-to-redraw / drag-to-paint / keyboard-controlled / button-based turns / drag physics), plus newest/oldest sorting. Only when you open a single piece's detail page does its sketch module actually load and mount a canvas; the background switches to a dark exhibition mood (a CSS `radial-gradient` layered to fake a spotlight), and everything unmounts the instant you leave the page, so at most one p5 canvas is ever alive at a time.
+30 generative-art and interactive pieces migrated from OpenProcessing and rewritten in p5.js instance mode. The page title shows as "Generative Visuals". The list page is styled as a "horizontal exhibition room": each piece hangs in a frame, vertical scroll wheel input is converted to horizontal scrolling, and the centered piece is lit up like it's under a spotlight. Supports filtering by title, date, and interaction type (click-to-redraw / drag-to-paint / keyboard-controlled / button-based turns / drag physics), plus newest/oldest sorting. Only when you open a single piece's detail page does its sketch module actually load and mount a canvas; the background switches to a dark exhibition mood (a CSS `radial-gradient` layered to fake a spotlight), and everything unmounts the instant you leave the page, so at most one p5 canvas is ever alive at a time.
 
 <figure>
-  <img src="/images/projects/personal-website/gallery.png" alt="The Art Gallery list page, a horizontal exhibition room of generative-art thumbnails" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">Art Gallery: horizontal exhibition room</figcaption>
+  <img src="/images/projects/personal-website/gallery.png" alt="The Generative Visuals list page, a horizontal exhibition room of generative-art thumbnails" style="display: block; margin: 0 auto; max-width: 100%;" />
+  <figcaption style="text-align: center;">Generative Visuals: horizontal exhibition room</figcaption>
 </figure>
 
 ### Playground `/playground`
 
-A hub page for "things that are more personal or still evolving," currently linking to Dreams, Mini Works, and one dev tool: `/dev/components` (a UI component-library preview). The cards linking to Friends' Creations and the two 3D creature dev tools (`/dev/creature` for walking-animation checks, `/dev/creature-builder` for stacking cubes to sculpt a shape) have been pulled from this page while that work continues on a separate branch; the routes themselves are still there, ready to be relinked later.
+A hub page for "things that are more personal or still evolving," currently linking to four cards: Generative Visuals, Dreams, a component preview (`/dev/components`), and Mini Works. The cards linking to Friends' Creations and the two 3D creature dev tools (`/dev/creature` for walking-animation checks, `/dev/creature-builder` for stacking cubes to sculpt a shape) have been pulled from this page while that work continues on a separate branch; the routes themselves are still there, ready to be relinked later.
 
 <figure>
-  <img src="/images/projects/personal-website/playground.png" alt="The Playground page, with cards linking to Dreams, Mini Works, and the component preview" style="display: block; margin: 0 auto; max-width: 100%;" />
+  <img src="/images/projects/personal-website/playground.png" alt="The Playground page, with cards linking to Generative Visuals, Dreams, the component preview, and Mini Works" style="display: block; margin: 0 auto; max-width: 100%;" />
   <figcaption style="text-align: center;">Playground: entry cards</figcaption>
 </figure>
 
@@ -168,9 +168,9 @@ There are four main technical contributions:
 
 What's currently finished covers all the static content sections (Home, About, Experience, Articles, Projects, Glossary, Gallery, Playground, Dreams, Mini Works); the glossary feature is wired into both articles and project write-ups, with context-aware descriptions, long-form entries for some terms, and the graph view, all aimed at lowering the barrier to reading research-oriented project content.
 
-The full friend-creation flow (invite-code redemption, 2D/3D editors, re-editing, undo/redo) is code-complete, but nothing on the live site currently links to it; it'll be reconnected once that work converges on its own branch.
+The full friend-creation flow (invite-code redemption, 2D/3D editors, re-editing, undo/redo) is code-complete, but nothing on the live site currently links to it; the plan going forward is to remove this feature and replace it with a personal idea wall that only the site owner can write to.
 
 What's next:
 
 1. Keep refining the visual design
-2. Reconnect the friend-creation feature to a main navigation entry point
+2. Remove friend creations and replace it with a personal idea wall (sticky-note/corkboard style, write access limited to the owner, data managed through Supabase)
