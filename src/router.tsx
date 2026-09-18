@@ -21,6 +21,7 @@ import MiniWorkDetail from './pages/playground/MiniWorkDetail'
 import ComponentsPreview from './pages/dev/ComponentsPreview'
 import CreatureDemo from './pages/dev/CreatureDemo'
 import CreatureBuilder from './pages/dev/CreatureBuilder'
+import IdeaWall from './pages/dev/IdeaWall'
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,7 @@ export const router = createBrowserRouter([
       { path: 'dev/components', element: <ComponentsPreview /> },
       { path: 'dev/creature', element: <CreatureDemo /> },
       { path: 'dev/creature-builder', element: <CreatureBuilder /> },
+      { path: 'dev/idea-wall', element: <IdeaWall /> },
     ],
   },
 ])

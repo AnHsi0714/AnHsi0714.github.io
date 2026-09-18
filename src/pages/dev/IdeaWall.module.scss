@@ -1,0 +1,214 @@
+// 標題／說明／依日期依類別按鈕維持在 <main class="mx-auto max-w-5xl px-4 py-8">
+// 原本的版面裡（跟其他頁面的標題對齊、字體一致），不像 .wall 那樣跳出去滿版；
+// 只有 .wall（畫布）用 ml/mr calc(50%-50vw) 的滿版寫法（同 Friends.tsx 那個
+// 滿版牆），並用 flex 讓它撐滿 <main> 扣掉標題區塊之後剩下的高度，一路吃到
+// 視窗底部：section 給一個「視窗高度 - navbar 高度 - main 自己的上下 padding
+// (py-8＝2rem+2rem)」的 min-height，內部 header 吃自己需要的高度，.wall 用
+// flex:1 把剩下的都吃掉，不用另外猜一個固定高度或看畫布內容多少決定容器尺寸。
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--nav-h, 4rem) - 4rem);
+  min-height: calc(100dvh - var(--nav-h, 4rem) - 4rem);
+}
+
+// 畫布外框：裁掉超出範圍的內容，讓拖曳／縮放有邊界可循；用 react-zoom-pan-pinch
+// 的 TransformWrapper 包住 .board，wrapperClass／contentClass 只需要負責撐滿
+// 容器，實際的拖曳／縮放手勢（含觸控雙指）都是套件處理。
+.wall {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  touch-action: none; // 讓套件自己接手觸控手勢，不要被瀏覽器內建的頁面捲動搶走
+}
+
+.transformWrapper {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.transformContent {
+  width: 100%;
+  height: 100%;
+}
+
+.controls {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 2;
+  display: flex;
+  gap: 0.5rem;
+}
+
+// 白牆背景：跟著站台日／夜模式切換，淺色＝米白牆面＋極淡顆粒紋理，
+// 深色＝深灰牆面＋極淡亮點紋理，用一組 --wall-* 變數集中管理，
+// :global(.dark) & 覆寫深色版本（跟 GalleryGrid.module.scss 的 --room-* 做法一致）。
+.board {
+  // 全站只有一個風向：往右吹（正值＝順時針）。子孫的 .note 用 rotate(var(--wind-angle))
+  // 當作陣風的絕對峰值角度，不會有的紙往左有的往右。
+  --wind-angle: 14deg;
+  --wall-bg: #f8f7f4;
+  --wall-speckle: rgba(0, 0, 0, 0.025);
+  --wall-vignette: rgba(0, 0, 0, 0.05);
+  --wall-border: var(--color-border);
+
+  :global(.dark) & {
+    --wall-bg: #201f1d;
+    --wall-speckle: rgba(255, 255, 255, 0.02);
+    --wall-vignette: rgba(0, 0, 0, 0.35);
+  }
+
+  position: relative;
+  background-color: var(--wall-bg);
+  background-image:
+    radial-gradient(ellipse at center, transparent 60%, var(--wall-vignette) 100%),
+    radial-gradient(circle at 15% 25%, var(--wall-speckle) 0%, transparent 1.5%),
+    radial-gradient(circle at 40% 10%, var(--wall-speckle) 0%, transparent 1%),
+    radial-gradient(circle at 65% 32%, var(--wall-speckle) 0%, transparent 1.5%),
+    radial-gradient(circle at 85% 20%, var(--wall-speckle) 0%, transparent 1%),
+    radial-gradient(circle at 25% 60%, var(--wall-speckle) 0%, transparent 1.5%),
+    radial-gradient(circle at 55% 72%, var(--wall-speckle) 0%, transparent 1%),
+    radial-gradient(circle at 80% 55%, var(--wall-speckle) 0%, transparent 1.5%),
+    radial-gradient(circle at 10% 85%, var(--wall-speckle) 0%, transparent 1%);
+  background-size:
+    100% 100%,
+    70px 70px,
+    90px 90px,
+    60px 60px,
+    85px 85px,
+    75px 75px,
+    65px 65px,
+    95px 95px,
+    80px 80px;
+  border: 1px solid var(--wall-border);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.06);
+}
+
+// 分組標籤（日期或類別）：跟便條紙的手感刻意做出對比，用乾淨、不歪斜的
+// 卡片樣式，比較像釘在牆上的印刷標籤而不是手寫便條，呼應參考圖表頭的做法。
+.groupHeader {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+// 便條紙底色：沿用站上 Chip 的狀態色（success/info/danger），用 color-mix() 跟白色
+// 調淡成粉彩色，維持便條紙紙感，同時保留深色文字（.note 內文用 #2b2b1f）的可讀性；
+// 因為來源是 --color-* 這幾個 CSS 變數，日夜模式切換時色相會自動跟著 Chip 一起變，
+// 不用像以前手寫死 hex 那樣分開維護一份。warn 站上沒有對應的 --color-warn token
+// （Chip.module.scss 的 outlineWarn 也是這樣，暫時維持獨立的琥珀色），這裡照抄同一組
+// 琥珀色當來源。
+.categoryInfo {
+  background-color: color-mix(in srgb, var(--color-info) 42%, white);
+}
+
+.categorySuccess {
+  background-color: color-mix(in srgb, var(--color-success) 42%, white);
+}
+
+.categoryDanger {
+  background-color: color-mix(in srgb, var(--color-danger) 42%, white);
+}
+
+.categoryWarn {
+  --note-warn-base: #d97706;
+
+  :global(.dark) & {
+    --note-warn-base: #fbbf24;
+  }
+
+  background-color: color-mix(in srgb, var(--note-warn-base) 42%, white);
+}
+
+.categoryFallback {
+  background-color: var(--color-surface-hover);
+}
+
+// 兩個獨立的動態效果，不要互相依賴：
+// 1. 環境風（ambient）：每張便條紙一直在跑 wind-sway，用 --group-delay 讓同一組
+//    （見 IdeaWall.tsx 的 GROUP_SIZE）共用同一個延遲、一起被吹動；不同組的延遲
+//    彼此錯開，看起來像風不規律地掃過牆上不同區域，不是使用者觸發的。
+// 2. Hover 搖晃：滑鼠移到單一張便條紙上，會額外疊一個較快、較明顯的搖晃＋浮起，
+//    跟環境風各自獨立，hover 結束就恢復原本的環境風節奏。
+.note {
+  aspect-ratio: 1 / 1;
+  transform: rotate(var(--tilt, 0deg));
+  transform-origin: 50% 10%;
+  transition: box-shadow 0.15s ease-out;
+  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.3);
+  animation: wind-sway 7s ease-in-out infinite;
+  animation-delay: var(--group-delay, 0s);
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    animation: note-wiggle 0.5s ease-in-out 2;
+    box-shadow: 0 12px 18px -4px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    outline: none;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+}
+
+// 風只有一個方向：峰值不是「自己歪斜角度 + 隨機幅度」（那樣每張紙起點不同，
+// 看起來就會有的偏左有的偏右），而是直接轉到 .board 統一設定的 --wind-angle
+// 絕對角度，全部便條紙那一刻會轉去同一個方向，再各自彈回自己原本的 --tilt。
+@keyframes wind-sway {
+  0%,
+  100% {
+    transform: rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: rotate(var(--wind-angle, 14deg));
+  }
+}
+
+@keyframes note-wiggle {
+  0%,
+  100% {
+    transform: rotate(var(--tilt, 0deg)) translateY(0) scale(1.03);
+  }
+  25% {
+    transform: rotate(calc(var(--tilt, 0deg) + var(--gust, 5deg) * 1.4)) translateY(-3px)
+      scale(1.03);
+  }
+  75% {
+    transform: rotate(calc(var(--tilt, 0deg) - var(--gust, 5deg))) translateY(-3px) scale(1.03);
+  }
+}
+
+// 膠帶：半透明色帶橫跨便條紙上緣，獨立於便條紙本身的歪斜角度，
+// 用細條紋 repeating-linear-gradient 模擬和紙膠帶的紋理。
+.tape {
+  position: absolute;
+  top: -0.55rem;
+  left: 50%;
+  width: 3.25rem;
+  height: 1.15rem;
+  transform: translateX(-50%) rotate(var(--tape-tilt, -4deg));
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.18) 0px,
+      rgba(255, 255, 255, 0.18) 2px,
+      transparent 2px,
+      transparent 6px
+    ),
+    var(--tape-color, rgba(250, 245, 230, 0.75));
+  opacity: 0.85;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
+}

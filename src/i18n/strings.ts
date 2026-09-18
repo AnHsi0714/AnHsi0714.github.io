@@ -10,6 +10,7 @@ export interface Strings {
     devComponents: string;
     devCreature: string;
     devCreatureBuilder: string;
+    devIdeaWall: string;
     playground: string;
     cv: string;
   };
@@ -22,6 +23,7 @@ export interface Strings {
     devComponentsDesc: string;
     devCreatureDesc: string;
     devCreatureBuilderDesc: string;
+    devIdeaWallDesc: string;
     miniWorksLabel: string;
     miniWorksDesc: string;
     miniWorks: {
@@ -296,6 +298,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       devComponents: "組件預覽",
       devCreature: "怪獸預覽",
       devCreatureBuilder: "怪獸捏造",
+      devIdeaWall: "想法牆",
       playground: "Playground",
       cv: "履歷",
     },
@@ -308,6 +311,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       devComponentsDesc: "UI 組件庫預覽（開發用）",
       devCreatureDesc: "3D 怪獸走路動畫驗證（開發用）",
       devCreatureBuilderDesc: "堆積木雕刻 3D 怪獸形狀（開發用）",
+      devIdeaWallDesc: "可拖曳縮放的想法便條牆（開發用）",
       miniWorksLabel: "小作品",
       miniWorksDesc: "課堂作業、Codepen 練習等小型互動作品",
       miniWorks: {
@@ -588,6 +592,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       devComponents: "Components Preview",
       devCreature: "Creature Preview",
       devCreatureBuilder: "Creature Builder",
+      devIdeaWall: "Idea Wall",
       playground: "Playground",
       cv: "Resume",
     },
@@ -603,6 +608,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       devCreatureDesc: "3D creature walk-animation testbed (dev tool)",
       devCreatureBuilderDesc:
         "Block-by-block 3D creature shape sculptor (dev tool)",
+      devIdeaWallDesc: "Draggable, zoomable wall of idea sticky notes (dev tool)",
       miniWorksLabel: "Mini Works",
       miniWorksDesc:
         "Small interactive pieces from coursework and Codepen experiments",

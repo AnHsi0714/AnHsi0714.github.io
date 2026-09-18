@@ -14,6 +14,11 @@ export default function Playground() {
       desc: t.playground.devComponentsDesc,
     },
     {
+      to: "/dev/idea-wall",
+      label: t.nav.devIdeaWall,
+      desc: t.playground.devIdeaWallDesc,
+    },
+    {
       to: "/playground/mini-works",
       label: t.playground.miniWorksLabel,
       desc: t.playground.miniWorksDesc,
