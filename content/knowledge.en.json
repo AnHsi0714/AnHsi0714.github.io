@@ -905,5 +905,44 @@
       { "slug": "ngrx", "type": "contrasts-with" },
       { "slug": "rxjs", "type": "contrasts-with" }
     ]
+  },
+  "finite-automaton": {
+    "term": "Finite Automaton",
+    "definition": "An abstract mathematical model that describes a system's behavior using a finite set of states and a set of transition rules: starting from an initial state, each input symbol moves it to the next state per the rules, and once all input has been read, whether it ends on an accepting state decides whether that input matches a given language (set of rules).",
+    "application": "NTUT FA Quest records each interaction a player makes while running a campus administrative process as a sequence of symbols (a Trace), feeds it through an automaton one symbol at a time, and judges ACCEPT or REJECT based on whether it ends on an accepting state.",
+    "category": "FLT",
+    "status": "published",
+    "relatedProjects": ["ntut-fa-quest"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "dfa", "type": "related" },
+      { "slug": "nfa", "type": "related" }
+    ]
+  },
+  "dfa": {
+    "term": "DFA (Deterministic Finite Automaton)",
+    "definition": "A finite automaton where each state has exactly one transition for any given input symbol, so the next state is always uniquely determined, with no branching and no transitions that consume no symbol (epsilon-transitions).",
+    "application": "NTUT FA Quest models processes with a single fixed step order as a DFA, e.g. Document A: get the advisor's signature, then the department office, then the academic affairs office, in that exact order.",
+    "category": "FLT",
+    "status": "published",
+    "relatedProjects": ["ntut-fa-quest"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "finite-automaton", "type": "prerequisite" },
+      { "slug": "nfa", "type": "contrasts-with" }
+    ]
+  },
+  "nfa": {
+    "term": "NFA (Nondeterministic Finite Automaton)",
+    "definition": "A finite automaton where a state can have multiple transitions for the same input symbol, and can also transition without consuming any symbol (an epsilon-transition). NFAs can be proven to accept exactly the same class of languages as DFAs, but describing certain processes with an NFA is often more compact.",
+    "application": "NTUT FA Quest models processes that allow multiple valid orderings as an NFA, e.g. in Document B, two middle steps (department office, department head) can be completed in either order, expressed with an epsilon-transition.",
+    "category": "FLT",
+    "status": "published",
+    "relatedProjects": ["ntut-fa-quest"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "finite-automaton", "type": "prerequisite" },
+      { "slug": "dfa", "type": "contrasts-with" }
+    ]
   }
 }

@@ -73,5 +73,15 @@
     "collaborators": ["鄭安琋", "楊O力", "詹O儒", "劉O凱"],
     "period": "2026/07 ~ 2026/12",
     "githubUrl": "https://github.com/AnHsi0714/CPBL2outStealDecision"
+  },
+  {
+    "slug": "ntut-fa-quest",
+    "name": "NTUT FA Quest",
+    "desc": "An educational game combining finite automata theory with a 2D pixel-art campus map. Players interact with NPCs to complete document-application tasks, and their action traces are validated by DFA/NFA verifiers as ACCEPT or REJECT.",
+    "date": "2026-09",
+    "status": "in-progress",
+    "tags": ["GAME", "EDU"],
+    "period": "2026/09 ~",
+    "githubUrl": "https://github.com/AnHsi0714/ntut-fa-quest"
   }
 ]

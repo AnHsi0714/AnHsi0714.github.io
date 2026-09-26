@@ -99,9 +99,8 @@ const content = {
         title: "兩出局一壘有人該不該跑：盜壘決策分析",
         summary: "提出「保留效應」修正傳統 RE24 盲點",
         details: [
-          "2026 台灣棒球數據分析競賽　現場戰術分析組",
+          "2026 台灣棒球數據分析競賽　現場戰術分析組（備賽中，四人團隊）",
           "自行撰寫爬蟲取得 CPBL 逐球紀錄，建立打者決策模擬模型分析盜壘損益兩平門檻",
-          "書面資料籌備中，預計 12 月口頭簡報",
         ],
       },
     ],
@@ -109,11 +108,11 @@ const content = {
       { year: "2022", text: "全國工科技藝競賽 金手獎第七名" },
       { year: "2023 / 05", text: "赴美見學交流（亞特蘭大 & 舊金山）" },
       { year: "2023~2025", text: "母校技藝競賽選手培訓教師" },
-      { year: "2025 / 12", text: "教育大數據微學程 成果發表 佳作" },
       {
-        year: "2026 / 07~2026 / 08",
-        text: "美商太陽鳥軟體 前端開發組 暑期實習（Scrum / Sprint Review / 設計文件）",
+        year: "2025 / 07~2026 / 12",
+        text: "美商太陽鳥軟體 前端開發組 暑期＋校內實習（Scrum / Sprint Review / 設計文件）",
       },
+      { year: "2025 / 12", text: "教育大數據微學程 成果發表 佳作" },
     ],
     interests: [
       { icon: faCode, label: "程式開發" },
@@ -210,9 +209,8 @@ const content = {
         summary:
           'Proposed a "retention effect" correcting a blind spot in traditional RE24',
         details: [
-          "2026 Taiwan Baseball Analytics Competition, In-Game Tactics Track",
+          "2026 Taiwan Baseball Analytics Competition, In-Game Tactics Track (in preparation, 4-person team)",
           "Built a custom crawler for pitch-by-pitch CPBL data and a batter decision-simulation model to analyze stolen-base break-even thresholds",
-          "Write-up in progress, oral presentation expected in December",
         ],
       },
     ],
@@ -227,12 +225,12 @@ const content = {
       },
       { year: "2023~2025", text: "Skills Competition Coach at Alma Mater" },
       {
-        year: "2025 / 12",
-        text: "Educational Big Data Micro-Program, Honorable Mention",
+        year: "2025 / 07~2026 / 12",
+        text: "Sun Bird Software, Frontend Development Team, Summer + On-Campus Intern (Scrum / Sprint Review / Design Docs)",
       },
       {
-        year: "2026 / 07~2026 / 08",
-        text: "Sun Bird Software, Frontend Development Team, Summer Intern (Scrum / Sprint Review / Design Docs)",
+        year: "2025 / 12",
+        text: "Educational Big Data Micro-Program, Honorable Mention",
       },
     ],
     interests: [

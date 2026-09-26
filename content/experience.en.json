@@ -45,6 +45,23 @@
       ]
     },
     {
+      "period": "2025 / 07 – 2026 / 12",
+      "title": "Sun Bird Software Co., Ltd. (Taiwan Branch)",
+      "subtitle": "Frontend Development Team: Summer + On-Campus Intern",
+      "tags": [{ "label": "Internship", "variant": "info" }],
+      "highlights": [
+        "Developed and maintained frontend features in Angular, writing HTML, SCSS, and TypeScript",
+        "Participated in the full frontend development workflow, including code reviews and sprint reviews",
+        "Wrote technical and design documentation, and contributed to frontend architecture planning",
+        "Collaborated via Kanban, providing a weekly High Level Estimate to the PM",
+        "Gained fluency with agile development cadence and project-scale estimation",
+        "The internship ran from Jul 2025 to Dec 2026; only Jul-Aug 2026 was an on-site internship at the company, with the rest of the period spent developing on campus through a school-industry cooperation program, maintaining high continuity throughout"
+      ],
+      "images": [
+        { "src": "/images/experience/sunbird-internship-team.jpg", "caption": "With the internship team at the office" }
+      ]
+    },
+    {
       "period": "2025 / 12",
       "title": "Educational Big Data Micro-Program: 2025 Capstone Presentation Competition",
       "subtitle": "\"Long-Term Effects of Digital Learning Policy in Junior High Schools\" (3-person team), Honorable Mention",
@@ -67,23 +84,6 @@
         "Studying the break-even success-rate threshold for stealing in CPBL games with two outs and a runner on first only, in innings 1-8, and how that threshold shifts with batting-order position and batter type",
         "Introduces a \"retention effect\": a failed steal keeps that batter's at-bat held over to start the next inning, correcting a blind spot in traditional RE24 analysis that only looks at the current half-inning",
         "Built a batter decision simulation model to analyze the break-even steal threshold"
-      ]
-    },
-    {
-      "period": "2026 / 07 – 2026 / 08",
-      "title": "Sun Bird Software Co., Ltd. (Taiwan Branch)",
-      "subtitle": "Frontend Development Team: Summer Intern",
-      "tags": [{ "label": "Internship", "variant": "info" }],
-      "highlights": [
-        "Developed and maintained frontend features in Angular, writing HTML, SCSS, and TypeScript",
-        "Participated in the full frontend development workflow, including code reviews and sprint reviews",
-        "Wrote technical and design documentation, and contributed to frontend architecture planning",
-        "Collaborated via Kanban, providing a weekly High Level Estimate to the PM",
-        "Gained fluency with agile development cadence and project-scale estimation",
-        "Contributed to frontend development in two phases (Jul 2025 – Jun 2026 and Sep 2026 – Dec 2026) through a school-industry cooperation program, with highly continuous work across both phases"
-      ],
-      "images": [
-        { "src": "/images/experience/sunbird-internship-team.jpg", "caption": "With the internship team at the office" }
       ]
     }
   ],

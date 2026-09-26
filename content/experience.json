@@ -63,6 +63,27 @@
       ]
     },
     {
+      "period": "2025 / 07 – 2026 / 12",
+      "title": "美商太陽鳥軟體股份有限公司 台灣分公司",
+      "subtitle": "前端開發組　暑期＋校內實習",
+      "tags": [{ "label": "實習", "variant": "info" }],
+      "highlights": [
+        "使用 Angular 進行前端功能開發與維護以及串接 API",
+        "撰寫 HTML、SCSS、TypeScript 實現設計稿與需求",
+        "參與完整前端開發流程，包含 Code Review、Sprint Review",
+        "撰寫技術文件與開發設計文件",
+        "使用 Kanban 管理進度，每週更新 High Level Estimate 給 PM",
+        "參與專案規模估算與敏捷開發流程",
+        "實習期間為 2025 / 07 至 2026 / 12，僅 2026 / 07–08 為赴公司實體駐點實習，其餘期間則透過學校與企業合作計畫於校內參與前端開發，工作內容具高度連續性"
+      ],
+      "images": [
+        {
+          "src": "/images/experience/sunbird-internship-team.jpg",
+          "caption": "與實習團隊的合照"
+        }
+      ]
+    },
+    {
       "period": "2025 / 12",
       "title": "教育大數據微學程 114學年度 專題成果發表競賽",
       "subtitle": "國中數位學習政策的長期效應分析（三人團隊）佳作",
@@ -88,27 +109,6 @@
         "研究 CPBL 第 1–8 局、兩出局、僅一壘有人情境下的盜壘損益兩平成功率門檻，並分析門檻如何隨打者棒次與類型改變",
         "提出「保留效應」概念：盜壘失敗會讓該打者的打席保留到下一局重新開始，修正傳統 RE24 只看當半局損益的盲點",
         "建置打者決策模擬模型分析盜壘損益兩平門檻"
-      ]
-    },
-    {
-      "period": "2026 / 07 – 2026 / 08",
-      "title": "美商太陽鳥軟體股份有限公司 台灣分公司",
-      "subtitle": "前端開發組　暑期實習",
-      "tags": [{ "label": "實習", "variant": "info" }],
-      "highlights": [
-        "使用 Angular 進行前端功能開發與維護以及串接 API",
-        "撰寫 HTML、SCSS、TypeScript 實現設計稿與需求",
-        "參與完整前端開發流程，包含 Code Review、Sprint Review",
-        "撰寫技術文件與開發設計文件",
-        "使用 Kanban 管理進度，每週更新 High Level Estimate 給 PM",
-        "參與專案規模估算與敏捷開發流程",
-        "透過學校與企業合作計畫，自 2025 / 07 至 2026 / 06、2026 / 09 至 2026 / 12 分兩階段參與前端開發，工作內容具高度連續性"
-      ],
-      "images": [
-        {
-          "src": "/images/experience/sunbird-internship-team.jpg",
-          "caption": "與實習團隊的合照"
-        }
       ]
     }
   ],

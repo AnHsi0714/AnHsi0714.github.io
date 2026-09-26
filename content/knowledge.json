@@ -920,5 +920,44 @@
       { "slug": "ngrx", "type": "contrasts-with" },
       { "slug": "rxjs", "type": "contrasts-with" }
     ]
+  },
+  "finite-automaton": {
+    "term": "Finite Automaton（有限自動機）",
+    "definition": "用有限個狀態和一組轉移規則描述系統行為的抽象數學模型：從起始狀態開始，每讀入一個符號就依規則轉換到下一個狀態，讀完所有輸入後，依最終停在的狀態是不是「接受狀態」，判斷這串輸入符不符合某種語言（規則）。",
+    "application": "NTUT FA Quest 把玩家跑校內行政流程時的每一步互動記錄成一串符號（Trace），交給自動機逐步轉換狀態，最後依是否落在接受狀態判定 ACCEPT 或 REJECT。",
+    "category": "FLT",
+    "status": "published",
+    "relatedProjects": ["ntut-fa-quest"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "dfa", "type": "related" },
+      { "slug": "nfa", "type": "related" }
+    ]
+  },
+  "dfa": {
+    "term": "DFA（決定性有限自動機）",
+    "definition": "Deterministic Finite Automaton，每個狀態面對同一個輸入符號只會有一種轉移方式，下一步永遠是唯一決定的，不允許分岔或不吃符號的空轉移（ε-transition）。",
+    "application": "NTUT FA Quest 用 DFA 建模步驟順序固定、只有一種合法走法的申請流程，例如文件 A：先找導師簽名、再交系辦、最後送教務處，三步驟順序不能顛倒。",
+    "category": "FLT",
+    "status": "published",
+    "relatedProjects": ["ntut-fa-quest"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "finite-automaton", "type": "prerequisite" },
+      { "slug": "nfa", "type": "contrasts-with" }
+    ]
+  },
+  "nfa": {
+    "term": "NFA（非決定性有限自動機）",
+    "definition": "Nondeterministic Finite Automaton，同一個狀態面對同一個輸入符號可能同時有多種轉移方式，也允許不吃任何符號就轉移的空轉移（ε-transition）；可證明 NFA 與 DFA 能接受的語言範圍完全相同，只是用 NFA 描述某些流程時通常更精簡。",
+    "application": "NTUT FA Quest 用 NFA 建模允許多種合法順序的申請流程，例如文件 B 裡中間兩個步驟（系辦、系主任）可以互換順序完成，就用 ε-transition 表示這種順序彈性。",
+    "category": "FLT",
+    "status": "published",
+    "relatedProjects": ["ntut-fa-quest"],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "finite-automaton", "type": "prerequisite" },
+      { "slug": "dfa", "type": "contrasts-with" }
+    ]
   }
 }

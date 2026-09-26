@@ -73,5 +73,15 @@
     "collaborators": ["鄭安琋", "楊O力", "詹O儒", "劉O凱"],
     "period": "2026/07 ~ 2026/12",
     "githubUrl": "https://github.com/AnHsi0714/CPBL2outStealDecision"
+  },
+  {
+    "slug": "ntut-fa-quest",
+    "name": "NTUT FA Quest：有限自動機校園解謎遊戲",
+    "desc": "結合有限自動機理論與 2D 像素校園地圖的教育遊戲，玩家與 NPC 互動完成文件申請任務，行為軌跡交由 DFA/NFA 驗證器判定 ACCEPT 或 REJECT。",
+    "date": "2026-09",
+    "status": "in-progress",
+    "tags": ["GAME", "EDU"],
+    "period": "2026/09 ~",
+    "githubUrl": "https://github.com/AnHsi0714/ntut-fa-quest"
   }
 ]
