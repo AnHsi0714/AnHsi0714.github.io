@@ -166,6 +166,7 @@ export interface Strings {
     tags: Record<
       | "click-regenerate"
       | "drag"
+      | "mouse-move"
       | "keyboard-game"
       | "button-game"
       | "static"
@@ -177,7 +178,8 @@ export interface Strings {
       | "drag-draw"
       | "keyboard-game"
       | "button-game"
-      | "drag-physics",
+      | "drag-physics"
+      | "mouse-move",
       string
     >;
     // living 作品在作品詳細頁的操作提示裡額外加一句，跟 hints 分開放
@@ -454,6 +456,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       tags: {
         "click-regenerate": "點擊重製",
         drag: "拖曳",
+        "mouse-move": "滑鼠移動",
         "keyboard-game": "鍵盤遊戲",
         "button-game": "按鈕遊戲",
         static: "靜態展示",
@@ -465,6 +468,7 @@ export const strings: Record<"zh" | "en", Strings> = {
         "keyboard-game": "方向鍵／WASD 移動，點擊畫面上的按鈕與選項開始遊戲",
         "button-game": "點擊 START 按鈕開始，每輪結束後再按 START 進下一輪",
         "drag-physics": "按住滑鼠可以抓取、拖曳畫面上的物件",
+        "mouse-move": "不用點擊，移動滑鼠游標就會改變畫面",
       },
       livingHint: "畫面會持續自行變化，靜靜看著就好",
     },
@@ -756,6 +760,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       tags: {
         "click-regenerate": "Click to regenerate",
         drag: "Drag",
+        "mouse-move": "Mouse move",
         "keyboard-game": "Keyboard game",
         "button-game": "Button game",
         static: "Static",
@@ -769,6 +774,7 @@ export const strings: Record<"zh" | "en", Strings> = {
         "button-game":
           "Click START to begin; click START again after each round",
         "drag-physics": "Hold the mouse to grab and drag objects on screen",
+        "mouse-move": "No clicking needed, just move the cursor to change the canvas",
       },
       livingHint: "The piece keeps changing on its own, just watch",
     },

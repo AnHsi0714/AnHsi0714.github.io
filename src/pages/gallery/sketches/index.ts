@@ -29,6 +29,9 @@ import { createChromaticCycleV3Sketch } from "./chromaticcyclev3";
 import { createCelestialFragmentsSketch } from "./celestialfragments";
 import { createCornerConvergenceSketch } from "./cornerconvergence";
 import { createLavaVeinsSketch } from "./lavaveins";
+import { createMoireDiscShadowsSketch } from "./moirediscshadows";
+import { createGhostWallsSketch } from "./ghostwalls";
+import { createGhostTrailSketch } from "./ghosttrail";
 
 export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 
@@ -38,12 +41,14 @@ export type SketchFactory = (width: number, height: number) => (p: p5) => void;
 // - keyboard-game：方向鍵／WASD 操控 + 按鈕開始遊戲，例如迷宮競速
 // - button-game：純滑鼠回合制，點 START 開始／進下一輪，例如拳擊混戰
 // - drag-physics：滑鼠抓取拖曳物理物件，例如金屬碰撞
+// - mouse-move：不用按住，只要移動滑鼠游標就會影響畫面，例如鬼打牆
 export type SketchInteraction =
   | "click-regenerate"
   | "drag-draw"
   | "keyboard-game"
   | "button-game"
-  | "drag-physics";
+  | "drag-physics"
+  | "mouse-move";
 
 export interface SketchEntry {
   factory: SketchFactory;
@@ -239,6 +244,22 @@ const sketches: Record<string, SketchEntry> = {
     aspect: CELESTIAL_FRAGMENTS_ASPECT,
     interactions: ["drag-draw"],
     animated: true,
+  },
+  MoireDiscShadows: {
+    factory: (width) => createMoireDiscShadowsSketch(width),
+    aspect: 1,
+    interactions: ["click-regenerate"],
+  },
+  GhostWalls: {
+    factory: (width) => createGhostWallsSketch(width),
+    aspect: 1,
+    interactions: ["mouse-move"],
+    animated: true,
+  },
+  GhostTrail: {
+    factory: (width) => createGhostTrailSketch(width),
+    aspect: 1,
+    interactions: ["mouse-move", "click-regenerate"],
   },
 };
 
