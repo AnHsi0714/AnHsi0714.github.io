@@ -395,5 +395,43 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2997742",
     "description": "以細胞自動機演化出洞穴般的岩石地貌：隨機生成的牆壁反覆比對鄰居數量，逐漸凝聚出自然的洞穴輪廓。地貌成形後，點一下滑鼠可注入一滴岩漿，岩漿依黏度緩緩下墜，被擋住時改往左右斜下流動，再受阻就向兩側滿溢，像血管一樣在岩層間蔓延；按住滑鼠拖曳則能挖出地道，讓岩漿改道流動。"
+  },
+  {
+    "slug": "MoireDiscShadows",
+    "title": "莫爾碟影",
+    "date": "261005",
+    "images": [
+      "/images/gallery/MoireDiscShadows0.png",
+      "/images/gallery/MoireDiscShadows1.png",
+      "/images/gallery/MoireDiscShadows2.png",
+      "/images/gallery/MoireDiscShadows3.png",
+      "/images/gallery/MoireDiscShadows4.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/3027117",
+    "description": "規律的網格與細碎的錯位互相干涉，浮現出類似莫爾紋的波動與暗影。"
+  },
+  {
+    "slug": "GhostWalls",
+    "title": "鬼打牆",
+    "date": "261005",
+    "images": [
+      "/images/gallery/GhostWalls0.png",
+      "/images/gallery/GhostWalls1.png",
+      "/images/gallery/GhostWalls2.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/3027331",
+    "description": "整片鬼像水波般緩緩漂移，波紋跟著游走，看久了就像被困在原地繞不出去的鬼打牆。"
+  },
+  {
+    "slug": "GhostTrail",
+    "title": "鬼道",
+    "date": "261005",
+    "images": [
+      "/images/gallery/GhostTrail0.png",
+      "/images/gallery/GhostTrail1.png",
+      "/images/gallery/GhostTrail2.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/3027363",
+    "description": "一條鬼走過的路。"
   }
 ]

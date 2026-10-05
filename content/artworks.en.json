@@ -395,5 +395,43 @@
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2997742",
     "description": "A cellular automaton grows a cave-like rock formation: randomly placed walls repeatedly check their neighbor counts and gradually settle into a natural cave outline. Once the terrain has formed, clicking drips a drop of lava that sinks slowly according to its viscosity, flowing diagonally when blocked and spilling sideways when that fails too, spreading through the rock like veins; dragging the mouse digs tunnels that reroute the flow."
+  },
+  {
+    "slug": "MoireDiscShadows",
+    "title": "Moiré Disc Shadows",
+    "date": "261005",
+    "images": [
+      "/images/gallery/MoireDiscShadows0.png",
+      "/images/gallery/MoireDiscShadows1.png",
+      "/images/gallery/MoireDiscShadows2.png",
+      "/images/gallery/MoireDiscShadows3.png",
+      "/images/gallery/MoireDiscShadows4.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/3027117",
+    "description": "Interference between a regular grid and tiny misalignments gives rise to a moiré-like shimmer and shadow."
+  },
+  {
+    "slug": "GhostWalls",
+    "title": "Ghost Walls",
+    "date": "261005",
+    "images": [
+      "/images/gallery/GhostWalls0.png",
+      "/images/gallery/GhostWalls1.png",
+      "/images/gallery/GhostWalls2.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/3027331",
+    "description": "The whole crowd of ghosts drifts like a ripple, the pattern swimming along with it, until you feel stuck circling in place, like being led around by a ghost."
+  },
+  {
+    "slug": "GhostTrail",
+    "title": "Ghost Trail",
+    "date": "261005",
+    "images": [
+      "/images/gallery/GhostTrail0.png",
+      "/images/gallery/GhostTrail1.png",
+      "/images/gallery/GhostTrail2.png"
+    ],
+    "openProcessingUrl": "https://openprocessing.org/@u455151/3027363",
+    "description": "The path a ghost has walked."
   }
 ]
