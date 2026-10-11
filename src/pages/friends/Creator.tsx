@@ -19,6 +19,7 @@ import type {
 import InviteGate from "./InviteGate";
 import Creator2DEditor from "./Creator2DEditor";
 import Creator3DEditor from "./Creator3DEditor";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useTranslation } from "../../i18n/useTranslation";
 
 interface SubmitVars {
@@ -33,6 +34,7 @@ interface SubmitVars {
 // 不能在編輯模式換類型）進入編輯模式。
 export default function Creator() {
   const { t } = useTranslation();
+  useDocumentTitle(`${t.creator.pageTitle} · Cheng An Hsi`);
   const [identity, setIdentity] = useState<{
     code: string;
     nickname: string;

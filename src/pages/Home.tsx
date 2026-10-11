@@ -14,6 +14,7 @@ import FeaturedArticlesCarousel from "../components/FeaturedArticlesCarousel";
 import type { Project } from "../types/content";
 import { useLocalized } from "../lib/localized";
 import { usePublishedArticles } from "../lib/articles";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { useTranslation } from "../i18n/useTranslation";
 
 const researchInterestTags = [
@@ -25,6 +26,7 @@ const researchInterestTags = [
 
 export default function Home() {
   const { t } = useTranslation();
+  useDocumentTitle("Cheng An Hsi", t.home.bio);
   const projects = useLocalized(projectsDataZh, projectsDataEn) as Project[];
   const featuredProjects = projects.filter((project) => project.featured);
   const articles = usePublishedArticles();

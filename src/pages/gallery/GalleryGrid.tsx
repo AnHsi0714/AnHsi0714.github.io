@@ -13,6 +13,7 @@ import Modal from "../../components/Modal";
 import Skeleton from "../../components/Skeleton";
 import styles from "./GalleryGrid.module.scss";
 import { useLocalized } from "../../lib/localized";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useTranslation } from "../../i18n/useTranslation";
 
 // 展牆列數固定，不隨裝置寬度減少：手機上靠 CSS 把列高（連帶每格寬度）縮小
@@ -101,6 +102,7 @@ function toThumbSrc(src: string) {
 
 export default function GalleryGrid() {
   const { t } = useTranslation();
+  useDocumentTitle(`${t.gallery.title} · Cheng An Hsi`, t.gallery.subtitle);
   const artworks = useLocalized(artworksDataZh, artworksDataEn) as Artwork[];
 
   const TAG_LABELS = t.gallery.tags;

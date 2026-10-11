@@ -31,8 +31,9 @@ export default function ArticleDetail() {
     [article],
   );
   useDocumentTitle(
-    article ? `${article.title} · AnHsi0714` : `${t.articles.notFoundTitle} · AnHsi0714`,
+    article ? `${article.title} · Cheng An Hsi` : `${t.articles.notFoundTitle} · Cheng An Hsi`,
     article?.excerpt,
+    { type: "article", image: article?.coverUrl },
   );
   const hasToc = headings.length > 1;
   const needsScroll = useNeedsScroll();

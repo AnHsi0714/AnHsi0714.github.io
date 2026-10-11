@@ -13,7 +13,7 @@ import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 
 export default function Knowledge() {
   const { t } = useTranslation();
-  useDocumentTitle(`${t.knowledge.title} · AnHsi0714`, t.knowledge.subtitle);
+  useDocumentTitle(`${t.knowledge.title} · Cheng An Hsi`, t.knowledge.subtitle);
   const nodes = usePublishedKnowledgeNodes();
   const [searchParams, setSearchParams] = useSearchParams();
 
