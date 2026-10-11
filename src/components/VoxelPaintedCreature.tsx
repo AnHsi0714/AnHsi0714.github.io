@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Instance, Instances, OrbitControls } from "@react-three/drei";
 import { CUBE_SIZE, REGIONS, creatureViewCenter } from "../lib/creatureBody";
+import { useInView } from "../hooks/useInView";
 import { pivotPosition } from "./VoxelCreature";
 import type { VoxelCreatureData } from "../types/friends";
 
@@ -36,9 +37,13 @@ export default function VoxelPaintedCreature({
     return map;
   }, [data]);
 
+  // 朋友創作牆同時掛很多隻，離開視窗的就停止繪製，省 GPU 與電力；
+  // 從 never 切回 always 會重啟渲染迴圈，所以回到視窗內時畫面會自己恢復
+  const { ref, inView } = useInView<HTMLDivElement>();
+
   return (
-    <div className={className}>
-      <Canvas camera={{ position: [2.2, 1.8, 3.2], fov: 45 }}>
+    <div ref={ref} className={className}>
+      <Canvas camera={{ position: [2.2, 1.8, 3.2], fov: 45 }} frameloop={inView ? "always" : "never"}>
         <ambientLight intensity={0.7} />
         <directionalLight position={[3, 4, 2]} intensity={1.1} />
         {REGIONS.map((region) => (
