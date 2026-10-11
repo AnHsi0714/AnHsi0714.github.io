@@ -4,9 +4,11 @@ import { useLocation } from 'react-router-dom'
 // 分享預覽與搜尋結果要的是完整網址；prerender 輸出的 HTML 也靠這個值寫入 og:url
 const SITE_ORIGIN = 'https://anhsi0714.github.io'
 const SITE_NAME = 'Cheng An Hsi'
+// 頁面沒有自己的預覽圖時用這張（1200x630），分享卡片才不會只有文字
+const DEFAULT_IMAGE = '/images/og-default.png'
 
 interface DocumentMetaOptions {
-  // 站內路徑（以 / 開頭）或完整網址；沒給就不放預覽圖
+  // 站內路徑（以 / 開頭）或完整網址；沒給就用 DEFAULT_IMAGE
   image?: string
   type?: 'website' | 'article'
 }
@@ -35,7 +37,8 @@ export function useDocumentTitle(
   useEffect(() => {
     document.title = title
 
-    const imageUrl = image ? (image.startsWith('/') ? `${SITE_ORIGIN}${image}` : image) : undefined
+    const source = image ?? DEFAULT_IMAGE
+    const imageUrl = source.startsWith('/') ? `${SITE_ORIGIN}${source}` : source
 
     setMeta('name', 'description', description)
     setMeta('property', 'og:title', title)
@@ -43,8 +46,7 @@ export function useDocumentTitle(
     setMeta('property', 'og:type', type)
     setMeta('property', 'og:site_name', SITE_NAME)
     setMeta('property', 'og:url', `${SITE_ORIGIN}${pathname}`)
-    // 換頁時上一頁的預覽圖不能殘留，所以沒給圖就要把 og:image 移掉
     setMeta('property', 'og:image', imageUrl)
-    setMeta('name', 'twitter:card', imageUrl ? 'summary_large_image' : 'summary')
+    setMeta('name', 'twitter:card', 'summary_large_image')
   }, [title, description, image, type, pathname])
 }
