@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import Card from "../../components/Card";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useTranslation } from "../../i18n/useTranslation";
 
 export default function Playground() {
   const { t } = useTranslation();
+  useDocumentTitle(`${t.playground.title} · Cheng An Hsi`, t.playground.subtitle);
 
   const links = [
     { to: "/gallery", label: t.nav.gallery, desc: t.playground.galleryDesc },

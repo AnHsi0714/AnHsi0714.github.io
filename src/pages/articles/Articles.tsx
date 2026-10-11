@@ -87,7 +87,7 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
 
 export default function Articles() {
   const { t } = useTranslation();
-  useDocumentTitle(`${t.articles.title} · AnHsi0714`, t.articles.subtitle);
+  useDocumentTitle(`${t.articles.title} · Cheng An Hsi`, t.articles.subtitle);
   const articles = usePublishedArticles();
 
   const [selectedSection, setSelectedSection] = useState<SectionFilter>("all");

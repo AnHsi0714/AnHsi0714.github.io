@@ -8,6 +8,7 @@ import sketches from "./sketches";
 import TextLink from "../../components/TextLink";
 import styles from "./GalleryDetail.module.scss";
 import { useLocalized } from "../../lib/localized";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useTranslation } from "../../i18n/useTranslation";
 
 export default function GalleryDetail() {
@@ -15,6 +16,11 @@ export default function GalleryDetail() {
   const { t, language } = useTranslation();
   const artworks = useLocalized(artworksDataZh, artworksDataEn) as Artwork[];
   const artwork = artworks.find((a) => a.slug === slug);
+  useDocumentTitle(
+    artwork ? `${artwork.title} · Cheng An Hsi` : `${t.gallery.title} · Cheng An Hsi`,
+    artwork?.description,
+    { image: artwork?.images[0] },
+  );
   const sketchEntry = slug ? sketches[slug] : undefined;
   const canvasHostRef = useRef<HTMLDivElement>(null);
 

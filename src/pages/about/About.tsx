@@ -278,7 +278,7 @@ export default function About() {
   const { t, language } = useTranslation();
   const data = content[language];
   useDocumentTitle(
-    `${t.nav.about} · AnHsi0714`,
+    `${t.nav.about} · Cheng An Hsi`,
     deriveExcerpt(data.researchStatement.join(" "), 150),
   );
 

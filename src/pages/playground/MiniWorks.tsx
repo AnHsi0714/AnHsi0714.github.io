@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import Card from "../../components/Card";
 import TextLink from "../../components/TextLink";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useTranslation } from "../../i18n/useTranslation";
 import { miniWorks } from "./miniWorksRegistry";
 
 export default function MiniWorks() {
   const { t } = useTranslation();
+  useDocumentTitle(`${t.playground.miniWorks.title} · Cheng An Hsi`, t.playground.miniWorks.subtitle);
 
   const links = miniWorks.map((work) => ({
     to: `/playground/mini-works/${work.slug}`,

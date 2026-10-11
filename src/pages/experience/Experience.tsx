@@ -11,6 +11,7 @@ import type {
   SecondaryExperienceEntry,
 } from "../../types/content";
 import { useLocalized } from "../../lib/localized";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useTranslation } from "../../i18n/useTranslation";
 
 // 經歷條目只需要粗體，用 **文字** 標記重點，不引入整套 Markdown
@@ -22,6 +23,7 @@ function renderBold(text: string) {
 
 export default function Experience() {
   const { t } = useTranslation();
+  useDocumentTitle(`${t.experience.title} · Cheng An Hsi`, t.experience.subtitle);
   const experienceData = useLocalized(experienceDataZh, experienceDataEn);
   const entries = experienceData.entries as ExperienceEntry[];
   const secondaryEntries =

@@ -40,7 +40,7 @@ export default function KnowledgeDetail() {
   const headings = useMemo(() => extractHeadings(body ?? ""), [body]);
   const hasToc = headings.length > 1;
   useDocumentTitle(
-    node ? `${node.term} · AnHsi0714` : `${t.knowledge.notFoundTitle} · AnHsi0714`,
+    node ? `${node.term} · Cheng An Hsi` : `${t.knowledge.notFoundTitle} · Cheng An Hsi`,
     node ? deriveExcerpt(node.definition, 150) : undefined,
   );
   const { pushTrailEntry } = useTrail();

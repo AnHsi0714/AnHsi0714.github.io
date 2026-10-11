@@ -397,7 +397,7 @@ function EdgeLine({ edge, positions, isActive, isDimmed, color, activeColor }: E
 
 export default function KnowledgeGraph() {
   const { t } = useTranslation();
-  useDocumentTitle(`${t.knowledge.graphViewTitle} · AnHsi0714`, t.knowledge.graphViewSubtitle);
+  useDocumentTitle(`${t.knowledge.graphViewTitle} · Cheng An Hsi`, t.knowledge.graphViewSubtitle);
   const navigate = useNavigate();
   const allNodes = usePublishedKnowledgeNodes();
   const [activeId, setActiveId] = useState<string | null>(null);

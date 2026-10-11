@@ -6,6 +6,7 @@ import ProgressBar from '../../components/ProgressBar'
 import Reveal from '../../components/Reveal'
 import type { Dream } from '../../types/content'
 import { useLocalized } from '../../lib/localized'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { useTranslation } from '../../i18n/useTranslation'
 
 function progressPercent(dream: Dream): number {
@@ -15,6 +16,7 @@ function progressPercent(dream: Dream): number {
 
 export default function Dreams() {
   const { t } = useTranslation()
+  useDocumentTitle(`${t.dreams.title} · Cheng An Hsi`, t.dreams.subtitle)
   const dreams = [...(useLocalized(dreamsDataZh, dreamsDataEn) as Dream[])].sort(
     (a, b) => progressPercent(a) - progressPercent(b),
   )

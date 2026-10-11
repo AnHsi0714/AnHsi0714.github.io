@@ -14,6 +14,7 @@ import { fetchFriendCreations } from "../../lib/friends";
 import { isSupabaseConfigured } from "../../lib/supabaseClient";
 import type { FriendCreationRow } from "../../types/friends";
 import styles from "./Friends.module.scss";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useTranslation } from "../../i18n/useTranslation";
 import type { Strings } from "../../i18n/strings";
 
@@ -362,6 +363,7 @@ function FriendCreationCarousel({
 
 export default function Friends() {
   const { t, language } = useTranslation();
+  useDocumentTitle(`${t.friends.title} · Cheng An Hsi`, t.friends.subtitle);
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["friend-creations"],
     queryFn: fetchFriendCreations,
