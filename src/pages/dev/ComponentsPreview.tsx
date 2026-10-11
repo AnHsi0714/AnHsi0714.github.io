@@ -3,6 +3,7 @@ import Button from "../../components/Button";
 import Card from "../../components/Card";
 import ExpandableCard from "../../components/ExpandableCard";
 import Badge from "../../components/Badge";
+import CategoryTooltip from "../../components/CategoryTooltip";
 import Chip from "../../components/Chip";
 import Input from "../../components/Input";
 import Alert from "../../components/Alert";
@@ -423,6 +424,16 @@ export default function ComponentsPreview() {
           <Tooltip content={knowledgeMap["rls"].definition}>
             {knowledgeMap["rls"].term}
           </Tooltip>
+        </div>
+        <p className="mt-4 text-sm text-[var(--color-text-muted)]">
+          CategoryTooltip：包在 Chip 外面、不畫底線的版本，用在知識點分類縮寫（hover 顯示全名）。
+        </p>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          {["ALGO", "EVAL", "FLT", "NLP"].map((cat) => (
+            <CategoryTooltip key={cat} category={cat}>
+              <Chip>{cat}</Chip>
+            </CategoryTooltip>
+          ))}
         </div>
       </section>
 

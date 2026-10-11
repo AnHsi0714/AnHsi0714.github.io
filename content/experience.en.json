@@ -6,7 +6,7 @@
       "subtitle": "7th Place, Golden Hand Award",
       "tags": [{ "label": "Competition", "variant": "success" }],
       "highlights": [
-        "Wrote six hands-on programming problems in VB and solved all of them",
+        "Wrote six hands-on programming problems in VB and **solved all of them**",
         "Covered data structures, basic algorithms, UI layout, component usage, and data processing",
         "Practiced 7–8 hours a day during preparation to sharpen logical analysis and implementation speed"
       ],
@@ -34,14 +34,31 @@
       ]
     },
     {
-      "period": "2023 – 2025",
+      "period": "2023 – 2026",
       "title": "Skills Competition Coach at Alma Mater",
-      "subtitle": "Trained the following three cohorts of Computer Software Design competitors",
+      "subtitle": "Trained the following four cohorts of Computer Software Design competitors",
       "tags": [{ "label": "Teaching", "variant": "success" }],
       "highlights": [
-        "Led competitors to 2 award-winning placements",
+        "Led competitors to **2 award-winning placements**",
         "Experimented with varied teaching methods: instructional videos, original practice problems, curriculum planning, and targeted remediation of weak points",
         "Sharpened verbal explanation and problem-analysis skills through the coaching process"
+      ]
+    },
+    {
+      "period": "2025 / 07 – 2026 / 12",
+      "title": "Sun Bird Software Co., Ltd. (Taiwan Branch)",
+      "subtitle": "Frontend Development Team: Summer + On-Campus Intern",
+      "tags": [{ "label": "Internship", "variant": "info" }],
+      "highlights": [
+        "Developed and maintained frontend features in Angular, writing HTML, SCSS, and TypeScript",
+        "Participated in the full frontend development workflow, including code reviews and sprint reviews",
+        "Wrote technical and design documentation, and contributed to frontend architecture planning",
+        "Collaborated via Kanban, providing a weekly High Level Estimate to the PM",
+        "Gained fluency with agile development cadence and project-scale estimation",
+        "Jul–Aug 2026 was on-site at the company; the rest was done on campus, with essentially the same work"
+      ],
+      "images": [
+        { "src": "/images/experience/sunbird-internship-team.jpg", "caption": "With the internship team at the office" }
       ]
     },
     {
@@ -65,25 +82,8 @@
       "highlights": [
         "Built a scraper to pull pitch-by-pitch, game-by-game records for analyzing steal decisions with two outs and a runner on first",
         "Studying the break-even success-rate threshold for stealing in CPBL games with two outs and a runner on first only, in innings 1-8, and how that threshold shifts with batting-order position and batter type",
-        "Introduces a \"retention effect\": a failed steal keeps that batter's at-bat held over to start the next inning, correcting a blind spot in traditional RE24 analysis that only looks at the current half-inning",
+        "Introduces a **\"retention effect\"**: a failed steal keeps that batter's at-bat held over to start the next inning, correcting a blind spot in traditional RE24 analysis that only looks at the current half-inning",
         "Built a batter decision simulation model to analyze the break-even steal threshold"
-      ]
-    },
-    {
-      "period": "2026 / 07 – 2026 / 08",
-      "title": "Sun Bird Software Co., Ltd. (Taiwan Branch)",
-      "subtitle": "Frontend Development Team: Summer Intern",
-      "tags": [{ "label": "Internship", "variant": "info" }],
-      "highlights": [
-        "Developed and maintained frontend features in Angular, writing HTML, SCSS, and TypeScript",
-        "Participated in the full frontend development workflow, including code reviews and sprint reviews",
-        "Wrote technical and design documentation, and contributed to frontend architecture planning",
-        "Collaborated via Kanban, providing a weekly High Level Estimate to the PM",
-        "Gained fluency with agile development cadence and project-scale estimation",
-        "Contributed to frontend development in two phases (Jul 2025 – Jun 2026 and Sep 2026 – Dec 2026) through a school-industry cooperation program, with highly continuous work across both phases"
-      ],
-      "images": [
-        { "src": "/images/experience/sunbird-internship-team.jpg", "caption": "With the internship team at the office" }
       ]
     }
   ],

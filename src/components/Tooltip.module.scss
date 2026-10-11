@@ -3,7 +3,6 @@
 .trigger {
   display: inline;
   cursor: help;
-  border-bottom: 1px dotted $color-text-muted;
 
   &:focus {
     outline: none;
@@ -13,6 +12,15 @@
     outline: 2px solid $color-primary;
     outline-offset: 2px;
   }
+}
+
+// 預設的虛線底線提示（用於內文中的專有名詞）；包 Chip 之類本身已是元件的觸發元素時不加
+.underlined {
+  border-bottom: 1px dotted $color-text-muted;
+}
+
+.plain {
+  cursor: inherit;
 }
 
 .wrapper {

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
 import { Html, Line, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
+import CategoryTooltip from "../../components/CategoryTooltip";
 import Chip from "../../components/Chip";
 import Reveal from "../../components/Reveal";
 import TextLink from "../../components/TextLink";
@@ -554,19 +555,20 @@ export default function KnowledgeGraph() {
 
       <div className="mt-3 flex flex-wrap gap-2">
         {categoriesWithCount.map(({ category, count }) => (
-          <Chip
-            key={category}
-            clickable
-            selected={expandedCategories.has(category)}
-            onClick={() => toggleCategory(category)}
-            className="inline-flex items-center gap-1.5"
-          >
-            <span
-              className={styles.legendDot}
-              style={{ "--node-color": CATEGORY_COLORS[category] ?? FALLBACK_COLOR } as NodeColorStyle}
-            />
-            {category} ({count})
-          </Chip>
+          <CategoryTooltip key={category} category={category}>
+            <Chip
+              clickable
+              selected={expandedCategories.has(category)}
+              onClick={() => toggleCategory(category)}
+              className="inline-flex items-center gap-1.5"
+            >
+              <span
+                className={styles.legendDot}
+                style={{ "--node-color": CATEGORY_COLORS[category] ?? FALLBACK_COLOR } as NodeColorStyle}
+              />
+              {category} ({count})
+            </Chip>
+          </CategoryTooltip>
         ))}
       </div>
 

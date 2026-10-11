@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import projectsDataZh from "../../../content/projects.json";
 import projectsDataEn from "../../../content/projects.en.json";
+import CategoryTooltip from "../../components/CategoryTooltip";
 import Chip from "../../components/Chip";
 import EmptyState from "../../components/EmptyState";
 import MarkdownContent from "../../components/MarkdownContent";
@@ -118,7 +119,9 @@ export default function KnowledgeDetail() {
 
         <div className="mt-4 flex items-start justify-between gap-2">
           <h1 className="text-2xl font-bold">{node.term}</h1>
-          <Chip className="shrink-0">{node.category}</Chip>
+          <CategoryTooltip category={node.category}>
+            <Chip className="shrink-0">{node.category}</Chip>
+          </CategoryTooltip>
         </div>
 
         <MarkdownContent className="mt-4">{node.definition}</MarkdownContent>

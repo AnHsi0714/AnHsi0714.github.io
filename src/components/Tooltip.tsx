@@ -11,6 +11,8 @@ interface TooltipProps {
   content: ReactNode;
   children: ReactNode;
   className?: string;
+  // 預設在觸發元素下方畫虛線底線提示可 hover；false 則不畫
+  underline?: boolean;
 }
 
 interface BubbleState {
@@ -20,7 +22,7 @@ interface BubbleState {
   placement: "top" | "bottom";
 }
 
-export default function Tooltip({ content, children, className }: TooltipProps) {
+export default function Tooltip({ content, children, className, underline = true }: TooltipProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [bubbleState, setBubbleState] = useState<BubbleState>({
     top: 0,
@@ -81,7 +83,7 @@ export default function Tooltip({ content, children, className }: TooltipProps) 
     <span
       ref={triggerRef}
       tabIndex={0}
-      className={[styles.trigger, className].filter(Boolean).join(" ")}
+      className={[styles.trigger, underline ? styles.underlined : styles.plain, className].filter(Boolean).join(" ")}
       aria-describedby={isOpen ? tooltipId : undefined}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
