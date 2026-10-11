@@ -335,7 +335,7 @@ export default function Creator3DEditor({
           maxLength={200}
           rows={3}
           placeholder={t.creator.introPlaceholder3d}
-          className="w-full resize-none rounded-md border border-[var(--color-border)] bg-transparent px-3 py-2 outline-none focus:border-[var(--color-primary)]"
+          className="w-full resize-none rounded-md border border-[var(--color-border)] bg-transparent px-3 py-2 focus:border-[var(--color-primary)]"
         />
         <span className="mt-1 block text-right text-xs text-[var(--color-text-muted)]">
           {intro.length}/200

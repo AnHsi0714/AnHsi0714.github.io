@@ -13,6 +13,51 @@ html {
   font-size: 18px;
 }
 
+/* 使用者在系統設定「減少動態效果」時，所有 CSS 動畫與過渡縮到近乎瞬間完成。
+   不直接設成 0s / none：很多元件靠 transitionend／animationend 或最終狀態收尾，
+   完全取消反而會讓狀態卡住；0.01ms 在視覺上等同無動畫，事件仍會觸發。
+   元件若需要更細緻的替代呈現（例如骨架屏改成靜態），再自己寫 @media 覆蓋。 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 鍵盤焦點環的保底：只在「鍵盤操作」時出現（:focus-visible），滑鼠點擊不會閃。
+   元件有自己的焦點樣式（Chip、Tooltip、畫廊展牆）時，它們的選擇器權重更高，會蓋過這條；
+   這條負責接住沒寫的（Card 連結、Carousel 圓點、導覽連結、各種 button、表單欄位）。
+   <main> 是換頁後程式移過去的焦點，不是使用者要操作的元件，不畫環。 */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+main:focus-visible {
+  outline: none;
+}
+
+/* 換頁轉場（NavBar 的連結帶 viewTransition）：只有內容淡入淡出，導覽列用固定的
+   view-transition-name 留在原地；時間壓短，避免換頁變慢。 */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+}
+::view-transition-group(site-nav) {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 /* NavBar 是 sticky top-0，捲到有 id 的錨點(標題、remark-gfm 腳註的引用/定義)時
    scrollIntoView({block:'start'}) 或原生 #fragment 導覽都會把目標頂到畫面最上緣，
    被蓋在 NavBar 底下。--nav-h 是 NavBar.tsx 用 ResizeObserver 量出的即時高度，

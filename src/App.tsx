@@ -1,8 +1,10 @@
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 import { Outlet, useLocation, useNavigationType } from 'react-router-dom'
 import Loading from './components/Loading'
 import NavBar from './components/NavBar'
 import { useTrail } from './context/TrailContext'
+import { scrollBehavior } from './lib/motion'
+import { useTranslation } from './i18n/useTranslation'
 
 // 文章／專案／知識點的詳情頁路徑，「軌跡」只在這三種頁面之間累積
 const DETAIL_PATH_PATTERN = /^\/(articles|projects|knowledge)\/[^/]+$/
@@ -19,6 +21,8 @@ export default function App() {
   const navigationType = useNavigationType()
   const restoreScroll = Boolean((state as { restoreScroll?: boolean } | null)?.restoreScroll)
   const { clearTrail } = useTrail()
+  const { t } = useTranslation()
+  const mainRef = useRef<HTMLElement>(null)
 
   // 離開詳情頁（回列表、去別的分類、回首頁……）代表這次瀏覽流程結束，
   // 軌跡要歸零；停留在詳情頁之間串連時則不動它，讓 Trail 元件自己去 push
@@ -39,7 +43,7 @@ export default function App() {
     if (hash) {
       const id = hash.slice(1)
       const el = document.getElementById(id)
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      el?.scrollIntoView({ behavior: scrollBehavior(), block: 'start' })
       return
     }
     if (navigationType === 'POP') {
@@ -50,6 +54,16 @@ export default function App() {
       window.scrollTo(0, 0)
     }
   }, [hash, pathname, search, key, navigationType, restoreScroll])
+
+  // SPA 換頁時瀏覽器不會重設焦點，鍵盤與螢幕閱讀器使用者會停在上一頁的連結上、
+  // 也聽不到頁面已經換了。路徑變了就把焦點移到 <main>（preventScroll：捲動位置上面已處理）。
+  // 第一次載入不動，避免一進站就搶走焦點。
+  const previousPathname = useRef(pathname)
+  useEffect(() => {
+    if (previousPathname.current === pathname) return
+    previousPathname.current = pathname
+    mainRef.current?.focus({ preventScroll: true })
+  }, [pathname])
 
   // 持續記錄目前這頁的捲動位置，供之後返回這個 history entry／這個路徑時還原
   useEffect(() => {
@@ -63,8 +77,20 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
+      <a
+        href="#main-content"
+        // 用 onClick 手動聚焦而不是原生錨點：原生 #hash 導覽不會經過 React Router，
+        // 網址會多一段 #main-content，也可能跟上面的 hash 捲動邏輯打架
+        onClick={(event) => {
+          event.preventDefault()
+          mainRef.current?.focus()
+        }}
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:border focus:border-[var(--color-border)] focus:bg-[var(--color-bg)] focus:px-4 focus:py-2 focus:text-[var(--color-text)]"
+      >
+        {t.nav.skipToContent}
+      </a>
       <NavBar />
-      <main className="mx-auto max-w-5xl px-4 py-8">
+      <main ref={mainRef} id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-8 outline-none">
         <Suspense fallback={<Loading />}>
           <Outlet />
         </Suspense>

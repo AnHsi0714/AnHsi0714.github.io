@@ -21,8 +21,9 @@
   background-color: $color-bg;
   transition: border-color $transition-fast;
 
+  // 不拿掉 outline：index.css 的 :focus-visible 焦點環會接手，
+  // 只靠邊框變色對低視力使用者不夠明顯
   &:focus {
-    outline: none;
     border-color: $color-primary;
   }
 }
