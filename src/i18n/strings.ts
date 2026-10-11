@@ -211,6 +211,7 @@ export interface Strings {
   };
   term: {
     inThisProject: string;
+    inThisArticle: string;
     viewNode: string;
   };
   knowledge: {
@@ -235,6 +236,7 @@ export interface Strings {
     entryPointHint: string;
     relatedKnowledge: string;
     tableOfContents: string;
+    gotoApplication: (group: number) => string;
     graphViewLabel: string;
     graphViewTitle: string;
     graphViewSubtitle: string;
@@ -500,6 +502,7 @@ export const strings: Record<"zh" | "en", Strings> = {
     },
     term: {
       inThisProject: "在此專案中：",
+      inThisArticle: "在此文章中：",
       viewNode: "深入了解 →",
     },
     knowledge: {
@@ -509,11 +512,13 @@ export const strings: Record<"zh" | "en", Strings> = {
       allCategories: "全部分類",
       categoryNames: {
         ALGO: "演算法",
+        DA: "數據分析",
         DB: "資料庫",
-        EVAL: "數據分析",
+        EVAL: "評估",
         FLT: "形式語言理論",
+        HCI: "人機互動",
         NLP: "自然語言處理",
-        RESEARCH: "研究方法",
+        RES: "研究方法",
         WEB: "網頁開發",
       },
       noMatch: "沒有符合條件的知識點",
@@ -534,6 +539,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       entryPointHint: "想更深入了解背後概念？逛逛 Knowledge →",
       relatedKnowledge: "相關知識",
       tableOfContents: "詞條目錄",
+      gotoApplication: (group: number) => `切換至第 ${group} 則應用說明`,
       graphViewLabel: "圖譜檢視 →",
       graphViewTitle: "知識圖譜",
       graphViewSubtitle: "依先備知識、應用、對比等關係連起來的知識點，點一個節點進到該詞條頁面。",
@@ -816,6 +822,7 @@ export const strings: Record<"zh" | "en", Strings> = {
     },
     term: {
       inThisProject: "In this project: ",
+      inThisArticle: "In this article: ",
       viewNode: "Learn more →",
     },
     knowledge: {
@@ -826,11 +833,13 @@ export const strings: Record<"zh" | "en", Strings> = {
       allCategories: "All categories",
       categoryNames: {
         ALGO: "Algorithms",
+        DA: "Data Analysis",
         DB: "Databases",
-        EVAL: "Data Analysis",
+        EVAL: "Evaluation",
         FLT: "Formal Language Theory",
+        HCI: "Human-Computer Interaction",
         NLP: "Natural Language Processing",
-        RESEARCH: "Research Methods",
+        RES: "Research Methods",
         WEB: "Web Development",
       },
       noMatch: "No knowledge nodes match these filters",
@@ -852,6 +861,7 @@ export const strings: Record<"zh" | "en", Strings> = {
         "Want to dig into the concepts behind this? Browse Knowledge →",
       relatedKnowledge: "Related Knowledge",
       tableOfContents: "Table of Contents",
+      gotoApplication: (group: number) => `Show example ${group}`,
       graphViewLabel: "Graph view →",
       graphViewTitle: "Knowledge Graph",
       graphViewSubtitle:

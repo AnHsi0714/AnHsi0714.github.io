@@ -19,26 +19,46 @@ export interface KnowledgeNodeWithSlug extends KnowledgeNode {
 // - application 是單一字串，只有這個詞真的關聯到目前的 slug（在 relatedProjects／relatedArticles
 //   裡）才顯示，否則同樣回傳空陣列
 // 沒有傳 contextSlug（獨立的知識節點頁）就回傳全部，讓呼叫端各自條列顯示，而不是黏成一段話
-export function resolveApplicationLines(
+// 每一句說明標記它屬於專案還是文章，UI 才能顯示「在此專案中」或「在此文章中」；
+// slug 是單句說明對應的那個專案／文章（字串形式的 application 在沒有 contextSlug 時沒有單一對應，留空）
+export interface ApplicationEntry {
+  kind: "project" | "article";
+  slug?: string;
+  text: string;
+}
+
+export function resolveApplicationEntries(
   entry:
     | Pick<KnowledgeNode, "application" | "relatedProjects" | "relatedArticles">
     | undefined,
   contextSlug?: string,
-): string[] {
+): ApplicationEntry[] {
   const application = entry?.application;
   if (!application) return [];
 
+  const projects = entry?.relatedProjects ?? [];
+  const articles = entry?.relatedArticles ?? [];
+  const kindOf = (slug: string): ApplicationEntry["kind"] =>
+    articles.includes(slug) && !projects.includes(slug) ? "article" : "project";
+
   if (typeof application === "string") {
-    if (!contextSlug) return [application];
-    const relatedSlugs = [
-      ...(entry?.relatedProjects ?? []),
-      ...(entry?.relatedArticles ?? []),
-    ];
-    return relatedSlugs.includes(contextSlug) ? [application] : [];
+    if (contextSlug) {
+      return [...projects, ...articles].includes(contextSlug)
+        ? [{ kind: kindOf(contextSlug), slug: contextSlug, text: application }]
+        : [];
+    }
+    if (projects.length === 0 && articles.length === 0) return [];
+    return [{ kind: projects.length > 0 ? "project" : "article", text: application }];
   }
 
-  if (!contextSlug) return Object.values(application);
-  return application[contextSlug] ? [application[contextSlug]] : [];
+  if (contextSlug) {
+    return application[contextSlug]
+      ? [{ kind: kindOf(contextSlug), slug: contextSlug, text: application[contextSlug] }]
+      : [];
+  }
+  return Object.entries(application)
+    .map(([slug, text]) => ({ kind: kindOf(slug), slug, text }))
+    .sort((a, b) => (a.kind === b.kind ? 0 : a.kind === "project" ? -1 : 1));
 }
 
 function toArray(map: Record<string, KnowledgeNode>): KnowledgeNodeWithSlug[] {

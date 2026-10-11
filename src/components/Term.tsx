@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { resolveApplicationLines, useKnowledgeMap } from "../lib/knowledge";
+import { resolveApplicationEntries, useKnowledgeMap } from "../lib/knowledge";
 import TextLink from "./TextLink";
 import { useTranslation } from "../i18n/useTranslation";
 
@@ -18,7 +18,7 @@ export default function Term({ id, children, contextSlug }: TermProps) {
   const knowledgeMap = useKnowledgeMap();
   const { t } = useTranslation();
   const entry = knowledgeMap[id];
-  const applicationLines = resolveApplicationLines(entry, contextSlug);
+  const applicationEntries = resolveApplicationEntries(entry, contextSlug);
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -110,27 +110,16 @@ export default function Term({ id, children, contextSlug }: TermProps) {
           >
             <p className="font-semibold text-[var(--color-text)]">{entry.term}</p>
             <p className="mt-1 text-[var(--color-text-muted)]">{entry.definition}</p>
-            {applicationLines.length > 0 && (
+            {applicationEntries.length > 0 && (
               <div className="mt-2 border-t border-[var(--color-border)] pt-2 text-[var(--color-text-muted)]">
-                {applicationLines.length === 1 ? (
-                  <p>
+                {applicationEntries.map((item, index) => (
+                  <p key={index} className={index > 0 ? "mt-1.5" : undefined}>
                     <span className="font-medium text-[var(--color-text)]">
-                      {t.term.inThisProject}
+                      {item.kind === "article" ? t.term.inThisArticle : t.term.inThisProject}
                     </span>
-                    {applicationLines[0]}
+                    {item.text}
                   </p>
-                ) : (
-                  <>
-                    <p className="font-medium text-[var(--color-text)]">
-                      {t.term.inThisProject}
-                    </p>
-                    {applicationLines.map((line, index) => (
-                      <p key={index} className="mt-1.5">
-                        {line}
-                      </p>
-                    ))}
-                  </>
-                )}
+                ))}
               </div>
             )}
             {entry.status === "published" && (
