@@ -29,6 +29,18 @@ html {
   }
 }
 
+/* 鍵盤焦點環的保底：只在「鍵盤操作」時出現（:focus-visible），滑鼠點擊不會閃。
+   元件有自己的焦點樣式（Chip、Tooltip、畫廊展牆）時，它們的選擇器權重更高，會蓋過這條；
+   這條負責接住沒寫的（Card 連結、Carousel 圓點、導覽連結、各種 button、表單欄位）。
+   <main> 是換頁後程式移過去的焦點，不是使用者要操作的元件，不畫環。 */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+main:focus-visible {
+  outline: none;
+}
+
 /* 換頁轉場（NavBar 的連結帶 viewTransition）：只有內容淡入淡出，導覽列用固定的
    view-transition-name 留在原地；時間壓短，避免換頁變慢。 */
 ::view-transition-old(root),
