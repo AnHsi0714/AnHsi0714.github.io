@@ -92,7 +92,7 @@ export default function Home() {
           {researchInterestTags.map((tag) => (
             <Link
               key={tag.label}
-              to={tag.slug ? `/knowledge/${tag.slug}` : "/knowledge?category=RESEARCH"}
+              to={tag.slug ? `/knowledge/${tag.slug}` : "/knowledge?category=RES"}
             >
               <Chip clickable size="md">{tag.label}</Chip>
             </Link>

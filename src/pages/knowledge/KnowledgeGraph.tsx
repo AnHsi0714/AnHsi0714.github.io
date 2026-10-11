@@ -32,7 +32,9 @@ const CATEGORY_COLORS: Record<string, string> = {
   NLP: "#ec4899",
   DB: "#14b8a6",
   WEB: "#3b82f6",
-  RESEARCH: "#84cc16",
+  RES: "#84cc16",
+  DA: "#06b6d4",
+  HCI: "#a855f7",
 };
 const FALLBACK_COLOR = "#9ca3af";
 

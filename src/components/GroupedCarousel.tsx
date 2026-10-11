@@ -22,6 +22,8 @@ interface GroupedCarouselProps<T> {
   // 的單一內容(例如相片)用；true 時才需要提供 edgeNavLabels。
   edgeNav?: boolean;
   edgeNavLabels?: { previous: string; next: string };
+  // 內容是需要慢慢讀的長段文字時關掉自動輪換，只讓使用者點圓點切換
+  autoRotate?: boolean;
 }
 
 export default function GroupedCarousel<T>({
@@ -32,6 +34,7 @@ export default function GroupedCarousel<T>({
   gotoAriaLabel,
   edgeNav = false,
   edgeNavLabels,
+  autoRotate = true,
 }: GroupedCarouselProps<T>) {
   const groups = chunk(items, groupSize);
   const [groupIndex, setGroupIndex] = useState(0);
@@ -63,13 +66,13 @@ export default function GroupedCarousel<T>({
   };
 
   useEffect(() => {
-    if (groups.length <= 1 || isPaused) return;
+    if (!autoRotate || groups.length <= 1 || isPaused) return;
     const id = window.setInterval(() => {
       goTo((groupIndex + 1) % groups.length);
     }, AUTO_ROTATE_MS);
     return () => window.clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groupIndex, groups.length, isPaused]);
+  }, [groupIndex, groups.length, isPaused, autoRotate]);
 
   const activeGroup = groups[groupIndex] ?? [];
 

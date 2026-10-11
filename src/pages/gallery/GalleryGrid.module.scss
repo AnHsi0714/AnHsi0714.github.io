@@ -48,10 +48,7 @@
     --room-placard-meta: #8f8f95;
   }
 
-  @include full-bleed-under-nav(
-    $height-property: height,
-    $top-padding: 2rem
-  );
+  @include full-bleed-under-nav($height-property: height, $top-padding: 2rem);
   display: flex;
   flex-direction: column;
   background:

@@ -43,6 +43,8 @@ export interface Strings {
   languageToggle: {
     switchToEnglish: string;
     switchToChinese: string;
+    hintToEnglish: string;
+    hintToChinese: string;
   };
   common: {
     filterSort: string;
@@ -211,6 +213,7 @@ export interface Strings {
   };
   term: {
     inThisProject: string;
+    inThisArticle: string;
     viewNode: string;
   };
   knowledge: {
@@ -235,6 +238,7 @@ export interface Strings {
     entryPointHint: string;
     relatedKnowledge: string;
     tableOfContents: string;
+    gotoApplication: (group: number) => string;
     graphViewLabel: string;
     graphViewTitle: string;
     graphViewSubtitle: string;
@@ -293,7 +297,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       experience: "經歷",
       projects: "專案",
       articles: "文章",
-      gallery: "生成視覺",
+      gallery: "藝術畫廊",
       dreams: "夢想",
       friends: "朋友創作",
       devComponents: "組件預覽",
@@ -332,6 +336,8 @@ export const strings: Record<"zh" | "en", Strings> = {
     languageToggle: {
       switchToEnglish: "切換成英文",
       switchToChinese: "切換成中文",
+      hintToEnglish: "點擊切換成英文",
+      hintToChinese: "點擊切換成中文",
     },
     common: {
       filterSort: "篩選 / 排序",
@@ -369,7 +375,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       quickLinkExperienceDesc: "競賽、實習與教學經歷",
       quickLinkArticles: "文章",
       quickLinkArticlesDesc: "學術筆記、技術文章與讀書心得",
-      quickLinkGallery: "生成視覺",
+      quickLinkGallery: "藝術畫廊",
       quickLinkGalleryDesc: "p5.js 互動式創作",
       quickLinkProjects: "全部專案",
       quickLinkProjectsDesc: "完整專案列表",
@@ -445,7 +451,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       nextArticle: "下一篇文章",
     },
     gallery: {
-      title: "生成視覺",
+      title: "藝術畫廊",
       subtitle:
         "展覽牆的畫作會自動橫移，點縮圖直接進入互動版本，點作品名稱看介紹。",
       noMatch: "沒有符合條件的作品",
@@ -500,6 +506,7 @@ export const strings: Record<"zh" | "en", Strings> = {
     },
     term: {
       inThisProject: "在此專案中：",
+      inThisArticle: "在此文章中：",
       viewNode: "深入了解 →",
     },
     knowledge: {
@@ -509,11 +516,13 @@ export const strings: Record<"zh" | "en", Strings> = {
       allCategories: "全部分類",
       categoryNames: {
         ALGO: "演算法",
+        DA: "數據分析",
         DB: "資料庫",
-        EVAL: "數據分析",
+        EVAL: "評估",
         FLT: "形式語言理論",
+        HCI: "人機互動",
         NLP: "自然語言處理",
-        RESEARCH: "研究方法",
+        RES: "研究方法",
         WEB: "網頁開發",
       },
       noMatch: "沒有符合條件的知識點",
@@ -534,6 +543,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       entryPointHint: "想更深入了解背後概念？逛逛 Knowledge →",
       relatedKnowledge: "相關知識",
       tableOfContents: "詞條目錄",
+      gotoApplication: (group: number) => `切換至第 ${group} 則應用說明`,
       graphViewLabel: "圖譜檢視 →",
       graphViewTitle: "知識圖譜",
       graphViewSubtitle: "依先備知識、應用、對比等關係連起來的知識點，點一個節點進到該詞條頁面。",
@@ -596,7 +606,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       experience: "Experience",
       projects: "Projects",
       articles: "Articles",
-      gallery: "Generative Visuals",
+      gallery: "Gallery",
       dreams: "Dreams",
       friends: "Friends' Creations",
       devComponents: "Components Preview",
@@ -641,6 +651,8 @@ export const strings: Record<"zh" | "en", Strings> = {
     languageToggle: {
       switchToEnglish: "Switch to English",
       switchToChinese: "Switch to Chinese",
+      hintToEnglish: "Click to switch to English",
+      hintToChinese: "Click to switch to Chinese",
     },
     common: {
       filterSort: "Filter / Sort",
@@ -681,7 +693,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       quickLinkArticles: "Articles",
       quickLinkArticlesDesc:
         "Academic notes, technical writeups, and reading reflections",
-      quickLinkGallery: "Generative Visuals",
+      quickLinkGallery: "Gallery",
       quickLinkGalleryDesc: "Interactive p5.js creations",
       quickLinkProjects: "All Projects",
       quickLinkProjectsDesc: "Full project list",
@@ -758,7 +770,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       nextArticle: "Next Article",
     },
     gallery: {
-      title: "Generative Visuals",
+      title: "Gallery",
       subtitle:
         "The wall auto-scrolls; click a thumbnail to open its interactive version, or its name for details.",
       noMatch: "No pieces match these filters",
@@ -816,6 +828,7 @@ export const strings: Record<"zh" | "en", Strings> = {
     },
     term: {
       inThisProject: "In this project: ",
+      inThisArticle: "In this article: ",
       viewNode: "Learn more →",
     },
     knowledge: {
@@ -826,11 +839,13 @@ export const strings: Record<"zh" | "en", Strings> = {
       allCategories: "All categories",
       categoryNames: {
         ALGO: "Algorithms",
+        DA: "Data Analysis",
         DB: "Databases",
-        EVAL: "Data Analysis",
+        EVAL: "Evaluation",
         FLT: "Formal Language Theory",
+        HCI: "Human-Computer Interaction",
         NLP: "Natural Language Processing",
-        RESEARCH: "Research Methods",
+        RES: "Research Methods",
         WEB: "Web Development",
       },
       noMatch: "No knowledge nodes match these filters",
@@ -852,6 +867,7 @@ export const strings: Record<"zh" | "en", Strings> = {
         "Want to dig into the concepts behind this? Browse Knowledge →",
       relatedKnowledge: "Related Knowledge",
       tableOfContents: "Table of Contents",
+      gotoApplication: (group: number) => `Show example ${group}`,
       graphViewLabel: "Graph view →",
       graphViewTitle: "Knowledge Graph",
       graphViewSubtitle:

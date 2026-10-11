@@ -55,7 +55,10 @@
   "normalized-gain": {
     "term": "Normalized Gain",
     "definition": "A learning-outcome metric common in education research, measuring the \"actual improvement\" from pre-test to post-test as a fraction of the \"maximum possible improvement\": the closer to 1, the closer the gain is to a perfect score.",
-    "application": "CodePulse's user study used Normalized Gain to measure the change in test scores before and after using the platform; both the university and high-school groups trended positive but did not reach statistical significance, suggesting learning gains were limited but directionally correct given the short session length.",
+    "application": {
+      "code-pulse": "CodePulse's user study used Normalized Gain to measure the change in test scores before and after using the platform; both the university and high-school groups trended positive but did not reach statistical significance, suggesting learning gains were limited but directionally correct given the short session length.",
+      "code-pulse-user-study": "This article reports the CodePulse user test results: test performance is measured with Normalized Gain, and both the university and high-school groups trend positive but neither reaches statistical significance."
+    },
     "category": "EVAL",
     "status": "published",
     "relatedProjects": ["code-pulse"],
@@ -160,7 +163,10 @@
   "crud": {
     "term": "CRUD",
     "definition": "An acronym for Create, Read, Update, and Delete: the four basic data operations that nearly every management feature is built from.",
-    "application": "The Product Management Subsystem (PMS) lets shops perform CRUD on their own products: listing new products, browsing the product list, editing prices or options, and delisting products, though to preserve transaction integrity, \"delete\" is actually restricted to delisting only; products with existing transaction records can never be truly deleted.",
+    "application": {
+      "silkroad": "The Product Management Subsystem (PMS) lets shops perform CRUD on their own products: listing new products, browsing the product list, editing prices or options, and delisting products, though to preserve transaction integrity, \"delete\" is actually restricted to delisting only; products with existing transaction records can never be truly deleted.",
+      "http-methods": "The article notes that many beginners map the four HTTP methods straight onto CRUD (POST is create, PUT is update), but that mapping alone gives no basis for questions like whether to resend after a network timeout; Rails does not simply map HTTP methods to CRUD either, it builds a consistent Web API structure on the semantics HTTP gives a Resource."
+    },
     "category": "DB",
     "status": "published",
     "relatedProjects": ["silkroad"],
@@ -347,7 +353,7 @@
     "term": "Visual Analytics",
     "definition": "A research field combining interactive visualization with analytical reasoning: letting users manipulate a visual representation of data while reasoning about it, rather than just reading a pre-computed static report; the core concern is whether a visualization actually helps users make better judgments, not just whether it looks good.",
     "application": "CodePulse turns algorithm execution into an interactive animation rather than a plain-text explanation, but the pre/post-test study revealed that \"a well-designed interface\" and \"users genuinely learning more\" are two things that need to be verified separately. That gap is exactly why I want to pursue graduate study in Information Visualization / Human-Computer Interaction, to learn more rigorous user-research methods.",
-    "category": "RESEARCH",
+    "category": "HCI",
     "status": "published",
     "relatedProjects": ["code-pulse"],
     "relatedArticles": [],
@@ -363,7 +369,7 @@
     "term": "Interactive Data Exploration",
     "definition": "Letting users explore data or a program's execution by directly manipulating it (filtering, drilling down, tracing) rather than passively receiving a pre-packaged conclusion; the exploration path itself is part of understanding the problem.",
     "application": "CodePulse's Playground lets users submit arbitrary code and dynamically traces its execution so users can explore variable changes and function-call relationships themselves, instead of only watching a fixed example animation; this website's own search and category filters on the Projects and Knowledge pages follow the same \"let users find their own path\" design.",
-    "category": "RESEARCH",
+    "category": "HCI",
     "status": "published",
     "relatedProjects": ["code-pulse"],
     "relatedArticles": [],
@@ -374,9 +380,10 @@
     "definition": "Converting abstract data (numbers, program structure, text statistics) into graphical representations, so people can grasp structure and patterns through visual perception instead of reading line by line.",
     "application": {
       "code-pulse": "CodePulse renders a program's control flow as a CFG / call graph, converting processed abstract data into a graphical form whose patterns are visible at a glance.",
-      "absa-wordcloud": "The ABSA Pipeline renders user-feedback sentiment results as a word cloud, converting processed abstract data into a graphical form whose patterns are visible at a glance."
+      "absa-wordcloud": "The ABSA Pipeline renders user-feedback sentiment results as a word cloud, converting processed abstract data into a graphical form whose patterns are visible at a glance.",
+      "code-pulse-confidence-vs-competence": "In the reflection on the CodePulse user study, the author names information visualization as one of the directions to dig into next, continuing the question of how to make data understandable at a glance, alongside HCI and user studies."
     },
-    "category": "RESEARCH",
+    "category": "HCI",
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],
     "relatedArticles": ["code-pulse-confidence-vs-competence"],
@@ -388,8 +395,12 @@
   "human-computer-interaction": {
     "term": "Human-Computer Interaction (HCI)",
     "definition": "The field studying how people interact with computer systems, covering usability evaluation and user-research methodology: concerned with rigorously verifying whether a system is actually good to use, rather than relying on intuition.",
-    "application": "CodePulse's user study recruited two groups (university and high-school students) for a pre/post-test, using Normalized Gain to measure the change in test scores before and after using the platform. This was my first hands-on experience with a common HCI user-research method, and it showed me that \"users reporting more confidence\" and \"a statistically significant test-score improvement\" are two pieces of evidence that can't substitute for each other.",
-    "category": "RESEARCH",
+    "application": {
+      "code-pulse": "The CodePulse user test was my first hands-on run of a common HCI user-research method: a pre/post test with a university group and a high-school group, to check whether the interface design actually works instead of relying on intuition.",
+      "code-pulse-user-study": "CodePulse's user study recruited two groups (university and high-school students) for a pre/post-test, using Normalized Gain to measure the change in test scores before and after using the platform. This was my first hands-on experience with a common HCI user-research method, and it showed me that \"users reporting more confidence\" and \"a statistically significant test-score improvement\" are two pieces of evidence that can't substitute for each other.",
+      "code-pulse-confidence-vs-competence": "In the reflection the author names HCI as a direction to keep digging into, alongside user studies and information visualization, collected in \"Exploring HCI: From Usability to Understanding Why\"."
+    },
+    "category": "HCI",
     "status": "published",
     "relatedProjects": ["code-pulse"],
     "relatedArticles": ["code-pulse-user-study", "code-pulse-confidence-vs-competence"],
@@ -411,7 +422,7 @@
       "snappi-personal-data-stickers": "In the SnapPI study, the first author coded 21 participants' interview transcripts and returned Snap screenshots, tagging meaning units such as \"quantifying feelings that are hard to put into words\" or \"sharing different stickers depending on friend type\"; the team then met regularly to group related codes, converging on 9 codes and 3 core themes.",
       "3cpes-concrete-programming-environments": "The authors did a thematic analysis of the workshop recordings, tagging meaning units from the five teachers' comments, teaching difficulties, attitudes toward concretizing abstract concepts, views on CT Chef's usability and feasibility, then grouping them into recurring themes that informed further design changes to 3CPEs and CT Chef."
     },
-    "category": "RESEARCH",
+    "category": "DA",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": [
@@ -429,7 +440,7 @@
     "term": "Reflexive Thematic Analysis",
     "definition": "A qualitative analysis approach from Braun & Clarke: codes and themes are meaning the researcher subjectively constructs through interpretation, so a different team analyzing the same data may reach different results. That's a natural expression of subjectivity, not an error. Team discussion aims to deepen interpretation, not to compute inter-rater reliability across independent coders the way some other approaches do.",
     "application": "The SnapPI study used reflexive thematic analysis: the first author did the initial coding, and the research team met regularly to revise and consolidate themes, a discussion aimed at deepening interpretation, not at verifying agreement between multiple coders.",
-    "category": "RESEARCH",
+    "category": "DA",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["snappi-personal-data-stickers"],
@@ -443,7 +454,7 @@
     "term": "Micro-trends",
     "definition": "A short-lived spike in a particular kind of content on a social platform, often driven by a recurring or one-off community activity (e.g., a weekly sketching challenge). If data collection happens to land during one of these spikes, the resulting sample can end up skewed toward that specific short-term phenomenon rather than reflecting the domain's typical, longer-term content.",
     "application": "When collecting TikTok videos, the team spread their 10-day collection window across five separate dates rather than pulling everything from a single day or week: this let them still capture activities people might complete within a week (like a half-marathon training cycle), while avoiding the risk of the sample being skewed by a community's recurring weekly challenge, a micro-trend inflating the sample.",
-    "category": "RESEARCH",
+    "category": "RES",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["short-form-video-activity-sharing"],
@@ -456,7 +467,7 @@
       "short-form-video-activity-sharing": "When analyzing how videos present progress, the paper distinguishes between quantitative and qualitative presentation. Quantitative examples include an on-screen caption showing distance run or a ticking timer readout; a single video can mix both approaches.",
       "3cpes-concrete-programming-environments": "The authors note as a limitation that the study only gathered qualitative feedback through teacher interviews, without quantitative data verifying 3CPEs' actual learning outcomes for elementary students; adding quantitative data in future work would show the learning benefit more clearly."
     },
-    "category": "RESEARCH",
+    "category": "DA",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": [
@@ -471,7 +482,7 @@
     "term": "Qualitative Data",
     "definition": "Information presented as description, narrative, or other non-numeric form, such as spoken narration, a gesture, or detail conveyed by the footage itself. It preserves context and feeling, but is harder to directly compare or tally.",
     "application": "When analyzing how videos present progress, the paper distinguishes between quantitative and qualitative presentation. Qualitative examples include a runner gesturing how many laps they've done, or narrating how they currently feel; this preserves context and emotion that numbers alone can't convey, but makes it harder to directly compare progress across videos.",
-    "category": "RESEARCH",
+    "category": "DA",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["short-form-video-activity-sharing"],
@@ -485,7 +496,7 @@
     "term": "Inductive Reasoning",
     "definition": "A bottom-up analytical approach: start by closely examining the raw data itself and let categories and themes emerge from it, rather than applying an existing theory or framework up front and checking whether the data fits.",
     "application": "The team began by inductively examining videos and open-coding how videos represented activity information; this surfaced timing (before, during, after the activity) as a recurring, important dimension, which then shaped the rest of the analysis, rather than the team assuming a timing framework upfront and fitting videos into it.",
-    "category": "RESEARCH",
+    "category": "DA",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["short-form-video-activity-sharing"],
@@ -498,7 +509,7 @@
     "term": "Deductive Reasoning",
     "definition": "A top-down analytical approach: establish a classification framework first, then use that framework to examine and categorize new data, checking whether it fits the framework.",
     "application": "Once the team had inductively identified timing as a key dimension, they switched to deductively applying that framework to the rest of the videos, converging after several rounds of iteration on 17 codes organized around three dimensions of how information is represented (modality, form, strategy).",
-    "category": "RESEARCH",
+    "category": "DA",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["short-form-video-activity-sharing"],
@@ -511,7 +522,7 @@
     "term": "3CPEs (Concrete Computational Concepts Programming Environments)",
     "definition": "Short for Concrete Computational Concepts Programming Environments: an approach that combines the concreteness and interactivity of CS-unplugged activities with the flexibility of a programming environment, using familiar everyday objects and gamified elements to make abstract programming concepts (variables, loops, conditionals, functions) tangible so learners can grasp them through everyday experience.",
     "application": "CT Chef is a concrete instance of 3CPEs that wraps an entire set of programming concepts into a cooking scenario: a conveyor belt maps to program execution order, ingredients map to variables, and loop flow cards map to loops, letting elementary students grasp abstract programming concepts through familiar cooking actions.",
-    "category": "RESEARCH",
+    "category": "HCI",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["3cpes-concrete-programming-environments"],
@@ -524,7 +535,7 @@
     "term": "K-12",
     "definition": "A common US schooling term spanning kindergarten through 12th grade, i.e. elementary through high school. It's often used to define the age range of learners an education study or tool targets.",
     "application": "Based on feedback from teacher interviews, the authors close the paper by outlining how 3CPEs and CT Chef could extend to support K-12 CS education more broadly, beyond the elementary-school focus of the interviews themselves.",
-    "category": "RESEARCH",
+    "category": "RES",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["3cpes-concrete-programming-environments"],
@@ -534,7 +545,7 @@
     "term": "Semi-structured Interview",
     "definition": "A common qualitative-research interview format: the researcher prepares core questions and a rough outline in advance, but doesn't read from a fixed script. Follow-up questions and the order of questions can flex based on the interviewee's answers, keeping the interview focused while still leaving room for participants to elaborate.",
     "application": "After the workshop, the authors conducted semi-structured interviews with the five teachers, structured around three research questions (teaching difficulties and needs, attitudes toward concretizing abstract concepts, and how 3CPEs could fit into teaching practice), while leaving room to follow up on points beyond the interview outline.",
-    "category": "RESEARCH",
+    "category": "RES",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["3cpes-concrete-programming-environments"],
@@ -544,7 +555,7 @@
     "term": "Snowball Sampling",
     "definition": "A non-random sampling method: start with a small number of eligible participants, then ask them to refer or introduce other people who fit the criteria, letting the sample grow like a rolling snowball. It's well suited to recruiting a specific, hard-to-reach population that isn't easily found through a public list.",
     "application": "The authors used snowball sampling to recruit elementary teachers experienced in teaching computer science, programming, and computational thinking, growing the participant list through existing networks until five eligible teachers had joined the workshop and interviews.",
-    "category": "RESEARCH",
+    "category": "RES",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["3cpes-concrete-programming-environments"],
@@ -554,7 +565,7 @@
     "term": "Paper Prototype",
     "definition": "A low-fidelity prototype built from paper, cards, or similar materials, letting designers get real users to try it out and give feedback before the system is actually built, so usability problems surface quickly and cheaply and the design can be improved early.",
     "application": "For the workshop, the authors built a paper card prototype of CT Chef for the five teachers to try out and evaluate, learning what teachers thought of the 3CPEs concept and CT Chef's usability and feasibility before building any of it as real software.",
-    "category": "RESEARCH",
+    "category": "HCI",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["3cpes-concrete-programming-environments"],
@@ -592,7 +603,7 @@
     "term": "Social Computing",
     "definition": "The study of how people interact, share, and present themselves through computer systems and social platforms; the focus isn't just whether a system is usable, but how it both shapes and is shaped by interpersonal interaction, social norms, and context.",
     "application": "In my SnapPI paper notes, personal data stickers on Snapchat's ephemeral stories lowered the social burden of sharing data and sparked deeper conversations. That showed me information visualization doesn't only serve understanding data, it can also serve communication and self-presentation between people. That's a direction I want to pursue further in graduate research: designing interactive visualization not just as a teaching or analysis tool, but as a medium for communication within social contexts.",
-    "category": "RESEARCH",
+    "category": "HCI",
     "status": "published",
     "relatedProjects": [],
     "relatedArticles": ["snappi-personal-data-stickers"],
@@ -606,7 +617,7 @@
     "term": "Interactive Systems",
     "definition": "Systems built around a continuous feedback loop between user and system: the user acts, the system responds in real time, and the user adjusts the next action accordingly, rather than the system batch-processing data once and handing back a final result. The design question is whether that loop is fast and legible enough that the user feels like they're operating the system, not waiting on it.",
     "application": "CodePulse's algorithm playground is itself an interactive system: a user submits code, the system renders its execution as a step-by-step animation in real time, and the user adjusts the code and resubmits based on what they see. The platform's value rests on how tight and legible that action-and-feedback loop is, not just on how polished the animation looks.",
-    "category": "RESEARCH",
+    "category": "HCI",
     "status": "published",
     "relatedProjects": ["code-pulse"],
     "relatedArticles": [],
@@ -620,7 +631,7 @@
     "term": "Human-Centered Computing",
     "definition": "A research approach that starts system design from human needs, capabilities, and values. It's a superordinate concept shared by HCI, social computing, and user-centered design, not a separate research direction alongside them, but the common stance underneath those sub-fields: ask what a technology means for people first, then decide what to build.",
     "application": "CodePulse's frontend interaction design, user research, A/B crossover study, and pre/post testing look like separate methods on the surface, but they're all answering the same HCC-shaped question underneath: does this design actually help a person.",
-    "category": "RESEARCH",
+    "category": "HCI",
     "status": "published",
     "relatedProjects": ["code-pulse"],
     "relatedArticles": [],
@@ -632,7 +643,11 @@
   "learning-confidence": {
     "term": "Learning Confidence",
     "definition": "A participant's subjective belief about whether they can learn or complete a given learning task, answering \"do I believe I can learn this?\" It's a psychological construct, not a measurement method in itself.",
-    "application": "In CodePulse's pre/post survey, participants rated their confidence in being able to learn harder algorithms going forward, and that confidence rose significantly after using the platform (p < 0.001). A rise in confidence, however, is not the same as a significant gain in test scores (see Normalized Gain); the two are separate pieces of evidence that need to be verified independently.",
+    "application": {
+      "code-pulse": "In CodePulse's pre/post survey, participants rated their confidence in being able to learn harder algorithms going forward, and that confidence rose significantly after using the platform (p < 0.001). A rise in confidence, however, is not the same as a significant gain in test scores (see Normalized Gain); the two are separate pieces of evidence that need to be verified independently.",
+      "code-pulse-user-study": "Learning confidence reaches statistical significance in both groups (university p < 0.001; high school p = 0.021), measured by self-rating on a Likert scale in the questionnaire.",
+      "code-pulse-confidence-vs-competence": "The article defines learning confidence as a learner's subjective belief in their ability to complete a learning task, understand the material, or solve problems. It is a psychological construct and a different kind of evidence from test performance."
+    },
     "category": "EVAL",
     "status": "published",
     "relatedProjects": ["code-pulse"],
@@ -647,7 +662,11 @@
   "self-reported-confidence": {
     "term": "Self-Reported Confidence",
     "definition": "A measurement method where participants rate their own confidence level on a scale. It's an operationalized measurement technique, not an independent psychological construct, and is commonly used to quantify beliefs like learning confidence.",
-    "application": "CodePulse's pre/post survey used a rating scale to have participants self-report their confidence in learning algorithms; this self-report method is what makes it possible to turn the change in learning confidence into a comparable number.",
+    "application": {
+      "code-pulse": "CodePulse's pre/post survey used a rating scale to have participants self-report their confidence in learning algorithms; this self-report method is what makes it possible to turn the change in learning confidence into a comparable number.",
+      "code-pulse-user-study": "Learning confidence is obtained by self-rating on the questionnaire's Likert scale, which makes it a self-reported confidence measure.",
+      "code-pulse-confidence-vs-competence": "The article stresses that self-reported confidence is not a separate psychological construct parallel to learning confidence, but the method used to measure it."
+    },
     "category": "EVAL",
     "status": "published",
     "relatedProjects": ["code-pulse"],
@@ -661,7 +680,11 @@
   "self-perceived-learning-effectiveness": {
     "term": "Self-Perceived Learning Effectiveness",
     "definition": "A participant's own subjective judgment of how well they learned, answering \"do I feel like I learned better?\" This is a different layer of evidence from objective learning outcomes measured by test scores, and the two can point in the same direction or diverge.",
-    "application": "CodePulse's survey asked participants whether, compared to traditional textbooks and slides, they felt CodePulse made the material more intuitive and easier to understand. That kind of answer is self-perceived learning effectiveness, a separate thing from the positive-but-not-significant Normalized Gain shown in test scores.",
+    "application": {
+      "code-pulse": "CodePulse's survey asked participants whether, compared to traditional textbooks and slides, they felt CodePulse made the material more intuitive and easier to understand. That kind of answer is self-perceived learning effectiveness, a separate thing from the positive-but-not-significant Normalized Gain shown in test scores.",
+      "code-pulse-user-study": "Users also tended to feel that, compared with traditional textbooks and slides, CodePulse made learning more intuitive and the teaching experience more helpful.",
+      "code-pulse-confidence-vs-competence": "The article treats self-perceived learning effectiveness as its own item, answering \"do I feel I learned better?\", and compares it with learning confidence and self-reported confidence in one table."
+    },
     "category": "EVAL",
     "status": "published",
     "relatedProjects": ["code-pulse"],
@@ -675,7 +698,10 @@
   "retrospective-pre-post": {
     "term": "Retrospective Pre-Post",
     "definition": "A pre/post design where participants answer both a \"before\" and an \"after\" self-report item at the same single point in time, usually right after an intervention, rather than being measured once before and once after. Unlike a true pre-post measured on two separate occasions, the \"before\" rating is actually a recollection made after the fact.",
-    "application": "CodePulse's survey items \"Before using it, I found algorithms very intimidating\" and \"After using it, I feel confident I can learn harder algorithms\" were both answered together right after the platform session, making this a retrospective pre-post. Treating those two scores as if they came from two separately-administered measurements, when comparing the change in confidence, needs to account for the limits this design carries.",
+    "application": {
+      "code-pulse": "CodePulse's survey items \"Before using it, I found algorithms very intimidating\" and \"After using it, I feel confident I can learn harder algorithms\" were both answered together right after the platform session, making this a retrospective pre-post. Treating those two scores as if they came from two separately-administered measurements, when comparing the change in confidence, needs to account for the limits this design carries.",
+      "code-pulse-confidence-vs-competence": "The article points out that although the first question asks about feelings \"before use\", respondents answered by recalling them, a design called retrospective pre-post, which differs from a true pre-post test measured once before and once after."
+    },
     "category": "EVAL",
     "status": "published",
     "relatedProjects": ["code-pulse"],
@@ -689,7 +715,10 @@
   "response-shift-bias": {
     "term": "Response-Shift Bias",
     "definition": "When a participant recalls and rates a \"before\" state after the fact, that rating tends to get colored by how they currently feel, common in retrospective pre-post designs. It isn't participants deliberately misreporting, the recollection itself gets recalibrated by their present cognitive or emotional state.",
-    "application": "CodePulse's survey asked participants, after using the platform, to recall and rate how intimidating they'd found algorithms before. That recollection was likely already colored by the positive experience of using the platform, which could understate the \"before\" score and inflate the confidence change computed from the pre/post pair.",
+    "application": {
+      "code-pulse": "CodePulse's survey asked participants, after using the platform, to recall and rate how intimidating they'd found algorithms before. That recollection was likely already colored by the positive experience of using the platform, which could understate the \"before\" score and inflate the confidence change computed from the pre/post pair.",
+      "code-pulse-confidence-vs-competence": "The article explains that a retrospective pre-post design lets \"current feelings\" colour the recall of \"past feelings\", which statistics calls response-shift bias."
+    },
     "category": "EVAL",
     "status": "published",
     "relatedProjects": ["code-pulse"],
@@ -780,6 +809,9 @@
   "map": {
     "term": "map",
     "definition": "An RxJS operator that transforms each value in the stream into a new value, one to one, without changing how many values there are.",
+    "application": {
+      "rxjs-flattening-operators": "The article's operator cheat sheet uses `users$` as the example: `{ id: 1, name: 'Tom' }` → `map(u => u.name)` → `'Tom'`, used when API data needs converting into the shape the view needs."
+    },
     "category": "WEB",
     "status": "published",
     "relatedProjects": [],
@@ -789,6 +821,9 @@
   "filter": {
     "term": "filter",
     "definition": "An RxJS operator that only lets values matching a condition through, dropping the rest without changing the ones that pass.",
+    "application": {
+      "rxjs-flattening-operators": "In the cheat sheet: `{ active: true }` passes `filter(u => u.active)` and `{ active: false }` is dropped, used when you only want the values in a stream that match a condition."
+    },
     "category": "WEB",
     "status": "published",
     "relatedProjects": [],
@@ -798,6 +833,9 @@
   "tap": {
     "term": "tap",
     "definition": "An RxJS operator that doesn't change the data itself, it just runs a side effect (like logging or debugging) partway through the stream, commonly used to observe the current value without affecting it.",
+    "application": {
+      "rxjs-flattening-operators": "In the cheat sheet: `'Tom'` → `tap(u => console.log(u))` → `'Tom'`, the value is unchanged and the console gets one extra line, used to log or debug without affecting the data."
+    },
     "category": "WEB",
     "status": "published",
     "relatedProjects": [],
@@ -807,6 +845,10 @@
   "distinct-until-changed": {
     "term": "distinctUntilChanged",
     "definition": "An RxJS operator that skips a new value if it's the same as the previous one, only letting a value through when it actually changes, to avoid triggering downstream logic again for a repeated value.",
+    "application": {
+      "rxjs-flattening-operators": "In the cheat sheet: `'vue'` → `'vue'` → `'react'` through `distinctUntilChanged()` becomes `'vue'` → `'react'`, the repeated second `'vue'` is filtered out so the same value does not retrigger downstream logic.",
+      "ngrx-state-management": "The article draws a parallel with how OnPush compares: both compare once and stop if nothing seems to have changed, and both default to === rather than comparing object contents. The difference is that one works in Angular change detection and the other in the data stream itself."
+    },
     "category": "WEB",
     "status": "published",
     "relatedProjects": [],
@@ -816,6 +858,9 @@
   "catch-error": {
     "term": "catchError",
     "definition": "An RxJS operator that catches an error in the stream and swaps in a new Observable to keep going, so the stream doesn't just die on a single error.",
+    "application": {
+      "rxjs-flattening-operators": "In the cheat sheet: a 500 error → `catchError(() => of([]))` → `[]`, the stream keeps going and emits a default value; the article also shows adding catchError to each forkJoin source so one failing source does not fail the whole forkJoin."
+    },
     "category": "WEB",
     "status": "published",
     "relatedProjects": [],
@@ -825,6 +870,9 @@
   "retry": {
     "term": "retry",
     "definition": "An RxJS operator that automatically resubscribes to the original Observable a set number of times when the stream errors out, commonly used for transient network failures.",
+    "application": {
+      "rxjs-flattening-operators": "In the cheat sheet: the first request fails → `retry(2)` → it resends automatically up to 2 times until it succeeds or gives up, used when network requests fail occasionally and you want to retry before showing an error."
+    },
     "category": "WEB",
     "status": "published",
     "relatedProjects": [],
@@ -844,6 +892,9 @@
   "take-one": {
     "term": "take(1)",
     "definition": "An RxJS operator that takes only the first value from the stream and then unsubscribes automatically, good for data that only needs to be read once.",
+    "application": {
+      "rxjs-flattening-operators": "In the cheat sheet: `'dark'` → `'light'` → `take(1)` only gets `'dark'` and then unsubscribes automatically, used for data you only need to subscribe to once."
+    },
     "category": "WEB",
     "status": "published",
     "relatedProjects": [],
@@ -853,6 +904,9 @@
   "take-until": {
     "term": "takeUntil",
     "definition": "An RxJS operator that keeps subscribing until another Observable it's given emits a value, then unsubscribes automatically, often paired with a Subject that emits on component destroy to clean up subscriptions in one place.",
+    "application": {
+      "rxjs-flattening-operators": "In the cheat sheet: a mouse keeps emitting coordinates → `takeUntil(destroy$)` → no new values after the component is destroyed, used to cancel all subscriptions at once when a component is destroyed."
+    },
     "category": "WEB",
     "status": "published",
     "relatedProjects": [],
@@ -939,8 +993,7 @@
   },
   "rag": {
     "term": "RAG (Retrieval-Augmented Generation)",
-    "definition": "Before answering, the system uses the user's question to retrieve relevant content from an external source (documents, a knowledge base, the web), then puts the retrieved text together with the question into the prompt for a language model to generate the answer. The model can use private or newer data without retraining, is less likely to make things up, and can cite its sources.",
-    "application": "RAG is often combined with prompt-only approaches like Zero-Shot: no retraining, just retrieved material added before generation. For example, a Q&A system first finds the few most relevant passages and has the model answer from them instead of from memory alone.",
+    "definition": "Before answering, the system uses the user's question to retrieve relevant content from an external source (documents, a knowledge base, the web), then puts the retrieved text together with the question into the prompt for a language model to generate the answer. The model can use private or newer data without retraining, is less likely to make things up, and can cite its sources. For example, a Q&A system first finds the few most relevant passages and has the model answer from them instead of from memory alone; it is often combined with prompt-only approaches like Zero-Shot.",
     "category": "NLP",
     "status": "published",
     "relatedProjects": [],
@@ -948,6 +1001,18 @@
     "relatedNodes": [
       { "slug": "zero-shot", "type": "related" },
       { "slug": "natural-language-processing", "type": "related" }
+    ]
+  },
+  "metadata": {
+    "term": "Metadata",
+    "definition": "Data about data: not the content itself, but additional information describing what the data is, where it came from, and how it is structured, such as author, creation time, format, size, or what each field means and its unit. With metadata, data becomes easier to search, organize, compare, and reuse. For example, in a phone photo the image is the data, while the capture time, GPS location, and camera model in its EXIF are metadata; the title, author, and ISBN in a library catalog are metadata about a book; and a CSV's column names plus a data dictionary (what each column means and its unit) are metadata about the table.",
+    "category": "DB",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "quantitative-data", "type": "related" },
+      { "slug": "qualitative-data", "type": "related" }
     ]
   }
 }

@@ -117,21 +117,21 @@ Hero 區塊（姓名、定位標語、簡短 bio）＋研究興趣標籤（連�
   <figcaption style="text-align: center;">知識關聯圖：展開分類後的 3D 力導向佈局</figcaption>
 </figure>
 
-### 生成視覺 `/gallery`
+### 藝術畫廊 `/gallery`
 
-30 件從 OpenProcessing 搬遷、重寫成 p5.js instance mode 的生成藝術與互動作品，頁面標題顯示為「生成視覺」，列表頁做成「橫向展場房間」：每件作品掛在畫框裡、滾輪垂直捲動轉橫向捲動、置中作品被聚光燈點亮；支援標題、日期、互動類型（點擊重繪／拖曳作畫／鍵盤操作／按鈕回合制／拖曳物理）篩選與最新／最久排序。點進單一作品的詳細頁才真正動態載入該 sketch 模組並掛載 canvas，背景轉為深色展覽氛圍（CSS `radial-gradient` 疊出聚光燈效果），離開頁面立即卸載，確保同時最多只有一個活著的 p5 canvas。
+30 件從 OpenProcessing 搬遷、重寫成 p5.js instance mode 的生成藝術與互動作品，頁面標題顯示為「藝術畫廊」，列表頁做成「橫向展場房間」：每件作品掛在畫框裡、滾輪垂直捲動轉橫向捲動、置中作品被聚光燈點亮；支援標題、日期、互動類型（點擊重繪／拖曳作畫／鍵盤操作／按鈕回合制／拖曳物理）篩選與最新／最久排序。點進單一作品的詳細頁才真正動態載入該 sketch 模組並掛載 canvas，背景轉為深色展覽氛圍（CSS `radial-gradient` 疊出聚光燈效果），離開頁面立即卸載，確保同時最多只有一個活著的 p5 canvas。
 
 <figure>
-  <img src="/images/projects/personal-website/gallery.png" alt="生成視覺列表頁畫面，橫向展場房間排列多件生成藝術作品縮圖" style="display: block; margin: 0 auto; max-width: 100%;" />
-  <figcaption style="text-align: center;">生成視覺：橫向展場房間</figcaption>
+  <img src="/images/projects/personal-website/gallery.png" alt="藝術畫廊列表頁畫面，橫向展場房間排列多件生成藝術作品縮圖" style="display: block; margin: 0 auto; max-width: 100%;" />
+  <figcaption style="text-align: center;">藝術畫廊：橫向展場房間</figcaption>
 </figure>
 
 ### Playground `/playground`
 
-收攏「比較個人、還在玩的東西」的入口頁，目前連到生成視覺、夢想、組件預覽（`/dev/components`，UI 組件庫預覽）與小作品四張卡片。朋友創作與另外兩個 3D 怪獸開發工具（`/dev/creature` 走路動畫驗證、`/dev/creature-builder` 堆積木雕刻）的入口卡片先從這頁拔掉，相關功能還在另一條分支上繼續做；路由本身沒刪，之後要復原只要把連結加回來。
+收攏「比較個人、還在玩的東西」的入口頁，目前連到藝術畫廊、夢想、組件預覽（`/dev/components`，UI 組件庫預覽）與小作品四張卡片。朋友創作與另外兩個 3D 怪獸開發工具（`/dev/creature` 走路動畫驗證、`/dev/creature-builder` 堆積木雕刻）的入口卡片先從這頁拔掉，相關功能還在另一條分支上繼續做；路由本身沒刪，之後要復原只要把連結加回來。
 
 <figure>
-  <img src="/images/projects/personal-website/playground.png" alt="Playground 頁畫面，連到生成視覺、夢想、組件預覽、小作品四張卡片" style="display: block; margin: 0 auto; max-width: 100%;" />
+  <img src="/images/projects/personal-website/playground.png" alt="Playground 頁畫面，連到藝術畫廊、夢想、組件預覽、小作品四張卡片" style="display: block; margin: 0 auto; max-width: 100%;" />
   <figcaption style="text-align: center;">Playground：入口卡片</figcaption>
 </figure>
 
