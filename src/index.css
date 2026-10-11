@@ -47,6 +47,29 @@ main:focus-visible {
 ::view-transition-new(root) {
   animation-duration: 180ms;
 }
+/* 語言切換：先整個淡出、再淡入，而不是預設的交叉淡化——交叉淡化時新舊兩版文字
+   會同時半透明疊在一起，字形不同就像殘影。mix-blend-mode 預設的 plus-lighter 是
+   為交叉淡化設計的，這裡改回 normal。 */
+html[data-view-transition="language"]::view-transition-old(root),
+html[data-view-transition="language"]::view-transition-old(site-nav) {
+  animation: language-fade-out 200ms ease-in both;
+  mix-blend-mode: normal;
+}
+html[data-view-transition="language"]::view-transition-new(root),
+html[data-view-transition="language"]::view-transition-new(site-nav) {
+  animation: language-fade-in 250ms ease-out 200ms both;
+  mix-blend-mode: normal;
+}
+@keyframes language-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes language-fade-in {
+  from {
+    opacity: 0;
+  }
+}
 ::view-transition-group(site-nav) {
   animation: none;
 }
