@@ -107,7 +107,7 @@ const content = {
     experienceHighlights: [
       { year: "2022", text: "全國工科技藝競賽 金手獎第七名" },
       { year: "2023 / 05", text: "赴美見學交流（亞特蘭大 & 舊金山）" },
-      { year: "2023~2025", text: "母校技藝競賽選手培訓教師" },
+      { year: "2023~2026", text: "母校技藝競賽選手培訓教師" },
       {
         year: "2025 / 07~2026 / 12",
         text: "美商太陽鳥軟體 前端開發組 暑期＋校內實習（Scrum / Sprint Review / 設計文件）",
@@ -223,7 +223,7 @@ const content = {
         year: "2023 / 05",
         text: "US Study Exchange (Atlanta & San Francisco)",
       },
-      { year: "2023~2025", text: "Skills Competition Coach at Alma Mater" },
+      { year: "2023~2026", text: "Skills Competition Coach at Alma Mater" },
       {
         year: "2025 / 07~2026 / 12",
         text: "Sun Bird Software, Frontend Development Team, Summer + On-Campus Intern (Scrum / Sprint Review / Design Docs)",
@@ -398,10 +398,10 @@ export default function About() {
             <h2 className="font-semibold text-[var(--color-primary)]">
               {t.about.experience}
             </h2>
-            <div className="mt-2 flex flex-col gap-1.5 text-sm text-[var(--color-text-muted)]">
+            <div className="mt-2 grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1.5 text-sm text-[var(--color-text-muted)]">
               {data.experienceHighlights.map((item) => (
-                <div key={item.text} className="flex items-baseline gap-3">
-                  <span className="w-14 shrink-0 text-xs text-[var(--color-text-muted)]">
+                <div key={item.text} className="contents">
+                  <span className="whitespace-nowrap text-xs text-[var(--color-text-muted)]">
                     {item.year}
                   </span>
                   <span>{item.text}</span>

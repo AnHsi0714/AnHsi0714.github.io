@@ -13,6 +13,13 @@ import type {
 import { useLocalized } from "../../lib/localized";
 import { useTranslation } from "../../i18n/useTranslation";
 
+// 經歷條目只需要粗體，用 **文字** 標記重點，不引入整套 Markdown
+function renderBold(text: string) {
+  return text
+    .split("**")
+    .map((part, i) => (i % 2 === 1 ? <strong key={i} className="font-semibold text-[var(--color-primary)]">{part}</strong> : part));
+}
+
 export default function Experience() {
   const { t } = useTranslation();
   const experienceData = useLocalized(experienceDataZh, experienceDataEn);
@@ -92,7 +99,7 @@ export default function Experience() {
                       className="flex items-start gap-2 text-sm text-[var(--color-text-muted)]"
                     >
                       <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[var(--color-border)]" />
-                      {h}
+                      <span>{renderBold(h)}</span>
                     </li>
                   ))}
                 </ul>
