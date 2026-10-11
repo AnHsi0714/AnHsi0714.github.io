@@ -29,6 +29,23 @@ html {
   }
 }
 
+/* 換頁轉場（NavBar 的連結帶 viewTransition）：只有內容淡入淡出，導覽列用固定的
+   view-transition-name 留在原地；時間壓短，避免換頁變慢。 */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+}
+::view-transition-group(site-nav) {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 /* NavBar 是 sticky top-0，捲到有 id 的錨點(標題、remark-gfm 腳註的引用/定義)時
    scrollIntoView({block:'start'}) 或原生 #fragment 導覽都會把目標頂到畫面最上緣，
    被蓋在 NavBar 底下。--nav-h 是 NavBar.tsx 用 ResizeObserver 量出的即時高度，

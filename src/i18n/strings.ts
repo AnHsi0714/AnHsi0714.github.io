@@ -1,5 +1,6 @@
 export interface Strings {
   nav: {
+    skipToContent: string;
     about: string;
     experience: string;
     projects: string;
@@ -293,6 +294,7 @@ export interface Strings {
 export const strings: Record<"zh" | "en", Strings> = {
   zh: {
     nav: {
+      skipToContent: "跳到主要內容",
       about: "關於",
       experience: "經歷",
       projects: "專案",
@@ -602,6 +604,7 @@ export const strings: Record<"zh" | "en", Strings> = {
   },
   en: {
     nav: {
+      skipToContent: "Skip to main content",
       about: "About",
       experience: "Experience",
       projects: "Projects",

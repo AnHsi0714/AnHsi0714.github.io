@@ -38,6 +38,8 @@ export default function NavBar() {
   return (
     <nav
       ref={navRef}
+      // 固定 view-transition-name：換頁淡入淡出時導覽列留在原地，只有內容在轉場（見 index.css）
+      style={{ viewTransitionName: "site-nav" }}
       className="sticky top-0 z-50 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3"
     >
       {links.map((link) => (
@@ -45,6 +47,7 @@ export default function NavBar() {
           key={link.to}
           to={link.to}
           end={link.to === "/"}
+          viewTransition
           className={({ isActive }) =>
             isActive
               ? "font-semibold text-[var(--color-text)]"
@@ -56,6 +59,7 @@ export default function NavBar() {
       ))}
       <NavLink
         to="/about#resume"
+        viewTransition
         className="rounded-md border border-[var(--color-border)] px-2.5 py-1 text-sm font-medium text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)] hover:text-[var(--color-text)]"
       >
         {t.nav.cv}
