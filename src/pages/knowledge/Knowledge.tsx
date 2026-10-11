@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Card from "../../components/Card";
+import CategoryTooltip from "../../components/CategoryTooltip";
 import Chip from "../../components/Chip";
 import Input from "../../components/Input";
 import EmptyState from "../../components/EmptyState";
@@ -82,14 +83,15 @@ export default function Knowledge() {
             {t.knowledge.allCategories}
           </Chip>
           {allCategories.map((cat) => (
-            <Chip
-              key={cat}
-              clickable
-              selected={category === cat}
-              onClick={() => updateParams({ category: category === cat ? "" : cat })}
-            >
-              {cat}
-            </Chip>
+            <CategoryTooltip key={cat} category={cat}>
+              <Chip
+                clickable
+                selected={category === cat}
+                onClick={() => updateParams({ category: category === cat ? "" : cat })}
+              >
+                {cat}
+              </Chip>
+            </CategoryTooltip>
           ))}
         </div>
       </div>
@@ -109,7 +111,9 @@ export default function Knowledge() {
                 <Card hoverable className="h-full">
                   <div className="flex items-center justify-between gap-2">
                     <p className="font-semibold">{node.term}</p>
-                    <Chip size="sm">{node.category}</Chip>
+                    <CategoryTooltip category={node.category}>
+                      <Chip size="sm">{node.category}</Chip>
+                    </CategoryTooltip>
                   </div>
                   <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
                     {node.definition}

@@ -218,6 +218,7 @@ export interface Strings {
     subtitle: string;
     searchPlaceholder: string;
     allCategories: string;
+    categoryNames: Record<string, string>;
     noMatch: string;
     tryAdjustFilter: string;
     notFoundTitle: string;
@@ -506,6 +507,15 @@ export const strings: Record<"zh" | "en", Strings> = {
       subtitle: "所學過、應用過的概念，串連專案與文章背後的知識點。",
       searchPlaceholder: "搜尋知識點",
       allCategories: "全部分類",
+      categoryNames: {
+        ALGO: "演算法",
+        DB: "資料庫",
+        EVAL: "數據分析",
+        FLT: "形式語言理論",
+        NLP: "自然語言處理",
+        RESEARCH: "研究方法",
+        WEB: "網頁開發",
+      },
       noMatch: "沒有符合條件的知識點",
       tryAdjustFilter: "試試調整搜尋或分類篩選。",
       notFoundTitle: "找不到這個知識點",
@@ -814,6 +824,15 @@ export const strings: Record<"zh" | "en", Strings> = {
         "Concepts I've learned and applied, connecting the ideas behind projects and articles.",
       searchPlaceholder: "Search knowledge",
       allCategories: "All categories",
+      categoryNames: {
+        ALGO: "Algorithms",
+        DB: "Databases",
+        EVAL: "Data Analysis",
+        FLT: "Formal Language Theory",
+        NLP: "Natural Language Processing",
+        RESEARCH: "Research Methods",
+        WEB: "Web Development",
+      },
       noMatch: "No knowledge nodes match these filters",
       tryAdjustFilter: "Try adjusting the search or category filter.",
       notFoundTitle: "Knowledge node not found",
