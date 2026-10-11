@@ -92,6 +92,7 @@ export default function ArticleDetail() {
         {article.coverUrl && (
           <ImageWithSkeleton
             src={article.coverUrl}
+            loading="eager"
             alt={article.title}
             wrapperClassName="mt-4 aspect-video w-full rounded-md"
             className="object-cover"

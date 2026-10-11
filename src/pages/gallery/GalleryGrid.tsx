@@ -78,9 +78,10 @@ function PosterImage({
     >
       {!loaded && <Skeleton className={styles.skeleton} />}
       <img
-        src={src}
+        src={toThumbSrc(src)}
         alt={alt}
         loading="lazy"
+        decoding="async"
         className={!loaded ? styles.loading : undefined}
         onLoad={(event) => {
           const img = event.currentTarget;
@@ -90,6 +91,12 @@ function PosterImage({
       />
     </span>
   );
+}
+
+// 展牆的格子最高只有 144px，不需要載入原圖；轉檔腳本（scripts/optimize-gallery-images.mjs）
+// 會為每張 .webp 另外產生 .thumb.webp。不是 .webp 的路徑（理論上不會有）原樣回傳。
+function toThumbSrc(src: string) {
+  return src.endsWith(".webp") ? src.replace(/\.webp$/, ".thumb.webp") : src;
 }
 
 export default function GalleryGrid() {

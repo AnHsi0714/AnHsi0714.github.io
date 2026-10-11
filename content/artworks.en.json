@@ -4,8 +4,8 @@
     "title": "Entanglement",
     "date": "240802",
     "images": [
-      "/images/gallery/Entanglement0.png",
-      "/images/gallery/Entanglement1.png"
+      "/images/gallery/Entanglement0.webp",
+      "/images/gallery/Entanglement1.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2323357",
     "description": "A generative drawing of prey slowly bound in silk. Left alone, threads and shapes accumulate at a quiet pace; but press and drag the mouse, and it's as if the prey starts struggling, the threads spin faster and thicker, pulling the whole composition into an ever denser web."
@@ -15,13 +15,13 @@
     "title": "Moontain",
     "date": "240802",
     "images": [
-      "/images/gallery/moontain0.jpg",
-      "/images/gallery/moontain1.jpg",
-      "/images/gallery/moontain2.jpg",
-      "/images/gallery/moontain3.jpg",
-      "/images/gallery/moontain4.jpg",
-      "/images/gallery/moontain5.jpg",
-      "/images/gallery/moontain6.jpg"
+      "/images/gallery/moontain0.webp",
+      "/images/gallery/moontain1.webp",
+      "/images/gallery/moontain2.webp",
+      "/images/gallery/moontain3.webp",
+      "/images/gallery/moontain4.webp",
+      "/images/gallery/moontain5.webp",
+      "/images/gallery/moontain6.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2323611",
     "description": "A randomly generated mountain silhouette against a night sky: irregular polygons stack into peaks, crisscrossing lines carve the sky into crack-like fragments, and a moon hangs somewhere in between. A layer of fine noise dusts the whole scene with a rough, grainy texture."
@@ -31,9 +31,9 @@
     "title": "POP",
     "date": "240805",
     "images": [
-      "/images/gallery/POP0.jpg",
-      "/images/gallery/POP1.jpg",
-      "/images/gallery/POP2.jpg"
+      "/images/gallery/POP0.webp",
+      "/images/gallery/POP1.webp",
+      "/images/gallery/POP2.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2324346",
     "description": "A cluster of circular and square bubbles drifts slowly across the canvas, wrapping around to the other side whenever they hit an edge, while a number at the center tracks the current bubble count. Click the canvas to switch between day and night palettes and scatter a fresh batch of bubbles, different in count and size each time."
@@ -43,9 +43,9 @@
     "title": "Tentacle",
     "date": "240805",
     "images": [
-      "/images/gallery/tentacle0.jpg",
-      "/images/gallery/tentacle1.jpg",
-      "/images/gallery/tentacle2.jpg"
+      "/images/gallery/tentacle0.webp",
+      "/images/gallery/tentacle1.webp",
+      "/images/gallery/tentacle2.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2324602",
     "description": "A row of tentacles rises at fixed intervals from the bottom of the canvas, each segment shrinking as it climbs and swaying faintly along the way. A difference blend mode gives every overlap an eerie, inverted hue."
@@ -55,10 +55,10 @@
     "title": "Audio",
     "date": "240805",
     "images": [
-      "/images/gallery/audio0.jpg",
-      "/images/gallery/audio1.jpg",
-      "/images/gallery/audio2.jpg",
-      "/images/gallery/audio3.jpg"
+      "/images/gallery/audio0.webp",
+      "/images/gallery/audio1.webp",
+      "/images/gallery/audio2.webp",
+      "/images/gallery/audio3.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2324728",
     "description": "Inspired by sound waves: a vertical centerline splits the canvas in two, and blocks of color grow outward from it on either side, each following its own rhythm of rise and fall, like a single sound split into two independently pulsing audio waveforms."
@@ -68,10 +68,10 @@
     "title": "Bat",
     "date": "240806",
     "images": [
-      "/images/gallery/bat0.jpg",
-      "/images/gallery/bat1.jpg",
-      "/images/gallery/bat2.jpg",
-      "/images/gallery/bat3.jpg"
+      "/images/gallery/bat0.webp",
+      "/images/gallery/bat1.webp",
+      "/images/gallery/bat2.webp",
+      "/images/gallery/bat3.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2325134",
     "description": "Bats hanging in a huddle, wings draped over one another, only their heads poking out to greet each other: tiles flip and shear across the grid, layering into a dense mass of overlapping bat wings, its deep Halloween palette making each wing read as both its own creature and part of the huddle."
@@ -81,15 +81,15 @@
     "title": "Prism",
     "date": "240816",
     "images": [
-      "/images/gallery/prism0.jpg",
-      "/images/gallery/prism1.jpg",
-      "/images/gallery/prism2.jpg",
-      "/images/gallery/prism3.jpg",
-      "/images/gallery/Prism4.jpg",
-      "/images/gallery/Prism5.jpg",
-      "/images/gallery/Prism6.jpg",
-      "/images/gallery/Prism7.jpg",
-      "/images/gallery/Prism8.jpg"
+      "/images/gallery/prism0.webp",
+      "/images/gallery/prism1.webp",
+      "/images/gallery/prism2.webp",
+      "/images/gallery/prism3.webp",
+      "/images/gallery/Prism4.webp",
+      "/images/gallery/Prism5.webp",
+      "/images/gallery/Prism6.webp",
+      "/images/gallery/Prism7.webp",
+      "/images/gallery/Prism8.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2328664",
     "description": "The canvas fills with sheared tiles laid out column by column, each neighboring pair slanted in opposite directions to build a diamond texture like the facets of a prism. Hue drifts gradually across the canvas, and a darkest-color blend deepens every overlap into extra layers."
@@ -99,11 +99,11 @@
     "title": "TRI",
     "date": "240824",
     "images": [
-      "/images/gallery/TRI0.jpg",
-      "/images/gallery/TRI1.jpg",
-      "/images/gallery/TRI2.jpg",
-      "/images/gallery/TRI3.jpg",
-      "/images/gallery/TRI4.jpg"
+      "/images/gallery/TRI0.webp",
+      "/images/gallery/TRI1.webp",
+      "/images/gallery/TRI2.webp",
+      "/images/gallery/TRI3.webp",
+      "/images/gallery/TRI4.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2332523",
     "description": "Hundreds of triangles radiate outward from the center of the canvas, sheared and overlapped into sharp, jagged edges that give the whole composition a warped, time-warp kind of feel."
@@ -113,15 +113,15 @@
     "title": "TRII",
     "date": "240824",
     "images": [
-      "/images/gallery/TRII0.jpg",
-      "/images/gallery/TRII1.jpg",
-      "/images/gallery/TRII2.jpg",
-      "/images/gallery/TRII3.jpg",
-      "/images/gallery/TRII4.jpg",
-      "/images/gallery/TRII5.jpg",
-      "/images/gallery/TRII6.jpg",
-      "/images/gallery/TRII7.jpg",
-      "/images/gallery/TRII8.jpg"
+      "/images/gallery/TRII0.webp",
+      "/images/gallery/TRII1.webp",
+      "/images/gallery/TRII2.webp",
+      "/images/gallery/TRII3.webp",
+      "/images/gallery/TRII4.webp",
+      "/images/gallery/TRII5.webp",
+      "/images/gallery/TRII6.webp",
+      "/images/gallery/TRII7.webp",
+      "/images/gallery/TRII8.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2332542",
     "description": "Just a bunch of triangles, scattered and stacked into something dense and spiky."
@@ -131,14 +131,14 @@
     "title": "Pollution",
     "date": "240829",
     "images": [
-      "/images/gallery/pollute0.jpg",
-      "/images/gallery/pollute1.jpg",
-      "/images/gallery/pollute2.jpg",
-      "/images/gallery/pollute3.jpg",
-      "/images/gallery/pollute4.jpg",
-      "/images/gallery/pollute5.jpg",
-      "/images/gallery/pollute6.jpg",
-      "/images/gallery/pollute7.jpg"
+      "/images/gallery/pollute0.webp",
+      "/images/gallery/pollute1.webp",
+      "/images/gallery/pollute2.webp",
+      "/images/gallery/pollute3.webp",
+      "/images/gallery/pollute4.webp",
+      "/images/gallery/pollute5.webp",
+      "/images/gallery/pollute6.webp",
+      "/images/gallery/pollute7.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2336165",
     "description": "A snapshot of an ocean swallowed by pollution: a seascape photo is recolored tile by tile and layered with noise, its hues randomly skewed into sickly, fluorescent tones, turning what was once a calm sea and sky into something closer to an inferno. Every regeneration finds a different degree of ruin."
@@ -148,8 +148,8 @@
     "title": "Eruption",
     "date": "240830",
     "images": [
-      "/images/gallery/Eruption1.jpg",
-      "/images/gallery/Eruption2.jpg"
+      "/images/gallery/Eruption1.webp",
+      "/images/gallery/Eruption2.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2336863",
     "description": "Colorful balls burst outward from the center of the canvas all at once, bouncing back whenever they hit an edge. Their trails never get cleared, layering into streaks of afterimages that gradually build into something like the scars of an explosion."
@@ -158,7 +158,7 @@
     "slug": "RPS",
     "title": "RPS",
     "date": "240908",
-    "images": ["/images/gallery/RPS0.jpg", "/images/gallery/RPS1.jpg"],
+    "images": ["/images/gallery/RPS0.webp", "/images/gallery/RPS1.webp"],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2344323",
     "description": "Scissors, rock, and paper blocks bounce around the canvas, and every collision is settled by rock-paper-scissors rules, converting the loser into the winner's type while the score tallies live. Once the whole field turns into a single type, the game freezes and declares the winner."
   },
@@ -167,8 +167,8 @@
     "title": "Metal Collision",
     "date": "240917",
     "images": [
-      "/images/gallery/Metal_collision0.png",
-      "/images/gallery/Metal_collision1.png"
+      "/images/gallery/Metal_collision0.webp",
+      "/images/gallery/Metal_collision1.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2356949",
     "description": "Colorful polygonal metal chunks keep falling from above, tumbling into a pit where they collide and pile up. Drag any piece with the mouse to grab it, either sweeping the others out of the pit like a broom or hurling it back in to slam into the rest."
@@ -178,15 +178,15 @@
     "title": "Hsi's Watermelon Lantern",
     "date": "250807",
     "images": [
-      "/images/gallery/watermelon9.jpg",
-      "/images/gallery/watermelon10.jpg",
-      "/images/gallery/watermelon11.jpg",
-      "/images/gallery/watermelon12.jpg",
-      "/images/gallery/watermelon13.jpg",
-      "/images/gallery/watermelon14.jpg",
-      "/images/gallery/watermelon15.jpg",
-      "/images/gallery/watermelon16.jpg",
-      "/images/gallery/watermelon17.jpg"
+      "/images/gallery/watermelon9.webp",
+      "/images/gallery/watermelon10.webp",
+      "/images/gallery/watermelon11.webp",
+      "/images/gallery/watermelon12.webp",
+      "/images/gallery/watermelon13.webp",
+      "/images/gallery/watermelon14.webp",
+      "/images/gallery/watermelon15.webp",
+      "/images/gallery/watermelon16.webp",
+      "/images/gallery/watermelon17.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2700026",
     "description": "Styled after a jack-o'-lantern, made to celebrate a special day for Hsi-gua."
@@ -196,11 +196,11 @@
     "title": "Boxing Melee",
     "date": "250808",
     "images": [
-      "/images/gallery/Boxing_Melee0.jpg",
-      "/images/gallery/Boxing_Melee1.jpg",
-      "/images/gallery/Boxing_Melee2.jpg",
-      "/images/gallery/Boxing_Melee3.jpg",
-      "/images/gallery/Boxing_Melee4.jpg"
+      "/images/gallery/Boxing_Melee0.webp",
+      "/images/gallery/Boxing_Melee1.webp",
+      "/images/gallery/Boxing_Melee2.webp",
+      "/images/gallery/Boxing_Melee3.webp",
+      "/images/gallery/Boxing_Melee4.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2700272",
     "description": "Fifteen fighters bounce around the arena in a free-for-all, each collision settled by a circular counter system that converts the loser into the winner's type. Once only one type survives, scores are tallied for the round, the fighter with the lowest total is eliminated, and hitting start begins the next round, continuing until a single champion remains."
@@ -210,8 +210,8 @@
     "title": "Undersea City",
     "date": "250829",
     "images": [
-      "/images/gallery/ocean_city0.jpg",
-      "/images/gallery/ocean_city1.jpg"
+      "/images/gallery/ocean_city0.webp",
+      "/images/gallery/ocean_city1.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2710933",
     "description": "A checkerboard grid is twisted and sheared into diamond-shaped blocks, each one raised into a three-dimensional structure with a top face and two slanted walls. Blue-green tones and crisscrossing gridlines sketch out a geometric city sunk beneath the sea."
@@ -221,10 +221,10 @@
     "title": "Fish Life",
     "date": "250901",
     "images": [
-      "/images/gallery/Fish_Life0.png",
-      "/images/gallery/Fish_Life1.png",
-      "/images/gallery/Fish_Life2.png",
-      "/images/gallery/Fish_Life3.png"
+      "/images/gallery/Fish_Life0.webp",
+      "/images/gallery/Fish_Life1.webp",
+      "/images/gallery/Fish_Life2.webp",
+      "/images/gallery/Fish_Life3.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2712131",
     "description": "A tidy grid of triangular fish, mostly rendered in muted grayscale, with the occasional brightly colored one swimming among them, much like how, in a crowd of ordinary people like us, a spark of individual talent occasionally surfaces."
@@ -234,10 +234,10 @@
     "title": "Chessboard World",
     "date": "250902",
     "images": [
-      "/images/gallery/Chessboard_World0.png",
-      "/images/gallery/Chessboard_World1.png",
-      "/images/gallery/Chessboard_World2.png",
-      "/images/gallery/Chessboard_World3.png"
+      "/images/gallery/Chessboard_World0.webp",
+      "/images/gallery/Chessboard_World1.webp",
+      "/images/gallery/Chessboard_World2.webp",
+      "/images/gallery/Chessboard_World3.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2712377",
     "description": "The same sheared checkerboard structure as \"Undersea City,\" now built from a complementary color pair so each block's face and sides swap between contrasting hues. The grid size also changes with every run, giving each version its own density and rhythm."
@@ -247,9 +247,9 @@
     "title": "Bloom of Delirium",
     "date": "250905",
     "images": [
-      "/images/gallery/BloomOfDelirium0.png",
-      "/images/gallery/BloomOfDelirium1.png",
-      "/images/gallery/BloomOfDelirium2.png"
+      "/images/gallery/BloomOfDelirium0.webp",
+      "/images/gallery/BloomOfDelirium1.webp",
+      "/images/gallery/BloomOfDelirium2.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2714823",
     "description": "Flowers and snowflake shapes alternate across a grid, gaining one petal per frame as they bloom outward until settling on a random final petal count. Wherever the petals overlap, their colors stack into a hazy, psychedelic layering."
@@ -259,10 +259,10 @@
     "title": "Fledgling",
     "date": "250905",
     "images": [
-      "/images/gallery/Hina_Daisy0.png",
-      "/images/gallery/Hina_Daisy1.png",
-      "/images/gallery/Hina_Daisy2.png",
-      "/images/gallery/Hina_Daisy3.png"
+      "/images/gallery/Hina_Daisy0.webp",
+      "/images/gallery/Hina_Daisy1.webp",
+      "/images/gallery/Hina_Daisy2.webp",
+      "/images/gallery/Hina_Daisy3.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2715277",
     "description": "A daisy pattern built entirely from the overlapping regions where pairs of petals intersect, its warm-toned center and fine noise texture giving the image a vintage, grainy feel, tiled neatly across the whole grid."
@@ -272,11 +272,11 @@
     "title": "Maze Racing",
     "date": "250907",
     "images": [
-      "/images/gallery/Maze_Racing_v20.png",
-      "/images/gallery/Maze_Racing_v21.png",
-      "/images/gallery/Maze_Racing_v22.png",
-      "/images/gallery/Maze_Racing_v23.png",
-      "/images/gallery/Maze_Racing_v24.png"
+      "/images/gallery/Maze_Racing_v20.webp",
+      "/images/gallery/Maze_Racing_v21.webp",
+      "/images/gallery/Maze_Racing_v22.webp",
+      "/images/gallery/Maze_Racing_v23.webp",
+      "/images/gallery/Maze_Racing_v24.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2716270",
     "description": "A randomly generated two-player maze game: arrow keys drive Player 1, WASD drives Player 2. Choose Race Mode to compete for the exit or Co-op Mode to find it together, and optionally turn on fog to limit visibility to just around each player for extra difficulty. Reaching the goal tallies both players' steps and time to decide the winner."
@@ -286,8 +286,8 @@
     "title": "A Lost Face",
     "date": "260806",
     "images": [
-      "/images/gallery/ALostFace0.png",
-      "/images/gallery/ALostFace1.png"
+      "/images/gallery/ALostFace0.webp",
+      "/images/gallery/ALostFace1.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2987668",
     "description": "A generative face built from dense hand-sketched lines: the eyes, nose, and mouth are completely redrawn every tenth of a second, so no single frame repeats. The features stay perpetually unsettled, like an expression that never quite comes into focus."
@@ -297,12 +297,12 @@
     "title": "Interwoven Plaid",
     "date": "260823",
     "images": [
-      "/images/gallery/Plaid0.png",
-      "/images/gallery/Plaid1.png",
-      "/images/gallery/Plaid2.png",
-      "/images/gallery/Plaid3.png",
-      "/images/gallery/Plaid4.png",
-      "/images/gallery/Plaid5.png"
+      "/images/gallery/Plaid0.webp",
+      "/images/gallery/Plaid1.webp",
+      "/images/gallery/Plaid2.webp",
+      "/images/gallery/Plaid3.webp",
+      "/images/gallery/Plaid4.webp",
+      "/images/gallery/Plaid5.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2993528",
     "description": "Randomly generated color palettes interwoven with horizontal and vertical lines into plaid, so every generation carries a different visual rhythm. The chance arrangement of color and line finds its own balance between order and randomness."
@@ -312,8 +312,8 @@
     "title": "Chromatic Cycle",
     "date": "260823",
     "images": [
-      "/images/gallery/Chromatic_Cycle0.png",
-      "/images/gallery/Chromatic_Cycle1.png"
+      "/images/gallery/Chromatic_Cycle0.webp",
+      "/images/gallery/Chromatic_Cycle1.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2993581",
     "description": "Three colors compete within their local neighborhoods, cycling through a rock-paper-scissors-style hierarchy. Every generation reshuffles the color boundaries into an ever-shifting organic pattern."
@@ -323,10 +323,10 @@
     "title": "Chromatic Cycle v2",
     "date": "260823",
     "images": [
-      "/images/gallery/Chromatic_Clash_v20.png",
-      "/images/gallery/Chromatic_Clash_v21.png",
-      "/images/gallery/Chromatic_Clash_v22.png",
-      "/images/gallery/Chromatic_Clash_v23.png"
+      "/images/gallery/Chromatic_Clash_v20.webp",
+      "/images/gallery/Chromatic_Clash_v21.webp",
+      "/images/gallery/Chromatic_Clash_v22.webp",
+      "/images/gallery/Chromatic_Clash_v23.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2993591",
     "description": "Six colors form a cyclical rivalry across the grid, expanding, consuming, and retreating based on neighboring cell counts and mutual counters. Random mutations let vanished colors reappear, keeping the whole system evolving between order and chaos with no fixed endpoint."
@@ -336,8 +336,8 @@
     "title": "Chromatic Cycle v3",
     "date": "260823",
     "images": [
-      "/images/gallery/Chromatic_Infection_v30.png",
-      "/images/gallery/Chromatic_Infection_v31.png"
+      "/images/gallery/Chromatic_Infection_v30.webp",
+      "/images/gallery/Chromatic_Infection_v31.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2993599",
     "description": "Six colors keep infecting each other across a circular grid: each cell randomly picks one neighboring cell every round and gets infected if that neighbor's color beats its own. With no mutation and no fixed endpoint, the six colors keep attacking and spreading, forming an ever-changing organic pattern."
@@ -347,9 +347,9 @@
     "title": "Celestial Fragments",
     "date": "260823",
     "images": [
-      "/images/gallery/Celestial_Fragments.png",
-      "/images/gallery/Celestial_Fragments1.png",
-      "/images/gallery/Celestial_Fragments2.png"
+      "/images/gallery/Celestial_Fragments.webp",
+      "/images/gallery/Celestial_Fragments1.webp",
+      "/images/gallery/Celestial_Fragments2.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2993604",
     "description": "Unknown celestial bodies drift in darkness, slowly deforming and pulsing between light and dark, while broken gold outlines and vertices link them like lines on a star chart, turning otherwise separate geometric fragments into something resembling a constellation."
@@ -359,17 +359,17 @@
     "title": "Corner Convergence",
     "date": "260824",
     "images": [
-      "/images/gallery/Corner_Convergence0.png",
-      "/images/gallery/Corner_Convergence1.png",
-      "/images/gallery/Corner_Convergence2.png",
-      "/images/gallery/Corner_Convergence3.png",
-      "/images/gallery/Corner_Convergence4.png",
-      "/images/gallery/Corner_Convergence5.png",
-      "/images/gallery/Corner_Convergence6.png",
-      "/images/gallery/Corner_Convergence7.png",
-      "/images/gallery/Corner_Convergence8.png",
-      "/images/gallery/Corner_Convergence9.png",
-      "/images/gallery/Corner_Convergence10.png"
+      "/images/gallery/Corner_Convergence0.webp",
+      "/images/gallery/Corner_Convergence1.webp",
+      "/images/gallery/Corner_Convergence2.webp",
+      "/images/gallery/Corner_Convergence3.webp",
+      "/images/gallery/Corner_Convergence4.webp",
+      "/images/gallery/Corner_Convergence5.webp",
+      "/images/gallery/Corner_Convergence6.webp",
+      "/images/gallery/Corner_Convergence7.webp",
+      "/images/gallery/Corner_Convergence8.webp",
+      "/images/gallery/Corner_Convergence9.webp",
+      "/images/gallery/Corner_Convergence10.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2994004",
     "description": "Starting from the four corners, lines extend toward the adjacent edges at fixed node intervals. The four sets of lines cross each other across the canvas, forming a geometric structure with directionality, rhythm, and visual tension."
@@ -379,8 +379,8 @@
     "title": "Undersea City v2",
     "date": "260828",
     "images": [
-      "/images/gallery/Ocean_City_v2.png",
-      "/images/gallery/Ocean_City_v21.png"
+      "/images/gallery/Ocean_City_v2.webp",
+      "/images/gallery/Ocean_City_v21.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2996802",
     "description": "A city swallowed by the sea, its windows still lit: the fish have become its new residents, drifting between the buildings and homing in on the nearest food, growing a little each time they eat enough. Drag the mouse to scatter food and feed them, while bubbles keep rising from below, giving the whole city a sense of breathing motion."
@@ -390,8 +390,8 @@
     "title": "Lava Veins",
     "date": "260830",
     "images": [
-      "/images/gallery/Lava_Veins0.png",
-      "/images/gallery/Lava_Veins1.png"
+      "/images/gallery/Lava_Veins0.webp",
+      "/images/gallery/Lava_Veins1.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/2997742",
     "description": "A cellular automaton grows a cave-like rock formation: randomly placed walls repeatedly check their neighbor counts and gradually settle into a natural cave outline. Once the terrain has formed, clicking drips a drop of lava that sinks slowly according to its viscosity, flowing diagonally when blocked and spilling sideways when that fails too, spreading through the rock like veins; dragging the mouse digs tunnels that reroute the flow."
@@ -401,11 +401,11 @@
     "title": "Moiré Disc Shadows",
     "date": "261005",
     "images": [
-      "/images/gallery/MoireDiscShadows0.png",
-      "/images/gallery/MoireDiscShadows1.png",
-      "/images/gallery/MoireDiscShadows2.png",
-      "/images/gallery/MoireDiscShadows3.png",
-      "/images/gallery/MoireDiscShadows4.png"
+      "/images/gallery/MoireDiscShadows0.webp",
+      "/images/gallery/MoireDiscShadows1.webp",
+      "/images/gallery/MoireDiscShadows2.webp",
+      "/images/gallery/MoireDiscShadows3.webp",
+      "/images/gallery/MoireDiscShadows4.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/3027117",
     "description": "Interference between a regular grid and tiny misalignments gives rise to a moiré-like shimmer and shadow."
@@ -415,9 +415,9 @@
     "title": "Ghost Walls",
     "date": "261005",
     "images": [
-      "/images/gallery/GhostWalls0.png",
-      "/images/gallery/GhostWalls1.png",
-      "/images/gallery/GhostWalls2.png"
+      "/images/gallery/GhostWalls0.webp",
+      "/images/gallery/GhostWalls1.webp",
+      "/images/gallery/GhostWalls2.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/3027331",
     "description": "The whole crowd of ghosts drifts like a ripple, the pattern swimming along with it, until you feel stuck circling in place, like being led around by a ghost."
@@ -427,9 +427,9 @@
     "title": "Ghost Trail",
     "date": "261005",
     "images": [
-      "/images/gallery/GhostTrail0.png",
-      "/images/gallery/GhostTrail1.png",
-      "/images/gallery/GhostTrail2.png"
+      "/images/gallery/GhostTrail0.webp",
+      "/images/gallery/GhostTrail1.webp",
+      "/images/gallery/GhostTrail2.webp"
     ],
     "openProcessingUrl": "https://openprocessing.org/@u455151/3027363",
     "description": "The path a ghost has walked."

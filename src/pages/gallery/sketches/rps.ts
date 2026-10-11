@@ -4,7 +4,7 @@ import type p5 from "p5";
 // 1800x900 畫布裡彈跳，相撞時輸家被同化成贏家種類；每幀累加數量進 scores，
 // 全場只剩一種時凍結比分、顯示贏家。
 //
-// 原稿 Box class 沒有留存，依截圖（public/images/gallery/RPS0.jpg、RPS1.jpg）
+// 原稿 Box class 沒有留存，依截圖（public/images/gallery/RPS0.webp、RPS1.webp）
 // 重建：40px 方塊、黑色粗框、依種類填色，中間畫黑色 SVG 圖示，碰邊界反彈。
 //
 // 方塊大小、速度、文字大小位置都是針對 1800 寬寫死的絕對像素值，統一乘上

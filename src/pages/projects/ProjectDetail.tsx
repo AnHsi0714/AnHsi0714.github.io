@@ -75,6 +75,7 @@ export default function ProjectDetail() {
         {project.screenshotUrl && (
           <ImageWithSkeleton
             src={project.screenshotUrl}
+            loading="eager"
             alt={project.name}
             wrapperClassName="mt-4 aspect-video w-full"
             className="object-cover"
