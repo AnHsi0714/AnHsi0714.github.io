@@ -71,6 +71,7 @@ export default function GalleryDetail() {
           <img
             src={artwork.images[0]}
             alt={artwork.title}
+            decoding="async"
             className={styles.image}
           />
         )}

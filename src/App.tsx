@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Outlet, useLocation, useNavigationType } from 'react-router-dom'
+import Loading from './components/Loading'
 import NavBar from './components/NavBar'
 import { useTrail } from './context/TrailContext'
 
@@ -64,7 +65,9 @@ export default function App() {
     <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
       <NavBar />
       <main className="mx-auto max-w-5xl px-4 py-8">
-        <Outlet />
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
       </main>
     </div>
   )

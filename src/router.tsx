@@ -1,26 +1,27 @@
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import Home from './pages/Home'
-import GalleryGrid from './pages/gallery/GalleryGrid'
-import GalleryDetail from './pages/gallery/GalleryDetail'
-import About from './pages/about/About'
-import Articles from './pages/articles/Articles'
-import ArticleDetail from './pages/articles/ArticleDetail'
-import Projects from './pages/projects/Projects'
-import ProjectDetail from './pages/projects/ProjectDetail'
-import Knowledge from './pages/knowledge/Knowledge'
-import KnowledgeGraph from './pages/knowledge/KnowledgeGraph'
-import KnowledgeDetail from './pages/knowledge/KnowledgeDetail'
-import Experience from './pages/experience/Experience'
-import Dreams from './pages/dreams/Dreams'
-import Friends from './pages/friends/Friends'
-import Creator from './pages/friends/Creator'
-import Playground from './pages/playground/Playground'
-import MiniWorks from './pages/playground/MiniWorks'
-import MiniWorkDetail from './pages/playground/MiniWorkDetail'
-import ComponentsPreview from './pages/dev/ComponentsPreview'
-import CreatureDemo from './pages/dev/CreatureDemo'
-import CreatureBuilder from './pages/dev/CreatureBuilder'
+const GalleryGrid = lazy(() => import('./pages/gallery/GalleryGrid'))
+const GalleryDetail = lazy(() => import('./pages/gallery/GalleryDetail'))
+const About = lazy(() => import('./pages/about/About'))
+const Articles = lazy(() => import('./pages/articles/Articles'))
+const ArticleDetail = lazy(() => import('./pages/articles/ArticleDetail'))
+const Projects = lazy(() => import('./pages/projects/Projects'))
+const ProjectDetail = lazy(() => import('./pages/projects/ProjectDetail'))
+const Knowledge = lazy(() => import('./pages/knowledge/Knowledge'))
+const KnowledgeGraph = lazy(() => import('./pages/knowledge/KnowledgeGraph'))
+const KnowledgeDetail = lazy(() => import('./pages/knowledge/KnowledgeDetail'))
+const Experience = lazy(() => import('./pages/experience/Experience'))
+const Dreams = lazy(() => import('./pages/dreams/Dreams'))
+const Friends = lazy(() => import('./pages/friends/Friends'))
+const Creator = lazy(() => import('./pages/friends/Creator'))
+const Playground = lazy(() => import('./pages/playground/Playground'))
+const MiniWorks = lazy(() => import('./pages/playground/MiniWorks'))
+const MiniWorkDetail = lazy(() => import('./pages/playground/MiniWorkDetail'))
+const ComponentsPreview = lazy(() => import('./pages/dev/ComponentsPreview'))
+const CreatureDemo = lazy(() => import('./pages/dev/CreatureDemo'))
+const CreatureBuilder = lazy(() => import('./pages/dev/CreatureBuilder'))
 
 export const router = createBrowserRouter([
   {

@@ -72,6 +72,7 @@ export default function MarkdownContent({
           h2: H2,
           h3: H3,
           h4: H4,
+          img: ({ node: _node, ...props }) => <img loading="lazy" decoding="async" {...props} />,
           a: ({ children: linkChildren, href, ...props }) => {
             // 站內錨點(如 remark-gfm 的腳註 #user-content-fn-1)要在同頁捲動，
             // 不能開新分頁，否則等於重新載入整篇文章而看不到跳轉效果

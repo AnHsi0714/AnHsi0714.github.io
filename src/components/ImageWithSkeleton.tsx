@@ -24,6 +24,8 @@ export default function ImageWithSkeleton({
     >
       {!loaded && <Skeleton className="absolute inset-0" />}
       <img
+        loading="lazy"
+        decoding="async"
         {...rest}
         alt={alt}
         className={[
