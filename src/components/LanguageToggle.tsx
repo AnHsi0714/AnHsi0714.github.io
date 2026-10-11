@@ -1,33 +1,28 @@
 import { useLanguage } from '../context/LanguageContext'
+import { strings } from '../i18n/strings'
 import { useTranslation } from '../i18n/useTranslation'
+import Tooltip from './Tooltip'
 
 export default function LanguageToggle() {
-  const { language, toggleLanguage } = useLanguage()
+  const { language, setLanguage } = useLanguage()
   const { t } = useTranslation()
   const isEnglish = language === 'en'
 
+  // 提示用「切換後的語言」寫：萬一讀者看不懂目前的介面語言，仍能看懂這顆按鈕要做什麼
+  const hint = isEnglish ? strings.zh.languageToggle.hintToChinese : strings.en.languageToggle.hintToEnglish
+
   return (
-    <button
-      type="button"
-      onClick={toggleLanguage}
-      aria-label={isEnglish ? t.languageToggle.switchToChinese : t.languageToggle.switchToEnglish}
-      className="relative inline-flex h-7 w-14 shrink-0 items-center rounded-full border transition-colors"
-      style={{
-        borderColor: 'var(--color-border)',
-        backgroundColor: 'var(--color-border)',
-      }}
-    >
-      <span
-        aria-hidden="true"
-        className="absolute left-0.5 flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium leading-none tracking-tighter transition-transform duration-200"
-        style={{
-          backgroundColor: 'var(--color-primary)',
-          color: 'var(--color-primary-text)',
-          transform: isEnglish ? 'translateX(1.75rem)' : 'translateX(0)',
-        }}
-      >
-        {isEnglish ? 'EN' : '中'}
-      </span>
-    </button>
+    <div className="flex h-8 items-center">
+      <Tooltip content={hint} underline={false} focusable={false}>
+        <button
+          type="button"
+          onClick={() => setLanguage(isEnglish ? 'zh' : 'en')}
+          aria-label={isEnglish ? t.languageToggle.switchToChinese : t.languageToggle.switchToEnglish}
+          className="cursor-pointer text-lg font-semibold leading-none text-[var(--color-text)] hover:text-[var(--color-primary)]"
+        >
+          {isEnglish ? 'EN' : '中'}
+        </button>
+      </Tooltip>
+    </div>
   )
 }

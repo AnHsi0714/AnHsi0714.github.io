@@ -43,6 +43,8 @@ export interface Strings {
   languageToggle: {
     switchToEnglish: string;
     switchToChinese: string;
+    hintToEnglish: string;
+    hintToChinese: string;
   };
   common: {
     filterSort: string;
@@ -334,6 +336,8 @@ export const strings: Record<"zh" | "en", Strings> = {
     languageToggle: {
       switchToEnglish: "切換成英文",
       switchToChinese: "切換成中文",
+      hintToEnglish: "點擊切換成英文",
+      hintToChinese: "點擊切換成中文",
     },
     common: {
       filterSort: "篩選 / 排序",
@@ -647,6 +651,8 @@ export const strings: Record<"zh" | "en", Strings> = {
     languageToggle: {
       switchToEnglish: "Switch to English",
       switchToChinese: "Switch to Chinese",
+      hintToEnglish: "Click to switch to English",
+      hintToChinese: "Click to switch to Chinese",
     },
     common: {
       filterSort: "Filter / Sort",

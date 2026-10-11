@@ -11,7 +11,7 @@ function getInitialLanguage(): Language {
 
 interface LanguageContextValue {
   language: Language
-  toggleLanguage: () => void
+  setLanguage: (language: Language) => void
 }
 
 const LanguageContext = createContext<LanguageContextValue | undefined>(undefined)
@@ -24,12 +24,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = language === 'en' ? 'en' : 'zh-Hant'
   }, [language])
 
-  const toggleLanguage = () => {
-    setLanguage((prev) => (prev === 'zh' ? 'en' : 'zh'))
-  }
-
   return (
-    <LanguageContext.Provider value={{ language, toggleLanguage }}>
+    <LanguageContext.Provider value={{ language, setLanguage }}>
       {children}
     </LanguageContext.Provider>
   )
