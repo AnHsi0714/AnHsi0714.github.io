@@ -37,10 +37,7 @@
     "status": "published",
     "relatedProjects": ["code-pulse"],
     "relatedArticles": [],
-    "relatedNodes": [
-      { "slug": "cfg", "type": "applies-to" },
-      { "slug": "interactive-data-exploration", "type": "related" }
-    ]
+    "relatedNodes": [{ "slug": "cfg", "type": "applies-to" }]
   },
   "cosine-similarity": {
     "term": "Cosine Similarity",
@@ -53,10 +50,7 @@
     "status": "published",
     "relatedProjects": ["code-pulse", "absa-wordcloud"],
     "relatedArticles": [],
-    "relatedNodes": [
-      { "slug": "agglomerative-clustering", "type": "contrasts-with" },
-      { "slug": "visual-analytics", "type": "related" }
-    ]
+    "relatedNodes": [{ "slug": "agglomerative-clustering", "type": "related" }]
   },
   "normalized-gain": {
     "term": "Normalized Gain",
@@ -94,7 +88,7 @@
     "relatedProjects": ["absa-wordcloud"],
     "relatedArticles": [],
     "relatedNodes": [
-      { "slug": "ckip", "type": "prerequisite" },
+      { "slug": "ckip", "type": "related" },
       { "slug": "natural-language-processing", "type": "related" }
     ]
   },
@@ -106,7 +100,9 @@
     "status": "published",
     "relatedProjects": ["absa-wordcloud"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "zero-shot", "type": "contrasts-with" }]
+    "relatedNodes": [
+      { "slug": "natural-language-processing", "type": "related" }
+    ]
   },
   "zero-shot": {
     "term": "Zero-Shot Learning",
@@ -117,7 +113,6 @@
     "relatedProjects": ["absa-wordcloud"],
     "relatedArticles": [],
     "relatedNodes": [
-      { "slug": "distilbert", "type": "contrasts-with" },
       { "slug": "partial-f1", "type": "related" },
       { "slug": "natural-language-processing", "type": "related" }
     ]
@@ -140,7 +135,7 @@
     "status": "published",
     "relatedProjects": ["absa-wordcloud"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "cosine-similarity", "type": "contrasts-with" }]
+    "relatedNodes": [{ "slug": "cosine-similarity", "type": "related" }]
   },
   "b2c": {
     "term": "B2C",
@@ -150,7 +145,7 @@
     "status": "published",
     "relatedProjects": ["silkroad"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "er-model", "type": "related" }]
+    "relatedNodes": []
   },
   "pk-fk": {
     "term": "PK / FK",
@@ -264,7 +259,7 @@
     "status": "published",
     "relatedProjects": ["silkroad"],
     "relatedArticles": [],
-    "relatedNodes": [{ "slug": "er-model", "type": "applies-to" }]
+    "relatedNodes": [{ "slug": "er-model", "type": "prerequisite" }]
   },
   "er-model": {
     "term": "ER Model (Entity-Relationship Model)",
@@ -275,7 +270,7 @@
     "relatedProjects": ["silkroad"],
     "relatedArticles": [],
     "relatedNodes": [
-      { "slug": "normalization", "type": "prerequisite" },
+      { "slug": "normalization", "type": "applies-to" },
       { "slug": "pk-fk", "type": "related" }
     ]
   },
@@ -309,7 +304,7 @@
     "relatedArticles": [],
     "relatedNodes": [
       { "slug": "rls", "type": "related" },
-      { "slug": "race-condition", "type": "applies-to" }
+      { "slug": "race-condition", "type": "related" }
     ]
   },
   "race-condition": {
@@ -324,7 +319,7 @@
     "relatedProjects": ["personal-website"],
     "relatedArticles": ["rxjs-flattening-operators"],
     "relatedNodes": [
-      { "slug": "security-definer", "type": "prerequisite" },
+      { "slug": "security-definer", "type": "related" },
       { "slug": "merge-map", "type": "related" }
     ]
   },
@@ -360,8 +355,7 @@
       { "slug": "information-visualization", "type": "related" },
       { "slug": "human-computer-interaction", "type": "related" },
       { "slug": "interactive-data-exploration", "type": "related" },
-      { "slug": "cosine-similarity", "type": "applies-to" },
-      { "slug": "normalized-gain", "type": "applies-to" },
+      { "slug": "normalized-gain", "type": "related" },
       { "slug": "interactive-systems", "type": "related" }
     ]
   },
@@ -373,10 +367,7 @@
     "status": "published",
     "relatedProjects": ["code-pulse"],
     "relatedArticles": [],
-    "relatedNodes": [
-      { "slug": "visual-analytics", "type": "related" },
-      { "slug": "ast", "type": "applies-to" }
-    ]
+    "relatedNodes": [{ "slug": "visual-analytics", "type": "related" }]
   },
   "information-visualization": {
     "term": "Information Visualization",
@@ -499,7 +490,7 @@
     "relatedProjects": [],
     "relatedArticles": ["short-form-video-activity-sharing"],
     "relatedNodes": [
-      { "slug": "deductive-reasoning", "type": "related" },
+      { "slug": "deductive-reasoning", "type": "contrasts-with" },
       { "slug": "thematic-coding", "type": "related" }
     ]
   },
@@ -512,7 +503,7 @@
     "relatedProjects": [],
     "relatedArticles": ["short-form-video-activity-sharing"],
     "relatedNodes": [
-      { "slug": "inductive-reasoning", "type": "related" },
+      { "slug": "inductive-reasoning", "type": "contrasts-with" },
       { "slug": "thematic-coding", "type": "related" }
     ]
   },
@@ -581,6 +572,7 @@
       { "slug": "knowledge-graph", "type": "related" },
       { "slug": "ckip", "type": "applies-to" },
       { "slug": "stanza", "type": "applies-to" },
+      { "slug": "distilbert", "type": "applies-to" },
       { "slug": "zero-shot", "type": "applies-to" }
     ]
   },
@@ -661,7 +653,7 @@
     "relatedProjects": ["code-pulse"],
     "relatedArticles": ["code-pulse-user-study", "code-pulse-confidence-vs-competence"],
     "relatedNodes": [
-      { "slug": "learning-confidence", "type": "applies-to" },
+      { "slug": "learning-confidence", "type": "prerequisite" },
       { "slug": "self-perceived-learning-effectiveness", "type": "related" },
       { "slug": "retrospective-pre-post", "type": "related" }
     ]
@@ -943,6 +935,19 @@
     "relatedNodes": [
       { "slug": "finite-automaton", "type": "prerequisite" },
       { "slug": "dfa", "type": "contrasts-with" }
+    ]
+  },
+  "rag": {
+    "term": "RAG (Retrieval-Augmented Generation)",
+    "definition": "Before answering, the system uses the user's question to retrieve relevant content from an external source (documents, a knowledge base, the web), then puts the retrieved text together with the question into the prompt for a language model to generate the answer. The model can use private or newer data without retraining, is less likely to make things up, and can cite its sources.",
+    "application": "RAG is often combined with prompt-only approaches like Zero-Shot: no retraining, just retrieved material added before generation. For example, a Q&A system first finds the few most relevant passages and has the model answer from them instead of from memory alone.",
+    "category": "NLP",
+    "status": "published",
+    "relatedProjects": [],
+    "relatedArticles": [],
+    "relatedNodes": [
+      { "slug": "zero-shot", "type": "related" },
+      { "slug": "natural-language-processing", "type": "related" }
     ]
   }
 }
