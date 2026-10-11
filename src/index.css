@@ -13,6 +13,22 @@ html {
   font-size: 18px;
 }
 
+/* 使用者在系統設定「減少動態效果」時，所有 CSS 動畫與過渡縮到近乎瞬間完成。
+   不直接設成 0s / none：很多元件靠 transitionend／animationend 或最終狀態收尾，
+   完全取消反而會讓狀態卡住；0.01ms 在視覺上等同無動畫，事件仍會觸發。
+   元件若需要更細緻的替代呈現（例如骨架屏改成靜態），再自己寫 @media 覆蓋。 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* NavBar 是 sticky top-0，捲到有 id 的錨點(標題、remark-gfm 腳註的引用/定義)時
    scrollIntoView({block:'start'}) 或原生 #fragment 導覽都會把目標頂到畫面最上緣，
    被蓋在 NavBar 底下。--nav-h 是 NavBar.tsx 用 ResizeObserver 量出的即時高度，

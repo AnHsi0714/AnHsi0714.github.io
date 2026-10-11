@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigationType } from 'react-router-dom'
 import Loading from './components/Loading'
 import NavBar from './components/NavBar'
 import { useTrail } from './context/TrailContext'
+import { scrollBehavior } from './lib/motion'
 
 // 文章／專案／知識點的詳情頁路徑，「軌跡」只在這三種頁面之間累積
 const DETAIL_PATH_PATTERN = /^\/(articles|projects|knowledge)\/[^/]+$/
@@ -39,7 +40,7 @@ export default function App() {
     if (hash) {
       const id = hash.slice(1)
       const el = document.getElementById(id)
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      el?.scrollIntoView({ behavior: scrollBehavior(), block: 'start' })
       return
     }
     if (navigationType === 'POP') {

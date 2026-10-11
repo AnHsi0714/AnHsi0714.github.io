@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TextLink from "./TextLink";
+import { scrollBehavior } from "../lib/motion";
 import type { MarkdownHeading, MarkdownHeadingLevel } from "../lib/markdown";
 
 interface TableOfContentsProps {
@@ -88,7 +89,7 @@ export default function TableOfContents({ title, sections, backLink }: TableOfCo
                       const target = document.getElementById(section.id);
                       if (!target) return;
                       event.preventDefault();
-                      target.scrollIntoView({ behavior: "smooth", block: "start" });
+                      target.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
                       history.pushState(null, "", `#${section.id}`);
                     }}
                     className="block rounded-md px-2 py-1 hover:bg-[var(--color-surface)] hover:text-[var(--color-text)]"

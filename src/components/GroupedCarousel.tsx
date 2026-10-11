@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Reveal from "./Reveal";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
 const TRANSITION_MS = 320;
 const AUTO_ROTATE_MS = 3000;
@@ -40,6 +41,8 @@ export default function GroupedCarousel<T>({
   const [groupIndex, setGroupIndex] = useState(0);
   const [collapsed, setCollapsed] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  // 自動輪播是持續移動的內容，減少動態效果時改成只靠使用者手動切換（WCAG 2.2.2）
+  const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const pendingIndex = useRef<number | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   // 換組的過程中把外層容器高度釘住在切換前量到的高度，收合/展開動畫只在這個
@@ -66,13 +69,13 @@ export default function GroupedCarousel<T>({
   };
 
   useEffect(() => {
-    if (!autoRotate || groups.length <= 1 || isPaused) return;
+    if (!autoRotate || prefersReducedMotion || groups.length <= 1 || isPaused) return;
     const id = window.setInterval(() => {
       goTo((groupIndex + 1) % groups.length);
     }, AUTO_ROTATE_MS);
     return () => window.clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groupIndex, groups.length, isPaused, autoRotate]);
+  }, [groupIndex, groups.length, isPaused, autoRotate, prefersReducedMotion]);
 
   const activeGroup = groups[groupIndex] ?? [];
 
