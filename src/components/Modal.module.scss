@@ -22,7 +22,7 @@
 
 // placard 變體（作品介紹專用）：遮罩加深、面板做成「美術館說明牌」——
 // 啞光紙色、無圓角、深色投影，像暗色展間裡打了光的作品說明。
-// 配色跟著日夜模式走，兩套都對齊生成視覺展牆名牌（GalleryGrid.module.scss
+// 配色跟著日夜模式走，兩套都對齊藝術畫廊展牆名牌（GalleryGrid.module.scss
 // 的 --room-placard-*）的質感；把色彩變數整組換掉，內容裡用 var(--color-*)
 // 的文字／分隔線／圖片底色會自動跟著可讀。
 // 用 .backdrop.placardBackdrop 複合選擇器墊高 specificity：呼叫端透過

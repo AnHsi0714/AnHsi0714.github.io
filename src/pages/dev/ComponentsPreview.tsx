@@ -215,7 +215,7 @@ export default function ComponentsPreview() {
                   按住拖曳能在畫面上留下墨色的軌跡；山勢的起伏由多層 Perlin
                   noise 疊加而成，前景與遠景以不同的頻率呼吸。
                   這層展開面板做成「美術館說明牌」：無圓角，淺色模式是啞光紙色、
-                  深色模式轉成展牆名牌的暗色配色，跟生成視覺的作品介紹同一套。
+                  深色模式轉成展牆名牌的暗色配色，跟藝術畫廊的作品介紹同一套。
                   按遮罩外或 Esc 即可關閉。
                 </p>
               </div>
@@ -224,7 +224,7 @@ export default function ComponentsPreview() {
             <p className="mt-3 font-semibold">Perlin 山水</p>
             <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
               點擊卡片會在暗色遮罩上展開完整的作品說明牌，
-              對應之後生成視覺的作品介紹用法。
+              對應之後藝術畫廊的作品介紹用法。
             </p>
           </ExpandableCard>
           <Card className="flex items-start gap-4">

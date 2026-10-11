@@ -295,7 +295,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       experience: "經歷",
       projects: "專案",
       articles: "文章",
-      gallery: "生成視覺",
+      gallery: "藝術畫廊",
       dreams: "夢想",
       friends: "朋友創作",
       devComponents: "組件預覽",
@@ -371,7 +371,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       quickLinkExperienceDesc: "競賽、實習與教學經歷",
       quickLinkArticles: "文章",
       quickLinkArticlesDesc: "學術筆記、技術文章與讀書心得",
-      quickLinkGallery: "生成視覺",
+      quickLinkGallery: "藝術畫廊",
       quickLinkGalleryDesc: "p5.js 互動式創作",
       quickLinkProjects: "全部專案",
       quickLinkProjectsDesc: "完整專案列表",
@@ -447,7 +447,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       nextArticle: "下一篇文章",
     },
     gallery: {
-      title: "生成視覺",
+      title: "藝術畫廊",
       subtitle:
         "展覽牆的畫作會自動橫移，點縮圖直接進入互動版本，點作品名稱看介紹。",
       noMatch: "沒有符合條件的作品",
@@ -602,7 +602,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       experience: "Experience",
       projects: "Projects",
       articles: "Articles",
-      gallery: "Generative Visuals",
+      gallery: "Gallery",
       dreams: "Dreams",
       friends: "Friends' Creations",
       devComponents: "Components Preview",
@@ -687,7 +687,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       quickLinkArticles: "Articles",
       quickLinkArticlesDesc:
         "Academic notes, technical writeups, and reading reflections",
-      quickLinkGallery: "Generative Visuals",
+      quickLinkGallery: "Gallery",
       quickLinkGalleryDesc: "Interactive p5.js creations",
       quickLinkProjects: "All Projects",
       quickLinkProjectsDesc: "Full project list",
@@ -764,7 +764,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       nextArticle: "Next Article",
     },
     gallery: {
-      title: "Generative Visuals",
+      title: "Gallery",
       subtitle:
         "The wall auto-scrolls; click a thumbnail to open its interactive version, or its name for details.",
       noMatch: "No pieces match these filters",
