@@ -4,7 +4,7 @@
       "period": "2022 / 11",
       "title": "National Skills Competition: Computer Software Design",
       "subtitle": "7th Place, Golden Hand Award",
-      "tags": [{ "label": "Competition", "variant": "success" }],
+      "tags": [{ "label": "Competition", "category": "competition" }],
       "highlights": [
         "Wrote six hands-on programming problems in VB and **solved all of them**",
         "Covered data structures, basic algorithms, UI layout, component usage, and data processing",
@@ -19,7 +19,7 @@
       "period": "2023 / 05",
       "title": "New Taipei Golden Hand Delegation: US Study Tour",
       "subtitle": "Atlanta & San Francisco",
-      "tags": [{ "label": "Overseas", "variant": "success" }],
+      "tags": [{ "label": "Overseas", "category": "overseas" }],
       "highlights": [
         "Exchanged culture and professional skills with local student partners",
         "Visited notable sites and analyzed the factors behind their success",
@@ -37,7 +37,7 @@
       "period": "2023 – 2026",
       "title": "Skills Competition Coach at Alma Mater",
       "subtitle": "Trained the following four cohorts of Computer Software Design competitors",
-      "tags": [{ "label": "Teaching", "variant": "success" }],
+      "tags": [{ "label": "Teaching", "category": "teaching" }],
       "highlights": [
         "Led competitors to **2 award-winning placements**",
         "Experimented with varied teaching methods: instructional videos, original practice problems, curriculum planning, and targeted remediation of weak points",
@@ -48,7 +48,7 @@
       "period": "2025 / 07 – 2026 / 12",
       "title": "Sun Bird Software Co., Ltd. (Taiwan Branch)",
       "subtitle": "Frontend Development Team: Summer + On-Campus Intern",
-      "tags": [{ "label": "Internship", "variant": "info" }],
+      "tags": [{ "label": "Internship", "category": "internship" }],
       "highlights": [
         "Developed and maintained frontend features in Angular, writing HTML, SCSS, and TypeScript",
         "Participated in the full frontend development workflow, including code reviews and sprint reviews",
@@ -65,7 +65,7 @@
       "period": "2025 / 12",
       "title": "Educational Big Data Micro-Program: 2025 Capstone Presentation Competition",
       "subtitle": "\"Long-Term Effects of Digital Learning Policy in Junior High Schools\" (3-person team), Honorable Mention",
-      "tags": [{ "label": "Research", "variant": "default" }],
+      "tags": [{ "label": "Research", "category": "research" }],
       "highlights": [
         "Investigated differences in learning outcomes before and after a junior-high digital learning policy rollout",
         "Split data collection, analysis, and the final report across a 3-person team"
@@ -75,7 +75,7 @@
       "period": "2026 / 07 – 2026 / 12",
       "title": "2026 Taiwan Baseball Data Analysis Competition: Should You Steal with a Runner on First and Two Outs? A Decision Analysis",
       "subtitle": "On-Field Tactical Analysis Group (in preparation, 4-person team)",
-      "tags": [{ "label": "Competition", "variant": "info" }],
+      "tags": [{ "label": "Competition", "category": "competition" }],
       "highlights": [
         "Collected pitch-by-pitch records for four CPBL seasons (2023-2026) and extended them to KBO and MLB for a three-league comparison dataset",
         "Studied how the **break-even success-rate** threshold for stealing with two outs and a runner on first only shifts with lineup slot, batter type, inning, and score",
@@ -95,19 +95,19 @@
       "period": "2021 / 11 & 2022 / 10",
       "title": "Hungkuo Delin University of Technology: Computer & Communication Engineering Programming Competition",
       "result": "1st Place (2022), 3rd Place (2021)",
-      "tags": [{ "label": "Competition", "variant": "success" }]
+      "tags": [{ "label": "Competition", "category": "competition" }]
     },
     {
       "period": "2022",
       "title": "8th New Taipei English Elite Cup: AI Vocabulary Category",
       "result": "Golden Brain Award, Vocational High School General Track",
-      "tags": [{ "label": "Competition", "variant": "success" }]
+      "tags": [{ "label": "Competition", "category": "competition" }]
     },
     {
       "period": "2020 / 09 – 2023 / 06",
       "title": "PVQC English Vocabulary Proficiency International Certification",
       "result": "Level 5 Specialist: ICT / AI Literacy / eSports / Electrical",
-      "tags": [{ "label": "Certification", "variant": "default" }]
+      "tags": [{ "label": "Certification", "category": "certification" }]
     }
   ]
 }

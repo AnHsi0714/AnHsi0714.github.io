@@ -15,12 +15,20 @@
   --color-primary-hover: #396969;
   --color-primary-text: #f7f7f7;
 
-  /* Badge/Alert/Chip/Button.danger 全站都是邊框＋文字樣式，沒有實心底，
+  /* Badge/Alert/Button.danger 全站都是邊框＋文字樣式，沒有實心底，
      顏色直接印在頁面背景上，所以淺色模式要夠深才過 4.5:1。 */
-  --color-danger: #cd3c3c; /* Badge.danger／Alert.error／Button.danger／Chip outlineDanger */
+  --color-danger: #cd3c3c; /* Badge.danger／Alert.error／Button.danger */
   --color-danger-hover: #fa1414; /* Button.danger 的 hover 色 */
-  --color-success: #408000; /* Badge.success/done／Alert.success／Chip outlineSuccess */
-  --color-info: #19749f; /* Badge.doing／Alert.info／Chip outlineInfo */
+  --color-success: #408000; /* Badge.success/done／Alert.success */
+  --color-info: #19749f; /* Badge.doing／Alert.info */
+
+  /* Chip 的分類色（經歷用）：依「分類」上色，不帶狀態語意，所以刻意避開 success／info／danger 的綠、藍、紅。
+     全部直接當文字與邊框色印在頁面背景上，對 #fff 與 --color-surface 都過 4.5:1。 */
+  --color-cat-competition: #a84a07;
+  --color-cat-overseas: #0f766e;
+  --color-cat-teaching: #be185d;
+  --color-cat-internship: #7e22ce;
+  --color-cat-research: #4338ca;
 }
 
 .dark {
@@ -40,4 +48,10 @@
   --color-danger-hover: #fca5a5;
   --color-success: #88ca1e;
   --color-info: #4d99cf;
+
+  --color-cat-competition: #fbbf24;
+  --color-cat-overseas: #2dd4bf;
+  --color-cat-teaching: #f472b6;
+  --color-cat-internship: #c084fc;
+  --color-cat-research: #a5b4fc;
 }

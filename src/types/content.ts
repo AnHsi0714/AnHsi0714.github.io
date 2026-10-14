@@ -1,4 +1,4 @@
-import type { ChipVariant } from "../components/Chip";
+import type { ChipCategory } from "../components/Chip";
 
 export interface Dream {
   title: string;
@@ -43,7 +43,7 @@ export interface Project {
 
 export interface ExperienceTag {
   label: string;
-  variant: ChipVariant;
+  category: ChipCategory;
 }
 
 export interface ExperienceImage {

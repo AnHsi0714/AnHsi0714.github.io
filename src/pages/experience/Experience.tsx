@@ -84,7 +84,7 @@ export default function Experience() {
                     {entry.title}
                   </p>
                   {entry.tags.map((tag) => (
-                    <Chip key={tag.label} variant={tag.variant} size="sm">
+                    <Chip key={tag.label} variant={tag.category} size="sm">
                       {tag.label}
                     </Chip>
                   ))}
@@ -139,7 +139,7 @@ export default function Experience() {
                     {entry.result}
                   </span>
                   {entry.tags.map((tag) => (
-                    <Chip key={tag.label} variant={tag.variant} size="sm">
+                    <Chip key={tag.label} variant={tag.category} size="sm">
                       {tag.label}
                     </Chip>
                   ))}

@@ -263,41 +263,37 @@ export default function ComponentsPreview() {
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <Chip>default</Chip>
-          <Chip variant="success">success</Chip>
-          <Chip variant="info">info</Chip>
-          <Chip variant="warn">warn</Chip>
-          <Chip variant="danger">danger</Chip>
+          <Chip variant="competition">competition</Chip>
+          <Chip variant="overseas">overseas</Chip>
+          <Chip variant="teaching">teaching</Chip>
+          <Chip variant="internship">internship</Chip>
+          <Chip variant="research">research</Chip>
+          <Chip variant="certification">certification</Chip>
         </div>
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <Chip size="sm">default sm</Chip>
-          <Chip variant="success" size="sm">
-            success sm
+          <Chip variant="competition" size="sm">
+            competition sm
           </Chip>
-          <Chip variant="info" size="sm">
-            info sm
+          <Chip variant="overseas" size="sm">
+            overseas sm
           </Chip>
-          <Chip variant="warn" size="sm">
-            warn sm
-          </Chip>
-          <Chip variant="danger" size="sm">
-            danger sm
+          <Chip variant="teaching" size="sm">
+            teaching sm
           </Chip>
         </div>
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <Chip clickable onClick={() => {}}>
             clickable
           </Chip>
-          <Chip clickable variant="success" onClick={() => {}}>
-            clickable success
+          <Chip clickable variant="competition" onClick={() => {}}>
+            clickable competition
           </Chip>
-          <Chip clickable variant="info" onClick={() => {}}>
-            clickable info
+          <Chip clickable variant="overseas" onClick={() => {}}>
+            clickable overseas（首頁研究興趣）
           </Chip>
-          <Chip clickable variant="warn" onClick={() => {}}>
-            clickable warn
-          </Chip>
-          <Chip clickable variant="danger" onClick={() => {}}>
-            clickable danger
+          <Chip clickable variant="research" onClick={() => {}}>
+            clickable research
           </Chip>
         </div>
         <div className="mt-2 flex flex-wrap items-center gap-2">
