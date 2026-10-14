@@ -82,7 +82,9 @@ export default function Home() {
     <div className="flex flex-col gap-16">
       <Reveal as="section" className="pt-4 sm:pt-8 lg:pt-12">
         <h1 className="text-4xl font-light leading-tight text-[var(--color-text)] sm:text-5xl md:text-6xl lg:text-7xl">
-          {t.home.titleZh} {t.home.titleEn}
+          {/* 各自 inline-block：空間不夠時只會在中文與英文之間換行，不會把英文名拆成兩行 */}
+          <span className="inline-block">{t.home.titleZh}</span>{" "}
+          <span className="inline-block">{t.home.titleEn}</span>
         </h1>
         <TextLink to="/about#research-interests" className="mt-3 block text-lg">
           {t.home.tagline}
