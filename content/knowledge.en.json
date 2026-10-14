@@ -1014,5 +1014,140 @@
       { "slug": "quantitative-data", "type": "related" },
       { "slug": "qualitative-data", "type": "related" }
     ]
-  }
+  },
+    "re24": {
+      "term": "RE24 (Run Expectancy 24)",
+      "definition": "A table of the average runs scored from each of the 24 game states (3 out counts times 8 base-runner combinations) to the end of the half-inning. A larger number means more runs still to come from that state, which makes it the most basic run-value table in baseball analytics.",
+      "application": "RE24 gives the base threshold for a steal decision, but it ignores the retention effect, so the project recomputes the threshold with batter-level models.",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "break-even-success-rate", "type": "related" },
+      { "slug": "retention-effect", "type": "contrasts-with" },
+      { "slug": "wpa", "type": "contrasts-with" },
+      { "slug": "monte-carlo", "type": "related" }
+      ]
+    },
+    "retention-effect": {
+      "term": "Retention Effect",
+      "definition": "With two outs, a failed steal makes the third out, so the batter's plate appearance is left unfinished and held over to the start of the next inning. That trades immediate out risk for pushing the whole batting order back one slot, a cost that traditional RE24, which only looks at the current half-inning, cannot see.",
+      "application": "This is the core contribution of the project. Its shape is the same in all four seasons: negative for spots 1 to 5, positive from spot 6, and worst at spot 8 (+3.1 to 4.1 percentage points), and it also shows up in KBO and MLB.",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "re24", "type": "related" },
+      { "slug": "break-even-success-rate", "type": "related" },
+      { "slug": "monte-carlo", "type": "related" }
+      ]
+    },
+    "break-even-success-rate": {
+      "term": "Break-even Success Rate",
+      "definition": "The success rate a risky action needs in order to not lose value. For stealing, let V_success, V_fail, and V_no-steal be the expected runs of the three outcomes; the threshold is p* = (V_no-steal − V_fail) ÷ (V_success − V_fail), and a steal is worth attempting only if the real success rate is above p*.",
+      "application": "The project computes p* for each batter and situation and compares it with the actual steal success rate. For CPBL 2025 the median p* is 58.5% against an actual success rate of 67.1%.",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "re24", "type": "related" },
+      { "slug": "retention-effect", "type": "related" },
+      { "slug": "wpa", "type": "related" },
+      { "slug": "monte-carlo", "type": "related" }
+      ]
+    },
+    "win-expectancy": {
+      "term": "Win Expectancy",
+      "definition": "The probability that the batting team goes on to win from a given inning, score difference, out count, and base state. Unlike RE24 it accounts for score and inning, so the same run is worth more late in a close game.",
+      "application": "The project pools four seasons (1,380 games, 106,621 state samples) into a win expectancy matrix used as the lookup table for the WPA thresholds.",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "wpa", "type": "prerequisite" },
+      { "slug": "re24", "type": "contrasts-with" }
+      ]
+    },
+    "wpa": {
+      "term": "WPA (Win Probability Added)",
+      "definition": "How much a team's win probability changes because of one action. Using WPA as the criterion swaps run expectancy for win probability, so inning and score are accounted for automatically.",
+      "application": "From the 4th inning on, the WPA steal threshold is clearly lower than the RE one: about 37-43%, 24-27%, and 31-35% in innings 6, 7, and 8, against 54-60% for RE, because the same run weighs more late in the game.",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "win-expectancy", "type": "prerequisite" },
+      { "slug": "re24", "type": "contrasts-with" },
+      { "slug": "break-even-success-rate", "type": "related" }
+      ]
+    },
+    "mann-whitney-u": {
+      "term": "Mann-Whitney U Test",
+      "definition": "A two-group comparison test that does not require normally distributed data, checking whether the two groups differ significantly in median (distribution location). It is more robust than a t-test when data is non-normal or has outliers.",
+      "application": "The project uses it to compare the median break-even thresholds of high and low groups of batters, such as high vs. low single rate. In CPBL 2025 the high single-rate group sits 7.3 percentage points lower (p < 0.001).",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "break-even-success-rate", "type": "related" }
+      ]
+    },
+    "iso": {
+      "term": "ISO (Isolated Power)",
+      "definition": "Slugging percentage minus batting average, counting only the extra power from hits beyond singles, used to measure a batter's power.",
+      "application": "The project uses ISO as a proxy for power and BB% for plate discipline, deliberately avoiding SLG and OBP because the two overlap heavily. High-ISO batters have a significantly higher steal threshold.",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "slg", "type": "prerequisite" },
+      { "slug": "break-even-success-rate", "type": "related" }
+      ]
+    },
+    "monte-carlo": {
+      "term": "Monte Carlo Simulation",
+      "definition": "Estimating a result that is hard to compute directly by running many randomized repetitions. Each run draws events according to their probabilities and plays the whole process through; averaging over many runs gives the expected value and its spread.",
+      "application": "The project uses it to simulate the three paths (steal succeeds, steal fails, no steal): each batter uses their own outcome probabilities, each situation is rerun 2,000 times, and the failure path runs through the end of the same team's next half-inning, so the lineup-driven retention effect is included.",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "break-even-success-rate", "type": "related" },
+      { "slug": "re24", "type": "related" },
+      { "slug": "retention-effect", "type": "related" }
+      ]
+    },
+    "slg": {
+      "term": "SLG (Slugging Percentage)",
+      "definition": "Total bases divided by at-bats, counting a single as 1, a double as 2, a triple as 3, and a home run as 4, measuring how many bases a batter earns per at-bat.",
+      "application": "SLG counts singles too and overlaps heavily with batting average, so the project uses ISO as its proxy for power instead.",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "iso", "type": "related" },
+      { "slug": "obp", "type": "related" }
+      ]
+    },
+    "obp": {
+      "term": "OBP (On-base Percentage)",
+      "definition": "How often a batter reaches base, counting hits, walks, and hit-by-pitches, measuring how well a batter avoids making an out.",
+      "application": "OBP lumps hits and walks together and, like SLG, overlaps heavily with other indicators, so the project looks at single rate and BB% separately to see how a batter gets on base.",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "slg", "type": "related" }
+      ]
+    }
 }
