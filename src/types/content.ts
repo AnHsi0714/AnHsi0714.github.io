@@ -30,7 +30,7 @@ export interface Project {
   date: string;
   status: ProjectStatus;
   tags: ProjectTag[];
-  collaborators?: string[];
+  teamSize?: number;
   period?: string;
   advisor?: string;
   screenshotUrl?: string;

@@ -103,13 +103,11 @@ export default function ProjectDetail() {
         <p className="mt-2 text-[var(--color-text-muted)]">{project.desc}</p>
 
         {(project.period ||
-          (project.collaborators && project.collaborators.length > 0) ||
+          project.teamSize ||
           project.advisor) && (
           <div className="mt-3 flex flex-col gap-1 text-sm text-[var(--color-text-muted)]">
             {project.period && <span>{t.projects.period}{project.period}</span>}
-            {project.collaborators && project.collaborators.length > 0 && (
-              <span>{t.projects.collaborators}{project.collaborators.join("、")}</span>
-            )}
+            {project.teamSize && <span>{t.projects.teamSize(project.teamSize)}</span>}
             {project.advisor && <span>{t.projects.advisor}{project.advisor}</span>}
           </div>
         )}

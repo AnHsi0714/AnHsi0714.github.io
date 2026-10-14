@@ -1,5 +1,6 @@
 import { useMemo, type CSSProperties } from "react";
 import ProgressBar from "./ProgressBar";
+import { useTranslation } from "../i18n/useTranslation";
 import styles from "./Loading.module.scss";
 
 type LoadingSize = "sm" | "md" | "lg";
@@ -40,6 +41,9 @@ export default function Loading({
   complete,
 }: LoadingProps) {
   const monsterColors = useMonsterColors();
+  const { t } = useTranslation();
+  // 沒傳 label 時用共用的「載入中…」，各處不必每次自己帶文字
+  const text = label ?? t.common.loading;
 
   return (
     <div
@@ -63,7 +67,7 @@ export default function Loading({
           <ProgressBar progress={progress} variant="footprint" steps={6} />
         </div>
       )}
-      {label && <span className={styles.label}>{label}</span>}
+      {text && <span className={styles.label}>{text}</span>}
     </div>
   );
 }

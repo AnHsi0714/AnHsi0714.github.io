@@ -108,6 +108,12 @@ html[data-view-transition="language"]::view-transition-new(site-nav) {
   --tw-prose-td-borders: var(--color-border);
 }
 
+/* 避免段落、列點、圖說的最後一行只剩一兩個字（孤字）。
+   text-wrap: pretty 讓瀏覽器在斷行時把最後一行補到至少幾個字，不支援的瀏覽器會自動忽略。 */
+.prose :where(p, li, figcaption, blockquote) {
+  text-wrap: pretty;
+}
+
 /* Typography 預設只把行內 code 加粗並前後插入純文字反引號，看起來跟一般文字沒兩樣。
    這裡改成灰底圓角的 code chip，並移除 pre 區塊以外不需要的反引號字元；
    :not(pre) > code 只選到行內 code，不影響 pre 內的多行程式碼區塊。 */
