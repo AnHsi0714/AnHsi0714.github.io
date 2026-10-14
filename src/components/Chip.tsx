@@ -1,7 +1,15 @@
 import type { HTMLAttributes, KeyboardEvent, MouseEvent } from "react";
 import styles from "./Chip.module.scss";
 
-export type ChipVariant = "default" | "success" | "info" | "warn" | "danger";
+// 分類色：給經歷等「依分類上色」的情境用，沒有狀態語意；其餘情況用 default 灰色即可
+export type ChipCategory =
+  | "competition"
+  | "overseas"
+  | "teaching"
+  | "internship"
+  | "research"
+  | "certification";
+export type ChipVariant = "default" | ChipCategory;
 export type ChipSize = "sm" | "md";
 
 interface ChipProps extends HTMLAttributes<HTMLSpanElement> {
@@ -15,10 +23,12 @@ interface ChipProps extends HTMLAttributes<HTMLSpanElement> {
 
 const variantClassKey: Record<ChipVariant, string> = {
   default: "outlineDefault",
-  success: "outlineSuccess",
-  info: "outlineInfo",
-  warn: "outlineWarn",
-  danger: "outlineDanger",
+  competition: "outlineCompetition",
+  overseas: "outlineOverseas",
+  teaching: "outlineTeaching",
+  internship: "outlineInternship",
+  research: "outlineResearch",
+  certification: "outlineDefault",
 };
 
 const sizeClassKey: Record<ChipSize, string> = {

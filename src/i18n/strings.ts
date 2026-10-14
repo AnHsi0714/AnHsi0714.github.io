@@ -65,6 +65,7 @@ export interface Strings {
     filterNotFeatured: string;
     featuredFilterLabel: string;
     backToHome: string;
+    loading: string;
   };
   home: {
     titleZh: string;
@@ -122,7 +123,7 @@ export interface Strings {
     notFoundDesc: string;
     backToList: string;
     period: string;
-    collaborators: string;
+    teamSize: (count: number) => string;
     advisor: string;
     featuredSectionTitle: string;
     allSectionTitle: string;
@@ -359,6 +360,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       filterNotFeatured: "非精選",
       featuredFilterLabel: "精選狀態",
       backToHome: "← 回首頁",
+      loading: "載入中…",
     },
     home: {
       titleZh: "鄭安琋",
@@ -420,7 +422,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       notFoundDesc: "可能已經被移除或網址有誤。",
       backToList: "← 回專案列表",
       period: "期間：",
-      collaborators: "合作者：",
+      teamSize: (count) => (count === 1 ? "個人專案" : `${count} 人專案`),
       advisor: "指導教授：",
       featuredSectionTitle: "精選",
       allSectionTitle: "全部",
@@ -675,6 +677,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       filterNotFeatured: "Not featured",
       featuredFilterLabel: "Featured status",
       backToHome: "← Back to Home",
+      loading: "Loading…",
     },
     home: {
       titleZh: "Cheng An Hsi",
@@ -740,7 +743,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       notFoundDesc: "It may have been removed, or the link is incorrect.",
       backToList: "← Back to projects",
       period: "Period: ",
-      collaborators: "Collaborators: ",
+      teamSize: (count) => (count === 1 ? "Solo project" : `Team of ${count}`),
       advisor: "Advisor: ",
       featuredSectionTitle: "Featured",
       allSectionTitle: "All",

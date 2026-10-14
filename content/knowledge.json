@@ -1029,5 +1029,140 @@
       { "slug": "quantitative-data", "type": "related" },
       { "slug": "qualitative-data", "type": "related" }
     ]
-  }
+  },
+    "re24": {
+      "term": "RE24（24 種局面得分期望值）",
+      "definition": "把「出局數（0、1、2）」與「壘上跑者組合（8 種）」共 24 種局面，各自從該局面開始算到半局結束的平均得分。顏色越深（數字越大）代表這個局面後面平均還能拿越多分，是棒球數據分析最基本的得分價值表。",
+      "application": "RE24 提供盜壘決策的基礎門檻：盜壘成功率至少要達到 RE(一壘) ÷ RE(二壘) 之類的比例才划算。本專案指出它的盲點，是不含保留效應，所以另外用打者個人模型重算。",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "break-even-success-rate", "type": "related" },
+      { "slug": "retention-effect", "type": "contrasts-with" },
+      { "slug": "wpa", "type": "contrasts-with" },
+      { "slug": "monte-carlo", "type": "related" }
+      ]
+    },
+    "retention-effect": {
+      "term": "Retention Effect（保留效應）",
+      "definition": "兩出局時盜壘失敗會形成第三出局，當事打者的打席沒有打完，會保留到下一局重新開始。等於用「打序整體往後延一棒」換取當下的出局風險，傳統 RE24 只看當半局得分，看不到這個代價。",
+      "application": "這是本專案想補上的核心貢獻。四季資料中它的形狀一致：第 1–5 棒為負、第 6 棒起翻正、第 8 棒最嚴重（+3.1～4.1 個百分點），而且在 KBO、MLB 也看得到。",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "re24", "type": "related" },
+      { "slug": "break-even-success-rate", "type": "related" },
+      { "slug": "monte-carlo", "type": "related" }
+      ]
+    },
+    "break-even-success-rate": {
+      "term": "Break-even Success Rate（損益兩平成功率）",
+      "definition": "冒險行動要成功幾成才不虧本。以盜壘為例，把「盜壘成功」「盜壘失敗」「不跑」三種結果的期望得分分別記為 V成功、V失敗、V不跑，則門檻 p* = (V不跑 − V失敗) ÷ (V成功 − V失敗)，實際成功率高於 p* 才值得跑。",
+      "application": "本專案對每位打者、每個情境都算出 p*，再和實際盜壘成功率比較。2025 球季 CPBL 的 p* 中位數是 58.5%，實際成功率 67.1%。",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "re24", "type": "related" },
+      { "slug": "retention-effect", "type": "related" },
+      { "slug": "wpa", "type": "related" },
+      { "slug": "monte-carlo", "type": "related" }
+      ]
+    },
+    "win-expectancy": {
+      "term": "Win Expectancy（勝率期望值）",
+      "definition": "在某個局數、比分差、出局數與壘包狀態下，進攻方最後贏球的機率。和 RE24 的差別是它把「比分與局數」算進去，所以同樣的一分在晚局、比數接近時價值更高。",
+      "application": "本專案合併 2023–2026 四季共 1,380 場、106,621 個局面樣本建立勝率矩陣，作為 WPA 版門檻的查表。",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "wpa", "type": "prerequisite" },
+      { "slug": "re24", "type": "contrasts-with" }
+      ]
+    },
+    "wpa": {
+      "term": "WPA（Win Probability Added，勝率增值）",
+      "definition": "一個行動前後，球隊勝率改變了多少。用勝率增值當判準，等於把得分期望值換成勝率，因此會自然考慮局數與比分。",
+      "application": "第 4 局起 WPA 版的盜壘門檻明顯低於 RE 版：第 6、7、8 局約 37–43%、24–27%、31–35%，RE 版則都在 54–60% 上下。原因是同一分在晚局份量更重。",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "win-expectancy", "type": "prerequisite" },
+      { "slug": "re24", "type": "contrasts-with" },
+      { "slug": "break-even-success-rate", "type": "related" }
+      ]
+    },
+    "mann-whitney-u": {
+      "term": "Mann-Whitney U Test（曼-惠特尼 U 檢定）",
+      "definition": "不要求資料呈常態分布的兩組比較檢定，檢查兩組的中位數（分布位置）是否有顯著差異。樣本不是常態、或有離群值時，比 t 檢定更穩當。",
+      "application": "本專案用它比較高低兩組打者（例如高單打率 vs 低單打率）的損益兩平門檻中位數，2025 年 CPBL 高單打率組比低單打率組低 7.3 個百分點（p < 0.001）。",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "break-even-success-rate", "type": "related" }
+      ]
+    },
+    "iso": {
+      "term": "ISO（Isolated Power，純長打率）",
+      "definition": "長打率（SLG）減打擊率（AVG），只算二壘安打以上多出來的長打貢獻，用來衡量打者的長打能力。",
+      "application": "本專案用 ISO 代理長打力、BB% 代理選球力，刻意不用 SLG 與 OBP，因為兩者高度重疊。高 ISO 打者的盜壘門檻顯著較高。",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "slg", "type": "prerequisite" },
+      { "slug": "break-even-success-rate", "type": "related" }
+      ]
+    },
+    "monte-carlo": {
+      "term": "Monte Carlo Simulation（蒙地卡羅模擬）",
+      "definition": "用大量隨機重複的模擬來估計一個難以直接算出的結果。每次模擬都依機率抽出事件、跑完整個過程，重複很多次後取平均，就能得到期望值與分布。",
+      "application": "本專案用它模擬「盜壘成功」「盜壘失敗」「不跑」三條路線：每位打者用自己的打擊結果機率，每個情境重跑 2,000 次，失敗路線一路模擬到同一隊下一個進攻半局結束，才能把打序造成的保留效應算進去。",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "break-even-success-rate", "type": "related" },
+      { "slug": "re24", "type": "related" },
+      { "slug": "retention-effect", "type": "related" }
+      ]
+    },
+    "slg": {
+      "term": "SLG（Slugging Percentage，長打率）",
+      "definition": "總壘數除以打數，把一壘安打記 1、二壘安打記 2、三壘安打記 3、全壘打記 4，衡量打者每個打數平均能推進多少壘。",
+      "application": "SLG 把單打也算進去，和打擊率高度重疊，所以本專案改用 ISO 來代理長打力。",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "iso", "type": "related" },
+      { "slug": "obp", "type": "related" }
+      ]
+    },
+    "obp": {
+      "term": "OBP（On-base Percentage，上壘率）",
+      "definition": "打者上壘的比例，把安打、保送與觸身球都算進去，衡量打者不被刺殺出局、站上壘包的能力。",
+      "application": "OBP 把安打與保送混在一起，和 SLG 一樣與其他指標高度重疊，所以本專案分開用單打率與 BB% 看打者怎麼上壘。",
+      "category": "DA",
+      "status": "published",
+      "relatedProjects": ["cpbl-steal-decision"],
+      "relatedArticles": [],
+      "relatedNodes": [
+      { "slug": "slg", "type": "related" }
+      ]
+    }
 }

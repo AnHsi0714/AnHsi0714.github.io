@@ -4,7 +4,7 @@
       "period": "2022 / 11",
       "title": "全國工科技藝競賽 電腦軟體設計",
       "subtitle": "金手獎第七名",
-      "tags": [{ "label": "競賽", "variant": "success" }],
+      "tags": [{ "label": "競賽", "category": "competition" }],
       "highlights": [
         "使用 VB 撰寫六題實作程式試題，**全數解出**",
         "涵蓋資料結構、基礎演算法、版面設計、元件應用、資料處理",
@@ -25,7 +25,7 @@
       "period": "2023 / 05",
       "title": "新北金手團赴美見學",
       "subtitle": "亞特蘭大 & 舊金山",
-      "tags": [{ "label": "海外", "variant": "success" }],
+      "tags": [{ "label": "海外", "category": "overseas" }],
       "highlights": [
         "與當地學伴進行文化與教育交流，共同學習專業技術",
         "參訪多項知名景點，進行景點成功要素分析",
@@ -55,7 +55,7 @@
       "period": "2023 – 2026",
       "title": "母校技藝競賽選手培訓",
       "subtitle": "教導後四屆電腦軟體設計選手",
-      "tags": [{ "label": "教學", "variant": "success" }],
+      "tags": [{ "label": "教學", "category": "teaching" }],
       "highlights": [
         "帶領選手獲得**優勝 * 2**",
         "嘗試多元教學方式：搭配影片、自創題型、規劃課程主題、針對弱點補強",
@@ -66,7 +66,7 @@
       "period": "2025 / 07 – 2026 / 12",
       "title": "美商太陽鳥軟體股份有限公司 台灣分公司",
       "subtitle": "前端開發組　暑期＋校內實習",
-      "tags": [{ "label": "實習", "variant": "info" }],
+      "tags": [{ "label": "實習", "category": "internship" }],
       "highlights": [
         "使用 Angular 進行前端功能開發與維護以及串接 API",
         "撰寫 HTML、SCSS、TypeScript 實現設計稿與需求",
@@ -87,28 +87,28 @@
       "period": "2025 / 12",
       "title": "教育大數據微學程 114學年度 專題成果發表競賽",
       "subtitle": "國中數位學習政策的長期效應分析（三人團隊）佳作",
-      "tags": [{ "label": "研究", "variant": "default" }],
+      "tags": [{ "label": "研究", "category": "research" }],
       "highlights": [
         "探討國中數位學習政策推行前後的學習成效差異",
         "三人分工完成資料蒐集、分析與成果報告"
-      ],
-      "images": [
-        {
-          "src": "/images/experience/education-big-data-certificate.jpg",
-          "caption": "專題成果發表競賽佳作獎狀"
-        }
       ]
     },
     {
       "period": "2026 / 07 – 2026 / 12",
       "title": "2026 台灣棒球數據分析競賽：兩出局一壘有人該不該跑決策分析",
       "subtitle": "現場戰術分析組（備賽中，四人團隊）",
-      "tags": [{ "label": "競賽", "variant": "info" }],
+      "tags": [{ "label": "競賽", "category": "competition" }],
       "highlights": [
-        "爬蟲抓取逐場逐球紀錄，分析兩出局一壘有人盜壘決策",
-        "研究 CPBL 第 1–8 局、兩出局、僅一壘有人情境下的盜壘損益兩平成功率門檻，並分析門檻如何隨打者棒次與類型改變",
-        "提出**「保留效應」**概念：盜壘失敗會讓該打者的打席保留到下一局重新開始，修正傳統 RE24 只看當半局損益的盲點",
-        "建置打者決策模擬模型分析盜壘損益兩平門檻"
+        "蒐集 CPBL 2023–2026 四季逐球紀錄並延伸到 KBO、MLB，建立三聯盟比較資料",
+        "研究兩出局、僅一壘有人時盜壘的**損益兩平成功率**門檻，如何隨打者棒次、類型、局數與比分改變",
+        "提出**「保留效應」**：盜壘失敗會讓該打者的打席保留到下一局，修正傳統 RE24 只看當半局損益的盲點，且在三個聯盟都觀察到一致形狀",
+        "導入勝率增值（WPA），發現第 4 局起門檻明顯低於得分期望值版本，並產出可切換聯盟與球季的互動式報告"
+      ],
+      "images": [
+        {
+          "src": "/images/projects/cpbl-steal-decision/report-overview.png",
+          "caption": "整合報告首頁（CPBL 2025）"
+        }
       ]
     }
   ],
@@ -117,19 +117,19 @@
       "period": "2021 / 11 & 2022 / 10",
       "title": "宏國德霖科大 電腦與通訊工程系 程式設計競賽",
       "result": "第一名（2022）、第三名（2021）",
-      "tags": [{ "label": "競賽", "variant": "success" }]
+      "tags": [{ "label": "競賽", "category": "competition" }]
     },
     {
       "period": "2022",
       "title": "第八屆新北市英文菁英盃 AI 詞彙組",
       "result": "高職一般生組 金腦獎",
-      "tags": [{ "label": "競賽", "variant": "success" }]
+      "tags": [{ "label": "競賽", "category": "competition" }]
     },
     {
       "period": "2020 / 09 – 2023 / 06",
       "title": "PVQC 英語詞彙能力國際認證",
       "result": "ICT・AI Literacy・eSports・電機 Specialist 第5級",
-      "tags": [{ "label": "認證", "variant": "default" }]
+      "tags": [{ "label": "認證", "category": "certification" }]
     }
   ]
 }

@@ -14,7 +14,6 @@ import { useKnowledgeBodies } from "../../lib/knowledgeBodies";
 import TextLink from "../../components/TextLink";
 import { usePublishedArticles } from "../../lib/articles";
 import { useLocalized } from "../../lib/localized";
-import { useNeedsScroll } from "../../lib/useNeedsScroll";
 import { useTranslation } from "../../i18n/useTranslation";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { deriveExcerpt, extractHeadings } from "../../lib/markdown";
@@ -38,14 +37,12 @@ export default function KnowledgeDetail() {
   const knowledgeBodies = useKnowledgeBodies();
   const body = node ? knowledgeBodies[node.slug] : undefined;
   const headings = useMemo(() => extractHeadings(body ?? ""), [body]);
-  const hasToc = headings.length > 1;
   useDocumentTitle(
     node ? `${node.term} · Cheng An Hsi` : `${t.knowledge.notFoundTitle} · Cheng An Hsi`,
     node ? deriveExcerpt(node.definition, 150) : undefined,
   );
   const { pushTrailEntry } = useTrail();
   const isPublished = node?.status === "published";
-  const needsScroll = useNeedsScroll();
 
   useEffect(() => {
     if (isPublished && slug) {
@@ -109,13 +106,6 @@ export default function KnowledgeDetail() {
         backLink={{ to: "/knowledge", label: t.knowledge.backToList }}
       />
       <section>
-        <TextLink
-          to="/knowledge"
-          restoreScroll
-          className={`text-sm font-medium ${hasToc ? "2xl:hidden" : ""}`}
-        >
-          {t.knowledge.backToList}
-        </TextLink>
         <Trail />
 
         <div className="mt-4 flex items-start justify-between gap-2">
@@ -218,16 +208,6 @@ export default function KnowledgeDetail() {
               ))}
             </ul>
           </div>
-        )}
-
-        {needsScroll && (
-          <TextLink
-            to="/knowledge"
-            restoreScroll
-            className={`mt-8 inline-block text-sm font-medium ${hasToc ? "2xl:hidden" : ""}`}
-          >
-            {t.knowledge.backToList}
-          </TextLink>
         )}
       </section>
     </>

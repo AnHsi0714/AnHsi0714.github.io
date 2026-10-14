@@ -103,49 +103,39 @@
   }
 }
 
-// --chip-gradient 是給 .clickable 邊框動畫用的同色系漸層，因為漸層裡的
-// 相鄰色需要硬寫實際色碼（不是單一 token 能表示），所以 light/dark 分開寫。
-.outlineSuccess {
-  border-color: $color-success;
-  color: $color-success;
-  --chip-gradient: linear-gradient(90deg, #93da22, #22c55e, #06b6d4, #93da22);
+// 分類色：邊框與文字用各分類自己的顏色，沒有狀態語意。
+// clickable 的邊框動畫要看得出「晃動」，漸層裡一定要一淺一深並存，
+// 所以每個分類的 --chip-gradient 都是「深色（跟文字同色系）→ 中間色 → 淺色」，
+// 日夜模式各一組：夜間以淺色為主、搭一個深色當對比。
+@mixin category-chip($color, $l1, $l2, $l3, $d1, $d2, $d3) {
+  border-color: $color;
+  color: $color;
+  --chip-gradient: linear-gradient(90deg, #{$l1}, #{$l2}, #{$l3}, #{$l1});
 
   :global(.dark) & {
-    --chip-gradient: linear-gradient(90deg, #88ca1e, #4ade80, #22d3ee, #88ca1e);
+    --chip-gradient: linear-gradient(90deg, #{$d1}, #{$d2}, #{$d3}, #{$d1});
   }
 }
 
-.outlineInfo {
-  border-color: $color-info;
-  color: $color-info;
-  --chip-gradient: linear-gradient(90deg, #5fc4f3, #3b82f6, #6366f1, #5fc4f3);
-
-  :global(.dark) & {
-    --chip-gradient: linear-gradient(90deg, #337ca0, #60a5fa, #818cf8, #337ca0);
-  }
+.outlineCompetition {
+  @include category-chip($color-cat-competition, #a84a07, #f59e0b, #fde68a, #fde68a, #fbbf24, #b45309);
 }
 
-.outlineDanger {
-  border-color: $color-danger;
-  color: $color-danger;
-  --chip-gradient: linear-gradient(90deg, #f34848, #f97316, #ec4899, #f34848);
-
-  :global(.dark) & {
-    --chip-gradient: linear-gradient(90deg, #f87171, #fb923c, #f472b6, #f87171);
-  }
+// overseas（青綠）同時是首頁研究興趣 chip 的顏色，常以 clickable 出現
+.outlineOverseas {
+  @include category-chip($color-cat-overseas, #0f766e, #14b8a6, #99f6e4, #99f6e4, #2dd4bf, #0d9488);
 }
 
-// warn 在 Badge 裡沒有對應色，暫時維持獨立的琥珀色
-.outlineWarn {
-  border-color: rgba(217, 119, 6, 0.4);
-  color: #b45309;
-  --chip-gradient: linear-gradient(90deg, #d97706, #f97316, #facc15, #d97706);
+.outlineTeaching {
+  @include category-chip($color-cat-teaching, #be185d, #f472b6, #fbcfe8, #fbcfe8, #f472b6, #db2777);
+}
 
-  :global(.dark) & {
-    border-color: rgba(251, 191, 36, 0.4);
-    color: #fbbf24;
-    --chip-gradient: linear-gradient(90deg, #fbbf24, #fdba74, #fde047, #fbbf24);
-  }
+.outlineInternship {
+  @include category-chip($color-cat-internship, #7e22ce, #c084fc, #e9d5ff, #e9d5ff, #c084fc, #9333ea);
+}
+
+.outlineResearch {
+  @include category-chip($color-cat-research, #4338ca, #818cf8, #c7d2fe, #c7d2fe, #818cf8, #4f46e5);
 }
 
 // 尺寸

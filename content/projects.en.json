@@ -6,10 +6,10 @@
     "date": "2026-06",
     "status": "done",
     "tags": ["WEB"],
+    "teamSize": 1,
     "period": "2026/06 ~ 2026/09",
     "screenshotUrl": "/images/projects/personal-website/home.png",
-    "githubUrl": "https://github.com/AnHsi0714/AnHsi0714.github.io",
-    "featured": true
+    "githubUrl": "https://github.com/AnHsi0714/AnHsi0714.github.io"
   },
   {
     "slug": "super-mario",
@@ -18,7 +18,7 @@
     "date": "2025-06",
     "status": "done",
     "tags": ["GAME", "OOP"],
-    "collaborators": ["鄭安琋", "婁O翔"],
+    "teamSize": 2,
     "period": "2025/03 ~ 2025/06",
     "screenshotUrl": "/images/projects/super-mario/gameimg (2).png",
     "screenshotPosition": { "w": 0, "h": 70 },
@@ -31,7 +31,7 @@
     "date": "2026-01",
     "status": "done",
     "tags": ["WEB", "DB"],
-    "collaborators": ["鄭安琋", "郭O暘", "郭O帆", "陳O佑", "黃O安", "林O安"],
+    "teamSize": 6,
     "period": "2025/09 ~ 2026/01",
     "screenshotUrl": "/images/projects/silkroad/buy-drink.png",
     "githubUrl": "https://github.com/Sajuna94/SilkRoad"
@@ -43,7 +43,7 @@
     "date": "2026-06",
     "status": "done",
     "tags": ["NLP", "AI", "VIZ"],
-    "collaborators": ["鄭安琋", "葉凱成"],
+    "teamSize": 2,
     "period": "2026/06",
     "screenshotUrl": "/images/projects/absa-wordcloud/trackB.png",
     "screenshotPosition": { "w": 0, "h": 0 },
@@ -56,7 +56,7 @@
     "date": "2026-06",
     "status": "done",
     "tags": ["AI", "WEB", "EDU", "VIZ"],
-    "collaborators": ["鄭安琋", "葉凱成", "鄭錦鑫"],
+    "teamSize": 3,
     "advisor": "Annette Chen",
     "period": "2025/06 ~ 2026/06",
     "screenshotUrl": "/images/projects/code-pulse/home-page.png",
@@ -65,14 +65,16 @@
   },
   {
     "slug": "cpbl-steal-decision",
-    "name": "Should You Steal on Two Outs? A Base-Running Decision Guide for CPBL Coaches",
-    "desc": "Analyzes the break-even steal threshold in CPBL games with two outs and a runner on first only, accounting for the fact that a failed steal holds the batter over to the next inning.",
-    "date": "2026-07",
-    "status": "in-progress",
-    "tags": ["DATA", "VIZ"],
-    "collaborators": ["鄭安琋", "楊O力", "詹O儒", "劉O凱"],
-    "period": "2026/07 ~ 2026/12",
-    "githubUrl": "https://github.com/AnHsi0714/CPBL2outStealDecision"
+    "name": "Should You Steal with Two Outs and a Runner on First? A Base-Running Decision Guide for CPBL Coaches",
+    "desc": "Analyzes the break-even steal threshold in CPBL games with two outs and a runner on first only, accounting for the fact that a failed steal holds the batter over to the next inning. Covers four seasons, WPA-based thresholds, and an MLB/KBO cross-league comparison.",
+    "date": "2026-10",
+    "status": "done",
+    "tags": ["DATA", "WEB"],
+    "teamSize": 4,
+    "period": "2026/07 ~ 2026/10",
+    "screenshotUrl": "/images/projects/cpbl-steal-decision/report-overview.png",
+    "githubUrl": "https://github.com/AnHsi0714/CPBL2outStealDecision",
+    "featured": true
   },
   {
     "slug": "ntut-fa-quest",
@@ -81,6 +83,7 @@
     "date": "2026-09",
     "status": "in-progress",
     "tags": ["GAME", "EDU"],
+    "teamSize": 1,
     "period": "2026/09 ~",
     "githubUrl": "https://github.com/AnHsi0714/ntut-fa-quest"
   }

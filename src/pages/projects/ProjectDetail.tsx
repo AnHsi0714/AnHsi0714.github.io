@@ -12,7 +12,6 @@ import Trail from "../../components/Trail";
 import { useProjectBodies, statusBadgeVariant } from "../../lib/projects";
 import { useKnowledgeNodesLinkedTo } from "../../lib/knowledge";
 import { extractHeadings } from "../../lib/markdown";
-import { useNeedsScroll } from "../../lib/useNeedsScroll";
 import TextLink from "../../components/TextLink";
 import type { Project } from "../../types/content";
 import { useLocalized } from "../../lib/localized";
@@ -35,8 +34,6 @@ export default function ProjectDetail() {
   );
   const { pushTrailEntry } = useTrail();
   const headings = useMemo(() => extractHeadings(body ?? ""), [body]);
-  const hasToc = headings.length > 1;
-  const needsScroll = useNeedsScroll();
 
   useEffect(() => {
     if (project) pushTrailEntry({ type: "project", slug: project.slug });
@@ -64,13 +61,6 @@ export default function ProjectDetail() {
         backLink={{ to: "/projects", label: t.projects.backToList }}
       />
       <section>
-        <TextLink
-          to="/projects"
-          restoreScroll
-          className={`text-sm font-medium ${hasToc ? "2xl:hidden" : ""}`}
-        >
-          {t.projects.backToList}
-        </TextLink>
         <Trail />
 
         {project.screenshotUrl && (
@@ -88,9 +78,9 @@ export default function ProjectDetail() {
           />
         )}
 
-        <div className="mt-4 flex items-start justify-between gap-2">
+        <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
           <h1 className="text-2xl font-bold">{project.name}</h1>
-          <div className="flex shrink-0 flex-wrap justify-end items-center gap-1 pt-0.5">
+          <div className="flex flex-wrap items-center gap-1 pt-0.5 sm:shrink-0 sm:justify-end">
             {[...(project.tags ?? [])].sort().map((tag) => (
               <Chip key={tag} size="sm">{tag}</Chip>
             ))}
@@ -103,13 +93,11 @@ export default function ProjectDetail() {
         <p className="mt-2 text-[var(--color-text-muted)]">{project.desc}</p>
 
         {(project.period ||
-          (project.collaborators && project.collaborators.length > 0) ||
+          project.teamSize ||
           project.advisor) && (
           <div className="mt-3 flex flex-col gap-1 text-sm text-[var(--color-text-muted)]">
             {project.period && <span>{t.projects.period}{project.period}</span>}
-            {project.collaborators && project.collaborators.length > 0 && (
-              <span>{t.projects.collaborators}{project.collaborators.join("、")}</span>
-            )}
+            {project.teamSize && <span>{t.projects.teamSize(project.teamSize)}</span>}
             {project.advisor && <span>{t.projects.advisor}{project.advisor}</span>}
           </div>
         )}
@@ -137,16 +125,6 @@ export default function ProjectDetail() {
           <MarkdownContent className="mt-6" contextSlug={project.slug}>
             {body}
           </MarkdownContent>
-        )}
-
-        {needsScroll && (
-          <TextLink
-            to="/projects"
-            restoreScroll
-            className={`mt-8 inline-block text-sm font-medium ${hasToc ? "2xl:hidden" : ""}`}
-          >
-            {t.projects.backToList}
-          </TextLink>
         )}
       </section>
     </>

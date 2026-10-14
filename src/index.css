@@ -89,6 +89,207 @@ html[data-view-transition="language"]::view-transition-new(site-nav) {
   scroll-margin-top: calc(var(--nav-h, 0px) + 1rem);
 }
 
+/* 文章／專案／知識點的目錄：burger 按鈕 + 左側抽屜，樣式照抄 CPBL2outStealDecision 報告的目錄
+   (--surface→--color-bg, --text→--color-text, --muted→--color-text-muted, --accent→--color-primary)。
+   有目錄的頁面 html 會有 has-toc：窄螢幕在 main 左邊留一條 gutter 放 burger，不蓋到文字；
+   寬螢幕（>=761px）展開時 html 另有 toc-open，把 main 往右推而不是蓋住；窄螢幕則蓋在上面並顯示遮罩。 */
+.toc-btn {
+  position: fixed;
+  left: 12px;
+  top: calc(var(--nav-h, 0px) + 12px);
+  z-index: 60;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+  cursor: pointer;
+}
+/* 按鈕底下的實心底，內文／抽屜清單捲到按鈕那裡時被蓋住、不會從旁邊透出來。
+   z-index 壓過抽屜（59）；DOM 順序在按鈕之前，所以按鈕仍在它上面。
+   手機是整條橫帶；761px 以上只墊在兩顆按鈕底下（12 + 40 + 8 + 40 + 12 = 112px），
+   抽屜展開時延伸到和抽屜同寬（抽屜本身從這塊底下面開始） */
+.toc-bar {
+  position: fixed;
+  left: 0;
+  top: var(--nav-h, 0px);
+  z-index: 60;
+  width: 100%;
+  height: 64px;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+@media (min-width: 761px) {
+  .toc-bar {
+    width: 112px;
+    border-right: 1px solid var(--color-border);
+  }
+  html.toc-open .toc-bar {
+    width: 280px;
+  }
+}
+/* 回列表排在 burger 右邊：40px 寬 + 8px 間距 */
+.toc-btn-second {
+  left: 60px;
+}
+.toc-btn:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.toc-icon {
+  position: relative;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  transition: transform 0.3s ease;
+}
+.toc-icon::before,
+.toc-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+}
+.toc-icon::before {
+  top: -6px;
+}
+.toc-icon::after {
+  top: 6px;
+}
+/* hover／鍵盤 focus／展開時 burger 轉 90 度 */
+.toc-btn:hover .toc-icon,
+.toc-btn:focus-visible .toc-icon,
+.toc-btn[aria-expanded="true"] .toc-icon {
+  transform: rotate(90deg);
+}
+.toc-btn::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 0;
+  top: 48px;
+  padding: 3px 9px;
+  white-space: nowrap;
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-size: 0.78rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 61;
+}
+.toc-btn:hover::after,
+.toc-btn:focus-visible::after {
+  opacity: 1;
+}
+.toc-btn[aria-expanded="true"]::after {
+  opacity: 0;
+}
+
+.toc-drawer {
+  position: fixed;
+  left: 0;
+  /* 從按鈕底（64px）下面開始：抽屜自己的捲軸也從那裡起算，不會被上面的底蓋到 */
+  top: calc(var(--nav-h, 0px) + 64px);
+  bottom: 0;
+  z-index: 59;
+  width: 100%; /* 手機滿版不留一角，用按鈕、Esc 或點連結收起 */
+  padding: 12px 0 24px;
+  overflow-y: auto;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-right: 1px solid var(--color-text);
+  transform: translateX(-102%);
+  visibility: hidden;
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1),
+    visibility 0s linear 0.28s;
+}
+.toc-drawer.open {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.toc-drawer h2 {
+  margin: 0 0 8px;
+  padding: 0 20px;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+.toc-drawer ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.toc-drawer a {
+  display: block;
+  padding: 10px 20px;
+  color: var(--color-text);
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  font-size: 0.95rem;
+}
+.toc-drawer a:hover {
+  background: color-mix(in srgb, var(--color-text) 8%, transparent);
+}
+.toc-drawer a[aria-current="true"] {
+  border-left-color: var(--color-primary);
+  font-weight: 700;
+  background: color-mix(in srgb, var(--color-text) 6%, transparent);
+}
+.toc-drawer a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+.toc-drawer .toc-level-3 a {
+  padding-left: 32px;
+}
+.toc-drawer .toc-level-4 a {
+  padding-left: 44px;
+}
+
+.toc-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 58;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s ease,
+    visibility 0s linear 0.2s;
+}
+.toc-scrim.open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease;
+}
+
+/* 按鈕那一排（12px + 40px + 12px = 64px）在 main 頂端留一條空帶，一開始不壓到內容；
+   往下捲時整排 fixed 浮在畫面上，內文從底下被橫帶蓋住，不佔版面 */
+html.has-toc #main-content {
+  padding-top: 64px;
+}
+@media (min-width: 761px) {
+  .toc-drawer {
+    width: 280px;
+  }
+  .toc-scrim {
+    display: none;
+  }
+  /* 內容已經離左邊夠遠就不動；不夠時才推開，避免抽屜蓋住文字 */
+  html.toc-open #main-content {
+    margin-left: max(280px, calc((100vw - 64rem) / 2));
+    padding-left: 1rem;
+  }
+}
+
 /* Tailwind Typography 的 prose-neutral 預設用固定灰階色，不會跟著 .dark 切換。
    這裡把 --tw-prose-* 接到 theme.css 的 --color-* 變數，讓 markdown 內容也能跟著日／夜模式變色。 */
 .prose {
@@ -106,6 +307,12 @@ html[data-view-transition="language"]::view-transition-new(site-nav) {
   --tw-prose-code: var(--color-text);
   --tw-prose-th-borders: var(--color-border);
   --tw-prose-td-borders: var(--color-border);
+}
+
+/* 避免段落、列點、圖說的最後一行只剩一兩個字（孤字）。
+   text-wrap: pretty 讓瀏覽器在斷行時把最後一行補到至少幾個字，不支援的瀏覽器會自動忽略。 */
+.prose :where(p, li, figcaption, blockquote) {
+  text-wrap: pretty;
 }
 
 /* Typography 預設只把行內 code 加粗並前後插入純文字反引號，看起來跟一般文字沒兩樣。

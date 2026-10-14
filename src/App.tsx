@@ -91,7 +91,13 @@ export default function App() {
       </a>
       <NavBar />
       <main ref={mainRef} id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-8 outline-none">
-        <Suspense fallback={<Loading />}>
+        <Suspense
+          fallback={
+            <div className="flex min-h-[60vh] items-center justify-center">
+              <Loading size="lg" />
+            </div>
+          }
+        >
           <Outlet />
         </Suspense>
       </main>
