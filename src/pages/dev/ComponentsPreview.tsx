@@ -11,6 +11,7 @@ import Loading from "../../components/Loading";
 import EmptyState from "../../components/EmptyState";
 import Modal from "../../components/Modal";
 import ProgressBar from "../../components/ProgressBar";
+import TableOfContents from "../../components/TableOfContents";
 import TextLink from "../../components/TextLink";
 import Tooltip from "../../components/Tooltip";
 import knowledgeData from "../../../content/knowledge.json";
@@ -32,58 +33,6 @@ const SECTIONS = [
   { id: "tooltip", label: "Tooltip" },
   { id: "empty-state", label: "EmptyState" },
 ];
-
-function TableOfContents() {
-  const [isOpen, setIsOpen] = useState(true);
-
-  return (
-    <aside
-      // fixed 定位讓目錄浮在版面左側的空白區域，不佔用 flex 空間、不會擠壓主內容寬度；
-      // 只在版面夠寬（2xl，主內容 max-w-5xl 之外還留得出空間）時才顯示，避免窄一點的桌機螢幕蓋到內容。
-      className="fixed left-6 hidden w-44 2xl:block"
-      style={{ top: "calc(var(--nav-h, 0px) + 24px)" }}
-    >
-      <button
-        type="button"
-        onClick={() => setIsOpen((open) => !open)}
-        aria-expanded={isOpen}
-        className="flex w-full items-center justify-between gap-2 rounded-md border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 text-sm font-semibold"
-      >
-        元件目錄
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 20 20"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={`h-4 w-4 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-        >
-          <path d="M5 7.5L10 12.5L15 7.5" />
-        </svg>
-      </button>
-      <div
-        className={`grid transition-[grid-template-rows] duration-200 ease-out ${
-          isOpen ? "mt-2 grid-rows-[1fr]" : "grid-rows-[0fr]"
-        }`}
-      >
-        <ul className="flex flex-col gap-1 overflow-hidden text-sm text-[var(--color-text-muted)]">
-          {SECTIONS.map((section) => (
-            <li key={section.id}>
-              <a
-                href={`#${section.id}`}
-                className="block rounded-md px-2 py-1 hover:bg-[var(--color-surface)] hover:text-[var(--color-text)]"
-              >
-                {section.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </aside>
-  );
-}
 
 function LoadingProgressDemo() {
   const [progress, setProgress] = useState(0);
@@ -157,7 +106,10 @@ export default function ComponentsPreview() {
 
   return (
     <div className="flex flex-col gap-10">
-      <TableOfContents />
+      <TableOfContents
+        title="元件目錄"
+        sections={SECTIONS.map(({ id, label }) => ({ id, text: label, level: 2 as const }))}
+      />
       <section id="button" className="scroll-mt-20">
         <h2 className="text-xl font-bold">Button</h2>
         <div className="mt-3 flex flex-wrap items-center gap-3">
