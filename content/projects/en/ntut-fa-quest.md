@@ -1,9 +1,5 @@
 # NTUT FA Quest: A Campus Puzzle Game Built on Finite Automata
 
-## Related Links
-
-GitHub: [ntut-fa-quest](https://github.com/AnHsi0714/ntut-fa-quest)
-
 ## Project Overview
 
 This project turns NTUT's campus administrative paperwork (getting an advisor's signature, visiting the department office, the academic affairs office, and so on) into a 2D pixel-art campus treasure-hunt game. Players interact with NPCs at different offices to complete document-application tasks, and their sequence of actions is recorded as a Trace, which a <span data-term="finite-automaton">finite-automata</span> verification engine checks against the legal procedure, returning ACCEPT or REJECT with a counterexample.
@@ -28,7 +24,7 @@ The campus map grew from 22×17 to 56×40 tiles, positioning buildings to match 
 
 The time and stamina systems exist to stop players from just camping an NPC indefinitely: some NPCs are only present during a fixed morning or afternoon window, and others (like the department head) are present based on a probability that's only re-rolled when time advances. Interacting with an absent NPC triggers a `staff_absent` event that has no defined transition, resulting in an automatic REJECT, with no need for a separate "waiting" state. School hours run 08:00-20:00, and running out of stamina triggers side quests like eating or attending class that consume in-game time but never enter the Trace.
 
-*(Map and NPC interaction screenshots: to be added)*
+_(Map and NPC interaction screenshots: to be added)_
 
 ## Current Status
 

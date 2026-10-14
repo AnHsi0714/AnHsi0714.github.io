@@ -2,8 +2,9 @@
 
 ## Related Links
 
-Website: [code-pulse.cc](https://code-pulse.cc)
-Advisor: Annette Chen｜Applied to the NSTC Undergraduate Research Program
+Website: [code-pulse.cc](https://code-pulse.cc)  
+Project type: Graduation capstone project  
+Applied to the NSTC Undergraduate Research Program
 
 ## Problem
 

@@ -1,9 +1,5 @@
 # NTUT FA Quest：有限自動機校園解謎遊戲
 
-## 相關連結
-
-GitHub：[ntut-fa-quest](https://github.com/AnHsi0714/ntut-fa-quest)
-
 ## 專案簡介
 
 把北科校內的行政文件申請流程（跑導師簽名、系辦、教務處等）改寫成一款 2D 像素校園尋寶遊戲：玩家在地圖上跟不同單位的 NPC 互動、完成文件申請任務，過程中的行動序列會被記錄成一條 Trace，交給<span data-term="finite-automaton">有限自動機</span>驗證引擎判定是否符合合法流程，並顯示 ACCEPT / REJECT（附上反例）。
@@ -28,7 +24,7 @@ GitHub：[ntut-fa-quest](https://github.com/AnHsi0714/ntut-fa-quest)
 
 時間與體力系統用來避免玩家對著 NPC 乾等：部分 NPC 只在固定的上午或下午時段在場，部分 NPC（例如系主任）用機率決定是否在場、且只在時間推進時才重新擲骰；NPC 不在場時觸發的 `staff_absent` 事件因為沒有對應的合法轉移，會直接判定 REJECT，不需要額外設計「等待狀態」。上學時間為 08:00–20:00，體力耗盡會觸發用餐、上課等會消耗遊戲時間、但不進入 Trace 的支線任務。
 
-*(地圖與 NPC 互動畫面：截圖待補)*
+_(地圖與 NPC 互動畫面：截圖待補)_
 
 ## 目前進度
 

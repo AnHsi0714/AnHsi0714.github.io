@@ -2,8 +2,9 @@
 
 ## 相關連結
 
-網站：[code-pulse.cc](https://code-pulse.cc)
-指導教授：陳香君｜曾申請國科會大專生研究計畫
+網站：[code-pulse.cc](https://code-pulse.cc)  
+專題性質：畢業專題  
+曾申請國科會大專生研究計畫
 
 ## 問題
 

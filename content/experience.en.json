@@ -69,9 +69,6 @@
       "highlights": [
         "Investigated differences in learning outcomes before and after a junior-high digital learning policy rollout",
         "Split data collection, analysis, and the final report across a 3-person team"
-      ],
-      "images": [
-        { "src": "/images/experience/education-big-data-certificate.jpg", "caption": "Honorable Mention certificate from the capstone presentation competition" }
       ]
     },
     {
@@ -80,10 +77,16 @@
       "subtitle": "On-Field Tactical Analysis Group (in preparation, 4-person team)",
       "tags": [{ "label": "Competition", "variant": "info" }],
       "highlights": [
-        "Built a scraper to pull pitch-by-pitch, game-by-game records for analyzing steal decisions with two outs and a runner on first",
-        "Studying the break-even success-rate threshold for stealing in CPBL games with two outs and a runner on first only, in innings 1-8, and how that threshold shifts with batting-order position and batter type",
-        "Introduces a **\"retention effect\"**: a failed steal keeps that batter's at-bat held over to start the next inning, correcting a blind spot in traditional RE24 analysis that only looks at the current half-inning",
-        "Built a batter decision simulation model to analyze the break-even steal threshold"
+        "Collected pitch-by-pitch records for four CPBL seasons (2023-2026) and extended them to KBO and MLB for a three-league comparison dataset",
+        "Studied how the **break-even success-rate** threshold for stealing with two outs and a runner on first only shifts with lineup slot, batter type, inning, and score",
+        "Introduced a **\"retention effect\"**: a failed steal keeps that batter's at-bat held over to the next inning, correcting a blind spot in traditional RE24 that only looks at the current half-inning, and seen with the same shape in all three leagues",
+        "Brought in win probability added (WPA), finding the threshold is clearly lower than the run-expectancy version from the 4th inning on, and delivered interactive reports that switch between leagues and seasons"
+      ],
+      "images": [
+        {
+          "src": "/images/projects/cpbl-steal-decision/report-overview.png",
+          "caption": "Integrated report home page (CPBL 2025)"
+        }
       ]
     }
   ],
