@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { scrollBehavior } from "../lib/motion";
 import type { MarkdownHeading, MarkdownHeadingLevel } from "../lib/markdown";
@@ -28,6 +28,9 @@ const WIDE_QUERY = "(min-width: 761px)";
 export default function TableOfContents({ title, sections, backLink }: TableOfContentsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
+  // 點目錄跳轉後鎖定被點的那一節：倒數幾節太短時捲不到頂端，頁底規則會誤亮最後一節。
+  // 使用者自己捲動（滾輪、觸控、鍵盤、拖捲軸）時才解除，改回依捲動位置計算
+  const lockedIdRef = useRef<string | null>(null);
   const hasHeadings = sections.length > 1;
 
   // has-toc：index.css 靠它在窄螢幕替 burger 在 main 左邊留 gutter，避免蓋到文字
@@ -57,6 +60,10 @@ export default function TableOfContents({ title, sections, backLink }: TableOfCo
     let frame = 0;
     const update = () => {
       frame = 0;
+      if (lockedIdRef.current) {
+        setActiveId(lockedIdRef.current);
+        return;
+      }
       const navH =
         parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) || 0;
       let current: string | null = null;
@@ -73,10 +80,21 @@ export default function TableOfContents({ title, sections, backLink }: TableOfCo
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
+    const unlock = () => {
+      lockedIdRef.current = null;
+    };
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("wheel", unlock, { passive: true });
+    window.addEventListener("touchmove", unlock, { passive: true });
+    window.addEventListener("keydown", unlock);
+    window.addEventListener("mousedown", unlock);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("wheel", unlock);
+      window.removeEventListener("touchmove", unlock);
+      window.removeEventListener("keydown", unlock);
+      window.removeEventListener("mousedown", unlock);
       if (frame) cancelAnimationFrame(frame);
     };
   }, [hasHeadings, sections]);
@@ -158,6 +176,8 @@ export default function TableOfContents({ title, sections, backLink }: TableOfCo
                   const target = document.getElementById(section.id);
                   if (!target) return;
                   event.preventDefault();
+                  lockedIdRef.current = section.id;
+                  setActiveId(section.id);
                   target.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
                   history.pushState(null, "", `#${section.id}`);
                   // 窄螢幕抽屜是蓋在內容上，跳轉後要收起；寬螢幕內容被推開，保持展開方便連續跳
