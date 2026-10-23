@@ -140,6 +140,8 @@ export interface Article {
   // 站長手動置頂／精選，會排在列表最前面並顯示圖釘圖示
   featured?: boolean;
   status: ArticleStatus;
+  // 預估閱讀分鐘數：預設由 body 依類型估算，frontmatter 寫 readingMinutes 可手動覆寫
+  readingMinutes: number;
   // 手動指定「下一篇文章」的 slug，蓋過預設的依日期排序取下一篇；
   // 沒填或指向的文章不存在／未上架時，一律 fallback 回預設排序邏輯
   nextSlug?: string;

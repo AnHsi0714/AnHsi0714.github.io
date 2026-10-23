@@ -53,6 +53,7 @@ export function Stars({ rating, t }: { rating: number; t: Strings }) {
 }
 
 function ArticleRow({ article, t }: { article: Article; t: Strings }) {
+  const readingTime = t.articles.readingTime(article.readingMinutes);
   const subtitle = article.author
     ? `${article.author} · ${article.date}`
     : article.date;
@@ -65,7 +66,21 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
       >
         <div className="min-w-0 flex-1">
           <p className="font-semibold">{article.title}</p>
-          <p className="text-sm text-[var(--color-text-muted)]">{subtitle}</p>
+          <p className="text-sm text-[var(--color-text-muted)]">
+            {subtitle} ·{" "}
+            {readingTime.split(/(\d+)/).map((part, index) =>
+              index % 2 === 1 ? (
+                <strong
+                  key={index}
+                  className="font-bold text-[var(--color-primary)]"
+                >
+                  {part}
+                </strong>
+              ) : (
+                part
+              ),
+            )}
+          </p>
           <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
             {article.excerpt}
           </p>
