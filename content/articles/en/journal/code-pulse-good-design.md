@@ -2,7 +2,7 @@
 type: journal
 title: Learning "Good Design" Through CodePulse
 date: 2026-08-08
-categories: [Reflection, HCI]
+categories: [HCI]
 excerpt: Using five elements of good design (affordance, signifiers, feedback, mapping, and discoverability) to look back at the interface design of my capstone project, CodePulse.
 nextSlug: ai-interaction-five-principles
 ---

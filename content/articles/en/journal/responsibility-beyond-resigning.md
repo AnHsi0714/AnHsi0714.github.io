@@ -1,8 +1,9 @@
 ---
 type: journal
+section: notes
 title: "Does Stepping Down Mean Taking Responsibility? Thoughts from The Apprentice"
 date: 2026-10-23
-categories: [Reflection, Interpersonal Communication]
+categories: [Interpersonal Communication]
 excerpt: "Starting from why Brian was fired in season 3, episode 2 of The Apprentice, a rethink of what taking responsibility really means, extended to politicians who step down, and splitting responsibility into accountability, fitness for the role, and project responsibility."
 ---
 

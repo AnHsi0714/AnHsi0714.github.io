@@ -2,7 +2,7 @@
 type: journal
 title: 從 CodePulse 看一次 User Study
 date: 2026-08-08
-categories: [雜記, HCI]
+categories: [HCI]
 excerpt: 拆解畢業專題 CodePulse 的一次使用者研究：研究問題、A/B 前後測的設計與執行、測驗表現與分數未顯著的解讀、回饋問卷中的學習信心與資訊負荷發現、研究限制，以及最後的反思。
 ---
 

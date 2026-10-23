@@ -1,8 +1,9 @@
 ---
 type: journal
+section: notes
 title: 下台就算負責嗎？從〈誰是接班人〉談責任
 date: 2026-10-23
-categories: [雜記, 人際溝通]
+categories: [人際溝通]
 excerpt: 從《誰是接班人》第三季第二集 Brian 被開除的原因出發，重新思考什麼才算負責任，並延伸到政治人物下台的例子，把責任拆成問責責任、職位適任性、專案責任三種性質。
 ---
 

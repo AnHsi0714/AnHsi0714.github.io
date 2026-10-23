@@ -2,7 +2,7 @@
 type: journal
 title: "What CodePulse Taught Me: Confidence Isn't the Same as Learning"
 date: 2026-09-01
-categories: [Reflection, HCI]
+categories: [HCI]
 excerpt: "Untangling three easily-conflated concepts, learning confidence, self-reported confidence, and self-perceived learning effectiveness, starting from two similar-looking items on CodePulse's own survey, to show that feeling better doesn't always mean learning better."
 ---
 

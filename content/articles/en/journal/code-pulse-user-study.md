@@ -2,7 +2,7 @@
 type: journal
 title: A User Study, Seen Through CodePulse
 date: 2026-08-08
-categories: [Reflection, HCI]
+categories: [HCI]
 excerpt: "Breaking down a user study from my capstone project CodePulse: the research question, the design and execution of the A/B pre/post-test, test performance and why it wasn't significant, the survey's learning-confidence and information-load findings, study limitations, and a closing reflection."
 ---
 
