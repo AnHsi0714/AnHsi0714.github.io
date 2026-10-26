@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 import Card from "../../components/Card";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -68,18 +70,23 @@ function ArticleRow({ article, t }: { article: Article; t: Strings }) {
           <p className="font-semibold">{article.title}</p>
           <p className="text-sm text-[var(--color-text-muted)]">
             {subtitle} ·{" "}
-            {readingTime.split(/(\d+)/).map((part, index) =>
-              index % 2 === 1 ? (
-                <strong
-                  key={index}
-                  className="font-bold text-[var(--color-primary)]"
-                >
-                  {part}
-                </strong>
-              ) : (
-                part
-              ),
-            )}
+            <span className="inline-flex items-center gap-1 align-middle">
+              <FontAwesomeIcon icon={faClock} aria-hidden="true" />
+              <span>
+                {readingTime.split(/(\d+)/).map((part, index) =>
+                  index % 2 === 1 ? (
+                    <strong
+                      key={index}
+                      className="font-bold text-[var(--color-primary)]"
+                    >
+                      {part}
+                    </strong>
+                  ) : (
+                    part
+                  ),
+                )}
+              </span>
+            </span>
           </p>
           <p className="mt-1 text-sm text-[var(--color-text-muted)] line-clamp-2">
             {article.excerpt}
