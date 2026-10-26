@@ -1,8 +1,9 @@
 ---
 type: journal
+section: notes
 title: "Exploring HCI: From Usability to Understanding Why"
 date: 2026-08-08
-categories: [Reflection, HCI]
+categories: [HCI]
 excerpt: How I went from feeling out of place in CS to stumbling into HCI.
 nextSlug: code-pulse-good-design
 ---

@@ -20,6 +20,10 @@ Known exception not yet fixed: `VoxelRegion` (also in `creatureBody.ts`) uses ca
 
 In `content/knowledge.json`, a node's `term` string leads with the English name and follows with a full-width-paren Chinese gloss, e.g. `"Coding & Theme（編碼與主題）"`, `"Quantitative Data（量化資料）"` — never the reverse order. A term that's already English-only as a proper noun or acronym (`"ELO Rating"`, `"RxJS"`, `"K-12"`) doesn't need a Chinese gloss appended. `content/knowledge.en.json`'s `term` field is plain English with no gloss, so this only applies to the zh file.
 
+### Article `categories` tags vs `section`: don't reuse section names as tags
+
+`categories` in an article's frontmatter is a free-form list of **topic** tags (`HCI`, `Web`, `睡眠`); `section` (`academic` / `technical` / `reading` / `notes`) is the **grouping** behind the filter chips on `/articles`. `section` defaults from `type` (`defaultSectionByType` in `src/lib/articles.ts`), and only needs an explicit frontmatter value when an article doesn't fit its type's default (e.g. a `journal` that belongs under `notes`). Never use a section's display name (學術 / 技術 / 讀書心得 / 雜記, or Academic / Technical / Reading Reflections / Notes) as a `categories` tag: the tag and the filter would then mean different things under the same word. Not enforced by any check, so verify by hand when adding an article.
+
 ## Repo-specific skills
 
 `.claude/skills/` has project-specific skills worth knowing about: `design-audit` (compute-don't-eyeball WCAG contrast audits over the color token system in `src/styles/theme.css`/`tokens.scss`), `knowledge-coverage` (QA pass over an article's `data-term` glossary-link coverage against `knowledge.json`), and `pr-content` (this repo's required PR title/body format and workflow — plain-text draft only, no `gh pr create`, no Claude attribution).

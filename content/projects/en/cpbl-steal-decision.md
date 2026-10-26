@@ -84,6 +84,13 @@ What the group comparisons show:
   <figcaption style="text-align: center;">2025 threshold by lineup slot and six group comparisons (Mann-Whitney U test)</figcaption>
 </figure>
 
+Lineup slot and batter type are tangled together, because managers do not assign slots at random. Slot may also relate to recent form, since managers tend to put hot hitters near the top. The chart below shows the share of each high-group batter type at every slot: in 2025, 81% of leadoff batters were high-single-rate hitters versus only 33% at the cleanup spot, and 86% of cleanup batters were high-power (ISO) hitters. So part of the gap between a low leadoff threshold and a high cleanup threshold comes from who is batting there, and slot differences should be read together with batter type and recent form.
+
+<figure>
+  <img src="/images/projects/cpbl-steal-decision/composition.png" width="1232" height="555" alt="Bar chart of the share of high-power, high-patience, high-OBP, high-single-rate and high-TTO batters in each lineup slot" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="text-align: center;">2025 batter type mix by lineup slot: leadoff leans high-single-rate, cleanup leans high-power and high-OBP (labels in Chinese)</figcaption>
+</figure>
+
 Across the four seasons the retention effect keeps the same shape: negative for spots 1 to 5, positive from spot 6, and worst at spot 8 (+3.1 to 4.1 percentage points), because the lineup is pushed back one extra slot before the top of the order comes up.
 
 ### Team Decision Quality

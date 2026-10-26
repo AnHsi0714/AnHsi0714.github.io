@@ -65,6 +65,8 @@ export interface Strings {
     filterNotFeatured: string;
     featuredFilterLabel: string;
     backToHome: string;
+    pageNotFoundTitle: string;
+    pageNotFoundDesc: string;
     loading: string;
   };
   home: {
@@ -150,6 +152,7 @@ export interface Strings {
     allSectionTitle: string;
     ratingLabel: (rating: number) => string;
     draftBadge: string;
+    readingTime: (minutes: number) => string;
     tableOfContents: string;
     previousArticle: string;
     nextArticle: string;
@@ -360,6 +363,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       filterNotFeatured: "非精選",
       featuredFilterLabel: "精選狀態",
       backToHome: "← 回首頁",
+      pageNotFoundTitle: "找不到這個頁面",
+      pageNotFoundDesc: "網址可能有誤，或這個頁面不存在。",
       loading: "載入中…",
     },
     home: {
@@ -450,6 +455,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       allSectionTitle: "全部",
       ratingLabel: (rating: number) => `評分 ${rating} / 5`,
       draftBadge: "草稿",
+      readingTime: (minutes: number) => `約 ${minutes} 分鐘`,
       tableOfContents: "文章目錄",
       previousArticle: "上一篇文章",
       nextArticle: "下一篇文章",
@@ -677,6 +683,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       filterNotFeatured: "Not featured",
       featuredFilterLabel: "Featured status",
       backToHome: "← Back to Home",
+      pageNotFoundTitle: "Page not found",
+      pageNotFoundDesc: "The link may be incorrect, or this page doesn't exist.",
       loading: "Loading…",
     },
     home: {
@@ -771,6 +779,7 @@ export const strings: Record<"zh" | "en", Strings> = {
       allSectionTitle: "All",
       ratingLabel: (rating: number) => `Rating ${rating} / 5`,
       draftBadge: "Draft",
+      readingTime: (minutes: number) => `${minutes} min read`,
       tableOfContents: "Table of Contents",
       previousArticle: "Previous Article",
       nextArticle: "Next Article",

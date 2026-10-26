@@ -2,7 +2,7 @@
 type: journal
 title: Learning "Good Design" Through CodePulse
 date: 2026-08-08
-categories: [Reflection, HCI]
+categories: [HCI]
 excerpt: Using five elements of good design (affordance, signifiers, feedback, mapping, and discoverability) to look back at the interface design of my capstone project, CodePulse.
 nextSlug: ai-interaction-five-principles
 ---
@@ -73,6 +73,17 @@ Looking back over it again, I noticed that CodePulse's animated lessons can actu
 </figure>
 
 Seeing the lock icon, users naturally form the mental model that levels "must be unlocked in order." But the actual interaction doesn't require that at all. When what a signifier communicates doesn't match the system's real behavior, it can create a barrier to understanding even when the underlying functionality is working just fine.
+
+**Follow-up: splitting the node in two**
+
+This has since been adjusted on the platform: each node is now split into a left and a right half. The left half is a cyan animated lesson with a book icon, and the right half is a gray quiz with a lock. The lock now appears only on the half that is actually locked, while the lesson is shown in a bright color with a book icon to signal that it can be opened right away.
+
+<figure>
+  <img src="/images/articles/code-pulse-good-design/lock-split-node.png" alt="CodePulse's revised learning-path node map, where Stack, Queue, and Linked List nodes each have a cyan book-icon left half (animated lesson available) and a gray lock right half (quiz still locked), while Array still shows a playable icon" style="display: block; margin: 0 auto; max-width: 100%;" />
+  <figcaption style="text-align: center;">Figure 4: The revised node separates the animated lesson (left, book) from the quiz (right, lock), so the lock maps only to the part that is really locked</figcaption>
+</figure>
+
+This fix brings the signifier back in line with actual behavior: users can see which half is usable and which isn't yet, instead of guessing from a single lock on the whole node.
 
 As for mapping, I'm still not sure whether this case really belongs under that label. What's clearer is that the state the interface presents doesn't match the actual interaction rules, and that mismatch is what leads users to build the wrong mental model.
 

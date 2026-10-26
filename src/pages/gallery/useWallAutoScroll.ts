@@ -11,6 +11,7 @@ import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 const SPEED = 1; // px / frame
 const RESUME_DELAY = 400; // ms，拖曳／滾輪／hover 結束後多久恢復自動橫移
+const MAX_RECYCLE_PER_CALL = 30; // 單次 recycleIfNeeded 最多回收幾件
 
 // 對應 GalleryGrid.module.scss 的 .wallRow[data-row="1"/"2"] margin-left（磚牆式
 // 交錯排列）。單靠 CSS margin 會讓那幾列進場時露出一截空牆，這裡把初始位移
@@ -201,14 +202,10 @@ export function useWallAutoScroll(artworks: Artwork[], rowCount: number) {
     }, RESUME_DELAY);
   }, []);
 
-  // 每列排最前面的作品滑出左緣就移到目前最短的那一列尾端排隊。flushSync
-  // 立刻同步畫出來，避免下一幀 transform 已更新、DOM 還沒跟上而閃一下。
-  const recycleIfNeeded = useCallback(() => {
-    if (sparseRef.current) return; // sparse 模式整批凍結
-    const wall = wallRef.current;
-    if (!wall) return;
-    const wallLeft = wall.getBoundingClientRect().left;
-
+  // 回收一件滑出左緣的作品（移到目前最短的那一列尾端排隊），有回收回傳
+  // true。flushSync 立刻同步畫出來，避免下一幀 transform 已更新、DOM 還沒
+  // 跟上而閃一下，也讓呼叫端可以接著再量下一件。
+  const recycleOne = useCallback((wallLeft: number) => {
     for (let i = 0; i < rowRefs.current.length; i++) {
       const row = rowRefs.current[i];
       const front = row?.firstElementChild as HTMLElement | null;
@@ -253,9 +250,25 @@ export function useWallAutoScroll(artworks: Artwork[], rowCount: number) {
       flushSync(() => setRows(nextRows));
       rowsRef.current = nextRows;
       applyTransforms();
-      return; // 一幀只處理一件，避免連續 flushSync 太多次
+      return true;
     }
+    return false;
   }, [applyTransforms]);
+
+  // 滾輪／拖曳一次可以位移好幾百 px，一次滑出左緣的作品不只一件；每次只回收
+  // 一件的話補件速度趕不上滑動速度，一直往後滑會把整列捲光。這裡反覆回收到
+  // 沒有作品需要處理為止，上限只是防呆（每件都要 flushSync 同步重繪，單次
+  // 呼叫不能無限做下去，剩下的留給下一幀的 tick 接著補）。
+  const recycleIfNeeded = useCallback(() => {
+    if (sparseRef.current) return; // sparse 模式整批凍結
+    const wall = wallRef.current;
+    if (!wall) return;
+    const wallLeft = wall.getBoundingClientRect().left;
+
+    for (let n = 0; n < MAX_RECYCLE_PER_CALL; n++) {
+      if (!recycleOne(wallLeft)) return;
+    }
+  }, [recycleOne]);
 
   // 進入 sparse 後 recycleIfNeeded 不會再被呼叫，沒有事件能讓它自己重新
   // 量測修正，這裡固定每隔 500ms 主動重算一次，避免誤判卡住出不來。

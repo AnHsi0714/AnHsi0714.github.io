@@ -1,5 +1,6 @@
 import type { Article, ArticleSection, ArticleType } from "../types/content";
 import { useLanguage, type Language } from "../context/LanguageContext";
+import { estimateReadingMinutes } from "./readingTime";
 import { deriveExcerpt, parseFrontmatter, parseListField } from "./markdown";
 
 const defaultSectionByType: Record<ArticleType, ArticleSection> = {
@@ -42,6 +43,10 @@ function parseArticle(slug: string, raw: string): Article {
     featured: data.featured === "true",
     // 沒寫 status 的既有文章一律視為已上架，避免補這個欄位就讓所有舊文章消失
     status: data.status === "draft" ? "draft" : "published",
+    readingMinutes:
+      Number(data.readingMinutes) > 0
+        ? Number(data.readingMinutes)
+        : estimateReadingMinutes(body, type),
     nextSlug: data.nextSlug || undefined,
   };
 }

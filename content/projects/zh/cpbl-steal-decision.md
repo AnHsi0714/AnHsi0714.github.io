@@ -84,6 +84,13 @@ p\* = (V不跑 − V失敗) ÷ (V成功 − V失敗)
   <figcaption style="text-align: center;">2025 球季逐棒次門檻與六組分組比較（Mann-Whitney U 檢定）</figcaption>
 </figure>
 
+棒次和打者類型其實會混在一起，因為教練不是隨機排棒次，棒次也可能和近況有關，教練一般會把近況好的打者排在前面。下圖列出每個棒次中各類高組打者的占比：2025 年第 1 棒有 81% 是高單打率打者、第 4 棒只有 33%，第 4 棒則有 86% 是高長打力（ISO）打者。所以「第 1 棒門檻低、第 4 棒門檻高」有一部分是這兩棒排的人本來就不同，解讀棒次差異時要連同打者類型與近況一起看。
+
+<figure>
+  <img src="/images/projects/cpbl-steal-decision/composition.png" width="1232" height="555" alt="各棒次中高長打、高選球、高上壘率、高單打率、高 TTO 打者的占比長條圖" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="text-align: center;">2025 球季各棒次排的打者類型：第 1 棒偏高單打率，第 4 棒偏高長打與高上壘率</figcaption>
+</figure>
+
 跨四季來看，<span data-term="retention-effect">保留效應</span>的形狀很穩定：第 1–5 棒為負，第 6 棒之後翻正，第 8 棒最嚴重（+3.1～4.1 個百分點）。原因是打線被多墊了一棒，才輪得到棒頭上場。
 
 ### 各隊決策品質

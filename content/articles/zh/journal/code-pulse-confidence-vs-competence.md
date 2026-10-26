@@ -2,7 +2,7 @@
 type: journal
 title: 從 CodePulse 看「有信心」不等於「學得好」
 date: 2026-09-01
-categories: [雜記, HCI]
+categories: [HCI]
 excerpt: 拆解「學習信心」「自陳信心」「學習成效自評」三個容易混用的概念，從 CodePulse 問卷裡兩道長得很像的題目出發，說明使用者的主觀感受改善，不一定代表客觀學習成效同步提升。
 ---
 

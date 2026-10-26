@@ -42,13 +42,13 @@ export default function ProjectDetail() {
   if (!project) {
     return (
       <section>
+        <TextLink to="/projects" restoreScroll className="mb-4 inline-block text-sm font-medium">
+          {t.projects.backToList}
+        </TextLink>
         <EmptyState
           title={t.projects.notFoundTitle}
           description={t.projects.notFoundDesc}
         />
-        <TextLink to="/projects" restoreScroll className="mt-4 inline-block text-sm font-medium">
-          {t.projects.backToList}
-        </TextLink>
       </section>
     );
   }

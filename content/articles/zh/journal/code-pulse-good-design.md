@@ -2,7 +2,7 @@
 type: journal
 title: 從 CodePulse 認識「好設計」
 date: 2026-08-08
-categories: [雜記, HCI]
+categories: [HCI]
 excerpt: 用 affordance、signifiers、feedback、mapping、discoverability 五個好設計元素，回頭檢視畢業專題 CodePulse 的介面設計。
 nextSlug: ai-interaction-five-principles
 ---
@@ -73,6 +73,17 @@ CodePulse 辨識演算法執行時會顯示 loading 文字，讓使用者知道�
 </figure>
 
 使用者看到鎖頭後，很自然地建立「必須依序解鎖」的心智模型；但實際互動卻不需要這項限制。當 signifier 傳達的資訊與系統實際行為不一致時，即使功能本身沒有問題，也可能造成使用者理解上的障礙。
+
+**後續：節點拆成兩半**
+
+這個問題在後續已經在平台上調整：每個節點被拆成左右兩半，左半是青色、帶書本圖示的動畫教學，右半是灰色、帶鎖頭的測驗。鎖頭現在只出現在真正被鎖住的測驗那一半，動畫教學則用亮色與書本圖示表示可以直接點開。
+
+<figure>
+  <img src="/images/articles/code-pulse-good-design/lock-split-node.png" alt="CodePulse 調整後的學習路徑節點圖，Stack、Queue、Linked List 的節點左半為青色書本圖示（動畫教學可觀看），右半為灰色鎖頭（測驗尚未解鎖），Array 仍顯示可播放的圖示" style="display: block; margin: 0 auto; max-width: 100%;" />
+  <figcaption style="text-align: center;">圖四：調整後的節點把動畫教學（左半，書本）與測驗（右半，鎖頭）分開呈現，鎖頭只對應真正被鎖住的部分</figcaption>
+</figure>
+
+這個修正讓 signifier 的訊息與實際行為對得上：使用者看得出哪一半能用、哪一半還不能用，不必再從整顆節點的鎖頭去猜。
 
 至於 mapping，這個案例是否適合歸入 mapping，我目前仍不確定。比較明確的是，介面呈現出的狀態與實際互動規則不一致，進而造成使用者建立錯誤的 mental model。
 

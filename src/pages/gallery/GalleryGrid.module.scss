@@ -107,9 +107,24 @@
 }
 
 .wallRow {
-  /* 列高固定吃 vw 換算，不隨高度或 sparse 變動，量測基準才穩定；上限壓低
-     一點是讓三排疊起來在較矮的螢幕也留得住上下留白。 */
+  /* 列高主要吃 vw 換算，不隨 sparse 變動，量測基準才穩定；上限壓低一點是讓
+     三排疊起來在較矮的螢幕也留得住上下留白。
+     另外再用可用高度夾一次：.room 是固定一頁高、.wall 又是 overflow:hidden +
+     置中，三排疊起來比可視高度高時會從上下緣一起被裁掉（實機平板有網址列，
+     橫放時可視高度遠小於 F12 模擬的完整視窗）。可用高度 = 100dvh − navbar −
+     其餘固定開銷（.room 上 padding 2rem + 標題區約 3.9rem + .wall 上下 padding
+     3rem + 兩個列間距最多 3rem，約 12rem，多抓 0.5rem 緩衝），均分給三排後再
+     扣掉每排的標籤區 1.7rem。resize 時 useWallAutoScroll 會重新量測。 */
   --tile-h: clamp(64px, 12vw, 144px);
+
+  /* 高度夾制只給平板以上（寬度過 index.css 的 761px 斷點、且可視高度不是橫放
+     手機那種矮螢幕）。手機維持上面原本的寬度公式，不被高度壓小。 */
+  @media (min-width: 761px) and (min-height: 500px) {
+    --tile-h: min(
+      clamp(64px, 12vw, 144px),
+      max(48px, (100dvh - var(--nav-h, 4rem) - 12.5rem) / 3 - 1.7rem)
+    );
+  }
   display: flex;
   align-items: flex-start;
   height: calc(var(--tile-h) + 1.7rem);

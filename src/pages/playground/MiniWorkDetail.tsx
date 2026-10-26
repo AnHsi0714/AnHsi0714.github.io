@@ -17,17 +17,17 @@ export default function MiniWorkDetail() {
   if (!work) {
     return (
       <section>
+        <TextLink
+          to="/playground/mini-works"
+          restoreScroll
+          className="mb-4 inline-block text-sm font-medium"
+        >
+          {t.playground.miniWorks.backToList}
+        </TextLink>
         <EmptyState
           title={t.playground.miniWorks.notFoundTitle}
           description={t.playground.miniWorks.notFoundDesc}
         />
-        <TextLink
-          to="/playground/mini-works"
-          restoreScroll
-          className="mt-4 inline-block text-sm font-medium"
-        >
-          {t.playground.miniWorks.backToList}
-        </TextLink>
       </section>
     );
   }

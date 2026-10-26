@@ -53,13 +53,13 @@ export default function KnowledgeDetail() {
   if (!node || node.status !== "published") {
     return (
       <section>
+        <TextLink to="/knowledge" restoreScroll className="mb-4 inline-block text-sm font-medium">
+          {t.knowledge.backToList}
+        </TextLink>
         <EmptyState
           title={t.knowledge.notFoundTitle}
           description={t.knowledge.notFoundDesc}
         />
-        <TextLink to="/knowledge" restoreScroll className="mt-4 inline-block text-sm font-medium">
-          {t.knowledge.backToList}
-        </TextLink>
       </section>
     );
   }
