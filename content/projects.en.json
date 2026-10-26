@@ -86,5 +86,15 @@
     "teamSize": 1,
     "period": "2026/09 ~",
     "githubUrl": "https://github.com/AnHsi0714/ntut-fa-quest"
+  },
+  {
+    "slug": "retro-arcade",
+    "name": "Retro Arcade",
+    "desc": "A side-scrolling retro arcade corridor where each cabinet is a classic mini game with original twists.",
+    "date": "2026-10",
+    "status": "todo",
+    "tags": ["GAME"],
+    "teamSize": 1,
+    "period": "2026/10 ~"
   }
 ]

@@ -86,5 +86,15 @@
     "teamSize": 1,
     "period": "2026/09 ~",
     "githubUrl": "https://github.com/AnHsi0714/ntut-fa-quest"
+  },
+  {
+    "slug": "retro-arcade",
+    "name": "復古遊戲機台 Retro Arcade",
+    "desc": "橫向捲動的復古遊戲廳長廊，每台機台是一款加入原創機制的經典小遊戲。",
+    "date": "2026-10",
+    "status": "todo",
+    "tags": ["GAME"],
+    "teamSize": 1,
+    "period": "2026/10 ~"
   }
 ]
