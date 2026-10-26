@@ -3,6 +3,7 @@ import type { Strings } from "../../i18n/strings";
 import NameCardPage from "./miniworks/NameCardPage";
 import BrandGuidePage from "./miniworks/BrandGuidePage";
 import WeatherBoxPage from "./miniworks/WeatherBoxPage";
+import LotteryPage from "./miniworks/LotteryPage";
 
 export interface MiniWorkDefinition {
   slug: string;
@@ -32,6 +33,12 @@ export const miniWorks: MiniWorkDefinition[] = [
     Component: WeatherBoxPage,
     label: (t) => t.playground.miniWorks.weatherBoxLabel,
     desc: (t) => t.playground.miniWorks.weatherBoxDesc,
+  },
+  {
+    slug: "lottery",
+    Component: LotteryPage,
+    label: (t) => t.playground.miniWorks.lotteryLabel,
+    desc: (t) => t.playground.miniWorks.lotteryDesc,
   },
 ];
 

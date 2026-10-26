@@ -36,6 +36,22 @@ export interface Strings {
       weatherBoxLabel: string;
       weatherBoxDesc: string;
       weatherBoxCaption: string;
+      lotteryLabel: string;
+      lotteryDesc: string;
+      lotteryCaption: string;
+      lotteryPlay: string;
+      lotterySpinning: string;
+      lotteryResult: string;
+      lotteryNoValid: string;
+      lotteryEditTitle: string;
+      lotteryExcluded: string;
+      lotteryNameLabel: string;
+      lotteryNamePlaceholder: string;
+      lotteryWeightLabel: string;
+      lotteryAdd: string;
+      lotteryRemove: string;
+      lotteryReset: string;
+      lotteryDefaults: { name: string; weight: number }[];
       notFoundTitle: string;
       notFoundDesc: string;
       backToList: string;
@@ -331,6 +347,29 @@ export const strings: Record<"zh" | "en", Strings> = {
         weatherBoxLabel: "動態互動天氣盒子",
         weatherBoxDesc: "動畫網頁課程作業：純 CSS 動態互動天氣盒子",
         weatherBoxCaption: "點一下動態互動天氣盒子，切換日／夜模式",
+        lotteryLabel: "抽獎條",
+        lotteryDesc: "長條輪轉抽獎，機率是內定的，也可以自己改",
+        lotteryCaption: "機率是內定的，可以自行修改。程式由 AI 協助撰寫。",
+        lotteryPlay: "開始抽",
+        lotterySpinning: "抽獎中…",
+        lotteryResult: "今天吃：",
+        lotteryNoValid: "至少要有一個名稱不為空、機率大於 0 的項目",
+        lotteryEditTitle: "編輯項目與機率",
+        lotteryExcluded: "不參與",
+        lotteryNameLabel: "項目名稱",
+        lotteryNamePlaceholder: "項目名稱",
+        lotteryWeightLabel: "權重",
+        lotteryAdd: "新增項目",
+        lotteryRemove: "刪除這個項目",
+        lotteryReset: "恢復預設",
+        lotteryDefaults: [
+          { name: "滷肉飯", weight: 50 },
+          { name: "便當", weight: 20 },
+          { name: "牛肉麵", weight: 15 },
+          { name: "超商", weight: 10 },
+          { name: "火鍋", weight: 4 },
+          { name: "不吃了", weight: 1 },
+        ],
         notFoundTitle: "找不到這個小作品",
         notFoundDesc: "可能已經被移除或網址有誤。",
         backToList: "← 回小作品列表",
@@ -550,7 +589,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       gotoApplication: (group: number) => `切換至第 ${group} 則應用說明`,
       graphViewLabel: "圖譜檢視 →",
       graphViewTitle: "知識圖譜",
-      graphViewSubtitle: "依先備知識、應用、對比等關係連起來的知識點，點一個節點進到該詞條頁面。",
+      graphViewSubtitle:
+        "依先備知識、應用、對比等關係連起來的知識點，點一個節點進到該詞條頁面。",
       graphViewMobileNotice: "手指拖曳可以旋轉視角，雙指縮放。",
     },
     creator: {
@@ -648,6 +688,32 @@ export const strings: Record<"zh" | "en", Strings> = {
         weatherBoxDesc:
           "Web animation coursework: CSS-only day/night interactive weather box",
         weatherBoxCaption: "Click the weather box to toggle day/night mode",
+        lotteryLabel: "What's for Lunch Lottery",
+        lotteryDesc:
+          "A spinning-strip lottery. The odds are rigged by me, and you can edit them",
+        lotteryCaption:
+          "I rigged the odds, feel free to change them. The design is mine, the code was written with AI help.",
+        lotteryPlay: "Spin",
+        lotterySpinning: "Spinning...",
+        lotteryResult: "Today: ",
+        lotteryNoValid:
+          "Keep at least one item with a name and a weight above 0",
+        lotteryEditTitle: "Edit items and odds",
+        lotteryExcluded: "Excluded",
+        lotteryNameLabel: "Item name",
+        lotteryNamePlaceholder: "Item name",
+        lotteryWeightLabel: "Weight",
+        lotteryAdd: "Add item",
+        lotteryRemove: "Remove this item",
+        lotteryReset: "Reset to defaults",
+        lotteryDefaults: [
+          { name: "Braised pork rice", weight: 50 },
+          { name: "Bento", weight: 20 },
+          { name: "Beef noodles", weight: 15 },
+          { name: "Convenience store", weight: 10 },
+          { name: "Hot pot", weight: 4 },
+          { name: "Skip lunch", weight: 1 },
+        ],
         notFoundTitle: "Mini work not found",
         notFoundDesc: "It may have been removed, or the link is incorrect.",
         backToList: "← Back to Mini Works",
@@ -802,7 +868,8 @@ export const strings: Record<"zh" | "en", Strings> = {
         "button-game":
           "Click START to begin; click START again after each round",
         "drag-physics": "Hold the mouse to grab and drag objects on screen",
-        "mouse-move": "No clicking needed, just move the cursor to change the canvas",
+        "mouse-move":
+          "No clicking needed, just move the cursor to change the canvas",
       },
       livingHint: "The piece keeps changing on its own, just watch",
     },
@@ -878,7 +945,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       graphViewTitle: "Knowledge Graph",
       graphViewSubtitle:
         "Knowledge nodes connected by prerequisite, application, and contrast relationships. Click a node to open its page.",
-      graphViewMobileNotice: "Drag with a finger to rotate the view, pinch to zoom.",
+      graphViewMobileNotice:
+        "Drag with a finger to rotate the view, pinch to zoom.",
     },
     creator: {
       inviteCode: "Invite Code",

@@ -1,0 +1,209 @@
+$card-w: 120px;
+$gap: 8px;
+
+.lottery {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.viewport {
+  position: relative;
+  overflow: hidden;
+  height: 96px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background-color: var(--color-surface);
+}
+
+// 中間的指針線，長條停下時對準的位置。
+.pointer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  margin-left: -1.5px;
+  background-color: var(--color-danger);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.track {
+  display: flex;
+  gap: $gap;
+  height: 100%;
+  align-items: center;
+  width: max-content;
+  will-change: transform;
+}
+
+.card {
+  flex: 0 0 $card-w;
+  width: $card-w;
+  box-sizing: border-box;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.winner {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.result {
+  margin: 0;
+  min-height: 1.5em;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.editorHeading {
+  margin: 0;
+  font-size: 16px;
+}
+
+// 像目錄一樣：標題列整條可點，箭頭轉向表示展開狀態。
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.chevron {
+  flex: 0 0 auto;
+  transition: transform 0.2s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.chevronOpen {
+  transform: rotate(90deg);
+}
+
+.count {
+  padding: 0 8px;
+  border-radius: 999px;
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+// 約顯示 6 列，超過就出現捲軸，不讓頁面一直被撐長。
+.list {
+  list-style: none;
+  // 四周留 6px 內距、再用負邊距抵銷：overflow 會裁掉超出邊界的 focus 框線，
+  // 留出空間框線才不會被切到，版面位置不變。
+  margin: -6px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 288px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nameInput,
+.weightInput {
+  box-sizing: border-box;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 14px;
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+.nameInput {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.weightInput {
+  flex: 0 0 72px;
+  width: 72px;
+}
+
+.percent {
+  flex: 0 0 64px;
+  text-align: right;
+  white-space: nowrap;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+}
+
+.editorActions {
+  display: flex;
+  gap: 8px;
+}
