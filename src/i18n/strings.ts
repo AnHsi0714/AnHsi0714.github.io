@@ -65,6 +65,8 @@ export interface Strings {
     filterNotFeatured: string;
     featuredFilterLabel: string;
     backToHome: string;
+    pageNotFoundTitle: string;
+    pageNotFoundDesc: string;
     loading: string;
   };
   home: {
@@ -361,6 +363,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       filterNotFeatured: "非精選",
       featuredFilterLabel: "精選狀態",
       backToHome: "← 回首頁",
+      pageNotFoundTitle: "找不到這個頁面",
+      pageNotFoundDesc: "網址可能有誤，或這個頁面不存在。",
       loading: "載入中…",
     },
     home: {
@@ -679,6 +683,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       filterNotFeatured: "Not featured",
       featuredFilterLabel: "Featured status",
       backToHome: "← Back to Home",
+      pageNotFoundTitle: "Page not found",
+      pageNotFoundDesc: "The link may be incorrect, or this page doesn't exist.",
       loading: "Loading…",
     },
     home: {

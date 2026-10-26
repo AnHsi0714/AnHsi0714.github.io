@@ -144,6 +144,11 @@ async function main() {
       console.log(`  ${route}`);
     }
 
+    // GitHub Pages 對沒有預先產生的路徑會回 404.html，用還沒被覆蓋的 shell 讓
+    // app 載入後由 router 的 catch-all 接手
+    fs.copyFileSync(routeToFilePath("/"), path.join(distDir, "404.html"));
+    console.log("  404.html");
+
     if (rootHtml) {
       fs.writeFileSync(routeToFilePath("/"), rootHtml, "utf-8");
       console.log("  /");

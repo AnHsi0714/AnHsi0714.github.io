@@ -2,6 +2,7 @@ import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import Home from './pages/Home'
+import NotFound from './pages/NotFound'
 const GalleryGrid = lazy(() => import('./pages/gallery/GalleryGrid'))
 const GalleryDetail = lazy(() => import('./pages/gallery/GalleryDetail'))
 const About = lazy(() => import('./pages/about/About'))
@@ -49,6 +50,7 @@ export const router = createBrowserRouter([
       { path: 'dev/components', element: <ComponentsPreview /> },
       { path: 'dev/creature', element: <CreatureDemo /> },
       { path: 'dev/creature-builder', element: <CreatureBuilder /> },
+      { path: '*', element: <NotFound /> },
     ],
   },
 ])
