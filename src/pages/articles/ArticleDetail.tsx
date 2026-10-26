@@ -42,13 +42,13 @@ export default function ArticleDetail() {
   if (!article) {
     return (
       <section>
+        <TextLink to="/articles" restoreScroll className="mb-4 inline-block text-sm font-medium">
+          {t.articles.backToList}
+        </TextLink>
         <EmptyState
           title={t.articles.notFoundTitle}
           description={t.articles.notFoundDesc}
         />
-        <TextLink to="/articles" restoreScroll className="mt-4 inline-block text-sm font-medium">
-          {t.articles.backToList}
-        </TextLink>
       </section>
     );
   }
