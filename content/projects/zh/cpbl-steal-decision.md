@@ -2,6 +2,8 @@
 
 ## 相關連結
 
+簡報下載：<a href="/other/cpbl-steal-decision/%E5%85%A9%E5%87%BA%E5%B1%80%E4%B8%80%E5%A3%98%E6%9C%89%E4%BA%BA%E8%A9%B2%E4%B8%8D%E8%A9%B2%E8%B7%91%EF%BC%9A%E4%B8%AD%E8%81%B7%E6%95%99%E7%B7%B4%E7%9A%84%E8%B7%91%E5%A3%98%E6%B1%BA%E7%AD%96%E6%8C%87%E5%8D%97.pdf" download="兩出局一壘有人該不該跑：中職教練的跑壘決策指南.pdf">PDF（約 6.5 MB）</a>
+
 整合報告入口：[all-leagues-report](https://anhsi0714.github.io/CPBL2outStealDecision/reports/all-leagues-report.html)。三個聯盟各有一組報告，下表可以直接跳到指定聯盟與球季：
 
 | 聯盟 | 盜壘決策報告                                                                                                                                                                                                                                                                                                                                                                                          | RE24 矩陣                                                                                                                                                                                                                                                                                                                                                                                 | 勝率矩陣                                                                                              | WPA 版門檻                                                                                              |
@@ -32,13 +34,15 @@
 
 p\* = (V不跑 − V失敗) ÷ (V成功 − V失敗)
 
+以 2025 年三條路線的全體平均值代入，(0.666 − 0.470) ÷ (0.804 − 0.470) = 58.6%；報告裡則是每個情境各算一個 p\*，再取中位數 58.5%。兩者不同，是因為「先平均再相除」不等於「先逐筆相除再取中位數」。
+
 盜壘失敗的那條路線會把打者留到下一局先打，<span data-term="retention-effect">保留效應</span>就是在這裡放進模型的。
 
 > **計算提醒**：算盜壘成功後的剩餘得分時，起算點要是盜壘成功的那一球，而不是打席或半局開始。否則盜壘之前已經發生的得分也會被算進去，高估盜壘的效益。
 
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/branches.png" width="1232" height="682" alt="三種情況怎麼算：盜壘成功 0.804、盜壘失敗 0.470、不盜壘 0.666，損益兩平成功率 58.6%" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
-  <figcaption style="text-align: center;">2025 球季範例：成功 0.804、失敗 0.470、不跑 0.666 分，代入公式得到損益兩平成功率 58.6%</figcaption>
+  <img src="/images/projects/cpbl-steal-decision/branches.png" width="1232" height="644" alt="三種情況怎麼算：盜壘成功 0.804、盜壘失敗 0.470、不盜壘 0.666，全部情境的損益兩平成功率中位數 58.5%" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="text-align: center;">2025 球季範例：成功 0.804、失敗 0.470、不跑 0.666 分，全部情境的損益兩平成功率中位數為 58.5%</figcaption>
 </figure>
 
 ### 打者沒有被視為同一個人
@@ -46,8 +50,8 @@ p\* = (V不跑 − V失敗) ÷ (V成功 − V失敗)
 每位打者都用自己的打擊結果機率模擬，打席太少的打者則用 50 打席的聯盟平均先驗平滑。所以同一個情境，不同打者算出來的門檻不一樣。
 
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/personal.png" width="1232" height="422" alt="打者沒有被視為同一個人：條件式出局成本、期望出局懲罰、平滑先驗" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
-  <figcaption style="text-align: center;">報告中的個人化參數：條件式出局成本 0.544 分、期望出局懲罰 0.347 分、平滑先驗 50 PA</figcaption>
+  <img src="/images/projects/cpbl-steal-decision/personal.png" width="1232" height="538" alt="打者沒有被視為同一個人：條件式出局成本、期望出局懲罰、保留效應逐棒次數值、平滑先驗" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="text-align: center;">報告中的個人化參數：條件式出局成本 0.544 分、期望出局懲罰 0.347 分、平滑先驗 50 PA，以及逐棒次的保留效應（以期望得分表示，第 1–4 棒為正，代表失敗的代價較小；第 6–9 棒為負，第 8 棒使門檻升高 4.1 個百分點）</figcaption>
 </figure>
 
 ## 研究發現
@@ -80,18 +84,18 @@ p\* = (V不跑 − V失敗) ÷ (V成功 − V失敗)
 - 前段與後段棒次的差距只有 0.3 個百分點，2025 年不顯著
 
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/segment.png" width="1232" height="1242" alt="逐棒次損益兩平門檻中位數長條圖與分組比較表" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/cpbl-steal-decision/segment.png" width="1232" height="1215" alt="逐棒次損益兩平門檻中位數長條圖與分組比較表" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">2025 球季逐棒次門檻與六組分組比較（Mann-Whitney U 檢定）</figcaption>
 </figure>
 
 棒次和打者類型其實會混在一起，因為教練不是隨機排棒次，棒次也可能和近況有關，教練一般會把近況好的打者排在前面。下圖列出每個棒次中各類高組打者的占比：2025 年第 1 棒有 81% 是高單打率打者、第 4 棒只有 33%，第 4 棒則有 86% 是高長打力（ISO）打者。所以「第 1 棒門檻低、第 4 棒門檻高」有一部分是這兩棒排的人本來就不同，解讀棒次差異時要連同打者類型與近況一起看。
 
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/composition.png" width="1232" height="555" alt="各棒次中高長打、高選球、高上壘率、高單打率、高 TTO 打者的占比長條圖" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/cpbl-steal-decision/composition.png" width="1232" height="570" alt="各棒次中高長打、高選球、高上壘率、高單打率、高 TTO 打者的占比長條圖" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">2025 球季各棒次排的打者類型：第 1 棒偏高單打率，第 4 棒偏高長打與高上壘率</figcaption>
 </figure>
 
-跨四季來看，<span data-term="retention-effect">保留效應</span>的形狀很穩定：第 1–5 棒為負，第 6 棒之後翻正，第 8 棒最嚴重（+3.1～4.1 個百分點）。原因是打線被多墊了一棒，才輪得到棒頭上場。
+跨四季來看，<span data-term="retention-effect">保留效應</span>的形狀很穩定：第 1–4 棒為負（門檻降低），第 5 棒接近 0，第 6 棒之後翻正，第 8 棒最嚴重（+3.1～4.1 個百分點）。原因是打線被多墊了一棒，才輪得到棒頭上場。
 
 ### 各隊決策品質
 
@@ -100,39 +104,39 @@ p\* = (V不跑 − V失敗) ÷ (V成功 − V失敗)
 2025 年六隊中，只有統一 7-ELEVEn 獅顯著跑對（79.2% 對門檻 58.9%，p = 0.005）。其他五隊只有 27–49 次嘗試，樣本太少，只能說無法判定，不能說他們跑錯。
 
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/team.png" width="1232" height="652" alt="各隊決策品質評估表" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/cpbl-steal-decision/team.png" width="1232" height="604" alt="各隊決策品質評估表" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">2025 球季各隊決策機會、盜壘嘗試、實際成功率、95% 信賴區間、門檻與判定</figcaption>
 </figure>
 
 ### 符合門檻的跑者名單
 
-門檻會隨下一棒是誰，從 55.0% 變到 61.9%，所以每位跑者要逐棒次和自己的成功率比。2025 年 103 位跑者中：
+門檻會隨下一棒是誰，從 55.0% 變到 61.9%，所以每位跑者要逐棒次和自己的成功率比。2025 年 102 位跑者中：
 
 - 24 位不管下一棒是誰都值得跑
 - 8 位要看下一棒
 - 16 位任何棒次都不建議
-- 55 位嘗試不到 5 次，樣本不足
+- 54 位嘗試不到 5 次，樣本不足
 
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/runner.png" width="1232" height="432" alt="符合門檻的跑者名單統計" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
-  <figcaption style="text-align: center;">2025 球季跑者分類：可跑 24、視棒次 8、不建議 16、樣本不足 55</figcaption>
+  <img src="/images/projects/cpbl-steal-decision/runner.png" width="1232" height="396" alt="符合門檻的跑者名單統計" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="text-align: center;">2025 球季跑者分類：可跑 24、視棒次 8、不建議 16、樣本不足 54</figcaption>
 </figure>
 
 ### 左投還是右投
 
 投手慣用手不會改變門檻，因為門檻是由打者決定的；它改變的是跑者能不能真的跑贏門檻。
 
-- 2025 年對左投成功率 58.6%，對右投 69.9%，差 11.4 個百分點
-- 四季合併是 62.0% 對 70.5%，差 8.5 個百分點（p < 0.001）
+- 2025 年對左投成功率 59.4%，對右投 70.1%，差 10.7 個百分點（Fisher 精確檢定 p = 0.007）
+- 四季合併是 62.5% 對 70.9%，差 8.4 個百分點（p < 0.001）
 - 對右投跑穩穩高於門檻，對左投則只是勉強貼著門檻
-- 跑者對左投幾乎沒有調整，嘗試率只比對右投低約 11%
+- 跑者對左投幾乎沒有調整，四季合併的每球嘗試率只比對右投低約 11%
 - 個別跑者差異很大，不能一概認定左投就是壞事
 
 2026 年起的新規則限制了牽制，牽制率確實降了（左投 4.19%、右投 4.63%，前三季是 6.0–8.0%），但成功率沒有跟著上升。目前只能說「無法證實新規則提高成功率」，所以門檻沒有調整。
 
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/handedness.png" width="1232" height="452" alt="左投還是右投：對左投成功率 58.6%，對右投 69.9%" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
-  <figcaption style="text-align: center;">2025 球季對左投 130 成功／222 次嘗試，對右投 321 成功／459 次嘗試</figcaption>
+  <img src="/images/projects/cpbl-steal-decision/handedness.png" width="1232" height="421" alt="左投還是右投：對左投成功率 59.4%，對右投 70.1%" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <figcaption style="text-align: center;">2025 球季對左投 130 成功／219 次嘗試，對右投 321 成功／458 次嘗試</figcaption>
 </figure>
 
 ### 互動試算
@@ -140,7 +144,7 @@ p\* = (V不跑 − V失敗) ÷ (V成功 − V失敗)
 報告裡有一個「用一筆代表情境試算」的工具。可以依球員、球隊、局數、棒次、打者類型篩出一筆決策，拖曳成功率滑桿，直接比較盜壘與不跑的期望得分，同時看到該情境的 V成功、V失敗、V不跑，以及打者的個人模型。
 
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/explorer.png" width="1232" height="1252" alt="用一筆代表情境試算的互動介面" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/cpbl-steal-decision/explorer.png" width="1232" height="1221" alt="用一筆代表情境試算的互動介面" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">互動試算：篩選一筆決策、拖曳假設成功率，即時比較盜壘與不跑的期望得分</figcaption>
 </figure>
 
@@ -170,7 +174,7 @@ p\* = (V不跑 − V失敗) ÷ (V成功 − V失敗)
 <span data-term="re24">RE24</span> 把 24 種出局數與壘包組合，各自從該狀態算到半局結束的平均得分，顏色越深代表後面還能拿越多分。它是不含打者個人差異與保留效應的基礎門檻，整個模型都以它為基準。2025 年共有 360 場、27,699 個局面樣本。
 
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/re24.png" width="1192" height="632" alt="中職 RE24 得分期望值矩陣熱力圖" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/cpbl-steal-decision/re24.png" width="1192" height="587" alt="中職 RE24 得分期望值矩陣熱力圖" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">2025 球季 RE24 熱力圖：無人在壘、0 出局為 0.452 分，滿壘 0 出局為 2.010 分</figcaption>
 </figure>
 
@@ -179,27 +183,27 @@ p\* = (V不跑 − V失敗) ÷ (V成功 − V失敗)
 <span data-term="win-expectancy">勝率矩陣</span>把局數、攻守方、分差、出局數與壘包合在一起，用四季資料推回進攻方最後贏球的機率，共 1,380 場、106,621 個局面樣本。它是 WPA 版門檻要查的勝率表。
 
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/we.png" width="1192" height="772" alt="中職勝率矩陣熱力圖" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/cpbl-steal-decision/we.png" width="1192" height="1152" alt="中職勝率矩陣熱力圖" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">合併 2023–2026 四季的勝率矩陣，可選局數、攻守方與出局數查看各分差與壘包的勝率</figcaption>
 </figure>
 
 ### WPA 版損益兩平門檻
 
-越到比賽後段，每一分都越寶貴，所以我們原本只打算用 <span data-term="wpa">WPA</span>（勝率增值）重算第 7、8 局的門檻。做下去發現前面的局數也適合，就把範圍擴大到第 2–8 局。**第 4 局起，WPA 版門檻明顯低於 RE 版**：RE 版各局都在 54–60% 上下，WPA 版第 4、6、7、8 局的四季中位數範圍約為 36–52%、37–43%、24–27%、31–35%。
+越到比賽後段，每一分都越寶貴，所以我們原本只打算用 <span data-term="wpa">WPA</span>（勝率增值）重算第 7、8 局的門檻。做下去發現前面的局數也適合，就把範圍擴大到第 2–8 局。**第 4 局起，WPA 版門檻明顯低於 RE 版**：RE 版第 2–8 局都在 53–60% 上下，WPA 版第 4、6、7、8 局的四季中位數範圍約為 36–52%、37–43%、24–27%、31–35%。
 
 原因是同一分在晚局的份量更重。領先 1 分時，第 1–6 局的勝率是 58.5%，第 7 局 73.4%，第 8 局 77.5%，所以晚局讓半局在這時結束的代價更高，門檻自然該降。RE 判成「任何棒次都不建議」的跑者，到了晚局的 WPA 門檻下，多數都夠格跑。
 
-比分也會影響要不要跑：落後 5–6 分以上時，盜壘嘗試率掉到 3–4%（占樣本 13.7%），不過把這些極端樣本拿掉之後，門檻中位數的變動四季都在 0.2 個百分點內。
+比分也會影響要不要跑：分差（領先或落後）在 5–6 分以上時，盜壘嘗試率掉到 3–4%（占樣本 14.2%，2025 年為 13.7%），不過把分差 5 分以上的樣本拿掉之後，門檻中位數只變動 0.06–0.42 個百分點（2023 年最大）。
 
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/wpa-conclusion.png" width="1232" height="802" alt="WPA 版門檻與 RE 版門檻逐局比較表，以及領先落後 1 分時各局勝率" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/cpbl-steal-decision/wpa-conclusion.png" width="1232" height="793" alt="WPA 版門檻與 RE 版門檻逐局比較表，以及領先落後 1 分時各局勝率" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">WPA 版與 RE 版門檻中位數逐局比較，以及同一分在各局的勝率份量</figcaption>
 </figure>
 
-下圖是各局 WPA 門檻的 95% 信賴區間（藍）與 RE 門檻中位數（橘）。第 2–8 局的 WPA 區間都沒有碰到同局的 RE 門檻，代表方向可信。第 1 局因為分母太小、比值不穩，只能當參考。
+下圖是各局 WPA 門檻的 95% 信賴區間（藍）與 RE 門檻中位數（橘）。第 2–8 局的 WPA 區間都沒有碰到同局的 RE 門檻，代表方向可信。第 1 局因為分母太小、比值不穩，只能當參考；第 2–3 局的分母也不穩，中位數多半落在自己的信賴區間外，建議第 4 局起再引用。
 
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/wpa-ci.png" width="1232" height="1072" alt="四季逐局 WPA 門檻 95% 信賴區間圖" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/cpbl-steal-decision/wpa-ci.png" width="1232" height="1104" alt="四季逐局 WPA 門檻 95% 信賴區間圖" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">2023–2026 各季逐局 WPA 門檻的 95% 信賴區間（藍）與 RE 門檻中位數（橘）</figcaption>
 </figure>
 
@@ -213,26 +217,28 @@ p\* = (V不跑 − V失敗) ÷ (V成功 − V失敗)
 | 逐棒次形狀          | 第 1 棒低，第 4 棒高 | 第 1 棒低，高點在第 4、5 或 8 棒 | 幾乎平坦    |
 | 保留效應（第 8 棒） | +3.1～4.1pp          | +3.3～3.9pp                      | +1.8～2.4pp |
 
-- **<span data-term="retention-effect">保留效應</span>的形狀三個聯盟一致**：早段為負、第 6 棒起翻正、第 8 棒最嚴重，強度是 CPBL ≈ KBO > MLB
+- **<span data-term="retention-effect">保留效應</span>的形狀三個聯盟一致**：早段為負、第 6 棒起翻正，幾乎都是第 8 棒最嚴重（只有 MLB 2026 年是第 9 棒），幅度因聯盟而異，強度是 CPBL ≈ KBO > MLB
 - 門檻的高低隨聯盟的得分環境上升，MLB 最高
 - 「第 4 棒是高點」「前後段二分沒有鑑別力」這兩個結論不是跨聯盟規律，只適用於 CPBL
-- MLB 對左投的成功率（76.7%）也低於對右投（79.4%），方向跟 CPBL 一樣，但差距小很多（2.7 對 8.6 個百分點）
-- 晚局的 WPA 門檻在 MLB 同樣遠低於 RE：第 6、7、8 局約 48–51%、40–43%、29–37%
+- MLB 四季合併對左投的成功率（76.7%）也低於對右投（79.4%），方向跟 CPBL 一樣，但差距小很多（2.7 對 8.4 個百分點），而且 2026 年完全沒有差異
+- 晚局的 WPA 門檻在 MLB 同樣遠低於 RE：第 6、7、8 局約 48–50%、39–42%、29–36%（RE 版約 70%）
+- MLB 2025 年共 12,115 個決策情境，實際盜壘 1,127 次，成功率 77.3%，高於門檻中位數 69.7%（p < 0.001），整體判定為跑對
+- MLB 的 RE 版判「任何棒次都不建議」的跑者，換成第 4–8 局的 WPA 門檻後，四季都有 98–100% 至少一局夠格盜壘
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/mlb-segment.png" width="1232" height="1282" alt="MLB 2025 逐棒次損益兩平門檻與分組比較" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/cpbl-steal-decision/mlb-segment.png" width="1232" height="1215" alt="MLB 2025 逐棒次損益兩平門檻與分組比較" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">MLB 2025：逐棒次門檻 68.5%–70.8%，幾乎平坦</figcaption>
 </figure>
 <figure>
-  <img src="/images/projects/cpbl-steal-decision/kbo-segment.png" width="1232" height="1282" alt="KBO 2025 逐棒次損益兩平門檻與分組比較" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/cpbl-steal-decision/kbo-segment.png" width="1232" height="1215" alt="KBO 2025 逐棒次損益兩平門檻與分組比較" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">KBO 2025：第 1 棒 58.4% 最低，第 8 棒 65.5% 最高</figcaption>
 </figure>
 </div>
 
 ## 成果與貢獻
 
-- **提出並驗證<span data-term="retention-effect">保留效應</span>**：補上傳統 <span data-term="re24">RE24</span> 看不到的盜壘失敗代價。這個效應在 CPBL 四季、KBO、MLB 都有一致的形狀，第 8 棒最嚴重，是可以跨聯盟帶走的結論
+- **提出並驗證<span data-term="retention-effect">保留效應</span>**：補上傳統 <span data-term="re24">RE24</span> 看不到的盜壘失敗代價。這個效應在 CPBL 四季、KBO、MLB 的形狀一致，幾乎都是第 8 棒最嚴重，幅度因聯盟而異，是可以跨聯盟帶走的結論
 - **找出各棒次的盜壘門檻**：低點在第 1 棒附近，第 4 棒是純能力的高點。教練不用一個固定數字處理所有棒次
 - **釐清打者類型的影響**：單打型打者最適合先偷上二壘，長打與選球能力強的打者則不該輕易冒險
 - **晚局改用勝率判斷**：第 4 局起 WPA 版門檻明顯低於 RE 版，過去被 RE 判成「不建議」的跑者，在晚局多數其實值得跑
@@ -251,7 +257,7 @@ p\* = (V不跑 − V失敗) ÷ (V成功 − V失敗)
 
 盜壘不是結構化欄位，是從文字敘述解析出來的。為了確認結果可靠，我們拿真實資料對過：
 
-- 模擬出來的 24 格 <span data-term="re24">RE24</span> 與真實統計相關係數 r = 0.992，加權平均誤差 0.033 分（MLB 為 0.997，KBO 為 0.988）
+- 模擬出來的 24 格 <span data-term="re24">RE24</span> 與真實統計相關係數 r = 0.992，加權平均誤差 0.033 分（MLB 為 0.995–0.997，KBO 為 0.981–0.988）
 - 盜壘判讀與 CPBL 官方統計逐場逐隊對帳，2025 年成功 508/508、刺殺 242/242 完全相符，四季共 2,760 組（場次，球隊）無一不符
 - 模擬次數調整後結論不變，2,000 次已經收斂
 

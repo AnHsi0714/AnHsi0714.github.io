@@ -73,6 +73,7 @@
     "teamSize": 4,
     "period": "2026/07 ~ 2026/10",
     "screenshotUrl": "/images/projects/cpbl-steal-decision/report-overview.png",
+    "screenshotPosition": { "w": 0, "h": 0 },
     "githubUrl": "https://github.com/AnHsi0714/CPBL2outStealDecision",
     "featured": true
   },
