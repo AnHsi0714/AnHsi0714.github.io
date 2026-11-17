@@ -97,5 +97,18 @@
     "tags": ["GAME"],
     "teamSize": 1,
     "period": "2026/10 ~"
+  },
+  {
+    "slug": "project-momentum",
+    "name": "律動計畫 Momentum",
+    "desc": "個人每日時間表網頁，顯示現在該做什麼、剩餘時間與下一個時段，並追蹤每日習慣、記錄進度與每週回顧。",
+    "date": "2026-11",
+    "status": "done",
+    "tags": ["WEB"],
+    "screenshotUrl": "/images/projects/project-momentum/today-now.png",
+    "screenshotPosition": { "w": 0, "h": 0 },
+    "teamSize": 1,
+    "period": "2026/11",
+    "githubUrl": "https://github.com/AnHsi0714/projectMomentum"
   }
 ]

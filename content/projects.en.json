@@ -97,5 +97,18 @@
     "tags": ["GAME"],
     "teamSize": 1,
     "period": "2026/10 ~"
+  },
+  {
+    "slug": "project-momentum",
+    "name": "Momentum",
+    "desc": "A personal daily timetable web app that shows what to do now, time left, and what comes next, with habit tracking, daily notes, and weekly reviews.",
+    "date": "2026-11",
+    "status": "done",
+    "tags": ["WEB"],
+    "screenshotUrl": "/images/projects/project-momentum/today-now.png",
+    "screenshotPosition": { "w": 0, "h": 0 },
+    "teamSize": 1,
+    "period": "2026/11",
+    "githubUrl": "https://github.com/AnHsi0714/projectMomentum"
   }
 ]
