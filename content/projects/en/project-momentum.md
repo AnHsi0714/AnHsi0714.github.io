@@ -8,7 +8,7 @@ The timetable follows my own routine (classes, deep work, English, reading, exer
 
 ### Origin and Motivation
 
-After being worn down by graduate admission interviews, I realized there was still a real gap between where I was and where I wanted to be. It also sent me back to an idea from *Atomic Habits*: rather than relying on willpower alone, building a system and environment that suit you may be what keeps you acting over the long run.
+After being worn down by graduate admission interviews, I realized there was still a real gap between where I was and where I wanted to be. It also sent me back to an idea from _Atomic Habits_: rather than relying on willpower alone, building a system and environment that suit you may be what keeps you acting over the long run.
 
 Since I tend to work best in long, uninterrupted stretches, I designed Project Momentum as a personal time management system built around deep work. Planning each day's tasks in advance sets a steady rhythm, while tasks and breaks stay adjustable, so the plan can bend to how the day actually goes instead of locking me into a rigid timetable.
 
@@ -26,12 +26,12 @@ Project Momentum isn't just a to-do list. It's a personal time management system
 
 ## Screens
 
-| Screen    | Contents                                                                                                                                         |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Screen    | Contents                                                                                                                                                                   |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Today     | Current block, progress bar, and the full-day timetable; tasks can be started and ended with actual times recorded; drag to adjust the day; a recovery mode for tired days |
-| This Week | Days each habit was completed this week, and time spent per category per day                                                                    |
-| Review    | Fixed weekly review questions, with backup export and import                                                                                    |
-| Terms     | What each block name means, and what to keep or drop when time runs short                                                                       |
+| This Week | Days each habit was completed this week, and time spent per category per day                                                                                               |
+| Review    | Fixed weekly review questions, with backup export and import                                                                                                               |
+| Terms     | What each block name means, and what to keep or drop when time runs short                                                                                                  |
 
 ### Today: What to Do Now
 
@@ -41,7 +41,7 @@ Project Momentum isn't just a to-do list. It's a personal time management system
 </figure>
 
 <figure>
-  <img src="/images/projects/project-momentum/today-schedule.png" width="1127" height="760" alt="Bottom of the Today page: the full-day timetable highlighting the in-progress block and its actual start time, with a recovery mode toggle, today's goals (fixed wake and bed time: met; deep work: in progress), and a notes box for today's output and progress" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/project-momentum/today-schedule.png" width="1125" height="805" alt="Bottom of the Today page: the full-day timetable highlighting the in-progress block and its actual start time, with a recovery mode toggle, today's goals (fixed wake and bed time: met; deep work: in progress), and a notes box for today's output and progress" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">The full-day timetable, recovery mode, today's goals, and progress notes</figcaption>
 </figure>
 
@@ -50,12 +50,12 @@ Project Momentum isn't just a to-do list. It's a personal time management system
 On the timeline, drag a task to move it or drag its right edge to change its length, in 5-minute steps; the keyboard works too. Fixed blocks such as classes and commutes have dashed borders and can't be moved. Tasks can be dragged over each other, and overlaps are listed as conflicts that must all be resolved before confirming.
 
 <figure>
-  <img src="/images/projects/project-momentum/timeline-conflict.png" width="1012" height="873" alt="English and reading overlap on the timeline, with reading pushed to a second row and outlined in red; the conflicts box shows 1 conflict, English and reading overlapping 21:40–22:00 (20 min), and both tasks in the list below are marked as overlapping" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/project-momentum/timeline-conflict.png" width="1005" height="878" alt="English and reading overlap on the timeline, with reading pushed to a second row and outlined in red; the conflicts box shows 1 conflict, English and reading overlapping 21:40–22:00 (20 min), and both tasks in the list below are marked as overlapping" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">When tasks overlap: the timeline splits into two rows, and the conflicts box lists each overlap with its time and length; selecting an item focuses that task so it can be moved off with the arrow keys</figcaption>
 </figure>
 
 <figure>
-  <img src="/images/projects/project-momentum/insert-task.png" width="1129" height="766" alt="Insert task form: name, start time (24-hour), length in minutes, type, and a fixed-time checkbox" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/project-momentum/insert-task.png" width="1000" height="692" alt="Insert task form: name, start time (24-hour), length in minutes, type, and a fixed-time checkbox" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">Inserting an ad-hoc task: existing tasks aren't pushed back; overlaps are listed as conflicts to drag apart by hand</figcaption>
 </figure>
 
@@ -74,7 +74,7 @@ On the timeline, drag a task to move it or drag its right edge to change its len
 ### Review: Fixed Weekly Questions
 
 <figure>
-  <img src="/images/projects/project-momentum/weekly-review.png" width="754" height="940" alt="Weekly review page: six fixed questions, each with a text box, such as what the side project achieved this week, the most important deliverable next week, and which habits worked or didn't; export and import JSON backup buttons at the bottom" style="display: block; margin: 0 auto; width: 100%; height: auto;" />
+  <img src="/images/projects/project-momentum/weekly-review.png" width="754" height="940" alt="Weekly review page: six fixed questions, each with a text box, such as what the side project achieved this week, the most important deliverable next week, and which habits worked or didn't; export and import JSON backup buttons at the bottom" style="display: block; margin: 0 auto; width: 90%; height: auto;" />
   <figcaption style="text-align: center;">Six fixed review questions, saved automatically, with JSON backup export and import</figcaption>
 </figure>
 

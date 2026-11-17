@@ -41,7 +41,7 @@ Project Momentum 並非單純的待辦事項清單，而是以時間區塊為基
 </figure>
 
 <figure>
-  <img src="/images/projects/project-momentum/today-schedule.png" width="1127" height="760" alt="今天頁下方：整天的時間表標出進行中的時段與實際開始時間，右側為恢復模式開關、今日達標（固定時間起床與睡覺：達標；深度工作：進行中）與今日產出與進度筆記欄" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/project-momentum/today-schedule.png" width="1125" height="805" alt="今天頁下方：整天的時間表標出進行中的時段與實際開始時間，右側為恢復模式開關、今日達標（固定時間起床與睡覺：達標；深度工作：進行中）與今日產出與進度筆記欄" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">整天的時間表、恢復模式、今日達標與進度筆記</figcaption>
 </figure>
 
@@ -50,12 +50,12 @@ Project Momentum 並非單純的待辦事項清單，而是以時間區塊為基
 在時間條上按住任務左右拖是移動，拖右邊緣是改長度，一格 5 分鐘；也可以用鍵盤調整。上課、通勤這類固定時段以虛線框標出，不能拖動。任務可以拖過或蓋過別的任務，重疊的部分會列成衝突，全部解開才能確認。
 
 <figure>
-  <img src="/images/projects/project-momentum/timeline-conflict.png" width="1012" height="873" alt="時間條上英文與閱讀重疊，閱讀被排到下面一排並以紅框標出；衝突區顯示 1 個衝突「英文和閱讀重疊 21:40–22:00（20 分）」，下方列表中兩個任務都標上重疊" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/project-momentum/timeline-conflict.png" width="1005" height="878" alt="時間條上英文與閱讀重疊，閱讀被排到下面一排並以紅框標出；衝突區顯示 1 個衝突「英文和閱讀重疊 21:40–22:00（20 分）」，下方列表中兩個任務都標上重疊" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">任務重疊時：時間條分成上下兩排，衝突區列出重疊的時段與長度，點選項目會選到那個任務，可以直接用方向鍵移開</figcaption>
 </figure>
 
 <figure>
-  <img src="/images/projects/project-momentum/insert-task.png" width="1129" height="766" alt="插入任務表單：名稱、開始時間（24 小時制）、長度（分鐘）、類型，以及固定時間勾選框" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+  <img src="/images/projects/project-momentum/insert-task.png" width="1000" height="692" alt="插入任務表單：名稱、開始時間（24 小時制）、長度（分鐘）、類型，以及固定時間勾選框" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
   <figcaption style="text-align: center;">插入臨時任務：原本的任務不會被推動，重疊的話列成衝突再自己拖開</figcaption>
 </figure>
 
@@ -74,7 +74,7 @@ Project Momentum 並非單純的待辦事項清單，而是以時間區塊為基
 ### 回顧：每週固定問題
 
 <figure>
-  <img src="/images/projects/project-momentum/weekly-review.png" width="754" height="940" alt="每週回顧頁：六個固定問題各有一個輸入框，例如本週自主專案完成了什麼、下週最重要的一項交付成果、哪些習慣做得到或做不到，最下方是匯出 JSON 與匯入 JSON 的備份按鈕" style="display: block; margin: 0 auto; width: 100%; height: auto;" />
+  <img src="/images/projects/project-momentum/weekly-review.png" width="754" height="940" alt="每週回顧頁：六個固定問題各有一個輸入框，例如本週自主專案完成了什麼、下週最重要的一項交付成果、哪些習慣做得到或做不到，最下方是匯出 JSON 與匯入 JSON 的備份按鈕" style="display: block; margin: 0 auto; width: 90%; height: auto;" />
   <figcaption style="text-align: center;">六個固定的回顧問題，內容自動儲存；也可以匯出或匯入 JSON 備份</figcaption>
 </figure>
 
