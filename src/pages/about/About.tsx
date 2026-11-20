@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCode,
@@ -12,6 +13,7 @@ import {
 import Button from "../../components/Button";
 import Chip from "../../components/Chip";
 import Reveal from "../../components/Reveal";
+import NameParticles from "../../components/NameParticles";
 import TextLink from "../../components/TextLink";
 import { useTranslation } from "../../i18n/useTranslation";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
@@ -277,170 +279,190 @@ function AchievementItem({
 export default function About() {
   const { t, language } = useTranslation();
   const data = content[language];
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  // 右欄內容容器：捲到一定比例時，左欄的照片換成 About Me
+  const contentRef = useRef<HTMLDivElement>(null);
   useDocumentTitle(
     `${t.nav.about} · Cheng An Hsi`,
     deriveExcerpt(data.researchStatement.join(" "), 150),
   );
 
   return (
-    <section className="flex flex-col gap-8 lg:relative lg:left-1/2 lg:grid lg:w-screen lg:-translate-x-1/2 lg:grid-cols-[10%_30%_5%_45%_10%]">
-      <h1 className="flex flex-wrap items-baseline gap-x-4 lg:block lg:sticky lg:top-1/2 lg:col-start-2 lg:-translate-y-1/2 lg:self-start">
-        <span className="block text-5xl font-light leading-none text-[var(--color-text)] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem]">
-          About
-        </span>
-        <span className="block text-5xl font-light leading-none text-[var(--color-text)] sm:text-6xl md:text-7xl lg:mt-3 lg:text-8xl xl:text-9xl 2xl:text-[10rem]">
-          Me
-        </span>
-      </h1>
+    <>
+      <NameParticles
+        lines={["Cheng", "An Hsi"]}
+        photoSrc="/images/about/profile.jpg"
+        headingRef={headingRef}
+        contentRef={contentRef}
+      />
+      <section className="flex flex-col gap-8 lg:relative lg:left-1/2 lg:grid lg:w-screen lg:-translate-x-1/2 lg:grid-cols-[10%_30%_5%_45%_10%]">
+        <h1
+          ref={headingRef}
+          className="flex flex-wrap items-baseline gap-x-4 lg:block lg:sticky lg:top-1/2 lg:col-start-2 lg:-translate-y-1/2 lg:self-start"
+        >
+          <span className="block text-5xl font-bold leading-none text-[var(--color-text)] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem]">
+            About
+          </span>
+          <span className="block text-5xl font-bold leading-none text-[var(--color-text)] sm:text-6xl md:text-7xl lg:mt-3 lg:text-8xl xl:text-9xl 2xl:text-[10rem]">
+            Me
+          </span>
+        </h1>
 
-      <div className="divide-y divide-[var(--color-border)] lg:col-start-4">
-        <Reveal>
-          <div id="research-interests" className="pb-6">
-            <h2 className="font-semibold text-[var(--color-primary)]">
-              {t.about.researchInterests}
-            </h2>
-            <div className="mt-3 flex flex-col gap-4">
-              {data.researchInterests.map(({ layer, items }) => (
-                <div key={layer}>
-                  <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)]">
-                    {layer}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {items.map((item) => (
-                      <Chip key={item}>{item}</Chip>
-                    ))}
+        <div
+          ref={contentRef}
+          className="divide-y divide-[var(--color-border)] lg:col-start-4"
+        >
+          <Reveal>
+            <div id="research-interests" className="pb-6">
+              <h2 className="font-semibold text-[var(--color-primary)]">
+                {t.about.researchInterests}
+              </h2>
+              <div className="mt-3 flex flex-col gap-4">
+                {data.researchInterests.map(({ layer, items }) => (
+                  <div key={layer}>
+                    <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)]">
+                      {layer}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {items.map((item) => (
+                        <Chip key={item}>{item}</Chip>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
 
-        <Reveal>
-          <div className="py-6">
-            <h2 className="font-semibold text-[var(--color-primary)]">
-              {t.about.researchStatement}
-            </h2>
-            <div className="mt-3 flex flex-col gap-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
-              {data.researchStatement.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+          <Reveal>
+            <div className="py-6">
+              <h2 className="font-semibold text-[var(--color-primary)]">
+                {t.about.researchStatement}
+              </h2>
+              <div className="mt-3 flex flex-col gap-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
+                {data.researchStatement.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
 
-        <Reveal>
-          <div className="py-6">
-            <h2 className="font-semibold text-[var(--color-primary)]">
-              {t.about.skills}
-            </h2>
-            <div className="mt-3 flex flex-col gap-4">
-              {data.skillGroups.map((group) => (
-                <div key={group.label}>
-                  <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)]">
-                    {group.label === "專業方向"
-                      ? t.about.professionalDirection
-                      : group.label}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {group.items.map((item) => (
-                      <Chip key={item}>{item}</Chip>
-                    ))}
+          <Reveal>
+            <div className="py-6">
+              <h2 className="font-semibold text-[var(--color-primary)]">
+                {t.about.skills}
+              </h2>
+              <div className="mt-3 flex flex-col gap-4">
+                {data.skillGroups.map((group) => (
+                  <div key={group.label}>
+                    <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)]">
+                      {group.label === "專業方向"
+                        ? t.about.professionalDirection
+                        : group.label}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {group.items.map((item) => (
+                        <Chip key={item}>{item}</Chip>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
 
-        <Reveal>
-          <div className="py-6">
-            <h2 className="font-semibold text-[var(--color-primary)]">
-              {t.about.education}
-            </h2>
-            <div className="mt-2 flex flex-col gap-1">
-              <p className="text-sm text-[var(--color-text-muted)]">
-                {data.education[0]}
-              </p>
-              <p className="text-sm text-[var(--color-text-muted)]">
-                {data.education[1]}
-              </p>
+          <Reveal>
+            <div className="py-6">
+              <h2 className="font-semibold text-[var(--color-primary)]">
+                {t.about.education}
+              </h2>
+              <div className="mt-2 flex flex-col gap-1">
+                <p className="text-sm text-[var(--color-text-muted)]">
+                  {data.education[0]}
+                </p>
+                <p className="text-sm text-[var(--color-text-muted)]">
+                  {data.education[1]}
+                </p>
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-4 text-sm tabular-nums text-[var(--color-text-muted)]">
+                <span>{data.academicSummary.rank}</span>
+                <span>{data.academicSummary.percentile}</span>
+                <span>GPA {data.academicSummary.gpa}</span>
+                <span>{data.academicSummary.deansList}</span>
+              </div>
             </div>
-            <div className="mt-3 flex flex-wrap items-center gap-4 text-sm tabular-nums text-[var(--color-text-muted)]">
-              <span>{data.academicSummary.rank}</span>
-              <span>{data.academicSummary.percentile}</span>
-              <span>GPA {data.academicSummary.gpa}</span>
-              <span>{data.academicSummary.deansList}</span>
-            </div>
-          </div>
-        </Reveal>
+          </Reveal>
 
-        <Reveal>
-          <div className="py-6">
-            <h2 className="font-semibold text-[var(--color-primary)]">
-              {t.about.academicAchievements}
-            </h2>
-            <div className="mt-2 flex flex-col gap-4 text-sm text-[var(--color-text-muted)]">
-              {data.achievements.map((item) => (
-                <AchievementItem
-                  key={item.title}
-                  title={item.title}
-                  summary={item.summary}
-                  details={item.details}
-                />
-              ))}
+          <Reveal>
+            <div className="py-6">
+              <h2 className="font-semibold text-[var(--color-primary)]">
+                {t.about.academicAchievements}
+              </h2>
+              <div className="mt-2 flex flex-col gap-4 text-sm text-[var(--color-text-muted)]">
+                {data.achievements.map((item) => (
+                  <AchievementItem
+                    key={item.title}
+                    title={item.title}
+                    summary={item.summary}
+                    details={item.details}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
 
-        <Reveal>
-          <div className="py-6">
-            <h2 className="font-semibold text-[var(--color-primary)]">
-              {t.about.experience}
-            </h2>
-            <div className="mt-2 grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1.5 text-sm text-[var(--color-text-muted)]">
-              {data.experienceHighlights.map((item) => (
-                <div key={item.text} className="contents">
-                  <span className="whitespace-nowrap text-xs text-[var(--color-text-muted)]">
-                    {item.year}
+          <Reveal>
+            <div className="py-6">
+              <h2 className="font-semibold text-[var(--color-primary)]">
+                {t.about.experience}
+              </h2>
+              <div className="mt-2 grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1.5 text-sm text-[var(--color-text-muted)]">
+                {data.experienceHighlights.map((item) => (
+                  <div key={item.text} className="contents">
+                    <span className="whitespace-nowrap text-xs text-[var(--color-text-muted)]">
+                      {item.year}
+                    </span>
+                    <span>{item.text}</span>
+                  </div>
+                ))}
+              </div>
+              <TextLink
+                to="/experience"
+                className="mt-3 inline-block text-sm font-medium"
+              >
+                {t.about.viewFullExperience}
+              </TextLink>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div className="py-6">
+              <h2 className="font-semibold text-[var(--color-primary)]">
+                {t.about.interests}
+              </h2>
+              <div className="mt-3 grid grid-cols-4 gap-x-2 gap-y-2 text-sm text-[var(--color-text-muted)]">
+                {data.interests.map(({ icon, label }) => (
+                  <span
+                    key={label}
+                    className="inline-flex items-center gap-1.5"
+                  >
+                    <FontAwesomeIcon icon={icon} aria-hidden="true" />
+                    {label}
                   </span>
-                  <span>{item.text}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-            <TextLink
-              to="/experience"
-              className="mt-3 inline-block text-sm font-medium"
-            >
-              {t.about.viewFullExperience}
-            </TextLink>
-          </div>
-        </Reveal>
+          </Reveal>
 
-        <Reveal>
-          <div className="py-6">
-            <h2 className="font-semibold text-[var(--color-primary)]">
-              {t.about.interests}
-            </h2>
-            <div className="mt-3 grid grid-cols-4 gap-x-2 gap-y-2 text-sm text-[var(--color-text-muted)]">
-              {data.interests.map(({ icon, label }) => (
-                <span key={label} className="inline-flex items-center gap-1.5">
-                  <FontAwesomeIcon icon={icon} aria-hidden="true" />
-                  {label}
-                </span>
-              ))}
+          <Reveal>
+            <div id="resume" className="flex flex-col items-start gap-2 pt-6">
+              <a href="/resume.pdf" download>
+                <Button type="button">{t.about.downloadResume}</Button>
+              </a>
             </div>
-          </div>
-        </Reveal>
-
-        <Reveal>
-          <div id="resume" className="flex flex-col items-start gap-2 pt-6">
-            <a href="/resume.pdf" download>
-              <Button type="button">{t.about.downloadResume}</Button>
-            </a>
-          </div>
-        </Reveal>
-      </div>
-    </section>
+          </Reveal>
+        </div>
+      </section>
+    </>
   );
 }
