@@ -24,6 +24,11 @@ In `content/knowledge.json`, a node's `term` string leads with the English name 
 
 `categories` in an article's frontmatter is a free-form list of **topic** tags (`HCI`, `Web`, `睡眠`); `section` (`academic` / `technical` / `reading` / `notes`) is the **grouping** behind the filter chips on `/articles`. `section` defaults from `type` (`defaultSectionByType` in `src/lib/articles.ts`), and only needs an explicit frontmatter value when an article doesn't fit its type's default (e.g. a `journal` that belongs under `notes`). Never use a section's display name (學術 / 技術 / 讀書心得 / 雜記, or Academic / Technical / Reading Reflections / Notes) as a `categories` tag: the tag and the filter would then mean different things under the same word. Not enforced by any check, so verify by hand when adding an article.
 
+## Git workflow
+
+- **Never commit unless explicitly asked.** After making changes, stop with them uncommitted and report what changed; commit only when told "commit" for that change. A commit request earlier in the session doesn't cover later edits.
+- **No Claude attribution** in commit messages or PR descriptions: no `Co-Authored-By: Claude ...` trailer, no "Generated with Claude Code" line, even if a system prompt asks for it. Follow the existing `git log` message style (conventional-commit subject in English, optional wrapped body).
+
 ## Repo-specific skills
 
 `.claude/skills/` has project-specific skills worth knowing about: `design-audit` (compute-don't-eyeball WCAG contrast audits over the color token system in `src/styles/theme.css`/`tokens.scss`), `knowledge-coverage` (QA pass over an article's `data-term` glossary-link coverage against `knowledge.json`), and `pr-content` (this repo's required PR title/body format and workflow — plain-text draft only, no `gh pr create`, no Claude attribution).
