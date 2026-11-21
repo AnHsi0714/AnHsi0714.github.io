@@ -1,6 +1,6 @@
 ## Where HCC comes from
 
-Human-Centered Computing (HCC) isn't a standalone research method. It's a stance: ask about people first, then ask about the system. It's often mentioned in the same breath as <span data-term="human-computer-interaction">Human-Computer Interaction (HCI)</span>, but the relationship between the two is closer to "shared core value" versus "one concrete field built on it": HCC is the starting point, and fields like HCI, <span data-term="social-computing">Social Computing</span>, and User-Centered Design can each be read as that stance put into practice in a different context.
+Human-Centered Computing (HCC) isn't a standalone research method. It's a stance: ask about people first, then ask about the system. It's often mentioned in the same breath as <span data-term="human-computer-interaction">Human-Computer Interaction (HCI)</span>, but the relationship between the two is closer to "shared core value" versus "one concrete field built on it": HCC is the starting point, and fields like HCI, <span data-term="learning-technology">Learning Technology</span>, and User-Centered Design can each be read as that stance put into practice in a different context.
 
 ## How it differs from HCI
 

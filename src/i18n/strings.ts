@@ -370,8 +370,8 @@ export const strings: Record<"zh" | "en", Strings> = {
     home: {
       titleZh: "鄭安琋",
       titleEn: "Cheng An Hsi",
-      tagline: "人機互動 × 社群運算 × 資訊視覺化",
-      bio: "研究人機互動、社群運算與資訊視覺化，結合互動系統實作與使用者研究，探索人與資訊及社群之間的互動方式。",
+      tagline: "人機互動 × 學習科技 × 資訊視覺化",
+      bio: "研究人機互動、學習科技與資訊視覺化，結合互動系統實作與使用者研究，探索互動介面如何幫助人理解資訊、真正學會。",
       aboutMe: "關於我",
       viewProjects: "查看專案",
       featuredProjects: "精選專案",
@@ -691,8 +691,8 @@ export const strings: Record<"zh" | "en", Strings> = {
       titleZh: "Cheng An Hsi",
       titleEn: "鄭安琋",
       tagline:
-        "Human-Computer Interaction × Social Computing × Information Visualization",
-      bio: "Researching Human-Computer Interaction, Social Computing, and Information Visualization, combining interactive systems implementation with user research to explore how people interact with information and communities.",
+        "Human-Computer Interaction × Learning Technology × Information Visualization",
+      bio: "Researching Human-Computer Interaction, Learning Technology, and Information Visualization, combining interactive systems implementation with user research to explore how interactive interfaces help people understand information and actually learn.",
       aboutMe: "About Me",
       viewProjects: "View Projects",
       featuredProjects: "Featured Projects",

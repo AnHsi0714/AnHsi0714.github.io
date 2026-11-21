@@ -19,7 +19,7 @@ import { useTranslation } from "../i18n/useTranslation";
 
 const researchInterestTags = [
   { label: "Human-Computer Interaction", slug: "human-computer-interaction" },
-  { label: "Social Computing", slug: "social-computing" },
+  { label: "Learning Technology", slug: "learning-technology" },
   { label: "Information Visualization", slug: "information-visualization" },
   { label: "Interactive Systems", slug: "interactive-systems" },
 ];

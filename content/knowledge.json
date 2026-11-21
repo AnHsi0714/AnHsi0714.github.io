@@ -413,7 +413,7 @@
       { "slug": "learning-confidence", "type": "applies-to" },
       { "slug": "self-perceived-learning-effectiveness", "type": "applies-to" },
       { "slug": "reflexive-thematic-analysis", "type": "related" },
-      { "slug": "social-computing", "type": "related" },
+      { "slug": "learning-technology", "type": "related" },
       { "slug": "interactive-systems", "type": "related" },
       { "slug": "human-centered-computing", "type": "related" }
     ]
@@ -602,17 +602,21 @@
       { "slug": "natural-language-processing", "type": "related" }
     ]
   },
-  "social-computing": {
-    "term": "Social Computing（社群運算）",
-    "definition": "研究人與人之間如何透過電腦系統、社群平台進行社交互動、分享與自我呈現的領域；關心的不只是「系統好不好用」，而是系統如何形塑、也被形塑於人際互動、社交規範與情境脈絡之中。",
-    "application": "在 SnapPI 這篇文獻筆記中，個人數據貼圖在 Snapchat 限時動態上被用來降低分享數據的社交負擔、促進更深入的話題，也讓我看到「資料視覺化」除了服務於理解資料本身，也能服務於人與人之間的溝通與自我呈現。這正是我想在研究所深入探索的方向：把互動視覺化不只當成教學或分析工具，也當成社交情境中的溝通媒介來設計。",
+  "learning-technology": {
+    "term": "Learning Technology（學習科技）",
+    "definition": "研究如何設計、實作與評估支援學習的科技系統的領域，關心的不只是功能做不做得出來，而是學習者用了之後是否真的學得更好：理解是否加深、能否把學到的東西遷移到新問題，以及學習動機與信心如何改變。",
+    "application": "CodePulse 把資料結構與演算法的執行過程畫成互動式動畫，再用 A/B 交換的前後測檢驗它對學習的實際影響。結果學習信心顯著提升，測驗成績卻只是正向趨勢、未達顯著，讓我意識到學習科技的評估必須把主觀感受與客觀學習成效分開驗證。這正是我想在研究所深入探索的方向：設計互動式學習系統，並用嚴謹的使用者研究回答它到底有沒有幫助學習。",
     "category": "HCI",
     "status": "published",
-    "relatedProjects": [],
-    "relatedArticles": ["snappi-personal-data-stickers"],
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [
+      "code-pulse-user-study",
+      "code-pulse-confidence-vs-competence"
+    ],
     "relatedNodes": [
       { "slug": "human-computer-interaction", "type": "related" },
-      { "slug": "reflexive-thematic-analysis", "type": "applies-to" },
+      { "slug": "learning-confidence", "type": "applies-to" },
+      { "slug": "normalized-gain", "type": "applies-to" },
       { "slug": "human-centered-computing", "type": "related" }
     ]
   },
@@ -632,7 +636,7 @@
   },
   "human-centered-computing": {
     "term": "Human-Centered Computing（人本計算）",
-    "definition": "以人的需求、能力與價值觀作為系統設計出發點的研究取向，是人機互動、社群運算、使用者中心設計等領域共同的上位概念，不是與它們平行的另一個獨立研究方向，而是這些子領域共通具備的核心立場：先問這項技術對人有什麼意義，再決定要做什麼功能。",
+    "definition": "以人的需求、能力與價值觀作為系統設計出發點的研究取向，是人機互動、學習科技、使用者中心設計等領域共同的上位概念，不是與它們平行的另一個獨立研究方向，而是這些子領域共通具備的核心立場：先問這項技術對人有什麼意義，再決定要做什麼功能。",
     "application": "CodePulse 的前端互動設計、使用者研究、A/B crossover study、前後測等工作看似分屬不同方法，但背後其實都在回答同一組 HCC 式的問題：這樣設計對人有沒有幫助。",
     "category": "HCI",
     "status": "published",
@@ -640,7 +644,7 @@
     "relatedArticles": [],
     "relatedNodes": [
       { "slug": "human-computer-interaction", "type": "related" },
-      { "slug": "social-computing", "type": "related" }
+      { "slug": "learning-technology", "type": "related" }
     ]
   },
   "learning-confidence": {

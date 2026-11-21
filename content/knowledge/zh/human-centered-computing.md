@@ -1,6 +1,6 @@
 ## HCC 從哪裡來
 
-Human-Centered Computing（人本計算，HCC）不是一個獨立的研究方法，而是一種「先問人，再問系統」的立場。它常被拿來跟 <span data-term="human-computer-interaction">Human-Computer Interaction（HCI）</span>放在一起講，但兩者的關係比較像是「共同的核心價值」跟「其中一支具體研究領域」：HCC 是出發點，HCI、<span data-term="social-computing">Social Computing</span>、User-Centered Design 這些領域，都可以看作是這個立場在不同情境下的具體實踐。
+Human-Centered Computing（人本計算，HCC）不是一個獨立的研究方法，而是一種「先問人，再問系統」的立場。它常被拿來跟 <span data-term="human-computer-interaction">Human-Computer Interaction（HCI）</span>放在一起講，但兩者的關係比較像是「共同的核心價值」跟「其中一支具體研究領域」：HCC 是出發點，HCI、<span data-term="learning-technology">Learning Technology</span>、User-Centered Design 這些領域，都可以看作是這個立場在不同情境下的具體實踐。
 
 ## 跟 HCI 的差別
 

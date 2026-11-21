@@ -410,7 +410,7 @@
       { "slug": "learning-confidence", "type": "applies-to" },
       { "slug": "self-perceived-learning-effectiveness", "type": "applies-to" },
       { "slug": "reflexive-thematic-analysis", "type": "related" },
-      { "slug": "social-computing", "type": "related" },
+      { "slug": "learning-technology", "type": "related" },
       { "slug": "interactive-systems", "type": "related" },
       { "slug": "human-centered-computing", "type": "related" }
     ]
@@ -599,17 +599,21 @@
       { "slug": "natural-language-processing", "type": "related" }
     ]
   },
-  "social-computing": {
-    "term": "Social Computing",
-    "definition": "The study of how people interact, share, and present themselves through computer systems and social platforms; the focus isn't just whether a system is usable, but how it both shapes and is shaped by interpersonal interaction, social norms, and context.",
-    "application": "In my SnapPI paper notes, personal data stickers on Snapchat's ephemeral stories lowered the social burden of sharing data and sparked deeper conversations. That showed me information visualization doesn't only serve understanding data, it can also serve communication and self-presentation between people. That's a direction I want to pursue further in graduate research: designing interactive visualization not just as a teaching or analysis tool, but as a medium for communication within social contexts.",
+  "learning-technology": {
+    "term": "Learning Technology",
+    "definition": "The field that studies how to design, build, and evaluate technology that supports learning. The question is not just whether the features work, but whether learners actually learn better with them: whether understanding deepens, whether what they learn transfers to new problems, and how their motivation and confidence change.",
+    "application": "CodePulse renders data structure and algorithm execution as interactive animation, and I tested its effect on learning with an A/B crossover pre/post study. Learning confidence rose significantly, while test scores only trended positive without reaching significance. That showed me learning technology has to be evaluated on subjective experience and objective learning gains separately. That's the direction I want to pursue in graduate research: designing interactive learning systems, and using rigorous user research to answer whether they actually help people learn.",
     "category": "HCI",
     "status": "published",
-    "relatedProjects": [],
-    "relatedArticles": ["snappi-personal-data-stickers"],
+    "relatedProjects": ["code-pulse"],
+    "relatedArticles": [
+      "code-pulse-user-study",
+      "code-pulse-confidence-vs-competence"
+    ],
     "relatedNodes": [
       { "slug": "human-computer-interaction", "type": "related" },
-      { "slug": "reflexive-thematic-analysis", "type": "applies-to" },
+      { "slug": "learning-confidence", "type": "applies-to" },
+      { "slug": "normalized-gain", "type": "applies-to" },
       { "slug": "human-centered-computing", "type": "related" }
     ]
   },
@@ -629,7 +633,7 @@
   },
   "human-centered-computing": {
     "term": "Human-Centered Computing",
-    "definition": "A research approach that starts system design from human needs, capabilities, and values. It's a superordinate concept shared by HCI, social computing, and user-centered design, not a separate research direction alongside them, but the common stance underneath those sub-fields: ask what a technology means for people first, then decide what to build.",
+    "definition": "A research approach that starts system design from human needs, capabilities, and values. It's a superordinate concept shared by HCI, learning technology, and user-centered design, not a separate research direction alongside them, but the common stance underneath those sub-fields: ask what a technology means for people first, then decide what to build.",
     "application": "CodePulse's frontend interaction design, user research, A/B crossover study, and pre/post testing look like separate methods on the surface, but they're all answering the same HCC-shaped question underneath: does this design actually help a person.",
     "category": "HCI",
     "status": "published",
@@ -637,7 +641,7 @@
     "relatedArticles": [],
     "relatedNodes": [
       { "slug": "human-computer-interaction", "type": "related" },
-      { "slug": "social-computing", "type": "related" }
+      { "slug": "learning-technology", "type": "related" }
     ]
   },
   "learning-confidence": {
