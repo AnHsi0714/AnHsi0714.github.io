@@ -89,16 +89,6 @@
     "githubUrl": "https://github.com/AnHsi0714/ntut-fa-quest"
   },
   {
-    "slug": "retro-arcade",
-    "name": "Retro Arcade",
-    "desc": "A side-scrolling retro arcade corridor where each cabinet is a classic mini game with original twists.",
-    "date": "2026-10",
-    "status": "todo",
-    "tags": ["GAME"],
-    "teamSize": 1,
-    "period": "2026/10 ~"
-  },
-  {
     "slug": "project-momentum",
     "name": "Momentum",
     "desc": "A personal daily timetable web app that shows what to do now, time left, and what comes next, with habit tracking, daily notes, and weekly reviews.",
